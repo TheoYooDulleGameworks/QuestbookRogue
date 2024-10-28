@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae2fcc6866cc46a8b2bb5d0dec09775, type: 3}
+  m_Name: PlayerStatus
+  m_EditorClassIdentifier: 
+  LV:
+    value: 11
+  currentXP:
+    value: 86
+  currentHP:
+    value: 94
+  maxHP:
+    value: 94
+  currentSP:
+    value: 94
+  maxSP:
+    value: 94
+  STR:
+    value: 87
+  DEX:
+    value: 89
+  INT:
+    value: 87
+  Gold:
+    value: 90
+  Food:
+    value: 88
+  Key:
+    value: 87
