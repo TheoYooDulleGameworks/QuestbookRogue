@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 
-public class DiceTabIndex : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class DiceTabIndex : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerClickHandler
 {
     private Image myImage;
 
@@ -11,6 +11,7 @@ public class DiceTabIndex : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     [SerializeField] public Sprite currentTabSprite;
     [SerializeField] public Sprite mouseOverTabSprite;
+    [SerializeField] public Sprite mouseDownTabSprite;
     [SerializeField] public Sprite defaultTabSprite;
 
     public event Action OnDiceTabClicked;
@@ -37,6 +38,17 @@ public class DiceTabIndex : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             if (myImage != null)
             {
                 myImage.sprite = defaultTabSprite;
+            }
+        }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (!isCurrentTab)
+        {
+            if (myImage != null)
+            {
+                myImage.sprite = mouseDownTabSprite;
             }
         }
     }

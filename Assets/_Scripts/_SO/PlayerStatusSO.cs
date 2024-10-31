@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerStatusSO", menuName = "Scriptable Objects/Assets/PlayerStatusSO")]
+[CreateAssetMenu(fileName = "PlayerStatusSO", menuName = "Scriptable Objects/PlayerAssets/PlayerStatusSO")]
 public class PlayerStatusSO : ScriptableObject
 {
     [SerializeField] public StatusValue Lv;

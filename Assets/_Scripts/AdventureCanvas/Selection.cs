@@ -2,38 +2,39 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Selection : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class Selection : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
 {
-    private Image myImage;
+    [SerializeField] public SelectionData selectionData;
 
-    private void Awake()
-    {
-        myImage = GetComponent<Image>();
-    }
+    [SerializeField] private Sprite DefaultBelt;
+    [SerializeField] private Sprite MouseOverBelt;
+    [SerializeField] private Sprite MouseDownBelt;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (myImage != null)
-        {
-            myImage.color = new Color32(255, 164, 0, 255);
-        }
+        GetComponent<Image>().sprite = MouseOverBelt;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (myImage != null)
-        {
-            myImage.color = Color.white;
-        }
+        GetComponent<Image>().sprite = DefaultBelt;
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        GetComponent<Image>().sprite = MouseDownBelt;
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        GetComponent<Image>().sprite = DefaultBelt;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (myImage != null)
-        {
-            myImage.color = Color.white;
-        }
+        OnPointerExit(eventData);
+        transform.parent.parent.GetComponent<Quest>().DropDownQuestCard();
         
-        this.transform.parent.parent.parent.GetComponent<Quest>().DeActivateContent();
+        transform.parent.parent.parent.parent.GetComponent<SceneController>().TransitionToContents(selectionData);
     }
 }
