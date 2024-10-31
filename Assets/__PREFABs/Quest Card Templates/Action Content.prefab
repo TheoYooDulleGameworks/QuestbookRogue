@@ -395,8 +395,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 16}
-  m_SizeDelta: {x: 344, y: 160}
+  m_AnchoredPosition: {x: -8, y: 16}
+  m_SizeDelta: {x: 328, y: 160}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &7682987594386796116
 CanvasRenderer:
@@ -514,7 +514,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2974144148544012147
 RectTransform:
   m_ObjectHideFlags: 0
@@ -670,6 +670,7 @@ MonoBehaviour:
   actionTitleTMPro: {fileID: 1269634470357039336}
   actionSealRect: {fileID: 789695891630835252}
   rewardTitleTMPro: {fileID: 1151937496890973351}
+  proceedButtonRect: {fileID: 2974144148544012147}
   defaultProceedButton: {fileID: 1768117746, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
   activatedProceedButton: {fileID: 1609490154, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
   mouseOverProceedButton: {fileID: 590744605, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}

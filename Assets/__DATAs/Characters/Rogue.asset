@@ -19,5 +19,10 @@ MonoBehaviour:
   defaultSp: 8
   defaultCoin: 4
   defaultProvision: 2
-  defaultDices: []
-  defaultRelics: []
+  startingStrength: 1
+  startingDexterity: 3
+  startingIntelligence: 0
+  startingWillpower: 0
+  startingSkills: []
+  startingRelics: []
+  startingConsumables: []

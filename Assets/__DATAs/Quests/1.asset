@@ -14,10 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questID: 1
   questName: Cursed Artifacts
-  questType: Secret
-  questSeal: {fileID: 411623410, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   questThumbnail: {fileID: 1071830044, guid: 295ee6751e3284669a855cc492eab567, type: 3}
+  questSeal: {fileID: 411623410, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  questType: Secret
   selectionDatas:
   - selectionName: Find Secret Passage
     selectionStamina: 1
-    questContents: []
+    questContents:
+    - {fileID: 11400000, guid: 852f28a4b89fa400f921df840673bbc9, type: 2}
+    - {fileID: 11400000, guid: 9ad53d44fcab74316831bff1bc99eb7c, type: 2}
+    - {fileID: 11400000, guid: c936086ea6bdb49c29c89dd83feedba8, type: 2}
+    - {fileID: 11400000, guid: a40569d9b8ce34ce489e8ab3ff038ec9, type: 2}
+    - {fileID: 11400000, guid: 5085732470e764f31887c46fbc53afc8, type: 2}
+    - {fileID: 11400000, guid: ba057450d72fa4d5a8f9f98eaa2ceed6, type: 2}
+    - {fileID: 11400000, guid: a40569d9b8ce34ce489e8ab3ff038ec9, type: 2}
+    - {fileID: 11400000, guid: 5085732470e764f31887c46fbc53afc8, type: 2}
+    - {fileID: 11400000, guid: ba057450d72fa4d5a8f9f98eaa2ceed6, type: 2}

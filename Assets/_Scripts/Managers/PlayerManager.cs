@@ -12,12 +12,13 @@ public class PlayerManager : MonoBehaviour
 
     // Player Assets //
     [SerializeField] public PlayerStatusSO playerStatus;
-
+    [SerializeField] public PlayerDicesSO playerDices;
 
     private void Awake()
     {
         SetPlayerProfile();
         SetPlayerStatus();
+        SetPlayerDices();
     }
 
     private void SetPlayerProfile()
@@ -40,5 +41,20 @@ public class PlayerManager : MonoBehaviour
 
         playerStatus.Coin.Value = playerCharacter.defaultCoin;
         playerStatus.Provision.Value = playerCharacter.defaultProvision;
+    }
+
+    private void SetPlayerDices()
+    {
+        playerDices.StrengthDices.Value = playerCharacter.startingStrength;
+        playerDices.AdvancedStrengthDices.Value = playerCharacter.startingAdvancedStrength;
+        
+        playerDices.DexterityDices.Value = playerCharacter.startingDexterity;
+        playerDices.AdvancedDexterityDices.Value = playerCharacter.startingAdvancedDexterity;
+
+        playerDices.IntelligenceDices.Value = playerCharacter.startingIntelligence;
+        playerDices.AdvancedIntelligenceDices.Value = playerCharacter.startingAdvancedIntelligence;
+
+        playerDices.WillpowerDices.Value = playerCharacter.startingWillpower;
+        playerDices.AdvancedWillpowerDices.Value = playerCharacter.startingAdvancedWillpower;
     }
 }

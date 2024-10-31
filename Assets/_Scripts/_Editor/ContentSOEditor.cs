@@ -11,10 +11,7 @@ public class ContentSOEditor : Editor
 
     SerializedProperty ContentType_Prop;
 
-    SerializedProperty BlankContentTemplate_Prop;
-    SerializedProperty ImageContentTemplate_Prop;
-    SerializedProperty DescriptionContentTemplate_Prop;
-    SerializedProperty ActionContentTemplate_Prop;
+    SerializedProperty ContentTemplate_Prop;
 
     SerializedProperty QuestTitle_Prop;
     SerializedProperty QuestImage_Prop;
@@ -33,10 +30,7 @@ public class ContentSOEditor : Editor
     {
         ContentType_Prop = serializedObject.FindProperty("contentType");
 
-        BlankContentTemplate_Prop = serializedObject.FindProperty("blankContentTemplate");
-        ImageContentTemplate_Prop = serializedObject.FindProperty("imageContentTemplate");
-        DescriptionContentTemplate_Prop = serializedObject.FindProperty("descriptionContentTemplate");
-        ActionContentTemplate_Prop = serializedObject.FindProperty("actionContentTemplate");
+        ContentTemplate_Prop = serializedObject.FindProperty("contentTemplate");
 
         QuestTitle_Prop = serializedObject.FindProperty("questTitle");
         QuestImage_Prop = serializedObject.FindProperty("questImage");
@@ -60,11 +54,11 @@ public class ContentSOEditor : Editor
 
         if ((ContentSO.ContentType)ContentType_Prop.enumValueIndex == ContentSO.ContentType.Blank)
         {
-            EditorGUILayout.PropertyField(BlankContentTemplate_Prop);
+            EditorGUILayout.PropertyField(ContentTemplate_Prop);
         }
         else if ((ContentSO.ContentType)ContentType_Prop.enumValueIndex == ContentSO.ContentType.Image)
         {
-            EditorGUILayout.PropertyField(ImageContentTemplate_Prop);
+            EditorGUILayout.PropertyField(ContentTemplate_Prop);
 
             EditorGUILayout.PropertyField(QuestTitle_Prop);
             EditorGUILayout.PropertyField(QuestImage_Prop);
@@ -73,14 +67,14 @@ public class ContentSOEditor : Editor
         }
         else if ((ContentSO.ContentType)ContentType_Prop.enumValueIndex == ContentSO.ContentType.Description)
         {
-            EditorGUILayout.PropertyField(DescriptionContentTemplate_Prop);
+            EditorGUILayout.PropertyField(ContentTemplate_Prop);
 
             EditorGUILayout.PropertyField(BodyText_Prop);
             EditorGUILayout.PropertyField(CancelText_Prop);
         }
         else if ((ContentSO.ContentType)ContentType_Prop.enumValueIndex == ContentSO.ContentType.Action)
         {
-            EditorGUILayout.PropertyField(ActionContentTemplate_Prop);
+            EditorGUILayout.PropertyField(ContentTemplate_Prop);
 
             EditorGUILayout.PropertyField(ActionTitle_Prop);
             EditorGUILayout.PropertyField(ActionSeal_Prop);

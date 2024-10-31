@@ -4,14 +4,24 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CharacterSO", menuName = "Scriptable Objects/MetaProgressions/CharacterSO")]
 public class CharacterSO : ScriptableObject
 {
-    [SerializeField] public Sprite characterCard;
-    [SerializeField] public Sprite characterLvContainer;
-    [SerializeField] public string characterName;
-    [SerializeField] public int defaultHp;
-    [SerializeField] public int defaultSp;
-    [SerializeField] public int defaultCoin;
-    [SerializeField] public int defaultProvision;
+    public Sprite characterCard;
+    public Sprite characterLvContainer;
+    public string characterName;
+    public int defaultHp;
+    public int defaultSp;
+    public int defaultCoin;
+    public int defaultProvision;
 
-    [SerializeField] public List<DiceSO> defaultDices;
-    [SerializeField] public List<RelicSO> defaultRelics;
+    public int startingStrength;
+    public int startingDexterity;
+    public int startingIntelligence;
+    public int startingWillpower;
+    public int startingAdvancedStrength;
+    public int startingAdvancedDexterity;
+    public int startingAdvancedIntelligence;
+    public int startingAdvancedWillpower;
+
+    public List<SkillSO> startingSkills;
+    public List<RelicSO> startingRelics;
+    public List<ConsumableSO> startingConsumables;
 }

@@ -13,10 +13,7 @@ MonoBehaviour:
   m_Name: 0_1_1 Img
   m_EditorClassIdentifier: 
   contentType: 1
-  blankContentTemplate: {fileID: 0}
-  imageContentTemplate: {fileID: 1137144648871385227, guid: 647be9955989341b8a0eef188d4d6879, type: 3}
-  descriptionContentTemplate: {fileID: 0}
-  actionContentTemplate: {fileID: 0}
+  contentTemplate: {fileID: 1137144648871385227, guid: 647be9955989341b8a0eef188d4d6879, type: 3}
   questTitle: Blacksmith's Hut
   questImage: {fileID: -2093589468, guid: 295ee6751e3284669a855cc492eab567, type: 3}
   questSeal: {fileID: -623794718, guid: 26673cc480c1c46639765ca1e6504750, type: 3}

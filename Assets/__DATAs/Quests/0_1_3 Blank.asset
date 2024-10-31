@@ -13,10 +13,7 @@ MonoBehaviour:
   m_Name: 0_1_3 Blank
   m_EditorClassIdentifier: 
   contentType: 0
-  blankContentTemplate: {fileID: 8755861318287151377, guid: 89f09f4a55fec4455b60b663edd52df1, type: 3}
-  imageContentTemplate: {fileID: 0}
-  descriptionContentTemplate: {fileID: 0}
-  actionContentTemplate: {fileID: 0}
+  contentTemplate: {fileID: 8755861318287151377, guid: 89f09f4a55fec4455b60b663edd52df1, type: 3}
   questTitle: 
   questImage: {fileID: 0}
   questSeal: {fileID: 0}

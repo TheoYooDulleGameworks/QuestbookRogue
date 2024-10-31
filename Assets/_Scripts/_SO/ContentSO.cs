@@ -14,11 +14,7 @@ public class ContentSO : ScriptableObject
 
     public ContentType contentType;
 
-    [SerializeField] private GameObject blankContentTemplate;
-    [SerializeField] private GameObject imageContentTemplate;
-    [SerializeField] private GameObject descriptionContentTemplate;
-    [SerializeField] private GameObject actionContentTemplate;
-
+    [SerializeField] public GameObject contentTemplate;
 
     // Image Content //
     public string questTitle;

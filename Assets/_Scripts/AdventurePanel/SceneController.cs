@@ -10,6 +10,20 @@ public class SceneController : MonoBehaviour
     [SerializeField] private RectTransform selectsScene;
     [SerializeField] private RectTransform contentsScene;
 
+    private void Awake()
+    {
+        if (!selectsScene.gameObject.activeSelf)
+        {
+            selectsScene.gameObject.SetActive(true);
+        }
+        if (contentsScene.gameObject.activeSelf)
+        {
+            contentsScene.gameObject.SetActive(false);
+        }
+
+        ResetContentsScene();
+    }
+
     public void TransitionToContents(SelectionData _selectionData)
     {
         SetContentsScene(_selectionData);
@@ -18,8 +32,11 @@ public class SceneController : MonoBehaviour
 
     public void TransitionToSelects()
     {
-        // SetSelectsScene();
         StartCoroutine(FadeAndSelects());
+        ResetContentsScene();
+
+        // SetSelectsScene();
+
         List<Quest> selectableQuests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
         foreach (var quest in selectableQuests)
         {
@@ -45,7 +62,23 @@ public class SceneController : MonoBehaviour
 
     private void SetContentsScene(SelectionData _selectionData)
     {
+        for (int i = 0; i < _selectionData.questContents.Count; i++)
+        {
+            GameObject content = Instantiate(_selectionData.questContents[i].contentTemplate);
+            content.transform.SetParent(contentsScene, false);
+            content.name = $"content_({i + 1})";
 
+            content.GetComponent<IContent>().SetContentComponents(_selectionData.questContents[i]);
+        }
+    }
+
+    private void ResetContentsScene()
+    {
+        List<IContent> completedContents = new List<IContent>(contentsScene.GetComponentsInChildren<IContent>());
+        foreach (var content in completedContents)
+        {
+            content.DestroyContent();
+        }
     }
 
     private void SetSelectsScene()

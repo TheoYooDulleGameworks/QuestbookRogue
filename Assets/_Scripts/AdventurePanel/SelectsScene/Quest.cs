@@ -34,7 +34,7 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void Awake()
     {
-        SetData();
+        SetQuestComponents();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -114,7 +114,7 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         inTransition = true;
     }
 
-    public void SetData()
+    public void SetQuestComponents()
     {
         undiscoveredQuestBelt.gameObject.SetActive(false);
         inTransition = false;

@@ -105,6 +105,7 @@ MonoBehaviour:
   undiscoveredQuestThumbnail: {fileID: 21300000, guid: 90e69c2cad0dc41378fe410eed64e157, type: 3}
   undiscoveredQuestBelt: {fileID: 2907832140934107542}
   discovered: 1
+  inTransition: 0
 --- !u!1 &1270184863502770417
 GameObject:
   m_ObjectHideFlags: 0

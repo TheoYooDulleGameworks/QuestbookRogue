@@ -4,15 +4,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerStatusSO", menuName = "Scriptable Objects/PlayerAssets/PlayerStatusSO")]
 public class PlayerStatusSO : ScriptableObject
 {
-    [SerializeField] public StatusValue Lv;
-    [SerializeField] public StatusValue currentXp;
-    [SerializeField] public StatusValue currentHp;
-    [SerializeField] public StatusValue maxHp;
-    [SerializeField] public StatusValue currentSp;
-    [SerializeField] public StatusValue maxSp;
+    public StatusValue Lv;
+    public StatusValue currentXp;
+    public StatusValue currentHp;
+    public StatusValue maxHp;
+    public StatusValue currentSp;
+    public StatusValue maxSp;
 
-    [SerializeField] public StatusValue Coin;
-    [SerializeField] public StatusValue Provision;
+    public StatusValue Coin;
+    public StatusValue Provision;
 }
 
 [System.Serializable]
