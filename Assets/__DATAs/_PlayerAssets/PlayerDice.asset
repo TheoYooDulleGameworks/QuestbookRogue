@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 580344204d11f40b18f2450ade53999b, type: 3}
+  m_Name: PlayerDice
+  m_EditorClassIdentifier: 
+  StrNormalDice:
+    value: 2
+  StrAdvancedDice:
+    value: 0
+  DexNormalDice:
+    value: 4
+  DexAdvancedDice:
+    value: 0
+  IntNormalDice:
+    value: 1
+  IntAdvancedDice:
+    value: 0
+  WilNormalDice:
+    value: 1
+  WilAdvancedDice:
+    value: 0
+  StrNormalDice_UI: {fileID: 0}
+  StrAdvancedDice_UI: {fileID: 0}
+  DexNormalDice_UI: {fileID: 0}
+  DexAdvancedDice_UI: {fileID: 0}
+  IntNormalDice_UI: {fileID: 0}
+  IntAdvancedDice_UI: {fileID: 0}
+  WilNormalDice_UI: {fileID: 0}
+  WilAdvancedDice_UI: {fileID: 0}
+  StrNormalDice_Roll: {fileID: 4807499828365440339, guid: 9293760d9c06e45a183ea711165af8ac, type: 3}
+  StrAdvancedDice_Roll: {fileID: 0}
+  DexNormalDice_Roll: {fileID: 3179542757343590632, guid: 413d0ba1e0bce40bdbefeddf5e6a7578, type: 3}
+  DexAdvancedDice_Roll: {fileID: 0}
+  IntNormalDice_Roll: {fileID: 4725204236395935142, guid: b5198b635bded49cea751fd60b321e16, type: 3}
+  IntAdvancedDice_Roll: {fileID: 0}
+  WilNormalDice_Roll: {fileID: 3166094036481820240, guid: 9145c7aded2114c34b46970d76ede43f, type: 3}
+  WilAdvancedDice_Roll: {fileID: 0}

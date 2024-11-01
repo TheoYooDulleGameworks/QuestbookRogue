@@ -9,6 +9,8 @@ public class SceneController : MonoBehaviour
 
     [SerializeField] private RectTransform selectsScene;
     [SerializeField] private RectTransform contentsScene;
+    [SerializeField] private RectTransform rollDicePanel;
+    [SerializeField] private PlayerDiceSO playerDiceData;
 
     private void Awake()
     {
@@ -20,13 +22,19 @@ public class SceneController : MonoBehaviour
         {
             contentsScene.gameObject.SetActive(false);
         }
+        if (rollDicePanel.gameObject.activeSelf)
+        {
+            rollDicePanel.gameObject.SetActive(false);
+        }
 
         ResetContentsScene();
+        ResetRollDicePanel();
     }
 
     public void TransitionToContents(SelectionData _selectionData)
     {
         SetContentsScene(_selectionData);
+        SetDicePanel();
         StartCoroutine(FadeAndContents());
     }
 
@@ -34,8 +42,7 @@ public class SceneController : MonoBehaviour
     {
         StartCoroutine(FadeAndSelects());
         ResetContentsScene();
-
-        // SetSelectsScene();
+        ResetRollDicePanel();
 
         List<Quest> selectableQuests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
         foreach (var quest in selectableQuests)
@@ -56,6 +63,9 @@ public class SceneController : MonoBehaviour
 
         selectsScene.gameObject.SetActive(false);
         contentsScene.gameObject.SetActive(true);
+        rollDicePanel.gameObject.SetActive(true);
+
+        InfoTabController.Instance.HandleSkillTabActivate();
 
         yield return StartCoroutine(FadeOut());
     }
@@ -81,14 +91,78 @@ public class SceneController : MonoBehaviour
         }
     }
 
-    private void SetSelectsScene()
+    private void SetDicePanel()
     {
+        int StrNormalDiceAmount = playerDiceData.StrNormalDice.Value;
+        int DexNormalDiceAmount = playerDiceData.DexNormalDice.Value;
+        int IntNormalDiceAmount = playerDiceData.IntNormalDice.Value;
+        int WilNormalDiceAmount = playerDiceData.WilNormalDice.Value;
+        int StrAdvancedDiceAmount = playerDiceData.StrAdvancedDice.Value;
+        int DexAdvancedDiceAmount = playerDiceData.DexAdvancedDice.Value;
+        int IntAdvancedDiceAmount = playerDiceData.IntAdvancedDice.Value;
+        int WilAdvancedDiceAmount = playerDiceData.WilAdvancedDice.Value;
 
+        List<GameObject> dicePrefabs = new List<GameObject>();
+
+        for (int i = 0; i < StrNormalDiceAmount; i++)
+        {
+            GameObject StrNormalDicePrefab = Instantiate(playerDiceData.StrNormalDice_Roll);
+            StrNormalDicePrefab.transform.SetParent(rollDicePanel, false);
+            dicePrefabs.Add(StrNormalDicePrefab);
+        }
+
+        for (int i = 0; i < DexNormalDiceAmount; i++)
+        {
+            GameObject DexNormalDicePrefab = Instantiate(playerDiceData.DexNormalDice_Roll);
+            DexNormalDicePrefab.transform.SetParent(rollDicePanel, false);
+            dicePrefabs.Add(DexNormalDicePrefab);
+        }
+
+        for (int i = 0; i < IntNormalDiceAmount; i++)
+        {
+            GameObject IntNormalDicePrefab = Instantiate(playerDiceData.IntNormalDice_Roll);
+            IntNormalDicePrefab.transform.SetParent(rollDicePanel, false);
+            dicePrefabs.Add(IntNormalDicePrefab);
+        }
+
+        for (int i = 0; i < WilNormalDiceAmount; i++)
+        {
+            GameObject WilNormalDicePrefab = Instantiate(playerDiceData.WilNormalDice_Roll);
+            WilNormalDicePrefab.transform.SetParent(rollDicePanel, false);
+            dicePrefabs.Add(WilNormalDicePrefab);
+        }
+
+        for (int i = 0; i < dicePrefabs.Count; i++)
+        {
+            switch (i)
+            {
+                case int n when n >= 0 && n <= 11:
+                    dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-292 + (i * 100), -470);
+                    break;
+                case int n when n > 11 && n <= 23:
+                    dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-292 + ((i - 12) * 100), -370);
+                    break;
+                case int n when n > 23 && n <= 35:
+                    dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-292 + ((i - 24) * 100), -270);
+                    break;
+                case int n when n > 35 && n <= 47:
+                    dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-292 + ((i - 36) * 100), -170);
+                    break;
+                case int n when n > 47 && n <= 59:
+                    dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-292 + ((i - 48) * 100), -70);
+                    break;
+            }
+        }
     }
 
-
-
-    // TRANSITIONS //
+    private void ResetRollDicePanel()
+    {
+        List<RollDice> previousRollDices = new List<RollDice>(rollDicePanel.GetComponentsInChildren<RollDice>());
+        foreach (var rollDices in previousRollDices)
+        {
+            rollDices.DestroyRollDice();
+        }
+    }
 
     private IEnumerator FadeAndSelects()
     {
@@ -101,10 +175,17 @@ public class SceneController : MonoBehaviour
         yield return StartCoroutine(FadeIn());
 
         contentsScene.gameObject.SetActive(false);
+        rollDicePanel.gameObject.SetActive(false);
         selectsScene.gameObject.SetActive(true);
+
+        InfoTabController.Instance.HandleDiceTabActivate();
 
         yield return StartCoroutine(FadeOut());
     }
+
+
+
+    // TRANSITIONS //
 
     private IEnumerator FadeIn()
     {

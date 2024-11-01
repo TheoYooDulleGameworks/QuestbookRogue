@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : Singleton<PlayerManager>
 {
     [SerializeField] public CharacterSO playerCharacter;
 
@@ -12,10 +12,12 @@ public class PlayerManager : MonoBehaviour
 
     // Player Assets //
     [SerializeField] public PlayerStatusSO playerStatus;
-    [SerializeField] public PlayerDicesSO playerDices;
+    [SerializeField] public PlayerDiceSO playerDices;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         SetPlayerProfile();
         SetPlayerStatus();
         SetPlayerDices();
@@ -45,16 +47,16 @@ public class PlayerManager : MonoBehaviour
 
     private void SetPlayerDices()
     {
-        playerDices.StrengthDices.Value = playerCharacter.startingStrength;
-        playerDices.AdvancedStrengthDices.Value = playerCharacter.startingAdvancedStrength;
+        playerDices.StrNormalDice.Value = playerCharacter.startingStrength;
+        playerDices.StrAdvancedDice.Value = playerCharacter.startingAdvancedStrength;
         
-        playerDices.DexterityDices.Value = playerCharacter.startingDexterity;
-        playerDices.AdvancedDexterityDices.Value = playerCharacter.startingAdvancedDexterity;
+        playerDices.DexNormalDice.Value = playerCharacter.startingDexterity;
+        playerDices.DexAdvancedDice.Value = playerCharacter.startingAdvancedDexterity;
 
-        playerDices.IntelligenceDices.Value = playerCharacter.startingIntelligence;
-        playerDices.AdvancedIntelligenceDices.Value = playerCharacter.startingAdvancedIntelligence;
+        playerDices.IntNormalDice.Value = playerCharacter.startingIntelligence;
+        playerDices.IntAdvancedDice.Value = playerCharacter.startingAdvancedIntelligence;
 
-        playerDices.WillpowerDices.Value = playerCharacter.startingWillpower;
-        playerDices.AdvancedWillpowerDices.Value = playerCharacter.startingAdvancedWillpower;
+        playerDices.WilNormalDice.Value = playerCharacter.startingWillpower;
+        playerDices.WilAdvancedDice.Value = playerCharacter.startingAdvancedWillpower;
     }
 }

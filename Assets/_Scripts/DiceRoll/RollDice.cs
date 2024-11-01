@@ -2,8 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
+using System.Collections.Generic;
 
-public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler
+public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     [Header("Value")]
     [SerializeField] private int dieValue;
@@ -12,24 +13,31 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private Canvas canvas;
     private CanvasGroup canvasGroup;
     private Animator animator;
+    private Coroutine scaleCoroutine;
 
     [Header("Components")]
     [SerializeField] private RectTransform diceImage;
     [SerializeField] private RectTransform shadowImage;
 
-    [Header("Sprites")]
-    [SerializeField] private Sprite defaultDiceSprite;
-    [SerializeField] private Sprite defaultMouseOverDiceSprite;
+    [Header("Source Sprites")]
+    [SerializeField] private List<Sprite> possibleValues;
+    [SerializeField] private List<Sprite> possibleHovers;
+    [SerializeField] private List<Sprite> possibleClicks;
 
-    [SerializeField] private Sprite valueDiceSprite;
-    [SerializeField] private Sprite mouseOverDiceSprite;
-    [SerializeField] private Sprite mouseDownDiceSprite;
-    private Coroutine scaleCoroutine;
+    [Header("Own Sprites")]
+    [SerializeField] private Sprite defaultSprite;
+    [SerializeField] private Sprite defaultHoverSprite;
 
-    [SerializeField] private bool wasRolled;
-    [SerializeField] private bool isDragging;
+    [SerializeField] private Sprite valueSprite = null;
+    [SerializeField] private Sprite valueHoverSprite = null;
+    [SerializeField] private Sprite valueClickSprite = null;
 
-    private void Awake()
+    [Header("Bool Triggers")]
+    [SerializeField] private bool wasRolled = false;
+    [SerializeField] private bool isDragging = false;
+    [SerializeField] private bool isMouseInputInitialized = true;
+
+    private void OnEnable()
     {
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
@@ -46,11 +54,11 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         if (!wasRolled)
         {
-            diceImage.GetComponent<Image>().sprite = defaultMouseOverDiceSprite;
+            diceImage.GetComponent<Image>().sprite = defaultHoverSprite;
             return;
         }
 
-        diceImage.GetComponent<Image>().sprite = mouseOverDiceSprite;
+        diceImage.GetComponent<Image>().sprite = valueHoverSprite;
     }
 
     private void Start()
@@ -67,25 +75,27 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         if (!wasRolled)
         {
-            diceImage.GetComponent<Image>().sprite = defaultDiceSprite;
+            diceImage.GetComponent<Image>().sprite = defaultSprite;
             return;
         }
 
-        diceImage.GetComponent<Image>().sprite = valueDiceSprite;
+        diceImage.GetComponent<Image>().sprite = valueSprite;
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         CursorManager.Instance.OnClickCursor();
-        isDragging = true;
         transform.SetAsLastSibling();
 
         if (!wasRolled)
         {
+            DiceRollAnim();
+            CursorManager.Instance.OnDefaultCursor();
+            isDragging = false;
             return;
         }
 
-        diceImage.GetComponent<Image>().sprite = mouseDownDiceSprite;
+        diceImage.GetComponent<Image>().sprite = valueClickSprite;
         rectTransform.localScale = new Vector3(1.35f, 1.35f, 1.35f);
 
         if (scaleCoroutine != null)
@@ -97,15 +107,19 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (!isMouseInputInitialized)
+        {
+            isMouseInputInitialized = true;
+        }
+
         CursorManager.Instance.OnDefaultCursor();
-        isDragging = false;
 
         if (!wasRolled)
         {
             return;
         }
 
-        diceImage.GetComponent<Image>().sprite = valueDiceSprite;
+        diceImage.GetComponent<Image>().sprite = valueSprite;
 
         if (scaleCoroutine != null)
         {
@@ -118,14 +132,50 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
-             canvas.transform as RectTransform,
-             eventData.position,
-             eventData.pressEventCamera,
-             out Vector2 localPoint))
+        if (wasRolled && isMouseInputInitialized)
         {
-            rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
-            ClampPositionToBoundary();
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                 canvas.transform as RectTransform,
+                 eventData.position,
+                 eventData.pressEventCamera,
+                 out Vector2 localPoint))
+            {
+                rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+                ClampPositionToBoundary();
+            }
+        }
+    }
+
+    private void Update()
+    {
+        if (isDragging)
+        {
+            Vector2 mousePosition = Input.mousePosition;
+
+            if (isDragging && (mousePosition.x < 0 || mousePosition.x > 1920 * canvas.scaleFactor || mousePosition.y < 0 || mousePosition.y > 1080 * canvas.scaleFactor))
+
+            {
+                isMouseInputInitialized = false;
+
+                CursorManager.Instance.OnDefaultCursor();
+                diceImage.GetComponent<Image>().sprite = valueSprite;
+                if (scaleCoroutine != null)
+                {
+                    StopCoroutine(scaleCoroutine);
+                    scaleCoroutine = null;
+                }
+                rectTransform.localScale = new Vector3(1f, 1f, 1f);
+
+                isDragging = false;
+                if (canvasGroup.blocksRaycasts == false)
+                {
+                    canvasGroup.blocksRaycasts = true;
+                }
+                if (shadowImage.gameObject.activeSelf == false)
+                {
+                    shadowImage.gameObject.SetActive(true);
+                }
+            }
         }
     }
 
@@ -143,6 +193,8 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        isDragging = true;
+
         if (!wasRolled)
         {
             return;
@@ -154,6 +206,8 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        isDragging = false;
+
         if (!wasRolled)
         {
             return;
@@ -163,22 +217,39 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         shadowImage.gameObject.SetActive(true);
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (wasRolled)
-        {
-            return;
-        }
-
-        DiceRollAnim();
-    }
-
     public void DiceRollAnim()
     {
-        wasRolled = true;
         animator.enabled = true;
         animator.Play("DiceIdle", 0, 0f);
         animator.SetTrigger("DiceRoll");
+        isMouseInputInitialized = false;
+    }
+
+    public void DiceRollValue()
+    {
+        int randomValue = Random.Range(0, 6);
+        Debug.Log(randomValue);
+
+        if (randomValue == 0)
+        {
+            // NORMAL DICE //
+            dieValue = 0;
+        }
+        else
+        {
+            dieValue = randomValue + 1;
+        }
+
+        valueSprite = possibleValues[randomValue];
+        valueHoverSprite = possibleHovers[randomValue];
+        valueClickSprite = possibleClicks[randomValue];
+
+        animator.enabled = false;
+        diceImage.GetComponent<Image>().sprite = valueSprite;
+        GetComponent<Image>().raycastTarget = true;
+        wasRolled = true;
+
+        PopUpAnim();
     }
 
 
@@ -200,12 +271,6 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void RaycastOff()
     {
         GetComponent<Image>().raycastTarget = false;
-    }
-
-    public void RaycastOn()
-    {
-        GetComponent<Image>().raycastTarget = true;
-        animator.enabled = false;
     }
 
     private IEnumerator ScaleDownToNormal()
@@ -247,5 +312,10 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
 
         rectTransform.localScale = endScale;
+    }
+
+    public void DestroyRollDice()
+    {
+        Destroy(gameObject);
     }
 }

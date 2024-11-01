@@ -19,10 +19,14 @@ MonoBehaviour:
   defaultSp: 8
   defaultCoin: 4
   defaultProvision: 2
-  startingStrength: 1
-  startingDexterity: 3
-  startingIntelligence: 0
-  startingWillpower: 0
+  startingStrength: 2
+  startingDexterity: 4
+  startingIntelligence: 1
+  startingWillpower: 2
+  startingAdvancedStrength: 0
+  startingAdvancedDexterity: 0
+  startingAdvancedIntelligence: 0
+  startingAdvancedWillpower: 0
   startingSkills: []
   startingRelics: []
   startingConsumables: []

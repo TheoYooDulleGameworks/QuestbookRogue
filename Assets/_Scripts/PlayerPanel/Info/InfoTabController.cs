@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class InfoTabController : MonoBehaviour
+public class InfoTabController : Singleton<InfoTabController>
 {
     [SerializeField] private GameObject diceTab;
     [SerializeField] private GameObject skillTab;
@@ -25,7 +25,7 @@ public class InfoTabController : MonoBehaviour
         skillTabIndex.OnSkillTabClicked -= HandleSkillTabActivate;
     }
 
-    private void HandleDiceTabActivate()
+    public void HandleDiceTabActivate()
     {
         ResetTabs();
 
@@ -37,7 +37,7 @@ public class InfoTabController : MonoBehaviour
         diceTabIndex.ActivateDiceTab();
     }
 
-    private void HandleSkillTabActivate()
+    public void HandleSkillTabActivate()
     {
         ResetTabs();
 
