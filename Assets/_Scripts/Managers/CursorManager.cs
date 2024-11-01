@@ -5,6 +5,9 @@ public class CursorManager : Singleton<CursorManager>
 {
     private Image image;
 
+    [SerializeField] private Sprite defaultCursorImage;
+    [SerializeField] private Sprite clickCursorImage;
+
     protected override void Awake()
     {
         base.Awake();
@@ -15,9 +18,9 @@ public class CursorManager : Singleton<CursorManager>
         Cursor.visible = false;
 
         if (Application.isPlaying)
-            { Cursor.lockState = CursorLockMode.None; }
+        { Cursor.lockState = CursorLockMode.None; }
         else
-            { Cursor.lockState = CursorLockMode.Confined; }
+        { Cursor.lockState = CursorLockMode.Confined; }
     }
 
     private void Update()
@@ -28,5 +31,15 @@ public class CursorManager : Singleton<CursorManager>
         if (!Application.isPlaying) { return; }
 
         Cursor.visible = false;
+    }
+
+    public void OnClickCursor()
+    {
+        image.sprite = clickCursorImage;
+    }
+
+    public void OnDefaultCursor()
+    {
+        image.sprite = defaultCursorImage;
     }
 }

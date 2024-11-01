@@ -12,5 +12,5 @@ public class PlayerDicesSO : ScriptableObject
     public StatusValue WillpowerDices;
     public StatusValue AdvancedWillpowerDices;
 
-    public StatusValue curseDices;
+    public StatusValue specialDices;
 }
