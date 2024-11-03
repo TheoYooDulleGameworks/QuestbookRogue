@@ -93,22 +93,37 @@ public class SceneController : MonoBehaviour
 
     private void SetDicePanel()
     {
-        int StrNormalDiceAmount = playerDiceData.StrNormalDice.Value;
-        int DexNormalDiceAmount = playerDiceData.DexNormalDice.Value;
-        int IntNormalDiceAmount = playerDiceData.IntNormalDice.Value;
-        int WilNormalDiceAmount = playerDiceData.WilNormalDice.Value;
         int StrAdvancedDiceAmount = playerDiceData.StrAdvancedDice.Value;
         int DexAdvancedDiceAmount = playerDiceData.DexAdvancedDice.Value;
         int IntAdvancedDiceAmount = playerDiceData.IntAdvancedDice.Value;
         int WilAdvancedDiceAmount = playerDiceData.WilAdvancedDice.Value;
 
+        int StrNormalDiceAmount = playerDiceData.StrNormalDice.Value;
+        int DexNormalDiceAmount = playerDiceData.DexNormalDice.Value;
+        int IntNormalDiceAmount = playerDiceData.IntNormalDice.Value;
+        int WilNormalDiceAmount = playerDiceData.WilNormalDice.Value;
+
         List<GameObject> dicePrefabs = new List<GameObject>();
+
+        for (int i = 0; i < StrAdvancedDiceAmount; i++)
+        {
+            GameObject StrAdvancedDicePrefab = Instantiate(playerDiceData.StrAdvancedDice_Roll);
+            StrAdvancedDicePrefab.transform.SetParent(rollDicePanel, false);
+            dicePrefabs.Add(StrAdvancedDicePrefab);
+        }
 
         for (int i = 0; i < StrNormalDiceAmount; i++)
         {
             GameObject StrNormalDicePrefab = Instantiate(playerDiceData.StrNormalDice_Roll);
             StrNormalDicePrefab.transform.SetParent(rollDicePanel, false);
             dicePrefabs.Add(StrNormalDicePrefab);
+        }
+
+        for (int i = 0; i < DexAdvancedDiceAmount; i++)
+        {
+            GameObject DexAdvancedDicePrefab = Instantiate(playerDiceData.DexAdvancedDice_Roll);
+            DexAdvancedDicePrefab.transform.SetParent(rollDicePanel, false);
+            dicePrefabs.Add(DexAdvancedDicePrefab);
         }
 
         for (int i = 0; i < DexNormalDiceAmount; i++)
@@ -118,11 +133,25 @@ public class SceneController : MonoBehaviour
             dicePrefabs.Add(DexNormalDicePrefab);
         }
 
+        for (int i = 0; i < IntAdvancedDiceAmount; i++)
+        {
+            GameObject IntAdvancedDicePrefab = Instantiate(playerDiceData.IntAdvancedDice_Roll);
+            IntAdvancedDicePrefab.transform.SetParent(rollDicePanel, false);
+            dicePrefabs.Add(IntAdvancedDicePrefab);
+        }
+
         for (int i = 0; i < IntNormalDiceAmount; i++)
         {
             GameObject IntNormalDicePrefab = Instantiate(playerDiceData.IntNormalDice_Roll);
             IntNormalDicePrefab.transform.SetParent(rollDicePanel, false);
             dicePrefabs.Add(IntNormalDicePrefab);
+        }
+
+        for (int i = 0; i < WilAdvancedDiceAmount; i++)
+        {
+            GameObject WilAdvancedDicePrefab = Instantiate(playerDiceData.WilAdvancedDice_Roll);
+            WilAdvancedDicePrefab.transform.SetParent(rollDicePanel, false);
+            dicePrefabs.Add(WilAdvancedDicePrefab);
         }
 
         for (int i = 0; i < WilNormalDiceAmount; i++)

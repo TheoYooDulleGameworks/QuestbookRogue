@@ -14,14 +14,14 @@ public class PlayerDiceSO : ScriptableObject
     public StatusValue WilAdvancedDice;
 
     [Header("UIDice Datasets")]
-    public GameObject StrNormalDice_UI;
-    public GameObject StrAdvancedDice_UI;
-    public GameObject DexNormalDice_UI;
-    public GameObject DexAdvancedDice_UI;
-    public GameObject IntNormalDice_UI;
-    public GameObject IntAdvancedDice_UI;
-    public GameObject WilNormalDice_UI;
-    public GameObject WilAdvancedDice_UI;
+    public DiceSO StrNormalDice_UI;
+    public DiceSO StrAdvancedDice_UI;
+    public DiceSO DexNormalDice_UI;
+    public DiceSO DexAdvancedDice_UI;
+    public DiceSO IntNormalDice_UI;
+    public DiceSO IntAdvancedDice_UI;
+    public DiceSO WilNormalDice_UI;
+    public DiceSO WilAdvancedDice_UI;
 
     [Header("RollDice Datasets")]
     public GameObject StrNormalDice_Roll;

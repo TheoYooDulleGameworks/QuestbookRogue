@@ -8,10 +8,10 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Value")]
     [SerializeField] private int dieValue;
+    [SerializeField] private GameObject checkCollider;
 
     private RectTransform rectTransform;
     private Canvas canvas;
-    private CanvasGroup canvasGroup;
     private Animator animator;
     private Coroutine scaleCoroutine;
 
@@ -39,13 +39,16 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] private bool notYetRolledAndWait = false;
     [SerializeField] private bool onceRolled = false;
 
+    [SerializeField] private bool isAdvanced = false;
+
     private void OnEnable()
     {
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
-        canvasGroup = GetComponent<CanvasGroup>();
         animator = GetComponent<Animator>();
         animator.enabled = false;
+
+        checkCollider.SetActive(false);
     }
 
     public void OnReRollTriggered()
@@ -73,40 +76,36 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (isDragging || notYetRolledAndWait)
         {
-            if (isDragging || notYetRolledAndWait)
-            {
-                return;
-            }
-
-            if (!wasRolled)
-            {
-                diceImage.GetComponent<Image>().sprite = defaultHoverSprite;
-                return;
-            }
-
-            diceImage.GetComponent<Image>().sprite = valueHoverSprite;
+            return;
         }
+
+        if (!wasRolled)
+        {
+            diceImage.GetComponent<Image>().sprite = defaultHoverSprite;
+            return;
+        }
+
+        diceImage.GetComponent<Image>().sprite = valueHoverSprite;
+
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (isDragging || notYetRolledAndWait)
         {
-            if (isDragging || notYetRolledAndWait)
-            {
-                return;
-            }
-
-            if (!wasRolled)
-            {
-                diceImage.GetComponent<Image>().sprite = defaultSprite;
-                return;
-            }
-
-            diceImage.GetComponent<Image>().sprite = valueSprite;
+            return;
         }
+
+        if (!wasRolled)
+        {
+            diceImage.GetComponent<Image>().sprite = defaultSprite;
+            return;
+        }
+
+        diceImage.GetComponent<Image>().sprite = valueSprite;
+
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -124,6 +123,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 return;
             }
 
+
             transform.SetAsLastSibling();
             diceImage.GetComponent<Image>().sprite = valueClickSprite;
             rectTransform.localScale = new Vector3(1.35f, 1.35f, 1.35f);
@@ -133,6 +133,11 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 StopCoroutine(scaleCoroutine);
             }
             scaleCoroutine = StartCoroutine(ScaleDownToNormal());
+
+            if (checkCollider.activeSelf)
+            {
+                checkCollider.SetActive(false);
+            }
         }
     }
 
@@ -155,6 +160,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 return;
             }
 
+
             diceImage.GetComponent<Image>().sprite = valueSprite;
 
             if (scaleCoroutine != null)
@@ -164,6 +170,11 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             }
 
             rectTransform.localScale = new Vector3(1f, 1f, 1f);
+            
+            if (!checkCollider.activeSelf)
+            {
+                checkCollider.SetActive(true);
+            }
         }
     }
 
@@ -227,10 +238,6 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 rectTransform.localScale = new Vector3(1f, 1f, 1f);
 
                 isDragging = false;
-                if (canvasGroup.blocksRaycasts == false)
-                {
-                    canvasGroup.blocksRaycasts = true;
-                }
                 if (shadowImage.gameObject.activeSelf == false)
                 {
                     shadowImage.gameObject.SetActive(true);
@@ -262,7 +269,6 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             isDragging = true;
 
-            canvasGroup.blocksRaycasts = false;
             shadowImage.gameObject.SetActive(false);
         }
     }
@@ -278,7 +284,6 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             isDragging = false;
 
-            canvasGroup.blocksRaycasts = true;
             shadowImage.gameObject.SetActive(true);
         }
     }
@@ -298,9 +303,11 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 dice.onceRolled = true;
                 dice.DiceRollAnim();
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(0.025f);
             }
         }
+
+        // 12개 = 1줄 씩 해서 순서 조정해주기 나중에 //
     }
 
     public void DiceRollAnim()
@@ -317,8 +324,14 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         if (randomValue == 0)
         {
-            // NORMAL DICE //
-            dieValue = 0;
+            if (isAdvanced)
+            {
+                dieValue = 1;
+            }
+            else
+            {
+                dieValue = 0;
+            }
         }
         else
         {

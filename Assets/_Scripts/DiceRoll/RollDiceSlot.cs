@@ -1,21 +1,26 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class RollDiceSlot : MonoBehaviour, IDropHandler
+public class RollDiceSlot : MonoBehaviour
 {
     [SerializeField] private int aboveConditionValue;
 
-    public void OnDrop(PointerEventData eventData)
+    [SerializeField] private Sprite defaultSprite;
+    [SerializeField] private Sprite checkSprite;
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (eventData.pointerDrag != null)
+        if (collision.CompareTag("DiceValueCheck"))
         {
-            if (eventData.pointerDrag.GetComponent<RollDice>().IsAboveValue(aboveConditionValue) == true)
+            RollDice rollDice = collision.GetComponentInParent<RollDice>();
+
+            if (rollDice.IsAboveValue(aboveConditionValue))
             {
-                Debug.Log("Succeed!");
+                Debug.Log("Succeed!!!");
             }
             else
             {
-                Debug.Log("Fail...");
+                Debug.Log("Fail..");
             }
         }
     }

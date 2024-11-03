@@ -32,6 +32,7 @@ public class InfoTabController : Singleton<InfoTabController>
         if (skillTab.activeSelf == false)
         {
             diceTab.SetActive(true);
+            diceTab.GetComponent<DiceTabUI>().SetPlayerDices();
         }
 
         diceTabIndex.ActivateDiceTab();

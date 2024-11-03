@@ -140,9 +140,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 104
-        width: 47
-        height: 26
+        y: 72
+        width: 46
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,10 +161,10 @@ TextureImporter:
       name: MultiDiceSlot_0_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 78
-        width: 47
-        height: 26
+        x: 46
+        y: 72
+        width: 46
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,9 +184,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 52
-        width: 47
-        height: 26
+        y: 48
+        width: 46
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -205,10 +205,10 @@ TextureImporter:
       name: MultiDiceSlot_0_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 26
-        width: 47
-        height: 26
+        x: 46
+        y: 48
+        width: 46
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -228,9 +228,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 47
-        height: 26
+        y: 24
+        width: 46
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -241,6 +241,72 @@ TextureImporter:
       bones: []
       spriteID: c9fac3cbd4f6c49daa90cb2d60f024d2
       internalID: 1031620829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MultiDiceSlot_0_5
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 24
+        width: 46
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e24155baf67c4917bb732be4ff09aa3
+      internalID: 808950307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MultiDiceSlot_0_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 46
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d242662ffdba4585be3e91f350eb7a3
+      internalID: -1858249493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MultiDiceSlot_0_7
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 0
+        width: 46
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e75f1e45cef1408f831c849c8af07a5
+      internalID: -1407927337
       vertices: []
       indices: 
       edges: []
@@ -264,6 +330,9 @@ TextureImporter:
       MultiDiceSlot_0_2: -771304139
       MultiDiceSlot_0_3: 2064108337
       MultiDiceSlot_0_4: 1031620829
+      MultiDiceSlot_0_5: 808950307
+      MultiDiceSlot_0_6: -1858249493
+      MultiDiceSlot_0_7: -1407927337
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

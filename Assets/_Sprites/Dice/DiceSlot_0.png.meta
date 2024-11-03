@@ -140,9 +140,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 104
-        width: 25
-        height: 26
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,10 +161,10 @@ TextureImporter:
       name: DiceSlot_0_1
       rect:
         serializedVersion: 2
-        x: 25
-        y: 104
-        width: 25
-        height: 26
+        x: 23
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,10 +183,10 @@ TextureImporter:
       name: DiceSlot_0_2
       rect:
         serializedVersion: 2
-        x: 50
-        y: 104
-        width: 25
-        height: 26
+        x: 46
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -205,10 +205,10 @@ TextureImporter:
       name: DiceSlot_0_3
       rect:
         serializedVersion: 2
-        x: 75
-        y: 104
-        width: 25
-        height: 26
+        x: 69
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -227,10 +227,10 @@ TextureImporter:
       name: DiceSlot_0_4
       rect:
         serializedVersion: 2
-        x: 100
-        y: 104
-        width: 25
-        height: 26
+        x: 92
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -249,10 +249,10 @@ TextureImporter:
       name: DiceSlot_0_5
       rect:
         serializedVersion: 2
-        x: 125
-        y: 104
-        width: 25
-        height: 26
+        x: 115
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -271,10 +271,10 @@ TextureImporter:
       name: DiceSlot_0_6
       rect:
         serializedVersion: 2
-        x: 150
-        y: 104
-        width: 25
-        height: 26
+        x: 138
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -293,10 +293,10 @@ TextureImporter:
       name: DiceSlot_0_7
       rect:
         serializedVersion: 2
-        x: 175
-        y: 104
-        width: 25
-        height: 26
+        x: 161
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -315,10 +315,10 @@ TextureImporter:
       name: DiceSlot_0_8
       rect:
         serializedVersion: 2
-        x: 200
-        y: 104
-        width: 25
-        height: 26
+        x: 184
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -337,10 +337,10 @@ TextureImporter:
       name: DiceSlot_0_9
       rect:
         serializedVersion: 2
-        x: 225
-        y: 104
-        width: 25
-        height: 26
+        x: 207
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -359,10 +359,10 @@ TextureImporter:
       name: DiceSlot_0_10
       rect:
         serializedVersion: 2
-        x: 250
-        y: 104
-        width: 25
-        height: 26
+        x: 230
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -381,10 +381,10 @@ TextureImporter:
       name: DiceSlot_0_11
       rect:
         serializedVersion: 2
-        x: 275
-        y: 104
-        width: 25
-        height: 26
+        x: 253
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -403,10 +403,10 @@ TextureImporter:
       name: DiceSlot_0_12
       rect:
         serializedVersion: 2
-        x: 300
-        y: 104
-        width: 25
-        height: 26
+        x: 276
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -425,10 +425,10 @@ TextureImporter:
       name: DiceSlot_0_13
       rect:
         serializedVersion: 2
-        x: 325
-        y: 104
-        width: 25
-        height: 26
+        x: 299
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -447,10 +447,10 @@ TextureImporter:
       name: DiceSlot_0_14
       rect:
         serializedVersion: 2
-        x: 350
-        y: 104
-        width: 25
-        height: 26
+        x: 322
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -469,10 +469,10 @@ TextureImporter:
       name: DiceSlot_0_15
       rect:
         serializedVersion: 2
-        x: 375
-        y: 104
-        width: 25
-        height: 26
+        x: 345
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -491,10 +491,10 @@ TextureImporter:
       name: DiceSlot_0_16
       rect:
         serializedVersion: 2
-        x: 400
-        y: 104
-        width: 25
-        height: 26
+        x: 368
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -513,10 +513,10 @@ TextureImporter:
       name: DiceSlot_0_17
       rect:
         serializedVersion: 2
-        x: 0
-        y: 78
-        width: 25
-        height: 26
+        x: 391
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -535,10 +535,10 @@ TextureImporter:
       name: DiceSlot_0_18
       rect:
         serializedVersion: 2
-        x: 25
-        y: 78
-        width: 25
-        height: 26
+        x: 414
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -557,10 +557,10 @@ TextureImporter:
       name: DiceSlot_0_19
       rect:
         serializedVersion: 2
-        x: 50
-        y: 78
-        width: 25
-        height: 26
+        x: 437
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -579,10 +579,10 @@ TextureImporter:
       name: DiceSlot_0_20
       rect:
         serializedVersion: 2
-        x: 75
-        y: 78
-        width: 25
-        height: 26
+        x: 460
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -601,10 +601,10 @@ TextureImporter:
       name: DiceSlot_0_21
       rect:
         serializedVersion: 2
-        x: 100
-        y: 78
-        width: 25
-        height: 26
+        x: 483
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -623,10 +623,10 @@ TextureImporter:
       name: DiceSlot_0_22
       rect:
         serializedVersion: 2
-        x: 125
-        y: 78
-        width: 25
-        height: 26
+        x: 506
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -645,10 +645,10 @@ TextureImporter:
       name: DiceSlot_0_23
       rect:
         serializedVersion: 2
-        x: 150
-        y: 78
-        width: 25
-        height: 26
+        x: 529
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -667,10 +667,10 @@ TextureImporter:
       name: DiceSlot_0_24
       rect:
         serializedVersion: 2
-        x: 175
-        y: 78
-        width: 25
-        height: 26
+        x: 552
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -689,10 +689,10 @@ TextureImporter:
       name: DiceSlot_0_25
       rect:
         serializedVersion: 2
-        x: 200
-        y: 78
-        width: 25
-        height: 26
+        x: 575
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -711,10 +711,10 @@ TextureImporter:
       name: DiceSlot_0_26
       rect:
         serializedVersion: 2
-        x: 225
-        y: 78
-        width: 25
-        height: 26
+        x: 598
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -733,10 +733,10 @@ TextureImporter:
       name: DiceSlot_0_27
       rect:
         serializedVersion: 2
-        x: 250
-        y: 78
-        width: 25
-        height: 26
+        x: 621
+        y: 72
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -755,10 +755,10 @@ TextureImporter:
       name: DiceSlot_0_28
       rect:
         serializedVersion: 2
-        x: 275
-        y: 78
-        width: 25
-        height: 26
+        x: 0
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -777,10 +777,10 @@ TextureImporter:
       name: DiceSlot_0_29
       rect:
         serializedVersion: 2
-        x: 300
-        y: 78
-        width: 25
-        height: 26
+        x: 23
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -799,10 +799,10 @@ TextureImporter:
       name: DiceSlot_0_30
       rect:
         serializedVersion: 2
-        x: 325
-        y: 78
-        width: 25
-        height: 26
+        x: 46
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -821,10 +821,10 @@ TextureImporter:
       name: DiceSlot_0_31
       rect:
         serializedVersion: 2
-        x: 350
-        y: 78
-        width: 25
-        height: 26
+        x: 69
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -843,10 +843,10 @@ TextureImporter:
       name: DiceSlot_0_32
       rect:
         serializedVersion: 2
-        x: 375
-        y: 78
-        width: 25
-        height: 26
+        x: 92
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -865,10 +865,10 @@ TextureImporter:
       name: DiceSlot_0_33
       rect:
         serializedVersion: 2
-        x: 400
-        y: 78
-        width: 25
-        height: 26
+        x: 115
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -887,10 +887,10 @@ TextureImporter:
       name: DiceSlot_0_34
       rect:
         serializedVersion: 2
-        x: 0
-        y: 52
-        width: 25
-        height: 26
+        x: 138
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -909,10 +909,10 @@ TextureImporter:
       name: DiceSlot_0_35
       rect:
         serializedVersion: 2
-        x: 25
-        y: 52
-        width: 25
-        height: 26
+        x: 161
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -931,10 +931,10 @@ TextureImporter:
       name: DiceSlot_0_36
       rect:
         serializedVersion: 2
-        x: 50
-        y: 52
-        width: 25
-        height: 26
+        x: 184
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -953,10 +953,10 @@ TextureImporter:
       name: DiceSlot_0_37
       rect:
         serializedVersion: 2
-        x: 75
-        y: 52
-        width: 25
-        height: 26
+        x: 207
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -975,10 +975,10 @@ TextureImporter:
       name: DiceSlot_0_38
       rect:
         serializedVersion: 2
-        x: 100
-        y: 52
-        width: 25
-        height: 26
+        x: 230
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -997,10 +997,10 @@ TextureImporter:
       name: DiceSlot_0_39
       rect:
         serializedVersion: 2
-        x: 125
-        y: 52
-        width: 25
-        height: 26
+        x: 253
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1019,10 +1019,10 @@ TextureImporter:
       name: DiceSlot_0_40
       rect:
         serializedVersion: 2
-        x: 150
-        y: 52
-        width: 25
-        height: 26
+        x: 276
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1041,10 +1041,10 @@ TextureImporter:
       name: DiceSlot_0_41
       rect:
         serializedVersion: 2
-        x: 175
-        y: 52
-        width: 25
-        height: 26
+        x: 299
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1063,10 +1063,10 @@ TextureImporter:
       name: DiceSlot_0_42
       rect:
         serializedVersion: 2
-        x: 200
-        y: 52
-        width: 25
-        height: 26
+        x: 322
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1085,10 +1085,10 @@ TextureImporter:
       name: DiceSlot_0_43
       rect:
         serializedVersion: 2
-        x: 225
-        y: 52
-        width: 25
-        height: 26
+        x: 345
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1107,10 +1107,10 @@ TextureImporter:
       name: DiceSlot_0_44
       rect:
         serializedVersion: 2
-        x: 250
-        y: 52
-        width: 25
-        height: 26
+        x: 368
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1129,10 +1129,10 @@ TextureImporter:
       name: DiceSlot_0_45
       rect:
         serializedVersion: 2
-        x: 275
-        y: 52
-        width: 25
-        height: 26
+        x: 391
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1151,10 +1151,10 @@ TextureImporter:
       name: DiceSlot_0_46
       rect:
         serializedVersion: 2
-        x: 300
-        y: 52
-        width: 25
-        height: 26
+        x: 414
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1173,10 +1173,10 @@ TextureImporter:
       name: DiceSlot_0_47
       rect:
         serializedVersion: 2
-        x: 325
-        y: 52
-        width: 25
-        height: 26
+        x: 437
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1195,10 +1195,10 @@ TextureImporter:
       name: DiceSlot_0_48
       rect:
         serializedVersion: 2
-        x: 350
-        y: 52
-        width: 25
-        height: 26
+        x: 460
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1217,10 +1217,10 @@ TextureImporter:
       name: DiceSlot_0_49
       rect:
         serializedVersion: 2
-        x: 375
-        y: 52
-        width: 25
-        height: 26
+        x: 483
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1239,10 +1239,10 @@ TextureImporter:
       name: DiceSlot_0_50
       rect:
         serializedVersion: 2
-        x: 400
-        y: 52
-        width: 25
-        height: 26
+        x: 506
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1261,10 +1261,10 @@ TextureImporter:
       name: DiceSlot_0_51
       rect:
         serializedVersion: 2
-        x: 0
-        y: 26
-        width: 25
-        height: 26
+        x: 529
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1283,10 +1283,10 @@ TextureImporter:
       name: DiceSlot_0_52
       rect:
         serializedVersion: 2
-        x: 25
-        y: 26
-        width: 25
-        height: 26
+        x: 552
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1305,10 +1305,10 @@ TextureImporter:
       name: DiceSlot_0_53
       rect:
         serializedVersion: 2
-        x: 50
-        y: 26
-        width: 25
-        height: 26
+        x: 575
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1327,10 +1327,10 @@ TextureImporter:
       name: DiceSlot_0_54
       rect:
         serializedVersion: 2
-        x: 75
-        y: 26
-        width: 25
-        height: 26
+        x: 598
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1349,10 +1349,10 @@ TextureImporter:
       name: DiceSlot_0_55
       rect:
         serializedVersion: 2
-        x: 100
-        y: 26
-        width: 25
-        height: 26
+        x: 621
+        y: 48
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1371,10 +1371,10 @@ TextureImporter:
       name: DiceSlot_0_56
       rect:
         serializedVersion: 2
-        x: 125
-        y: 26
-        width: 25
-        height: 26
+        x: 0
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1393,10 +1393,10 @@ TextureImporter:
       name: DiceSlot_0_57
       rect:
         serializedVersion: 2
-        x: 150
-        y: 26
-        width: 25
-        height: 26
+        x: 23
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1415,10 +1415,10 @@ TextureImporter:
       name: DiceSlot_0_58
       rect:
         serializedVersion: 2
-        x: 175
-        y: 26
-        width: 25
-        height: 26
+        x: 46
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1437,10 +1437,10 @@ TextureImporter:
       name: DiceSlot_0_59
       rect:
         serializedVersion: 2
-        x: 200
-        y: 26
-        width: 25
-        height: 26
+        x: 69
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1459,10 +1459,10 @@ TextureImporter:
       name: DiceSlot_0_60
       rect:
         serializedVersion: 2
-        x: 225
-        y: 26
-        width: 25
-        height: 26
+        x: 92
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1481,10 +1481,10 @@ TextureImporter:
       name: DiceSlot_0_61
       rect:
         serializedVersion: 2
-        x: 250
-        y: 26
-        width: 25
-        height: 26
+        x: 115
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1503,10 +1503,10 @@ TextureImporter:
       name: DiceSlot_0_62
       rect:
         serializedVersion: 2
-        x: 275
-        y: 26
-        width: 25
-        height: 26
+        x: 138
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1525,10 +1525,10 @@ TextureImporter:
       name: DiceSlot_0_63
       rect:
         serializedVersion: 2
-        x: 300
-        y: 26
-        width: 25
-        height: 26
+        x: 161
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1547,10 +1547,10 @@ TextureImporter:
       name: DiceSlot_0_64
       rect:
         serializedVersion: 2
-        x: 325
-        y: 26
-        width: 25
-        height: 26
+        x: 184
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1569,10 +1569,10 @@ TextureImporter:
       name: DiceSlot_0_65
       rect:
         serializedVersion: 2
-        x: 350
-        y: 26
-        width: 25
-        height: 26
+        x: 207
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1591,10 +1591,10 @@ TextureImporter:
       name: DiceSlot_0_66
       rect:
         serializedVersion: 2
-        x: 375
-        y: 26
-        width: 25
-        height: 26
+        x: 230
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1613,10 +1613,10 @@ TextureImporter:
       name: DiceSlot_0_67
       rect:
         serializedVersion: 2
-        x: 400
-        y: 26
-        width: 25
-        height: 26
+        x: 253
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1635,10 +1635,10 @@ TextureImporter:
       name: DiceSlot_0_68
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 25
-        height: 26
+        x: 276
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1657,10 +1657,10 @@ TextureImporter:
       name: DiceSlot_0_69
       rect:
         serializedVersion: 2
-        x: 25
-        y: 0
-        width: 25
-        height: 26
+        x: 299
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1679,10 +1679,10 @@ TextureImporter:
       name: DiceSlot_0_70
       rect:
         serializedVersion: 2
-        x: 50
-        y: 0
-        width: 25
-        height: 26
+        x: 322
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1701,10 +1701,10 @@ TextureImporter:
       name: DiceSlot_0_71
       rect:
         serializedVersion: 2
-        x: 75
-        y: 0
-        width: 25
-        height: 26
+        x: 345
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1723,10 +1723,10 @@ TextureImporter:
       name: DiceSlot_0_72
       rect:
         serializedVersion: 2
-        x: 100
-        y: 0
-        width: 25
-        height: 26
+        x: 368
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1745,10 +1745,10 @@ TextureImporter:
       name: DiceSlot_0_73
       rect:
         serializedVersion: 2
-        x: 125
-        y: 0
-        width: 25
-        height: 26
+        x: 391
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1767,10 +1767,10 @@ TextureImporter:
       name: DiceSlot_0_74
       rect:
         serializedVersion: 2
-        x: 150
-        y: 0
-        width: 25
-        height: 26
+        x: 414
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1789,10 +1789,10 @@ TextureImporter:
       name: DiceSlot_0_75
       rect:
         serializedVersion: 2
-        x: 175
-        y: 0
-        width: 25
-        height: 26
+        x: 437
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1811,10 +1811,10 @@ TextureImporter:
       name: DiceSlot_0_76
       rect:
         serializedVersion: 2
-        x: 200
-        y: 0
-        width: 25
-        height: 26
+        x: 460
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1833,10 +1833,10 @@ TextureImporter:
       name: DiceSlot_0_77
       rect:
         serializedVersion: 2
-        x: 225
-        y: 0
-        width: 25
-        height: 26
+        x: 483
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1855,10 +1855,10 @@ TextureImporter:
       name: DiceSlot_0_78
       rect:
         serializedVersion: 2
-        x: 250
-        y: 0
-        width: 25
-        height: 26
+        x: 506
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1877,10 +1877,10 @@ TextureImporter:
       name: DiceSlot_0_79
       rect:
         serializedVersion: 2
-        x: 275
-        y: 0
-        width: 25
-        height: 26
+        x: 529
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1899,10 +1899,10 @@ TextureImporter:
       name: DiceSlot_0_80
       rect:
         serializedVersion: 2
-        x: 300
-        y: 0
-        width: 25
-        height: 26
+        x: 552
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1921,10 +1921,10 @@ TextureImporter:
       name: DiceSlot_0_81
       rect:
         serializedVersion: 2
-        x: 325
-        y: 0
-        width: 25
-        height: 26
+        x: 575
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1943,10 +1943,10 @@ TextureImporter:
       name: DiceSlot_0_82
       rect:
         serializedVersion: 2
-        x: 350
-        y: 0
-        width: 25
-        height: 26
+        x: 598
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1965,10 +1965,10 @@ TextureImporter:
       name: DiceSlot_0_83
       rect:
         serializedVersion: 2
-        x: 375
-        y: 0
-        width: 25
-        height: 26
+        x: 621
+        y: 24
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1987,10 +1987,10 @@ TextureImporter:
       name: DiceSlot_0_84
       rect:
         serializedVersion: 2
-        x: 400
+        x: 0
         y: 0
-        width: 25
-        height: 26
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2001,6 +2001,600 @@ TextureImporter:
       bones: []
       spriteID: 866e71e61f80140f6b145ae781959c45
       internalID: -922304081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_85
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ace03d18683f407daccd19231a4c57b
+      internalID: -545485496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_86
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 684e283c27d7e4c79bbb3f743a77c63a
+      internalID: -2009969774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_87
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 145382194e1e74edfbf35146a96fe809
+      internalID: -821208136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_88
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 404ea7e6467c04bb4b2a8fbdc07481fb
+      internalID: -506466728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_89
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06f3271cf6f9845c0bbbcf9ec88ea718
+      internalID: -1069244197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_90
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d8f5a4428bf744a1a06080c7c613f46
+      internalID: -1391332142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_91
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 045738c4285cb4b99914111da5eec367
+      internalID: 1964859837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_92
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efe481be6245e438892cf2c02843dd3c
+      internalID: -1810501894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_93
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d8acc7b96ad34ff5aaa6df1d1500cda
+      internalID: 156982173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_94
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d498b91a5a9148cf8d90b546d1ddb79
+      internalID: -587692993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_95
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a50525b4609854a0b9b98aa14c0b9857
+      internalID: -1147616041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_96
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ec860b89ee4348a19609e160bd3fdc5
+      internalID: -1140681058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_97
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb2be995a5b5d4e5cafd384b8f837ca3
+      internalID: 1024527896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_98
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94c085724965f443499671b6e95f4843
+      internalID: -2092670725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_99
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0b152be7ee0b4624a15b53c6fa54f66
+      internalID: 1075251767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_100
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26b4539713e724153a9d19003c780a99
+      internalID: -232664641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_101
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a06624d9bd18243c48062a886e5a2a5a
+      internalID: -1208392725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_102
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 053ab98543a0f46fb82508d1469c8608
+      internalID: 1790996535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_103
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53cc1ea82e0304efba4dec7b0161ba7f
+      internalID: 2030313724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_104
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f077683f9f2374290800520b9a8e1944
+      internalID: -762916893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_105
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4b5d1aa876584c2280f51a9004e59dd
+      internalID: 1032726320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_106
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 260b811d45ca04beabc63bc59eed516e
+      internalID: -54007403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_107
+      rect:
+        serializedVersion: 2
+        x: 529
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41a10c438d3654999862a5ca34887281
+      internalID: 823413922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_108
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecf8927c4d3b9411a87647f5c19b1117
+      internalID: 1144560364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_109
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b21328c767a34be6876eee1f07e7c69
+      internalID: -1306925250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_110
+      rect:
+        serializedVersion: 2
+        x: 598
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b40a2ecdf6ca94930a4c546090a3bb92
+      internalID: 1167053577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DiceSlot_0_111
+      rect:
+        serializedVersion: 2
+        x: 621
+        y: 0
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e8d985114f9d4f9a8bc1b5f888f9530
+      internalID: -1630285539
       vertices: []
       indices: 
       edges: []
@@ -2022,7 +2616,19 @@ TextureImporter:
       DiceSlot_0_0: -1125611685
       DiceSlot_0_1: 1292844295
       DiceSlot_0_10: 1683749635
+      DiceSlot_0_100: -232664641
+      DiceSlot_0_101: -1208392725
+      DiceSlot_0_102: 1790996535
+      DiceSlot_0_103: 2030313724
+      DiceSlot_0_104: -762916893
+      DiceSlot_0_105: 1032726320
+      DiceSlot_0_106: -54007403
+      DiceSlot_0_107: 823413922
+      DiceSlot_0_108: 1144560364
+      DiceSlot_0_109: -1306925250
       DiceSlot_0_11: 991020330
+      DiceSlot_0_110: 1167053577
+      DiceSlot_0_111: -1630285539
       DiceSlot_0_12: -661744312
       DiceSlot_0_13: 2119657083
       DiceSlot_0_14: -1653254836
@@ -2103,7 +2709,22 @@ TextureImporter:
       DiceSlot_0_82: 2138477593
       DiceSlot_0_83: 1216875788
       DiceSlot_0_84: -922304081
+      DiceSlot_0_85: -545485496
+      DiceSlot_0_86: -2009969774
+      DiceSlot_0_87: -821208136
+      DiceSlot_0_88: -506466728
+      DiceSlot_0_89: -1069244197
       DiceSlot_0_9: 2059221868
+      DiceSlot_0_90: -1391332142
+      DiceSlot_0_91: 1964859837
+      DiceSlot_0_92: -1810501894
+      DiceSlot_0_93: 156982173
+      DiceSlot_0_94: -587692993
+      DiceSlot_0_95: -1147616041
+      DiceSlot_0_96: -1140681058
+      DiceSlot_0_97: 1024527896
+      DiceSlot_0_98: -2092670725
+      DiceSlot_0_99: 1075251767
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
