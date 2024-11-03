@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 
-public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler
 {
     [Header("Value")]
     [SerializeField] private int dieValue;
@@ -36,6 +36,8 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] private bool wasRolled = false;
     [SerializeField] private bool isDragging = false;
     [SerializeField] private bool isMouseInputInitialized = true;
+    [SerializeField] private bool notYetRolledAndWait = false;
+    [SerializeField] private bool onceRolled = false;
 
     private void OnEnable()
     {
@@ -43,105 +45,163 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         canvas = GetComponentInParent<Canvas>();
         canvasGroup = GetComponent<CanvasGroup>();
         animator = GetComponent<Animator>();
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (isDragging)
-        {
-            return;
-        }
-
-        if (!wasRolled)
-        {
-            diceImage.GetComponent<Image>().sprite = defaultHoverSprite;
-            return;
-        }
-
-        diceImage.GetComponent<Image>().sprite = valueHoverSprite;
-    }
-
-    private void Start()
-    {
         animator.enabled = false;
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public void OnReRollTriggered()
     {
-        if (isDragging)
+        if (wasRolled)
         {
-            return;
+            wasRolled = false;
         }
-
-        if (!wasRolled)
-        {
-            diceImage.GetComponent<Image>().sprite = defaultSprite;
-            return;
-        }
-
-        diceImage.GetComponent<Image>().sprite = valueSprite;
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        CursorManager.Instance.OnClickCursor();
-        transform.SetAsLastSibling();
-
-        if (!wasRolled)
-        {
-            DiceRollAnim();
-            CursorManager.Instance.OnDefaultCursor();
-            isDragging = false;
-            return;
-        }
-
-        diceImage.GetComponent<Image>().sprite = valueClickSprite;
-        rectTransform.localScale = new Vector3(1.35f, 1.35f, 1.35f);
-
-        if (scaleCoroutine != null)
-        {
-            StopCoroutine(scaleCoroutine);
-        }
-        scaleCoroutine = StartCoroutine(ScaleDownToNormal());
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
         if (!isMouseInputInitialized)
         {
             isMouseInputInitialized = true;
         }
-
-        CursorManager.Instance.OnDefaultCursor();
-
-        if (!wasRolled)
+        if (notYetRolledAndWait)
         {
-            return;
+            notYetRolledAndWait = false;
+        }
+        if (onceRolled)
+        {
+            onceRolled = false;
         }
 
-        diceImage.GetComponent<Image>().sprite = valueSprite;
+        diceImage.GetComponent<Image>().sprite = defaultSprite;
+        PopUpAnim();
+    }
 
-        if (scaleCoroutine != null)
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
-            StopCoroutine(scaleCoroutine);
-            scaleCoroutine = null;
+            if (isDragging || notYetRolledAndWait)
+            {
+                return;
+            }
+
+            if (!wasRolled)
+            {
+                diceImage.GetComponent<Image>().sprite = defaultHoverSprite;
+                return;
+            }
+
+            diceImage.GetComponent<Image>().sprite = valueHoverSprite;
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (isDragging || notYetRolledAndWait)
+            {
+                return;
+            }
+
+            if (!wasRolled)
+            {
+                diceImage.GetComponent<Image>().sprite = defaultSprite;
+                return;
+            }
+
+            diceImage.GetComponent<Image>().sprite = valueSprite;
+        }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            CursorManager.Instance.OnClickCursor();
+
+            if (!wasRolled)
+            {
+                diceImage.GetComponent<Image>().sprite = defaultSprite;
+                rectTransform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                notYetRolledAndWait = true;
+
+                return;
+            }
+
+            transform.SetAsLastSibling();
+            diceImage.GetComponent<Image>().sprite = valueClickSprite;
+            rectTransform.localScale = new Vector3(1.35f, 1.35f, 1.35f);
+
+            if (scaleCoroutine != null)
+            {
+                StopCoroutine(scaleCoroutine);
+            }
+            scaleCoroutine = StartCoroutine(ScaleDownToNormal());
+        }
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (!isMouseInputInitialized)
+            {
+                isMouseInputInitialized = true;
+            }
+
+            CursorManager.Instance.OnDefaultCursor();
+
+            if (!wasRolled)
+            {
+                rectTransform.localScale = new Vector3(1f, 1f, 1f);
+                notYetRolledAndWait = false;
+
+                return;
+            }
+
+            diceImage.GetComponent<Image>().sprite = valueSprite;
+
+            if (scaleCoroutine != null)
+            {
+                StopCoroutine(scaleCoroutine);
+                scaleCoroutine = null;
+            }
+
+            rectTransform.localScale = new Vector3(1f, 1f, 1f);
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+
+            if (wasRolled)
+            {
+                return;
+            }
+
+            CursorManager.Instance.OnDefaultCursor();
+            RollAllDice();
         }
 
-        rectTransform.localScale = new Vector3(1f, 1f, 1f);
+        else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            OnReRollTriggered();
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (wasRolled && isMouseInputInitialized)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                 canvas.transform as RectTransform,
-                 eventData.position,
-                 eventData.pressEventCamera,
-                 out Vector2 localPoint))
+            if (wasRolled && isMouseInputInitialized)
             {
-                rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
-                ClampPositionToBoundary();
+                if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                     canvas.transform as RectTransform,
+                     eventData.position,
+                     eventData.pressEventCamera,
+                     out Vector2 localPoint))
+                {
+                    rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+                    ClampPositionToBoundary();
+                }
             }
         }
     }
@@ -193,28 +253,54 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        isDragging = true;
-
-        if (!wasRolled)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
-            return;
-        }
+            if (!wasRolled)
+            {
+                return;
+            }
 
-        canvasGroup.blocksRaycasts = false;
-        shadowImage.gameObject.SetActive(false);
+            isDragging = true;
+
+            canvasGroup.blocksRaycasts = false;
+            shadowImage.gameObject.SetActive(false);
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        isDragging = false;
-
-        if (!wasRolled)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
-            return;
-        }
+            if (!wasRolled)
+            {
+                return;
+            }
 
-        canvasGroup.blocksRaycasts = true;
-        shadowImage.gameObject.SetActive(true);
+            isDragging = false;
+
+            canvasGroup.blocksRaycasts = true;
+            shadowImage.gameObject.SetActive(true);
+        }
+    }
+
+    private void RollAllDice()
+    {
+        StartCoroutine(RollAllDiceSequence());
+    }
+
+    private IEnumerator RollAllDiceSequence()
+    {
+        List<RollDice> allDices = new List<RollDice>(transform.parent.GetComponentsInChildren<RollDice>());
+
+        foreach (var dice in allDices)
+        {
+            if (!dice.onceRolled)
+            {
+                dice.onceRolled = true;
+                dice.DiceRollAnim();
+                yield return new WaitForSeconds(0.05f);
+            }
+        }
     }
 
     public void DiceRollAnim()
@@ -228,7 +314,6 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void DiceRollValue()
     {
         int randomValue = Random.Range(0, 6);
-        Debug.Log(randomValue);
 
         if (randomValue == 0)
         {
@@ -248,6 +333,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         diceImage.GetComponent<Image>().sprite = valueSprite;
         GetComponent<Image>().raycastTarget = true;
         wasRolled = true;
+        isMouseInputInitialized = true;
 
         PopUpAnim();
     }
