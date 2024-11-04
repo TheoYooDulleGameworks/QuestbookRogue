@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eff72458e07d4f70abc5c0322382142, type: 3}
+  m_Name: 0_1_5
+  m_EditorClassIdentifier: 
+  contentType: 3
+  contentTemplate: {fileID: 6148890290424915317, guid: 0ddac7414eee2495b90d5be3f730f277, type: 3}
+  questTitle: 
+  questImage: {fileID: 0}
+  questSeal: {fileID: 0}
+  isThereCancelButton: 1
+  backgroundImage: {fileID: 0}
+  bodyText: 
+  cancelText: 
+  actionTitle: Forge a Weapon
+  actionSeal: {fileID: 939198109, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  actionRequestDiceSlots:
+  - {fileID: 11400000, guid: b45cd5d486e5d4d14995666db890b170, type: 2}
+  - {fileID: 11400000, guid: 835a2e17334f54b32a41155cf48b4779, type: 2}
+  multiValue: 1800000009000000
+  actionRewardText: gain 1 Strength Dice
+  isThereProceedButton: 1

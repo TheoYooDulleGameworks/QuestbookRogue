@@ -9,7 +9,7 @@ public class QuestSO : ScriptableObject
 
     [SerializeField] public Sprite questThumbnail;
     [SerializeField] public Sprite questSeal;
-    [SerializeField] public string questType;
+    [SerializeField] public QuestType questType;
 
     [SerializeField] public List<SelectionData> selectionDatas;
 }
@@ -21,4 +21,20 @@ public class SelectionData
     [SerializeField] public int selectionStamina;
 
     [SerializeField] public List<ContentSO> questContents;
+}
+
+public enum QuestType
+{
+    General,
+    Combat,
+    Obstacle,
+    Treachery,
+    Boss,
+    Village,
+    Item,
+    Break,
+    Exploration,
+    Encounter,
+    Mystic,
+    Secret,
 }

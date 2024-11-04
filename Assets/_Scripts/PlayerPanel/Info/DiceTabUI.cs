@@ -31,14 +31,6 @@ public class DiceTabUI : MonoBehaviour
         playerDiceData.WilAdvancedDice.OnValueChanged += UpdateWilGroup;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TestGetDice();
-        }
-    }
-
     public void SetPlayerDices()
     {
         List<UIDice> previousUIDices = new List<UIDice>();
@@ -265,13 +257,6 @@ public class DiceTabUI : MonoBehaviour
             WilNormaluiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.WilNormalDice_UI;
             WilNormaluiDicePrefab.GetComponent<UIDice>().SetDiceData();
         }
-    }
-
-    private void TestGetDice()
-    {
-        playerDiceData.StrNormalDice.AddValue(1);
-        playerDiceData.DexAdvancedDice.AddValue(1);
-        playerDiceData.WilNormalDice.AddValue(1);
     }
 }
 

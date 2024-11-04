@@ -7,6 +7,7 @@ using System.Collections.Generic;
 public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler
 {
     [Header("Value")]
+    [SerializeField] private DiceType diceType;
     [SerializeField] private int dieValue;
     [SerializeField] private GameObject checkCollider;
 
@@ -23,6 +24,8 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] private List<Sprite> possibleValues;
     [SerializeField] private List<Sprite> possibleHovers;
     [SerializeField] private List<Sprite> possibleClicks;
+    [SerializeField] private List<Sprite> possibleSlotValues;
+    [SerializeField] private List<Sprite> possibleSlotClicks;
 
     [Header("Own Sprites")]
     [SerializeField] private Sprite defaultSprite;
@@ -31,6 +34,8 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] private Sprite valueSprite = null;
     [SerializeField] private Sprite valueHoverSprite = null;
     [SerializeField] private Sprite valueClickSprite = null;
+    [SerializeField] public Sprite valueSlotSprite = null;
+    [SerializeField] public Sprite valueSlotClickSprite = null;
 
     [Header("Bool Triggers")]
     [SerializeField] private bool wasRolled = false;
@@ -49,6 +54,27 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         animator.enabled = false;
 
         checkCollider.SetActive(false);
+    }
+
+    public void ActivateRollDice()
+    {
+        if (!gameObject.activeSelf)
+        {
+            gameObject.SetActive(true);
+        }
+    }
+
+    public void DeActivateRollDice()
+    {
+        if (gameObject.activeSelf)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
+    public void DestroyRollDice()
+    {
+        Destroy(gameObject);
     }
 
     public void OnReRollTriggered()
@@ -123,7 +149,6 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 return;
             }
 
-
             transform.SetAsLastSibling();
             diceImage.GetComponent<Image>().sprite = valueClickSprite;
             rectTransform.localScale = new Vector3(1.35f, 1.35f, 1.35f);
@@ -170,7 +195,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             }
 
             rectTransform.localScale = new Vector3(1f, 1f, 1f);
-            
+
             if (!checkCollider.activeSelf)
             {
                 checkCollider.SetActive(true);
@@ -341,6 +366,8 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         valueSprite = possibleValues[randomValue];
         valueHoverSprite = possibleHovers[randomValue];
         valueClickSprite = possibleClicks[randomValue];
+        valueSlotSprite = possibleSlotValues[randomValue];
+        valueSlotClickSprite = possibleSlotClicks[randomValue];
 
         animator.enabled = false;
         diceImage.GetComponent<Image>().sprite = valueSprite;
@@ -353,16 +380,66 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 
 
-    public bool IsAboveValue(int conditionValue)
+    public bool IsAboveValue(List<DiceType> diceTypes, int conditionValue)
     {
-        if (conditionValue <= dieValue)
+        if (diceTypes.Contains(diceType))
         {
-            return true;
+            if (conditionValue <= dieValue)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
             return false;
         }
+    }
+
+    public bool IsSameValue(List<DiceType> diceTypes, List<int> conditionValues)
+    {
+        if (diceTypes.Contains(diceType))
+        {
+            if (conditionValues.Contains(dieValue))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool IsFillValue(List<DiceType> diceTypes)
+    {
+        if (diceTypes.Contains(diceType))
+        {
+            if (dieValue != 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public int DieValue()
+    {
+        return dieValue;
     }
 
 
@@ -412,9 +489,14 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         rectTransform.localScale = endScale;
     }
+}
 
-    public void DestroyRollDice()
-    {
-        Destroy(gameObject);
-    }
+public enum DiceType
+{
+    None,
+    Strength,
+    Dexterity,
+    Intelligence,
+    Willpower,
+    Special,
 }

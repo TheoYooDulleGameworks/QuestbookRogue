@@ -252,6 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1767d07248d2943a6b622a3e8d464fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  diceType: 3
   dieValue: 0
   checkCollider: {fileID: 4142505075044205088}
   diceImage: {fileID: 3963545015434396422}
@@ -277,11 +278,27 @@ MonoBehaviour:
   - {fileID: 845596287, guid: c74d71a6750ad4ccaacda48a049adf75, type: 3}
   - {fileID: 386211776, guid: c74d71a6750ad4ccaacda48a049adf75, type: 3}
   - {fileID: 1416486471, guid: c74d71a6750ad4ccaacda48a049adf75, type: 3}
+  possibleSlotValues:
+  - {fileID: -552690762, guid: e8dde32721f5645949e344b5e4f8ebaf, type: 3}
+  - {fileID: 867584245, guid: e8dde32721f5645949e344b5e4f8ebaf, type: 3}
+  - {fileID: -1517046472, guid: e8dde32721f5645949e344b5e4f8ebaf, type: 3}
+  - {fileID: -1864037639, guid: e8dde32721f5645949e344b5e4f8ebaf, type: 3}
+  - {fileID: -752055262, guid: e8dde32721f5645949e344b5e4f8ebaf, type: 3}
+  - {fileID: 1252106032, guid: e8dde32721f5645949e344b5e4f8ebaf, type: 3}
+  possibleSlotClicks:
+  - {fileID: 894429234, guid: 75a25e09de61f45898752fd5276b4970, type: 3}
+  - {fileID: 1752618128, guid: 75a25e09de61f45898752fd5276b4970, type: 3}
+  - {fileID: -1582646314, guid: 75a25e09de61f45898752fd5276b4970, type: 3}
+  - {fileID: -1670460025, guid: 75a25e09de61f45898752fd5276b4970, type: 3}
+  - {fileID: -735891637, guid: 75a25e09de61f45898752fd5276b4970, type: 3}
+  - {fileID: 1459397443, guid: 75a25e09de61f45898752fd5276b4970, type: 3}
   defaultSprite: {fileID: -863864314, guid: c74d71a6750ad4ccaacda48a049adf75, type: 3}
   defaultHoverSprite: {fileID: -61346051, guid: c74d71a6750ad4ccaacda48a049adf75, type: 3}
   valueSprite: {fileID: 0}
   valueHoverSprite: {fileID: 0}
   valueClickSprite: {fileID: 0}
+  valueSlotSprite: {fileID: 0}
+  valueSlotClickSprite: {fileID: 0}
   wasRolled: 0
   isDragging: 0
   isMouseInputInitialized: 1

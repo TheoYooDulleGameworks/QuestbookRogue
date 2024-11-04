@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b941e3b2d39c4785bd404b04b9473b2, type: 3}
+  m_Name: '[M] Dexterity'
+  m_EditorClassIdentifier: 
+  slotPrefab: {fileID: 3156067049281004811, guid: 2901ce5b6b7924693b4caeedf7b8946e, type: 3}
+  requestDiceTypes: 0200000004000000
+  defaultSlotSprite: {fileID: -771304139, guid: 4d52c98cf533b4a4287f1e0147d1d61a, type: 3}
+  checkingSlotSprite: {fileID: 2064108337, guid: 4d52c98cf533b4a4287f1e0147d1d61a, type: 3}
+  succeedSlotSprite: {fileID: 2064108337, guid: 4d52c98cf533b4a4287f1e0147d1d61a, type: 3}
+  maxValueSprites:
+  - {fileID: -1542135779, guid: 1748fbb09242e49cea59e75312ba746c, type: 3}
+  - {fileID: 1456614707, guid: 1748fbb09242e49cea59e75312ba746c, type: 3}
+  - {fileID: -2093736217, guid: 1748fbb09242e49cea59e75312ba746c, type: 3}
+  - {fileID: 2135565603, guid: 1748fbb09242e49cea59e75312ba746c, type: 3}
+  - {fileID: 1063820731, guid: 1748fbb09242e49cea59e75312ba746c, type: 3}
+  - {fileID: -781523110, guid: 1748fbb09242e49cea59e75312ba746c, type: 3}
+  - {fileID: 18852488, guid: 1748fbb09242e49cea59e75312ba746c, type: 3}
+  - {fileID: 2000730762, guid: 1748fbb09242e49cea59e75312ba746c, type: 3}
+  - {fileID: 1799090380, guid: 1748fbb09242e49cea59e75312ba746c, type: 3}
+  - {fileID: 687932533, guid: 1748fbb09242e49cea59e75312ba746c, type: 3}
+  currentValueSprites:
+  - {fileID: 1906205785, guid: 1748fbb09242e49cea59e75312ba746c, type: 3}
+  - {fileID: 1702311079, guid: 1748fbb09242e49cea59e75312ba746c, type: 3}
+  - {fileID: 819678146, guid: 1748fbb09242e49cea59e75312ba746c, type: 3}
+  - {fileID: -1235514006, guid: 1748fbb09242e49cea59e75312ba746c, type: 3}
+  - {fileID: 1910908715, guid: 1748fbb09242e49cea59e75312ba746c, type: 3}
+  - {fileID: 74619164, guid: 1748fbb09242e49cea59e75312ba746c, type: 3}
+  - {fileID: 692608688, guid: 1748fbb09242e49cea59e75312ba746c, type: 3}
+  - {fileID: -165679566, guid: 1748fbb09242e49cea59e75312ba746c, type: 3}
+  - {fileID: -1047264758, guid: 1748fbb09242e49cea59e75312ba746c, type: 3}
+  - {fileID: -484759626, guid: 1748fbb09242e49cea59e75312ba746c, type: 3}

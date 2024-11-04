@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ContentSO", menuName = "Scriptable Objects/Quests/ContentSO")]
@@ -23,12 +24,15 @@ public class ContentSO : ScriptableObject
     public bool isThereCancelButton = true;
 
     // Description Content //
+    public Sprite backgroundImage;
     [TextArea] public string bodyText;
     [TextArea] public string cancelText;
 
     // Action Content //
     public string actionTitle;
     public Sprite actionSeal;
+    public List<SlotSO> actionRequestDiceSlots;
+    public List<int> multiValue;
     [TextArea] public string actionRewardText;
     public bool isThereProceedButton = true;
 }

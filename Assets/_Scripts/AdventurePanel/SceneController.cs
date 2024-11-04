@@ -166,19 +166,19 @@ public class SceneController : MonoBehaviour
             switch (i)
             {
                 case int n when n >= 0 && n <= 11:
-                    dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-292 + (i * 100), -470);
+                    dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-275 + (i * 100), -470);
                     break;
                 case int n when n > 11 && n <= 23:
-                    dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-292 + ((i - 12) * 100), -370);
+                    dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-275 + ((i - 12) * 100), -370);
                     break;
                 case int n when n > 23 && n <= 35:
-                    dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-292 + ((i - 24) * 100), -270);
+                    dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-275 + ((i - 24) * 100), -270);
                     break;
                 case int n when n > 35 && n <= 47:
-                    dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-292 + ((i - 36) * 100), -170);
+                    dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-275 + ((i - 36) * 100), -170);
                     break;
                 case int n when n > 47 && n <= 59:
-                    dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-292 + ((i - 48) * 100), -70);
+                    dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-275 + ((i - 48) * 100), -70);
                     break;
             }
         }

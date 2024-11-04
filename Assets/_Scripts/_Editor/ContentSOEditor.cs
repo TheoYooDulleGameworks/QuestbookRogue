@@ -5,8 +5,9 @@ public class ContentSOEditor : Editor
 {
 
     // CUSTOM EDITOR 항목 추가하기 //
+
     // Step.1 SerializedProperty에 _Prop 추가
-    // Step.2 Awake에 Property 참조, 연결
+    // Step.2 OnEnable에 Property 참조, 연결
     // Step.3 OnInspectorGUI에 GUI Layout 연동
 
     SerializedProperty ContentType_Prop;
@@ -18,11 +19,14 @@ public class ContentSOEditor : Editor
     SerializedProperty QuestSeal_Prop;
     SerializedProperty IsThereCancelButton_Prop;
 
+    SerializedProperty BackgroundImage_Prop;
     SerializedProperty BodyText_Prop;
     SerializedProperty CancelText_Prop;
 
     SerializedProperty ActionTitle_Prop;
     SerializedProperty ActionSeal_Prop;
+    SerializedProperty ActionRequestDiceSlots_Prop;
+    SerializedProperty MultiValue_Prop;
     SerializedProperty ActionRewardText_Prop;
     SerializedProperty IsThereProceedButton_Prop;
 
@@ -37,11 +41,14 @@ public class ContentSOEditor : Editor
         QuestSeal_Prop = serializedObject.FindProperty("questSeal");
         IsThereCancelButton_Prop = serializedObject.FindProperty("isThereCancelButton");
 
+        BackgroundImage_Prop = serializedObject.FindProperty("backgroundImage");
         BodyText_Prop = serializedObject.FindProperty("bodyText");
         CancelText_Prop = serializedObject.FindProperty("cancelText");
 
         ActionTitle_Prop = serializedObject.FindProperty("actionTitle");
         ActionSeal_Prop = serializedObject.FindProperty("actionSeal");
+        ActionRequestDiceSlots_Prop = serializedObject.FindProperty("actionRequestDiceSlots");
+        MultiValue_Prop = serializedObject.FindProperty("multiValue");
         ActionRewardText_Prop = serializedObject.FindProperty("actionRewardText");
         IsThereProceedButton_Prop = serializedObject.FindProperty("isThereProceedButton");
     }
@@ -69,6 +76,7 @@ public class ContentSOEditor : Editor
         {
             EditorGUILayout.PropertyField(ContentTemplate_Prop);
 
+            EditorGUILayout.PropertyField(BackgroundImage_Prop);
             EditorGUILayout.PropertyField(BodyText_Prop);
             EditorGUILayout.PropertyField(CancelText_Prop);
         }
@@ -78,6 +86,8 @@ public class ContentSOEditor : Editor
 
             EditorGUILayout.PropertyField(ActionTitle_Prop);
             EditorGUILayout.PropertyField(ActionSeal_Prop);
+            EditorGUILayout.PropertyField(ActionRequestDiceSlots_Prop);
+            EditorGUILayout.PropertyField(MultiValue_Prop);
             EditorGUILayout.PropertyField(ActionRewardText_Prop);
             EditorGUILayout.PropertyField(IsThereProceedButton_Prop);
         }

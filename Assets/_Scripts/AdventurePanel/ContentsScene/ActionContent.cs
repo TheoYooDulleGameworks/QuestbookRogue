@@ -10,6 +10,7 @@ public class ActionContent : MonoBehaviour, IContent
     [Header("Components")]
     [SerializeField] private TextMeshProUGUI actionTitleTMPro = null;
     [SerializeField] private RectTransform actionSealRect = null;
+    [SerializeField] private RectTransform slotParentRect = null;
     [SerializeField] private TextMeshProUGUI rewardTitleTMPro = null;
     [SerializeField] private RectTransform proceedButtonRect = null;
 
@@ -19,8 +20,9 @@ public class ActionContent : MonoBehaviour, IContent
     [SerializeField] private Sprite mouseOverProceedButton;
     [SerializeField] private Sprite mouseDownProceedButton;
 
-    // [Header("Dice Slots")]
-    // [SerializeField] List<DiceSlot> possibleDiceSlots;
+    [Header("DiceSlot Layout")]
+    private int diceSlotSeat = 0;
+
 
     public void SetContentComponents(ContentSO _contentData)
     {
@@ -29,6 +31,37 @@ public class ActionContent : MonoBehaviour, IContent
         actionTitleTMPro.text = contentData.actionTitle;
         actionSealRect.GetComponent<Image>().sprite = contentData.actionSeal;
         rewardTitleTMPro.text = contentData.actionRewardText;
+
+        for (int i = 0; i < contentData.actionRequestDiceSlots.Count; i++)
+        {
+            GameObject requestDiceSlot = Instantiate(contentData.actionRequestDiceSlots[i].slotPrefab);
+            requestDiceSlot.transform.SetParent(slotParentRect, false);
+            requestDiceSlot.name = $"requestDiceSlot_({i + 1})";
+
+            requestDiceSlot.GetComponent<RectTransform>().anchoredPosition = new Vector2(-138 + (diceSlotSeat * 92), 26);
+
+            if (contentData.multiValue != null && contentData.multiValue.Count > 0)
+            {
+                Debug.Log(contentData.multiValue[i]);
+
+                if (contentData.multiValue[i] != 0)
+                {
+                    requestDiceSlot.GetComponent<RectTransform>().anchoredPosition = requestDiceSlot.GetComponent<RectTransform>().anchoredPosition + new Vector2(46, 0);
+                    diceSlotSeat += 2;
+                }
+                else
+                {
+                    diceSlotSeat += 1;
+                }
+            }
+            else
+            {
+                diceSlotSeat += 1;
+            }
+
+
+            requestDiceSlot.GetComponent<DiceSlot>().SetSlotComponents(contentData, i, contentData.actionRequestDiceSlots[i]);
+        }
 
         if (contentData.isThereProceedButton)
         {

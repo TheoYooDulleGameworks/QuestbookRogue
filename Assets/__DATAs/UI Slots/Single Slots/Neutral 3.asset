@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e8c033de737448198340c180ac47f4c, type: 3}
+  m_Name: Neutral 3
+  m_EditorClassIdentifier: 
+  slotPrefab: {fileID: 3156067049281004811, guid: 9f07a191f12604d1d80526a557ac9b35, type: 3}
+  requestDiceTypes: 01000000020000000300000004000000
+  requestDiceValue: 3
+  defaultSlotSprite: {fileID: -2009969774, guid: 53cf0eb67944545b4911e2d3e8ae2cf7, type: 3}
+  checkingSlotSprite: {fileID: -232664641, guid: 53cf0eb67944545b4911e2d3e8ae2cf7, type: 3}
+  succeedSlotSprite: {fileID: -232664641, guid: 53cf0eb67944545b4911e2d3e8ae2cf7, type: 3}

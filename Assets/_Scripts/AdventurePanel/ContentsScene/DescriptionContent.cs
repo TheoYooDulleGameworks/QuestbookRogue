@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class DescriptionContent : MonoBehaviour, IContent
 {
@@ -7,6 +8,7 @@ public class DescriptionContent : MonoBehaviour, IContent
     [SerializeField] private ContentSO contentData = null;
 
     [Header("Components")]
+    [SerializeField] private RectTransform backgroundImageRect = null;
     [SerializeField] private TextMeshProUGUI bodyTextTMPro = null;
     [SerializeField] private TextMeshProUGUI cancelTextTMPro = null;
 
@@ -14,6 +16,7 @@ public class DescriptionContent : MonoBehaviour, IContent
     {
         contentData = _contentData;
 
+        backgroundImageRect.GetComponent<Image>().sprite = contentData.backgroundImage;
         bodyTextTMPro.text = contentData.bodyText;
         cancelTextTMPro.text = contentData.cancelText;
     }

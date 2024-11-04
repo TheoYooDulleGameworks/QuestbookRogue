@@ -28,14 +28,6 @@ public class ResourceUI : MonoBehaviour
         playerStatus.Provision.OnValueChanged -= UpdateProvisionUI;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TestResourceCoin();
-        }
-    }
-
     private void SetDefaultResources()
     {
         UpdateCoinUI();
@@ -226,18 +218,5 @@ public class ResourceUI : MonoBehaviour
             default:
                 break;
         }
-    }
-
-    private void TestResourceCoin()
-    {
-        playerStatus.Coin.AddValue(1);
-        playerStatus.Provision.AddValue(1);
-
-        playerStatus.currentHp.AddValue(1);
-        playerStatus.maxHp.AddValue(1);
-        playerStatus.currentSp.AddValue(1);
-        playerStatus.maxSp.AddValue(1);
-        playerStatus.currentXp.AddValue(1);
-        playerStatus.Lv.AddValue(1);
     }
 }
