@@ -331,8 +331,6 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 yield return new WaitForSeconds(0.025f);
             }
         }
-
-        // 12개 = 1줄 씩 해서 순서 조정해주기 나중에 //
     }
 
     public void DiceRollAnim()
@@ -498,5 +496,4 @@ public enum DiceType
     Dexterity,
     Intelligence,
     Willpower,
-    Special,
 }

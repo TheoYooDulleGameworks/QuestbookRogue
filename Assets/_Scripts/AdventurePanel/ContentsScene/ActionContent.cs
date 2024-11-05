@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
+using System.Linq;
 
 public class ActionContent : MonoBehaviour, IContent
 {
@@ -16,15 +18,13 @@ public class ActionContent : MonoBehaviour, IContent
 
     [Header("Button Sprites")]
     [SerializeField] private Sprite defaultProceedButton;
-    [SerializeField] private Sprite activatedProceedButton;
-    [SerializeField] private Sprite mouseOverProceedButton;
-    [SerializeField] private Sprite mouseDownProceedButton;
 
     [Header("DiceSlot Layout")]
     private int diceSlotSeat = 0;
 
 
-    public void SetContentComponents(ContentSO _contentData)
+
+    public void SetContentComponents(QuestSO _questData, ContentSO _contentData)
     {
         contentData = _contentData;
 
@@ -42,8 +42,6 @@ public class ActionContent : MonoBehaviour, IContent
 
             if (contentData.multiValue != null && contentData.multiValue.Count > 0)
             {
-                Debug.Log(contentData.multiValue[i]);
-
                 if (contentData.multiValue[i] != 0)
                 {
                     requestDiceSlot.GetComponent<RectTransform>().anchoredPosition = requestDiceSlot.GetComponent<RectTransform>().anchoredPosition + new Vector2(46, 0);
@@ -59,15 +57,44 @@ public class ActionContent : MonoBehaviour, IContent
                 diceSlotSeat += 1;
             }
 
-
             requestDiceSlot.GetComponent<DiceSlot>().SetSlotComponents(contentData, i, contentData.actionRequestDiceSlots[i]);
+
+            if (requestDiceSlot.GetComponent<DiceSlot>() != null)
+            {
+                requestDiceSlot.GetComponent<DiceSlot>().OnConfirmed += CheckAllConfirmed;
+            }
         }
 
         if (contentData.isThereProceedButton)
         {
+            proceedButtonRect.GetComponent<ProceedButton>().currentQuestData = _questData;
+            proceedButtonRect.GetComponent<ProceedButton>().currentActionContentData = contentData;
             proceedButtonRect.gameObject.SetActive(true);
             proceedButtonRect.GetComponent<Image>().sprite = defaultProceedButton;
         }
+    }
+
+    private void CheckAllConfirmed()
+    {
+        List<DiceSlot> diceSlots = new List<DiceSlot>(slotParentRect.GetComponentsInChildren<DiceSlot>());
+
+        if (diceSlots.All(slot => slot.CheckConfirmed()))
+        {
+            ProceedActivate();
+        }
+        else
+        {
+            ProceedDeActivate();
+        }
+    }
+
+    private void ProceedActivate()
+    {
+        proceedButtonRect.GetComponent<ProceedButton>().ActivateButton();
+    }
+    private void ProceedDeActivate()
+    {
+        proceedButtonRect.GetComponent<ProceedButton>().DeActivateButton();
     }
 
     public void DestroyContent()

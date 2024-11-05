@@ -14,12 +14,14 @@ public class ContentSOEditor : Editor
 
     SerializedProperty ContentTemplate_Prop;
 
+    SerializedProperty BackgroundImage_Prop;
+
     SerializedProperty QuestTitle_Prop;
     SerializedProperty QuestImage_Prop;
     SerializedProperty QuestSeal_Prop;
     SerializedProperty IsThereCancelButton_Prop;
+    SerializedProperty IsFreeCancel_Prop;
 
-    SerializedProperty BackgroundImage_Prop;
     SerializedProperty BodyText_Prop;
     SerializedProperty CancelText_Prop;
 
@@ -28,7 +30,12 @@ public class ContentSOEditor : Editor
     SerializedProperty ActionRequestDiceSlots_Prop;
     SerializedProperty MultiValue_Prop;
     SerializedProperty ActionRewardText_Prop;
+    SerializedProperty RewardContents_Prop;
     SerializedProperty IsThereProceedButton_Prop;
+
+    SerializedProperty ConclusionTitle_Prop;
+    SerializedProperty ConclusionSeal_Prop;
+    SerializedProperty ConclusionText_Prop;
 
     private void OnEnable()
     {
@@ -36,12 +43,14 @@ public class ContentSOEditor : Editor
 
         ContentTemplate_Prop = serializedObject.FindProperty("contentTemplate");
 
+        BackgroundImage_Prop = serializedObject.FindProperty("backgroundImage");
+
         QuestTitle_Prop = serializedObject.FindProperty("questTitle");
         QuestImage_Prop = serializedObject.FindProperty("questImage");
         QuestSeal_Prop = serializedObject.FindProperty("questSeal");
         IsThereCancelButton_Prop = serializedObject.FindProperty("isThereCancelButton");
+        IsFreeCancel_Prop = serializedObject.FindProperty("isFreeCancel");
 
-        BackgroundImage_Prop = serializedObject.FindProperty("backgroundImage");
         BodyText_Prop = serializedObject.FindProperty("bodyText");
         CancelText_Prop = serializedObject.FindProperty("cancelText");
 
@@ -50,7 +59,12 @@ public class ContentSOEditor : Editor
         ActionRequestDiceSlots_Prop = serializedObject.FindProperty("actionRequestDiceSlots");
         MultiValue_Prop = serializedObject.FindProperty("multiValue");
         ActionRewardText_Prop = serializedObject.FindProperty("actionRewardText");
+        RewardContents_Prop = serializedObject.FindProperty("rewardContents");
         IsThereProceedButton_Prop = serializedObject.FindProperty("isThereProceedButton");
+
+        ConclusionTitle_Prop = serializedObject.FindProperty("conclusionTitle");
+        ConclusionSeal_Prop = serializedObject.FindProperty("conclusionSeal");
+        ConclusionText_Prop = serializedObject.FindProperty("conclusionText");
     }
 
     public override void OnInspectorGUI()
@@ -71,12 +85,14 @@ public class ContentSOEditor : Editor
             EditorGUILayout.PropertyField(QuestImage_Prop);
             EditorGUILayout.PropertyField(QuestSeal_Prop);
             EditorGUILayout.PropertyField(IsThereCancelButton_Prop);
+            EditorGUILayout.PropertyField(IsFreeCancel_Prop);
         }
         else if ((ContentSO.ContentType)ContentType_Prop.enumValueIndex == ContentSO.ContentType.Description)
         {
             EditorGUILayout.PropertyField(ContentTemplate_Prop);
 
             EditorGUILayout.PropertyField(BackgroundImage_Prop);
+
             EditorGUILayout.PropertyField(BodyText_Prop);
             EditorGUILayout.PropertyField(CancelText_Prop);
         }
@@ -89,7 +105,18 @@ public class ContentSOEditor : Editor
             EditorGUILayout.PropertyField(ActionRequestDiceSlots_Prop);
             EditorGUILayout.PropertyField(MultiValue_Prop);
             EditorGUILayout.PropertyField(ActionRewardText_Prop);
+            EditorGUILayout.PropertyField(RewardContents_Prop);
             EditorGUILayout.PropertyField(IsThereProceedButton_Prop);
+        }
+        else if ((ContentSO.ContentType)ContentType_Prop.enumValueIndex == ContentSO.ContentType.Conclusion)
+        {
+            EditorGUILayout.PropertyField(ContentTemplate_Prop);
+            
+            EditorGUILayout.PropertyField(BackgroundImage_Prop);
+            
+            EditorGUILayout.PropertyField(ConclusionTitle_Prop);
+            EditorGUILayout.PropertyField(ConclusionSeal_Prop);
+            EditorGUILayout.PropertyField(ConclusionText_Prop);
         }
 
         serializedObject.ApplyModifiedProperties();

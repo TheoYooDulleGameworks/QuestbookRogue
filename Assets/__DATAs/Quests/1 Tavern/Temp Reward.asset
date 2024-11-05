@@ -10,20 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4eff72458e07d4f70abc5c0322382142, type: 3}
-  m_Name: 1_1_5
+  m_Name: Temp Reward
   m_EditorClassIdentifier: 
-  contentType: 3
-  contentTemplate: {fileID: 6148890290424915317, guid: 0ddac7414eee2495b90d5be3f730f277, type: 3}
-  questTitle: 
-  questImage: {fileID: 0}
-  questSeal: {fileID: 0}
+  contentType: 1
+  contentTemplate: {fileID: 1137144648871385227, guid: 647be9955989341b8a0eef188d4d6879, type: 3}
+  questTitle: Tavern
+  questImage: {fileID: 1071830044, guid: 295ee6751e3284669a855cc492eab567, type: 3}
+  questSeal: {fileID: -1108391152, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   isThereCancelButton: 1
+  isFreeCancel: 1
   backgroundImage: {fileID: 0}
   bodyText: 
   cancelText: 
-  actionTitle: Rent a Room
-  actionSeal: {fileID: 939198109, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
-  actionRequestDiceSlots:
-  - {fileID: 11400000, guid: f52e0411dd52040058e21abacdc6eecc, type: 2}
-  actionRewardText: pay 3 Coins, Recover all the Stamina
+  actionTitle: 
+  actionSeal: {fileID: 0}
+  actionRequestDiceSlots: []
+  multiValue: 
+  actionRewardText: 
+  rewardContents: []
   isThereProceedButton: 1

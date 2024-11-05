@@ -17,11 +17,11 @@ public class ImageContent : MonoBehaviour, IContent
     [SerializeField] private Sprite defaultCancelButton;
     [SerializeField] private Sprite mouseOverCancelButton;
     [SerializeField] private Sprite mouseDownCancelButton;
-    [SerializeField] private Sprite activatedCompleteButton;
-    [SerializeField] private Sprite mouseOverCompleteButton;
-    [SerializeField] private Sprite mouseDownCompleteButton;
+    [SerializeField] private Sprite defaultFreeCancelButton;
+    [SerializeField] private Sprite mouseOverFreeCancelButton;
+    [SerializeField] private Sprite mouseDownFreeCancelButton;
 
-    public void SetContentComponents(ContentSO _contentData)
+    public void SetContentComponents(QuestSO _questData, ContentSO _contentData)
     {
         contentData = _contentData;
 
@@ -32,7 +32,18 @@ public class ImageContent : MonoBehaviour, IContent
         if (contentData.isThereCancelButton)
         {
             cancelButtonRect.gameObject.SetActive(true);
-            cancelButtonRect.GetComponent<Image>().sprite = defaultCancelButton;
+            cancelButtonRect.GetComponent<CancelButton>().currentQuestData = _questData;
+
+            if (contentData.isFreeCancel)
+            {
+                cancelButtonRect.GetComponent<Image>().sprite = defaultFreeCancelButton;
+                cancelButtonRect.GetComponent<CancelButton>().isFreeToCancel = true;
+            }
+            else
+            {
+                cancelButtonRect.GetComponent<Image>().sprite = defaultCancelButton;
+                cancelButtonRect.GetComponent<CancelButton>().isFreeToCancel = false;
+            }
         }
     }
 

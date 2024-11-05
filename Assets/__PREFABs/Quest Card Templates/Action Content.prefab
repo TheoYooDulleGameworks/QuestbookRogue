@@ -508,6 +508,7 @@ GameObject:
   - component: {fileID: 2974144148544012147}
   - component: {fileID: 7640788800246367988}
   - component: {fileID: 8784348497363550211}
+  - component: {fileID: 9130190163152873579}
   m_Layer: 5
   m_Name: Command Button
   m_TagString: Untagged
@@ -572,6 +573,24 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &9130190163152873579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5226946840676095486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313d240c1b2d74accb09323a934e526a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentQuestData: {fileID: 0}
+  currentActionContentData: {fileID: 0}
+  defaultProceedButton: {fileID: 1768117746, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
+  activatedProceedButton: {fileID: 1609490154, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
+  mouseOverProceedButton: {fileID: 590744605, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
+  mouseDownProceedButton: {fileID: -211975264, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
 --- !u!1 &6148890290424915317
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,9 +693,6 @@ MonoBehaviour:
   rewardTitleTMPro: {fileID: 1151937496890973351}
   proceedButtonRect: {fileID: 2974144148544012147}
   defaultProceedButton: {fileID: 1768117746, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
-  activatedProceedButton: {fileID: 1609490154, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
-  mouseOverProceedButton: {fileID: 590744605, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
-  mouseDownProceedButton: {fileID: -211975264, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
 --- !u!1 &7779495763306466155
 GameObject:
   m_ObjectHideFlags: 0

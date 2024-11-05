@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.EventSystems;
 using System.Linq;
+using System;
 
 public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
 {
@@ -30,7 +31,7 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
 
     [Header("bool Triggers")]
     [SerializeField] private bool isConfirmed;
-    [SerializeField] private bool canProceed;
+    public override event Action OnConfirmed;
     private Coroutine scaleCoroutine;
 
     private void OnEnable()
@@ -60,7 +61,7 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
             int multiConditionValue10th = conditionValue / 10;
             int multiConditionValue1th = conditionValue % 10;
 
-            if (multiConditionValue10th == 0)
+            if (conditionValue < 10)
             {
                 maxValueImage10th.GetComponent<Image>().sprite = null;
                 maxValueImage10th.gameObject.SetActive(false);
@@ -160,11 +161,13 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
         {
             GetComponent<Image>().sprite = succeedSprite;
             isConfirmed = true;
+            OnConfirmed?.Invoke();
         }
         else
         {
             GetComponent<Image>().sprite = defaultSprite;
             isConfirmed = false;
+            OnConfirmed?.Invoke();
         }
     }
 
@@ -201,15 +204,51 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (keepingDicePrefabs.Count == 0)
         {
-            if (keepingDicePrefabs.Count == 0)
+            return;
+        }
+
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            int j = keepingDicePrefabs.Count;
+
+            Debug.Log(j);
+
+            for (int i = 0; i < j; i++)
             {
-                return;
+                Debug.Log(i);
+
+                GetComponent<RectTransform>().localScale = new Vector3(1.35f, 1.35f, 1.35f);
+                if (scaleCoroutine != null)
+                {
+                    StopCoroutine(scaleCoroutine);
+                }
+                scaleCoroutine = StartCoroutine(ScaleDownToNormal());
+
+                keepingDicePrefabs.First().GetComponent<RollDice>().ActivateRollDice();
+                keepingDicePrefabs.First().GetComponent<RollDice>().PopUpAnim();
+
+                Vector2 mousePosition = Input.mousePosition;
+                Vector2 localPoint;
+                RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                    GetComponentInParent<Canvas>().GetComponent<RectTransform>(),
+                    mousePosition,
+                    null,
+                    out localPoint
+                );
+                keepingDicePrefabs.First().GetComponent<RectTransform>().anchoredPosition = localPoint + new Vector2(i * 30, i * -60);
+
+                int justValue = keepingDicePrefabs.First().GetComponent<RollDice>().DieValue();
+
+                currentValue -= justValue;
+
+                keepingDicePrefabs.Remove(keepingDicePrefabs.First());
             }
+        }
 
-            CursorManager.Instance.OnClickCursor();
-
+        else if (eventData.button == PointerEventData.InputButton.Left)
+        {
             GetComponent<RectTransform>().localScale = new Vector3(1.35f, 1.35f, 1.35f);
             if (scaleCoroutine != null)
             {
@@ -228,72 +267,78 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
                 null,
                 out localPoint
             );
+            keepingDicePrefabs.Last().GetComponent<RectTransform>().anchoredPosition = localPoint;
 
             int justValue = keepingDicePrefabs.Last().GetComponent<RollDice>().DieValue();
-
-            currentValue -= justValue;
-
-            int currentValue10th = currentValue / 10;
-            int currentValue1th = currentValue % 10;
-
-            if (currentValue == 0)
-            {
-
-                currentValueImage10th.GetComponent<Image>().sprite = null;
-                currentValueImage1th.GetComponent<Image>().sprite = null;
-
-                if (currentValueImage10th.gameObject.activeSelf)
-                {
-                    currentValueImage10th.gameObject.SetActive(false);
-                }
-                if (currentValueImage1th.gameObject.activeSelf)
-                {
-                    currentValueImage1th.gameObject.SetActive(false);
-                }
-            }
-            else if (currentValue < 10)
-            {
-                currentValueImage10th.GetComponent<Image>().sprite = null;
-                if (currentValueImage10th.gameObject.activeSelf)
-                {
-                    currentValueImage10th.gameObject.SetActive(false);
-                }
-                if (!currentValueImage1th.gameObject.activeSelf)
-                {
-                    currentValueImage1th.gameObject.SetActive(true);
-                }
-                currentValueImage1th.GetComponent<Image>().sprite = currentSprites[currentValue1th];
-            }
-            else
-            {
-                if (!currentValueImage10th.gameObject.activeSelf)
-                {
-                    currentValueImage10th.gameObject.SetActive(true);
-                }
-                if (!currentValueImage1th.gameObject.activeSelf)
-                {
-                    currentValueImage1th.gameObject.SetActive(true);
-                }
-
-                currentValueImage10th.GetComponent<Image>().sprite = currentSprites[currentValue10th];
-                currentValueImage1th.GetComponent<Image>().sprite = currentSprites[currentValue1th];
-            }
-
-            keepingDicePrefabs.Last().GetComponent<RectTransform>().anchoredPosition = localPoint;
             keepingDicePrefabs.Remove(keepingDicePrefabs.Last());
 
-            if (keepingDicePrefabs.Count != 0)
+            currentValue -= justValue;
+        }
+
+        else
+        {
+            return;
+        }
+
+
+
+        int currentValue10th = currentValue / 10;
+        int currentValue1th = currentValue % 10;
+
+        if (currentValue == 0)
+        {
+
+            currentValueImage10th.GetComponent<Image>().sprite = null;
+            currentValueImage1th.GetComponent<Image>().sprite = null;
+
+            if (currentValueImage10th.gameObject.activeSelf)
             {
-                slotDiceImage.GetComponent<Image>().sprite = keepingDicePrefabs.Last().GetComponent<RollDice>().valueSlotSprite;
+                currentValueImage10th.gameObject.SetActive(false);
             }
-            else
+            if (currentValueImage1th.gameObject.activeSelf)
             {
-                slotDiceImage.GetComponent<Image>().sprite = null;
-                slotDiceImage.gameObject.SetActive(false);
+                currentValueImage1th.gameObject.SetActive(false);
+            }
+        }
+        else if (currentValue < 10)
+        {
+            currentValueImage10th.GetComponent<Image>().sprite = null;
+            if (currentValueImage10th.gameObject.activeSelf)
+            {
+                currentValueImage10th.gameObject.SetActive(false);
+            }
+            if (!currentValueImage1th.gameObject.activeSelf)
+            {
+                currentValueImage1th.gameObject.SetActive(true);
+            }
+            currentValueImage1th.GetComponent<Image>().sprite = currentSprites[currentValue1th];
+        }
+        else
+        {
+            if (!currentValueImage10th.gameObject.activeSelf)
+            {
+                currentValueImage10th.gameObject.SetActive(true);
+            }
+            if (!currentValueImage1th.gameObject.activeSelf)
+            {
+                currentValueImage1th.gameObject.SetActive(true);
             }
 
-            IsConfirmCheck();
+            currentValueImage10th.GetComponent<Image>().sprite = currentSprites[currentValue10th];
+            currentValueImage1th.GetComponent<Image>().sprite = currentSprites[currentValue1th];
         }
+
+        if (keepingDicePrefabs.Count != 0)
+        {
+            slotDiceImage.GetComponent<Image>().sprite = keepingDicePrefabs.Last().GetComponent<RollDice>().valueSlotSprite;
+        }
+        else
+        {
+            slotDiceImage.GetComponent<Image>().sprite = null;
+            slotDiceImage.gameObject.SetActive(false);
+        }
+
+        IsConfirmCheck();
     }
 
 
@@ -315,4 +360,15 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
         scaleCoroutine = null;
     }
 
+        public override bool CheckConfirmed()
+    {
+        if (isConfirmed)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

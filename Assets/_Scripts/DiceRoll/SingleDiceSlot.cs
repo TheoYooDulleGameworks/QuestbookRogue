@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.EventSystems;
+using System;
 
 public class SingleDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
 {
@@ -22,7 +23,7 @@ public class SingleDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, 
 
     [Header("bool Triggers")]
     [SerializeField] private bool isConfirmed;
-    [SerializeField] private bool canProceed;
+    public override event Action OnConfirmed;
     private Coroutine scaleCoroutine;
 
     private void OnEnable()
@@ -75,6 +76,7 @@ public class SingleDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, 
                 keepingDicePrefab = rollDice.gameObject;
 
                 isConfirmed = true;
+                OnConfirmed?.Invoke();
             }
             else
             {
@@ -117,7 +119,7 @@ public class SingleDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, 
             }
 
             isConfirmed = false;
-            CursorManager.Instance.OnClickCursor();
+            OnConfirmed?.Invoke();
 
             GetComponent<RectTransform>().localScale = new Vector3(1.35f, 1.35f, 1.35f);
             if (scaleCoroutine != null)
@@ -170,4 +172,15 @@ public class SingleDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, 
         scaleCoroutine = null;
     }
 
+    public override bool CheckConfirmed()
+    {
+        if (isConfirmed)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

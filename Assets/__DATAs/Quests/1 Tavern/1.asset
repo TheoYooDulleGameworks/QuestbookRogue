@@ -18,7 +18,8 @@ MonoBehaviour:
   questSeal: {fileID: -1108391152, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   questType: 5
   selectionDatas:
-  - selectionName: Visit the Place
+  - parentQuestData: {fileID: 11400000}
+    selectionName: Visit the Place
     selectionStamina: 1
     questContents:
     - {fileID: 11400000, guid: 7259e48a62438420f8f303f268cdc0b1, type: 2}

@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Collections;
 
 public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -29,12 +30,21 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         get { return discovered; }
     }
 
-    [Header("In Transition")]
+    [Header("bool Trigger")]
     [SerializeField] private bool inTransition = false;
+    [SerializeField] private bool isSelectionActivated = false;
+
+    private RectTransform rectTransform;
+    private Coroutine scaleCoroutine;
 
     private void Awake()
     {
         SetQuestComponents();
+    }
+
+    private void OnEnable()
+    {
+        rectTransform = GetComponent<RectTransform>();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -46,20 +56,26 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         if (!Discovered)
         {
-            questThumbnail.anchoredPosition = questThumbnail.anchoredPosition + new Vector2(0, 8);
+            rectTransform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
+            if (scaleCoroutine != null)
+            {
+                StopCoroutine(scaleCoroutine);
+            }
+            scaleCoroutine = StartCoroutine(ScaleDownToNormal());
+
             undiscoveredQuestBelt.gameObject.SetActive(true);
             return;
         }
-
-        questThumbnail.anchoredPosition = questThumbnail.anchoredPosition + new Vector2(0, 8);
-        questBelt.anchoredPosition = questBelt.anchoredPosition + new Vector2(0, 8);
-        questSeal.anchoredPosition = questSeal.anchoredPosition + new Vector2(0, 8);
-
-        questSelection.gameObject.SetActive(true);
-        List<Image> selectionBelts = new List<Image>(questSelection.GetComponentsInChildren<Image>());
-        foreach (var image in selectionBelts)
+        else
         {
-            image.raycastTarget = true;
+            rectTransform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
+            if (scaleCoroutine != null)
+            {
+                StopCoroutine(scaleCoroutine);
+            }
+            scaleCoroutine = StartCoroutine(ScaleDownToNormal());
+
+            ActivateSelection();
         }
     }
 
@@ -72,30 +88,32 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         if (!Discovered)
         {
-            questThumbnail.anchoredPosition = questThumbnail.anchoredPosition + new Vector2(0, -8);
             undiscoveredQuestBelt.gameObject.SetActive(false);
             return;
         }
 
-        questThumbnail.anchoredPosition = questThumbnail.anchoredPosition + new Vector2(0, -8);
-        questBelt.anchoredPosition = questBelt.anchoredPosition + new Vector2(0, -8);
-        questSeal.anchoredPosition = questSeal.anchoredPosition + new Vector2(0, -8);
-
-        questSelection.gameObject.SetActive(false);
-
-        List<Image> selectionBelts = new List<Image>(questSelection.GetComponentsInChildren<Image>());
-        foreach (var image in selectionBelts)
+        if (isSelectionActivated)
         {
-            image.raycastTarget = false;
+            DeActivateSelection();
         }
     }
 
-    public void DropDownQuestCard()
+    // SELECTIONS //
+
+    private void ActivateSelection()
     {
-        questThumbnail.anchoredPosition = questThumbnail.anchoredPosition + new Vector2(0, -8);
-        questBelt.anchoredPosition = questBelt.anchoredPosition + new Vector2(0, -8);
-        questSeal.anchoredPosition = questSeal.anchoredPosition + new Vector2(0, -8);
+        isSelectionActivated = true;
+        questSelection.gameObject.SetActive(true);
+        List<Image> selectionBelts = new List<Image>(questSelection.GetComponentsInChildren<Image>());
+        foreach (var image in selectionBelts)
+        {
+            image.raycastTarget = true;
+        }
+    }
 
+    public void DeActivateSelection()
+    {
+        isSelectionActivated = false;
         questSelection.gameObject.SetActive(false);
         List<Image> selectionBelts = new List<Image>(questSelection.GetComponentsInChildren<Image>());
         foreach (var image in selectionBelts)
@@ -103,6 +121,8 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             image.raycastTarget = false;
         }
     }
+
+    // QUESTS //
 
     public void ActivateQuestCard()
     {
@@ -113,6 +133,8 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         inTransition = true;
     }
+
+    // QUEST COMPONENTS SETTINGS //
 
     public void SetQuestComponents()
     {
@@ -166,8 +188,28 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
-    public void ResetData()
+    public void ResetQuestComponents()
     {
 
+    }
+
+    // Scale Anim //
+
+    private IEnumerator ScaleDownToNormal()
+    {
+        Vector3 startScale = rectTransform.localScale;
+        Vector3 endScale = new Vector3(1f, 1f, 1f);
+        float duration = 0.2f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            rectTransform.localScale = Vector3.Lerp(startScale, endScale, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        rectTransform.localScale = endScale;
+        scaleCoroutine = null;
     }
 }

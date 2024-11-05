@@ -1,13 +1,10 @@
 using UnityEngine;
 
-public class BlankContent : MonoBehaviour, IContent
+public class RewardContent : MonoBehaviour, IContent
 {
-    [Header("Content Data")]
-    [SerializeField] private ContentSO contentData = null;
-
     public void SetContentComponents(QuestSO _questData, ContentSO _contentData)
     {
-        contentData = _contentData;
+        throw new System.NotImplementedException();
     }
 
     public void DestroyContent()

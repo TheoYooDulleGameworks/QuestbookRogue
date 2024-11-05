@@ -3,17 +3,24 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class SceneController : MonoBehaviour
+public class SceneController : Singleton<SceneController>
 {
-    [SerializeField] private Image transitionImage;
+    [Header("Playing Data")]
+    [SerializeField] private int currentQuestIndex;
 
+    [Header("Components")]
     [SerializeField] private RectTransform selectsScene;
     [SerializeField] private RectTransform contentsScene;
     [SerializeField] private RectTransform rollDicePanel;
+    [SerializeField] private Image transitionImage;
+
+    [Header("Player Assets")]
     [SerializeField] private PlayerDiceSO playerDiceData;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         if (!selectsScene.gameObject.activeSelf)
         {
             selectsScene.gameObject.SetActive(true);
@@ -31,35 +38,48 @@ public class SceneController : MonoBehaviour
         ResetRollDicePanel();
     }
 
-    public void TransitionToContents(SelectionData _selectionData)
+
+
+    // PUBLICS //
+
+    public void TransitionToContents(QuestSO _questData, SelectionSO _selectionData)
     {
-        SetContentsScene(_selectionData);
-        SetDicePanel();
-        StartCoroutine(FadeAndContents());
+        StartCoroutine(FadeAndContents(_questData, _selectionData));
     }
 
-    public void TransitionToSelects()
+    public void TransitionToRewards(QuestSO _questData, ContentSO _contentData)
     {
-        StartCoroutine(FadeAndSelects());
+        StartCoroutine(FadeAndRewards(_questData, _contentData));
+    }
+
+    public void TransitionToSelects(QuestSO _questData)
+    {
+        StartCoroutine(FadeAndSelects(_questData));
+    }
+
+
+
+    // PRIVATES //
+
+    private IEnumerator FadeAndRewards(QuestSO _questData, ContentSO _contentData)
+    {
+        yield return StartCoroutine(FadeIn());
+
         ResetContentsScene();
         ResetRollDicePanel();
+        SetRewardsScene(_questData, _contentData);
 
-        List<Quest> selectableQuests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
-        foreach (var quest in selectableQuests)
-        {
-            quest.ActivateQuestCard();
-        }
+        yield return StartCoroutine(FadeOut());
     }
 
-    private IEnumerator FadeAndContents()
+    private IEnumerator FadeAndContents(QuestSO _questData, SelectionSO _selectionData)
     {
-        List<Quest> selectableQuests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
-        foreach (var quest in selectableQuests)
-        {
-            quest.DeActivateQuestCard();
-        }
 
         yield return StartCoroutine(FadeIn());
+
+        DeActivateSelectsScene();
+        SetContentsScene(_questData, _selectionData);
+        SetRollDicePanel();
 
         selectsScene.gameObject.SetActive(false);
         contentsScene.gameObject.SetActive(true);
@@ -70,7 +90,48 @@ public class SceneController : MonoBehaviour
         yield return StartCoroutine(FadeOut());
     }
 
-    private void SetContentsScene(SelectionData _selectionData)
+    private IEnumerator FadeAndSelects(QuestSO _questData)
+    {
+        yield return StartCoroutine(FadeIn());
+
+        ResetContentsScene();
+        ResetRollDicePanel();
+        ActivateSelectsScene();
+
+        contentsScene.gameObject.SetActive(false);
+        rollDicePanel.gameObject.SetActive(false);
+        selectsScene.gameObject.SetActive(true);
+
+        InfoTabController.Instance.HandleDiceTabActivate();
+
+        yield return StartCoroutine(FadeOut());
+    }
+
+
+
+    // SELECTS SCENE //
+
+    private void ActivateSelectsScene()
+    {
+        List<Quest> selectableQuests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
+        foreach (var quest in selectableQuests)
+        {
+            quest.ActivateQuestCard();
+        }
+    }
+
+    private void DeActivateSelectsScene()
+    {
+        List<Quest> selectableQuests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
+        foreach (var quest in selectableQuests)
+        {
+            quest.DeActivateQuestCard();
+        }
+    }
+
+    // CONTENTS/REWARDS SCENE //
+
+    private void SetContentsScene(QuestSO _questData, SelectionSO _selectionData)
     {
         for (int i = 0; i < _selectionData.questContents.Count; i++)
         {
@@ -78,7 +139,19 @@ public class SceneController : MonoBehaviour
             content.transform.SetParent(contentsScene, false);
             content.name = $"content_({i + 1})";
 
-            content.GetComponent<IContent>().SetContentComponents(_selectionData.questContents[i]);
+            content.GetComponent<IContent>().SetContentComponents(_questData, _selectionData.questContents[i]);
+        }
+    }
+
+    private void SetRewardsScene(QuestSO _questData, ContentSO _contentData)
+    {
+        for (int i = 0; i < _contentData.rewardContents.Count; i++)
+        {
+            GameObject content = Instantiate(_contentData.rewardContents[i].contentTemplate);
+            content.transform.SetParent(contentsScene, false);
+            content.name = $"reward Content_({i + 1})";
+
+            content.GetComponent<IContent>().SetContentComponents(_questData, _contentData.rewardContents[i]);
         }
     }
 
@@ -91,7 +164,11 @@ public class SceneController : MonoBehaviour
         }
     }
 
-    private void SetDicePanel()
+
+
+    // ROLL DICE PANEL //
+
+    private void SetRollDicePanel()
     {
         int StrAdvancedDiceAmount = playerDiceData.StrAdvancedDice.Value;
         int DexAdvancedDiceAmount = playerDiceData.DexAdvancedDice.Value;
@@ -161,26 +238,19 @@ public class SceneController : MonoBehaviour
             dicePrefabs.Add(WilNormalDicePrefab);
         }
 
+        int rowCount = Mathf.CeilToInt(dicePrefabs.Count / 12f);
+        int rowHeight = 100;
+        int baseYPosition = -470 + ((rowCount - 1) * rowHeight);
+
         for (int i = 0; i < dicePrefabs.Count; i++)
         {
-            switch (i)
-            {
-                case int n when n >= 0 && n <= 11:
-                    dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-275 + (i * 100), -470);
-                    break;
-                case int n when n > 11 && n <= 23:
-                    dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-275 + ((i - 12) * 100), -370);
-                    break;
-                case int n when n > 23 && n <= 35:
-                    dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-275 + ((i - 24) * 100), -270);
-                    break;
-                case int n when n > 35 && n <= 47:
-                    dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-275 + ((i - 36) * 100), -170);
-                    break;
-                case int n when n > 47 && n <= 59:
-                    dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(-275 + ((i - 48) * 100), -70);
-                    break;
-            }
+            int currentRow = i / 12;
+            int indexInRow = i % 12;
+
+            float xPosition = -275 + (indexInRow * 100);
+            float yPosition = baseYPosition - (currentRow * rowHeight);
+
+            dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(xPosition, yPosition);
         }
     }
 
@@ -191,25 +261,6 @@ public class SceneController : MonoBehaviour
         {
             rollDices.DestroyRollDice();
         }
-    }
-
-    private IEnumerator FadeAndSelects()
-    {
-        List<Quest> selectableQuests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
-        foreach (var quest in selectableQuests)
-        {
-            quest.DeActivateQuestCard();
-        }
-
-        yield return StartCoroutine(FadeIn());
-
-        contentsScene.gameObject.SetActive(false);
-        rollDicePanel.gameObject.SetActive(false);
-        selectsScene.gameObject.SetActive(true);
-
-        InfoTabController.Instance.HandleDiceTabActivate();
-
-        yield return StartCoroutine(FadeOut());
     }
 
 

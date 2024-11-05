@@ -10,21 +10,27 @@ public class ContentSO : ScriptableObject
         Image,
         Description,
         Action,
-        Attack,
+        Conclusion,
+        Reward,
+        Choose,
     }
 
     public ContentType contentType;
 
     [SerializeField] public GameObject contentTemplate;
 
+    // Common //
+
+    public Sprite backgroundImage;
+
     // Image Content //
     public string questTitle;
     public Sprite questImage;
     public Sprite questSeal;
     public bool isThereCancelButton = true;
+    public bool isFreeCancel = false;
 
     // Description Content //
-    public Sprite backgroundImage;
     [TextArea] public string bodyText;
     [TextArea] public string cancelText;
 
@@ -34,5 +40,14 @@ public class ContentSO : ScriptableObject
     public List<SlotSO> actionRequestDiceSlots;
     public List<int> multiValue;
     [TextArea] public string actionRewardText;
+    public List<ContentSO> rewardContents;
     public bool isThereProceedButton = true;
+
+    // Conclusion Content //
+
+    public string conclusionTitle;
+    public Sprite conclusionSeal;
+    [TextArea] public string conclusionText;
+
+
 }

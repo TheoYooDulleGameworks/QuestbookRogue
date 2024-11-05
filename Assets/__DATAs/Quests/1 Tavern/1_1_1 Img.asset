@@ -18,10 +18,14 @@ MonoBehaviour:
   questImage: {fileID: 1071830044, guid: 295ee6751e3284669a855cc492eab567, type: 3}
   questSeal: {fileID: -1108391152, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   isThereCancelButton: 1
+  isFreeCancel: 1
+  backgroundImage: {fileID: 0}
   bodyText: 
   cancelText: 
   actionTitle: 
   actionSeal: {fileID: 0}
   actionRequestDiceSlots: []
+  multiValue: 
   actionRewardText: 
+  rewardContents: []
   isThereProceedButton: 1
