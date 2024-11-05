@@ -10,22 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4eff72458e07d4f70abc5c0322382142, type: 3}
-  m_Name: 1_1_1 Img
+  m_Name: 0_1 Img
   m_EditorClassIdentifier: 
   contentType: 1
   contentTemplate: {fileID: 1137144648871385227, guid: 647be9955989341b8a0eef188d4d6879, type: 3}
-  questTitle: Tavern
-  questImage: {fileID: 1071830044, guid: 295ee6751e3284669a855cc492eab567, type: 3}
-  questSeal: {fileID: -1108391152, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  questTitle: Blacksmith's Hut
+  questImage: {fileID: -2093589468, guid: 295ee6751e3284669a855cc492eab567, type: 3}
+  questSeal: {fileID: -623794718, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   isThereCancelButton: 1
-  isFreeCancel: 1
-  backgroundImage: {fileID: 0}
   bodyText: 
   cancelText: 
   actionTitle: 
   actionSeal: {fileID: 0}
-  actionRequestDiceSlots: []
-  multiValue: 
   actionRewardText: 
-  rewardContents: []
   isThereProceedButton: 1

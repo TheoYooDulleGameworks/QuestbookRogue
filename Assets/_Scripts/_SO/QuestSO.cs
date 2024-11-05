@@ -11,16 +11,6 @@ public class QuestSO : ScriptableObject
     [SerializeField] public Sprite questSeal;
     [SerializeField] public QuestType questType;
 
-    [SerializeField] public List<SelectionSO> selectionDatas;
-}
-
-[System.Serializable]
-public class SelectionSO
-{
-    [SerializeField] public QuestSO parentQuestData;
-    [SerializeField] public string selectionName;
-    [SerializeField] public int selectionStamina;
-
     [SerializeField] public List<ContentSO> questContents;
 }
 

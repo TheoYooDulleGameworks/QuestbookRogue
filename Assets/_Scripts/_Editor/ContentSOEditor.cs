@@ -29,6 +29,7 @@ public class ContentSOEditor : Editor
     SerializedProperty ActionSeal_Prop;
     SerializedProperty ActionRequestDiceSlots_Prop;
     SerializedProperty MultiValue_Prop;
+    SerializedProperty PayValue_Prop;
     SerializedProperty ActionRewardText_Prop;
     SerializedProperty RewardContents_Prop;
     SerializedProperty IsThereProceedButton_Prop;
@@ -58,6 +59,7 @@ public class ContentSOEditor : Editor
         ActionSeal_Prop = serializedObject.FindProperty("actionSeal");
         ActionRequestDiceSlots_Prop = serializedObject.FindProperty("actionRequestDiceSlots");
         MultiValue_Prop = serializedObject.FindProperty("multiValue");
+        PayValue_Prop = serializedObject.FindProperty("payValue");
         ActionRewardText_Prop = serializedObject.FindProperty("actionRewardText");
         RewardContents_Prop = serializedObject.FindProperty("rewardContents");
         IsThereProceedButton_Prop = serializedObject.FindProperty("isThereProceedButton");
@@ -104,6 +106,7 @@ public class ContentSOEditor : Editor
             EditorGUILayout.PropertyField(ActionSeal_Prop);
             EditorGUILayout.PropertyField(ActionRequestDiceSlots_Prop);
             EditorGUILayout.PropertyField(MultiValue_Prop);
+            EditorGUILayout.PropertyField(PayValue_Prop);
             EditorGUILayout.PropertyField(ActionRewardText_Prop);
             EditorGUILayout.PropertyField(RewardContents_Prop);
             EditorGUILayout.PropertyField(IsThereProceedButton_Prop);

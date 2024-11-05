@@ -99,14 +99,10 @@ MonoBehaviour:
   questBelt: {fileID: 872670714037961796}
   questSeal: {fileID: 5702206244036507973}
   questTitleText: {fileID: 3216857719807330296}
-  questSelection: {fileID: 7243333869114300595}
-  selectionBeltPrefab: {fileID: 4225541294789645114, guid: 4b3fdfe2148324ba59d226d1cbb6922b, type: 3}
-  smallStaminaPrefab: {fileID: 2487993932408419568, guid: d7b431096ba294c8bb4ea0497e2721b7, type: 3}
   undiscoveredQuestThumbnail: {fileID: 21300000, guid: 90e69c2cad0dc41378fe410eed64e157, type: 3}
   undiscoveredQuestBelt: {fileID: 2907832140934107542}
   discovered: 1
   inTransition: 0
-  isSelectionActivated: 0
 --- !u!1 &1270184863502770417
 GameObject:
   m_ObjectHideFlags: 0

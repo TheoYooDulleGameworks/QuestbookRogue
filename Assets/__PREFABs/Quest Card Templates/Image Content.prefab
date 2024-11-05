@@ -310,6 +310,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9ed2d8cf5a5447c087ff6458af69da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentQuestData: {fileID: 0}
+  isFreeToCancel: 0
   defaultCancelButton: {fileID: 1499729013, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
   mouseOverCancelButton: {fileID: 597708561, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
   mouseDownCancelButton: {fileID: 2133787984, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}

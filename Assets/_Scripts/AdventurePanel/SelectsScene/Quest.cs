@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections;
 
-public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [Header("Quest Data")]
     [SerializeField] private QuestSO questData = null;
@@ -15,11 +15,6 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] private RectTransform questBelt = null;
     [SerializeField] private RectTransform questSeal = null;
     [SerializeField] private TextMeshProUGUI questTitleText = null;
-
-    [Header("Selections")]
-    [SerializeField] private RectTransform questSelection = null;
-    [SerializeField] private GameObject selectionBeltPrefab = null;
-    [SerializeField] private GameObject smallStaminaPrefab = null;
 
     [Header("About Discovery")]
     [SerializeField] private Sprite undiscoveredQuestThumbnail = null;
@@ -32,7 +27,6 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     [Header("bool Trigger")]
     [SerializeField] private bool inTransition = false;
-    [SerializeField] private bool isSelectionActivated = false;
 
     private RectTransform rectTransform;
     private Coroutine scaleCoroutine;
@@ -74,8 +68,6 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 StopCoroutine(scaleCoroutine);
             }
             scaleCoroutine = StartCoroutine(ScaleDownToNormal());
-
-            ActivateSelection();
         }
     }
 
@@ -91,36 +83,14 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             undiscoveredQuestBelt.gameObject.SetActive(false);
             return;
         }
-
-        if (isSelectionActivated)
-        {
-            DeActivateSelection();
-        }
     }
 
-    // SELECTIONS //
-
-    private void ActivateSelection()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        isSelectionActivated = true;
-        questSelection.gameObject.SetActive(true);
-        List<Image> selectionBelts = new List<Image>(questSelection.GetComponentsInChildren<Image>());
-        foreach (var image in selectionBelts)
-        {
-            image.raycastTarget = true;
-        }
+        SceneController.Instance.TransitionToContents(questData);
     }
 
-    public void DeActivateSelection()
-    {
-        isSelectionActivated = false;
-        questSelection.gameObject.SetActive(false);
-        List<Image> selectionBelts = new List<Image>(questSelection.GetComponentsInChildren<Image>());
-        foreach (var image in selectionBelts)
-        {
-            image.raycastTarget = false;
-        }
-    }
+
 
     // QUESTS //
 
@@ -134,6 +104,8 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         inTransition = true;
     }
 
+
+
     // QUEST COMPONENTS SETTINGS //
 
     public void SetQuestComponents()
@@ -145,30 +117,6 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             if (questData != null)
             {
-                List<GameObject> instantiatedSelections = new List<GameObject>();
-
-                for (int i = 0; i < questData.selectionDatas.Count; i++)
-                {
-                    GameObject selectionBelt = Instantiate(selectionBeltPrefab);
-                    selectionBelt.GetComponent<Selection>().selectionData = questData.selectionDatas[i];
-
-                    selectionBelt.transform.SetParent(questSelection, false);
-                    selectionBelt.name = $"selectionBelt ({i + 1})";
-                    instantiatedSelections.Add(selectionBelt);
-
-                    instantiatedSelections[i].GetComponentInChildren<TextMeshProUGUI>().text = questData.selectionDatas[i].selectionName;
-
-                    var selectionStaminaParent = instantiatedSelections[i].GetComponentInChildren<HorizontalLayoutGroup>().GetComponent<RectTransform>();
-
-                    for (int j = 0; j < questData.selectionDatas[i].selectionStamina; j++)
-                    {
-                        GameObject selectionStamina = Instantiate(smallStaminaPrefab);
-                        selectionStamina.transform.SetParent(selectionStaminaParent, false);
-                    }
-                }
-
-                questSelection.gameObject.SetActive(false);
-
                 questThumbnail.gameObject.SetActive(true);
                 questBelt.gameObject.SetActive(true);
                 questSeal.gameObject.SetActive(true);
@@ -192,6 +140,8 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
 
     }
+
+
 
     // Scale Anim //
 

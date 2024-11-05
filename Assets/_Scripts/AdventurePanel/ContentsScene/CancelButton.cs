@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -74,6 +75,12 @@ public class CancelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         else
         {
 
+        }
+
+        List<PaySlot> notThisPaySlots = new List<PaySlot>(transform.parent.parent.GetComponentsInChildren<PaySlot>());
+        for (int i = 0; i < notThisPaySlots.Count; i++)
+        {
+            notThisPaySlots[i].ProceedNotThisPayment();
         }
 
         SceneController.Instance.TransitionToSelects(currentQuestData);

@@ -35,6 +35,11 @@ public class VitalUI : MonoBehaviour
     [SerializeField] private RectTransform maxSp1thRect;
     [SerializeField] private List<Sprite> maxSpNumbers = new List<Sprite>();
 
+    [SerializeField] private RectTransform armorIcon;
+    [SerializeField] private RectTransform currentArmor10thRect;
+    [SerializeField] private RectTransform currentArmor1thRect;
+    [SerializeField] private List<Sprite> currentArmorNumbers = new List<Sprite>();
+
     private void Start()
     {
         playerStatus.Lv.OnValueChanged += UpdateLvUI;
@@ -45,6 +50,8 @@ public class VitalUI : MonoBehaviour
 
         playerStatus.currentSp.OnValueChanged += UpdateSpUI;
         playerStatus.maxSp.OnValueChanged += UpdateSpUI;
+
+        playerStatus.currentArmor.OnValueChanged += UpdateArmorUI;
 
         SetDefaultStatus();
     }
@@ -59,6 +66,8 @@ public class VitalUI : MonoBehaviour
 
         playerStatus.currentSp.OnValueChanged -= UpdateSpUI;
         playerStatus.maxSp.OnValueChanged -= UpdateSpUI;
+
+        playerStatus.currentArmor.OnValueChanged -= UpdateArmorUI;
     }
 
     private void SetDefaultStatus()
@@ -67,6 +76,7 @@ public class VitalUI : MonoBehaviour
         UpdateXpUI();
         UpdateHpUI();
         UpdateSpUI();
+        UpdateArmorUI();
     }
 
     private void UpdateLvUI()
@@ -705,6 +715,132 @@ public class VitalUI : MonoBehaviour
                 break;
             case 9:
                 maxSp1thRect.GetComponent<Image>().sprite = maxSpNumbers[9];
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void UpdateArmorUI()
+    {
+        int currentArmorValue = playerStatus.currentArmor.Value;
+        int currentArmorValue10th = currentArmorValue / 10;
+        int currentArmorValue1th = currentArmorValue % 10;
+
+        if (currentArmorValue == 0)
+        {
+            if (armorIcon.gameObject != null)
+            {
+                armorIcon.gameObject.SetActive(false);
+            }
+            if (currentArmor10thRect.gameObject != null)
+            {
+                currentArmor10thRect.gameObject.SetActive(false);
+            }
+            if (currentArmor1thRect.gameObject != null)
+            {
+                currentArmor1thRect.gameObject.SetActive(false);
+            }
+
+            return;
+        }
+        else if (currentArmorValue >= 10)
+        {
+            if (armorIcon.gameObject != null)
+            {
+                armorIcon.gameObject.SetActive(true);
+            }
+            if (currentArmor10thRect.gameObject != null)
+            {
+                currentArmor10thRect.gameObject.SetActive(true);
+            }
+            if (currentArmor1thRect.gameObject != null)
+            {
+                currentArmor1thRect.gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            if (armorIcon.gameObject != null)
+            {
+                armorIcon.gameObject.SetActive(true);
+            }
+            if (currentArmor10thRect.gameObject != null)
+            {
+                currentArmor10thRect.gameObject.SetActive(false);
+            }
+            if (currentArmor1thRect.gameObject != null)
+            {
+                currentArmor1thRect.gameObject.SetActive(true);
+            }
+        }
+
+        switch (currentArmorValue10th)
+        {
+            case 0:
+                currentArmor10thRect.GetComponent<Image>().sprite = null;
+                break;
+            case 1:
+                currentArmor10thRect.GetComponent<Image>().sprite = currentArmorNumbers[1];
+                break;
+            case 2:
+                currentArmor10thRect.GetComponent<Image>().sprite = currentArmorNumbers[2];
+                break;
+            case 3:
+                currentArmor10thRect.GetComponent<Image>().sprite = currentArmorNumbers[3];
+                break;
+            case 4:
+                currentArmor10thRect.GetComponent<Image>().sprite = currentArmorNumbers[4];
+                break;
+            case 5:
+                currentArmor10thRect.GetComponent<Image>().sprite = currentArmorNumbers[5];
+                break;
+            case 6:
+                currentArmor10thRect.GetComponent<Image>().sprite = currentArmorNumbers[6];
+                break;
+            case 7:
+                currentArmor10thRect.GetComponent<Image>().sprite = currentArmorNumbers[7];
+                break;
+            case 8:
+                currentArmor10thRect.GetComponent<Image>().sprite = currentArmorNumbers[8];
+                break;
+            case 9:
+                currentArmor10thRect.GetComponent<Image>().sprite = currentArmorNumbers[9];
+                break;
+            default:
+                break;
+        }
+        switch (currentArmorValue1th)
+        {
+            case 0:
+                currentArmor1thRect.GetComponent<Image>().sprite = currentArmorNumbers[0];
+                break;
+            case 1:
+                currentArmor1thRect.GetComponent<Image>().sprite = currentArmorNumbers[1];
+                break;
+            case 2:
+                currentArmor1thRect.GetComponent<Image>().sprite = currentArmorNumbers[2];
+                break;
+            case 3:
+                currentArmor1thRect.GetComponent<Image>().sprite = currentArmorNumbers[3];
+                break;
+            case 4:
+                currentArmor1thRect.GetComponent<Image>().sprite = currentArmorNumbers[4];
+                break;
+            case 5:
+                currentArmor1thRect.GetComponent<Image>().sprite = currentArmorNumbers[5];
+                break;
+            case 6:
+                currentArmor1thRect.GetComponent<Image>().sprite = currentArmorNumbers[6];
+                break;
+            case 7:
+                currentArmor1thRect.GetComponent<Image>().sprite = currentArmorNumbers[7];
+                break;
+            case 8:
+                currentArmor1thRect.GetComponent<Image>().sprite = currentArmorNumbers[8];
+                break;
+            case 9:
+                currentArmor1thRect.GetComponent<Image>().sprite = currentArmorNumbers[9];
                 break;
             default:
                 break;

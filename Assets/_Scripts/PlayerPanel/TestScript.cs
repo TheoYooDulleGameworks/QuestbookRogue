@@ -27,6 +27,9 @@ public class TestScript : MonoBehaviour
         playerStatus.maxHp.AddValue(1);
         playerStatus.currentSp.AddValue(1);
         playerStatus.maxSp.AddValue(1);
+
+        playerStatus.currentArmor.AddValue(1);
+        
         playerStatus.currentXp.AddValue(1);
         playerStatus.Lv.AddValue(1);
     }

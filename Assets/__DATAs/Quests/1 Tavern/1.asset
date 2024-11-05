@@ -17,14 +17,10 @@ MonoBehaviour:
   questThumbnail: {fileID: 1071830044, guid: 295ee6751e3284669a855cc492eab567, type: 3}
   questSeal: {fileID: -1108391152, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   questType: 5
-  selectionDatas:
-  - parentQuestData: {fileID: 11400000}
-    selectionName: Visit the Place
-    selectionStamina: 1
-    questContents:
-    - {fileID: 11400000, guid: 7259e48a62438420f8f303f268cdc0b1, type: 2}
-    - {fileID: 11400000, guid: 256357f474ac240c2aad8b106fa32b0a, type: 2}
-    - {fileID: 11400000, guid: bd5ba424836424fb992ff2aa92dae77b, type: 2}
-    - {fileID: 11400000, guid: 947ab92717dad4d16a16c3f239c17431, type: 2}
-    - {fileID: 11400000, guid: 6988d98b3e67b42cab2a5c9ea209bce5, type: 2}
-    - {fileID: 11400000, guid: 6197d05f0f863452cb2ec87261491ea3, type: 2}
+  questContents:
+  - {fileID: 11400000, guid: 7259e48a62438420f8f303f268cdc0b1, type: 2}
+  - {fileID: 11400000, guid: 256357f474ac240c2aad8b106fa32b0a, type: 2}
+  - {fileID: 11400000, guid: bd5ba424836424fb992ff2aa92dae77b, type: 2}
+  - {fileID: 11400000, guid: 947ab92717dad4d16a16c3f239c17431, type: 2}
+  - {fileID: 11400000, guid: 6988d98b3e67b42cab2a5c9ea209bce5, type: 2}
+  - {fileID: 11400000, guid: 6197d05f0f863452cb2ec87261491ea3, type: 2}

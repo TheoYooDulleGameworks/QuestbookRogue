@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -53,6 +54,14 @@ public class ProceedButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        List<PaySlot> notThisPaySlots = new List<PaySlot>(transform.parent.parent.GetComponentsInChildren<PaySlot>());
+        List<PaySlot> parentPaySlots = new List<PaySlot>(transform.parent.GetComponentsInChildren<PaySlot>());
+        notThisPaySlots.RemoveAll(slot => parentPaySlots.Contains(slot));
+        for (int i = 0; i < notThisPaySlots.Count; i++)
+        {
+            notThisPaySlots[i].ProceedNotThisPayment();
+        }
+
         SceneController.Instance.TransitionToRewards(currentQuestData, currentActionContentData);
     }
 }

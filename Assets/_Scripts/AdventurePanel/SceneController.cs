@@ -42,9 +42,9 @@ public class SceneController : Singleton<SceneController>
 
     // PUBLICS //
 
-    public void TransitionToContents(QuestSO _questData, SelectionSO _selectionData)
+    public void TransitionToContents(QuestSO _questData)
     {
-        StartCoroutine(FadeAndContents(_questData, _selectionData));
+        StartCoroutine(FadeAndContents(_questData));
     }
 
     public void TransitionToRewards(QuestSO _questData, ContentSO _contentData)
@@ -72,13 +72,13 @@ public class SceneController : Singleton<SceneController>
         yield return StartCoroutine(FadeOut());
     }
 
-    private IEnumerator FadeAndContents(QuestSO _questData, SelectionSO _selectionData)
+    private IEnumerator FadeAndContents(QuestSO _questData)
     {
 
         yield return StartCoroutine(FadeIn());
 
         DeActivateSelectsScene();
-        SetContentsScene(_questData, _selectionData);
+        SetContentsScene(_questData);
         SetRollDicePanel();
 
         selectsScene.gameObject.SetActive(false);
@@ -131,15 +131,15 @@ public class SceneController : Singleton<SceneController>
 
     // CONTENTS/REWARDS SCENE //
 
-    private void SetContentsScene(QuestSO _questData, SelectionSO _selectionData)
+    private void SetContentsScene(QuestSO _questData)
     {
-        for (int i = 0; i < _selectionData.questContents.Count; i++)
+        for (int i = 0; i < _questData.questContents.Count; i++)
         {
-            GameObject content = Instantiate(_selectionData.questContents[i].contentTemplate);
+            GameObject content = Instantiate(_questData.questContents[i].contentTemplate);
             content.transform.SetParent(contentsScene, false);
             content.name = $"content_({i + 1})";
 
-            content.GetComponent<IContent>().SetContentComponents(_questData, _selectionData.questContents[i]);
+            content.GetComponent<IContent>().SetContentComponents(_questData, _questData.questContents[i]);
         }
     }
 

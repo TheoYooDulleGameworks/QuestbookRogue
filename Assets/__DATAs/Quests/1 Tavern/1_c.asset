@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4eff72458e07d4f70abc5c0322382142, type: 3}
-  m_Name: 1_1_b
+  m_Name: 1_c
   m_EditorClassIdentifier: 
   contentType: 3
   contentTemplate: {fileID: 6148890290424915317, guid: 0ddac7414eee2495b90d5be3f730f277, type: 3}
@@ -22,12 +22,13 @@ MonoBehaviour:
   isFreeCancel: 0
   bodyText: 
   cancelText: 
-  actionTitle: Rent a Room
+  actionTitle: Try Conversation
   actionSeal: {fileID: 939198109, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   actionRequestDiceSlots:
-  - {fileID: 11400000, guid: f52e0411dd52040058e21abacdc6eecc, type: 2}
+  - {fileID: 11400000, guid: c421e8b320ed24643adf52bed7e7b312, type: 2}
+  - {fileID: 11400000, guid: af09d00925a6a434fa8165c4dccb7400, type: 2}
   multiValue: 
-  actionRewardText: pay 3 Coins, Recover all the Stamina
+  actionRewardText: roll Fate Dice
   rewardContents:
   - {fileID: 11400000, guid: dc86f2f41e3b44f5c92eeeabb2cfe8ef, type: 2}
   isThereProceedButton: 1

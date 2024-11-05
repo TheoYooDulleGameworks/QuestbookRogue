@@ -41,8 +41,11 @@ public class PlayerManager : Singleton<PlayerManager>
         playerStatus.maxSp.Value = playerCharacter.defaultSp;
         playerStatus.currentSp.Value = playerStatus.maxSp.Value;
 
+        playerStatus.currentArmor.Value = 0;
+
         playerStatus.Coin.Value = playerCharacter.defaultCoin;
         playerStatus.Provision.Value = playerCharacter.defaultProvision;
+
     }
 
     private void SetPlayerDices()

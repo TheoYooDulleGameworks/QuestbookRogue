@@ -34,7 +34,7 @@ public class SingleDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, 
         }
     }
 
-    public override void SetSlotComponents(ContentSO contentData, int multiValueIndex, SlotSO slotData)
+    public override void SetSlotComponents(ContentSO contentData, int refValueIndex, SlotSO slotData)
     {
         SingleSlotSO singleSlotData = slotData as SingleSlotSO;
 

@@ -42,14 +42,14 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
         }
     }
 
-    public override void SetSlotComponents(ContentSO contentData, int multiValueIndex, SlotSO slotData)
+    public override void SetSlotComponents(ContentSO contentData, int refValueIndex, SlotSO slotData)
     {
         MultiSlotSO multiSlotData = slotData as MultiSlotSO;
 
         if (multiSlotData != null)
         {
             diceTypes = multiSlotData.requestDiceTypes;
-            conditionValue = contentData.multiValue[multiValueIndex];
+            conditionValue = contentData.multiValue[refValueIndex];
             defaultSprite = multiSlotData.defaultSlotSprite;
             checkingSprite = multiSlotData.checkingSlotSprite;
             succeedSprite = multiSlotData.succeedSlotSprite;
@@ -360,7 +360,7 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
         scaleCoroutine = null;
     }
 
-        public override bool CheckConfirmed()
+    public override bool CheckConfirmed()
     {
         if (isConfirmed)
         {

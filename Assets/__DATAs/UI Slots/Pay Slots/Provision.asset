@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86cbd55d1cb52405a9533612f26c0cff, type: 3}
+  m_Name: Provision
+  m_EditorClassIdentifier: 
+  slotPrefab: {fileID: 3156067049281004811, guid: 2070221f8f8ef4224ab50af1dc3bf88e, type: 3}
+  paymentType: 2
+  paymentIconSprite: {fileID: 1818263305, guid: e143504abf7ee4ce7a0bd82e71a8af05, type: 3}
+  defaultSlotSprite: {fileID: -1937173845, guid: 7730e8f03c694447a8cbc02bc5be19b6, type: 3}
+  succeedSlotSprite: {fileID: 2082582714, guid: 7730e8f03c694447a8cbc02bc5be19b6, type: 3}
+  failSlotSprite: {fileID: 1147304810, guid: 7730e8f03c694447a8cbc02bc5be19b6, type: 3}
+  payValueSprites:
+  - {fileID: 2067191259, guid: 9174ffc9d0dc4411b93551e927c4440d, type: 3}
+  - {fileID: -1979738836, guid: 9174ffc9d0dc4411b93551e927c4440d, type: 3}
+  - {fileID: 1115673112, guid: 9174ffc9d0dc4411b93551e927c4440d, type: 3}
+  - {fileID: -55594945, guid: 9174ffc9d0dc4411b93551e927c4440d, type: 3}
+  - {fileID: 1121653862, guid: 9174ffc9d0dc4411b93551e927c4440d, type: 3}
+  - {fileID: -1503995045, guid: 9174ffc9d0dc4411b93551e927c4440d, type: 3}
+  - {fileID: 1563630361, guid: 9174ffc9d0dc4411b93551e927c4440d, type: 3}
+  - {fileID: 2121706499, guid: 9174ffc9d0dc4411b93551e927c4440d, type: 3}
+  - {fileID: 241146721, guid: 9174ffc9d0dc4411b93551e927c4440d, type: 3}
+  - {fileID: 2034797757, guid: 9174ffc9d0dc4411b93551e927c4440d, type: 3}

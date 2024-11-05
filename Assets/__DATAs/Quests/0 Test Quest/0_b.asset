@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4eff72458e07d4f70abc5c0322382142, type: 3}
-  m_Name: 0_1_a
+  m_Name: 0_b
   m_EditorClassIdentifier: 
   contentType: 3
   contentTemplate: {fileID: 6148890290424915317, guid: 0ddac7414eee2495b90d5be3f730f277, type: 3}
@@ -22,15 +22,15 @@ MonoBehaviour:
   isFreeCancel: 0
   bodyText: 
   cancelText: 
-  actionTitle: Find a Narrow Gap
+  actionTitle: Forge a Weapon
   actionSeal: {fileID: 939198109, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   actionRequestDiceSlots:
   - {fileID: 11400000, guid: 77089c54fbbb748e2ae13a3d40ec1ee3, type: 2}
-  multiValue: 08000000
-  actionRewardText: gain some foods
+  - {fileID: 11400000, guid: 835a2e17334f54b32a41155cf48b4779, type: 2}
+  multiValue: 1000000009000000
+  actionRewardText: gain Random Loot
   rewardContents:
-  - {fileID: 11400000, guid: 4e7b444551249413b873993fcab72cc4, type: 2}
-  - {fileID: 11400000, guid: 028b93b8322114ed0bb05cc1d530cb91, type: 2}
+  - {fileID: 11400000, guid: 86cc372ca2cc549249c851a5ddd5f59c, type: 2}
   isThereProceedButton: 1
   conclusionTitle: 
   conclusionSeal: {fileID: 0}

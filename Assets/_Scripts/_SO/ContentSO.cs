@@ -39,6 +39,7 @@ public class ContentSO : ScriptableObject
     public Sprite actionSeal;
     public List<SlotSO> actionRequestDiceSlots;
     public List<int> multiValue;
+    public List<int> payValue;
     [TextArea] public string actionRewardText;
     public List<ContentSO> rewardContents;
     public bool isThereProceedButton = true;

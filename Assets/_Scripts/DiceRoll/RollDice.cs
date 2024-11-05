@@ -114,7 +114,6 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
 
         diceImage.GetComponent<Image>().sprite = valueHoverSprite;
-
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -131,7 +130,6 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
 
         diceImage.GetComponent<Image>().sprite = valueSprite;
-
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -184,7 +182,6 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
                 return;
             }
-
 
             diceImage.GetComponent<Image>().sprite = valueSprite;
 
@@ -496,4 +493,17 @@ public enum DiceType
     Dexterity,
     Intelligence,
     Willpower,
+}
+
+public enum PaymentType
+{
+    None,
+    Coin,
+    Provision,
+    Hp,
+    Sp,
+    Dice,
+    Consumable,
+    Skill,
+    Relic,
 }
