@@ -102,6 +102,8 @@ public class ContentSOEditor : Editor
         {
             EditorGUILayout.PropertyField(ContentTemplate_Prop);
 
+            EditorGUILayout.PropertyField(BackgroundImage_Prop);
+
             EditorGUILayout.PropertyField(ActionTitle_Prop);
             EditorGUILayout.PropertyField(ActionSeal_Prop);
             EditorGUILayout.PropertyField(ActionRequestDiceSlots_Prop);

@@ -87,6 +87,11 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (!Discovered)
+        {
+            return;
+        }
+
         SceneController.Instance.TransitionToContents(questData);
     }
 

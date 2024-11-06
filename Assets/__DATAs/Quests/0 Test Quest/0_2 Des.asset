@@ -22,11 +22,12 @@ MonoBehaviour:
   isFreeCancel: 0
   bodyText: As you step into the place, a heavy metallic scent fills the air. The
     walls are lined with soot-stained, rusted gear.
-  cancelText: If cancel this quest, lose 1 stamina
+  cancelText: If cancel this quest, lose 1 SP
   actionTitle: 
   actionSeal: {fileID: 0}
   actionRequestDiceSlots: []
   multiValue: 
+  payValue: 
   actionRewardText: 
   rewardContents: []
   isThereProceedButton: 1

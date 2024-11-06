@@ -11,6 +11,7 @@ public class ActionContent : MonoBehaviour, IContent
 
     [Header("Components")]
     [SerializeField] private TextMeshProUGUI actionTitleTMPro = null;
+    [SerializeField] private RectTransform bgImageRect = null;
     [SerializeField] private RectTransform actionSealRect = null;
     [SerializeField] private RectTransform slotParentRect = null;
     [SerializeField] private TextMeshProUGUI rewardTitleTMPro = null;
@@ -29,6 +30,7 @@ public class ActionContent : MonoBehaviour, IContent
         contentData = _contentData;
 
         actionTitleTMPro.text = contentData.actionTitle;
+        bgImageRect.GetComponent<Image>().sprite = contentData.backgroundImage;
         actionSealRect.GetComponent<Image>().sprite = contentData.actionSeal;
         rewardTitleTMPro.text = contentData.actionRewardText;
 
