@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler
 {
@@ -10,11 +11,6 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] private DiceType diceType;
     [SerializeField] private int dieValue;
     [SerializeField] private GameObject checkCollider;
-
-    private RectTransform rectTransform;
-    private Canvas canvas;
-    private Animator animator;
-    private Coroutine scaleCoroutine;
 
     [Header("Components")]
     [SerializeField] private RectTransform diceImage;
@@ -44,10 +40,20 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] private bool notYetRolledAndWait = false;
     [SerializeField] private bool onceRolled = false;
 
+    [Header("Advanced")]
     [SerializeField] private bool isAdvanced = false;
+
+    [Header("Tweening")]
+    [SerializeField] private float popUpScale = 1.35f;
+    [SerializeField] private float popUpDuration = 0.25f;
+    private CanvasGroup canvasGroup;
+    private RectTransform rectTransform;
+    private Canvas canvas;
+    private Animator animator;
 
     private void OnEnable()
     {
+        canvasGroup = GetComponent<CanvasGroup>();
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
         animator = GetComponent<Animator>();
@@ -141,7 +147,10 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             if (!wasRolled)
             {
                 diceImage.GetComponent<Image>().sprite = defaultSprite;
+
+                rectTransform.DOKill();
                 rectTransform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+
                 notYetRolledAndWait = true;
 
                 return;
@@ -149,13 +158,10 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             transform.SetAsLastSibling();
             diceImage.GetComponent<Image>().sprite = valueClickSprite;
-            rectTransform.localScale = new Vector3(1.35f, 1.35f, 1.35f);
 
-            if (scaleCoroutine != null)
-            {
-                StopCoroutine(scaleCoroutine);
-            }
-            scaleCoroutine = StartCoroutine(ScaleDownToNormal());
+            rectTransform.DOKill();
+            rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+            rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
 
             if (checkCollider.activeSelf)
             {
@@ -177,7 +183,8 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             if (!wasRolled)
             {
-                rectTransform.localScale = new Vector3(1f, 1f, 1f);
+                rectTransform.DOKill();
+                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
                 notYetRolledAndWait = false;
 
                 return;
@@ -185,11 +192,9 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             diceImage.GetComponent<Image>().sprite = valueSprite;
 
-            if (scaleCoroutine != null)
-            {
-                StopCoroutine(scaleCoroutine);
-                scaleCoroutine = null;
-            }
+            rectTransform.DOKill();
+            rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+            rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
 
             rectTransform.localScale = new Vector3(1f, 1f, 1f);
 
@@ -252,12 +257,10 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
                 CursorManager.Instance.OnDefaultCursor();
                 diceImage.GetComponent<Image>().sprite = valueSprite;
-                if (scaleCoroutine != null)
-                {
-                    StopCoroutine(scaleCoroutine);
-                    scaleCoroutine = null;
-                }
-                rectTransform.localScale = new Vector3(1f, 1f, 1f);
+
+                rectTransform.DOKill();
+                rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
 
                 isDragging = false;
                 if (shadowImage.gameObject.activeSelf == false)
@@ -444,45 +447,11 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         GetComponent<Image>().raycastTarget = false;
     }
 
-    private IEnumerator ScaleDownToNormal()
-    {
-        Vector3 startScale = rectTransform.localScale;
-        Vector3 endScale = new Vector3(1f, 1f, 1f);
-        float duration = 0.15f;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            rectTransform.localScale = Vector3.Lerp(startScale, endScale, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        rectTransform.localScale = endScale;
-        scaleCoroutine = null;
-    }
-
     public void PopUpAnim()
     {
-        rectTransform.localScale = new Vector3(1.35f, 1.35f, 1.35f);
-        StartCoroutine(PopDownToNormal());
-    }
-
-    private IEnumerator PopDownToNormal()
-    {
-        Vector3 startScale = rectTransform.localScale;
-        Vector3 endScale = new Vector3(1f, 1f, 1f);
-        float duration = 0.15f;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            rectTransform.localScale = Vector3.Lerp(startScale, endScale, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        rectTransform.localScale = endScale;
+        rectTransform.DOKill();
+        rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+        rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
     }
 }
 

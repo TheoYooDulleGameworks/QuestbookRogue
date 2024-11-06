@@ -32,6 +32,11 @@ public class ProceedButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         GetComponent<Image>().raycastTarget = false;
     }
 
+    public void DeActivateTarget()
+    {
+        GetComponent<Image>().raycastTarget = false;
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         GetComponent<Image>().sprite = mouseOverProceedButton;
@@ -54,6 +59,8 @@ public class ProceedButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        GetComponent<Image>().raycastTarget = false;
+
         List<PaySlot> notThisPaySlots = new List<PaySlot>(transform.parent.parent.GetComponentsInChildren<PaySlot>());
         List<PaySlot> parentPaySlots = new List<PaySlot>(transform.parent.GetComponentsInChildren<PaySlot>());
         notThisPaySlots.RemoveAll(slot => parentPaySlots.Contains(slot));

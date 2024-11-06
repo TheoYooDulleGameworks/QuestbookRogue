@@ -23,8 +23,6 @@ public class ActionContent : MonoBehaviour, IContent
     [Header("DiceSlot Layout")]
     private int diceSlotSeat = 0;
 
-
-
     public void SetContentComponents(QuestSO _questData, ContentSO _contentData)
     {
         contentData = _contentData;

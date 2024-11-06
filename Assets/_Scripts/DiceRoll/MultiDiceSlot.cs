@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+using DG.Tweening;
 using UnityEngine.EventSystems;
 using System.Linq;
 using System;
@@ -32,10 +32,18 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
     [Header("bool Triggers")]
     [SerializeField] private bool isConfirmed;
     public override event Action OnConfirmed;
-    private Coroutine scaleCoroutine;
+
+    [Header("Tweening")]
+    [SerializeField] private float popUpScale = 1.35f;
+    [SerializeField] private float popUpDuration = 0.25f;
+    private CanvasGroup canvasGroup;
+    private RectTransform rectTransform;
 
     private void OnEnable()
     {
+        canvasGroup = GetComponent<CanvasGroup>();
+        rectTransform = GetComponent<RectTransform>();
+
         if (slotDiceImage.gameObject.activeSelf)
         {
             slotDiceImage.gameObject.SetActive(false);
@@ -97,12 +105,9 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
             {
                 Debug.Log("Fill!!!!!");
 
-                GetComponent<RectTransform>().localScale = new Vector3(1.35f, 1.35f, 1.35f);
-                if (scaleCoroutine != null)
-                {
-                    StopCoroutine(scaleCoroutine);
-                }
-                scaleCoroutine = StartCoroutine(ScaleDownToNormal());
+                rectTransform.DOKill();
+                rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
 
                 if (!slotDiceImage.gameObject.activeSelf)
                 {
@@ -173,32 +178,25 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (keepingDicePrefabs.Count != 0)
         {
-
-            if (keepingDicePrefabs.Count != 0)
+            if (isConfirmed)
             {
-                if (isConfirmed)
-                {
-                    GetComponent<Image>().sprite = defaultSprite;
-                }
-                slotDiceImage.GetComponent<Image>().sprite = keepingDicePrefabs.Last().GetComponent<RollDice>().valueSlotClickSprite;
+                GetComponent<Image>().sprite = defaultSprite;
             }
+            slotDiceImage.GetComponent<Image>().sprite = keepingDicePrefabs.Last().GetComponent<RollDice>().valueSlotClickSprite;
         }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (keepingDicePrefabs.Count != 0)
         {
-            if (keepingDicePrefabs.Count != 0)
+            if (isConfirmed)
             {
-                if (isConfirmed)
-                {
-                    GetComponent<Image>().sprite = succeedSprite;
-                }
-                slotDiceImage.GetComponent<Image>().sprite = keepingDicePrefabs.Last().GetComponent<RollDice>().valueSlotSprite;
+                GetComponent<Image>().sprite = succeedSprite;
             }
+            slotDiceImage.GetComponent<Image>().sprite = keepingDicePrefabs.Last().GetComponent<RollDice>().valueSlotSprite;
         }
     }
 
@@ -219,12 +217,9 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
             {
                 Debug.Log(i);
 
-                GetComponent<RectTransform>().localScale = new Vector3(1.35f, 1.35f, 1.35f);
-                if (scaleCoroutine != null)
-                {
-                    StopCoroutine(scaleCoroutine);
-                }
-                scaleCoroutine = StartCoroutine(ScaleDownToNormal());
+                rectTransform.DOKill();
+                rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
 
                 keepingDicePrefabs.First().GetComponent<RollDice>().ActivateRollDice();
                 keepingDicePrefabs.First().GetComponent<RollDice>().PopUpAnim();
@@ -249,12 +244,9 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
 
         else if (eventData.button == PointerEventData.InputButton.Left)
         {
-            GetComponent<RectTransform>().localScale = new Vector3(1.35f, 1.35f, 1.35f);
-            if (scaleCoroutine != null)
-            {
-                StopCoroutine(scaleCoroutine);
-            }
-            scaleCoroutine = StartCoroutine(ScaleDownToNormal());
+            rectTransform.DOKill();
+            rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+            rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
 
             keepingDicePrefabs.Last().GetComponent<RollDice>().ActivateRollDice();
             keepingDicePrefabs.Last().GetComponent<RollDice>().PopUpAnim();
@@ -339,25 +331,6 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
         }
 
         IsConfirmCheck();
-    }
-
-
-    private IEnumerator ScaleDownToNormal()
-    {
-        Vector3 startScale = GetComponent<RectTransform>().localScale;
-        Vector3 endScale = new Vector3(1f, 1f, 1f);
-        float duration = 0.15f;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            GetComponent<RectTransform>().localScale = Vector3.Lerp(startScale, endScale, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        GetComponent<RectTransform>().localScale = endScale;
-        scaleCoroutine = null;
     }
 
     public override bool CheckConfirmed()

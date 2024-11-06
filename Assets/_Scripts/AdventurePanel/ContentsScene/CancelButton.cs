@@ -17,6 +17,15 @@ public class CancelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     [SerializeField] private Sprite mouseOverFreeCancelButton;
     [SerializeField] private Sprite mouseDownFreeCancelButton;
 
+    private void OnEnable()
+    {
+        GetComponent<Image>().raycastTarget = true;
+    }
+
+    public void DeActivateTarget()
+    {
+        GetComponent<Image>().raycastTarget = false;
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -76,6 +85,8 @@ public class CancelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         {
 
         }
+
+        GetComponent<Image>().raycastTarget = false;
 
         List<PaySlot> notThisPaySlots = new List<PaySlot>(transform.parent.parent.GetComponentsInChildren<PaySlot>());
         for (int i = 0; i < notThisPaySlots.Count; i++)

@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
@@ -30,12 +31,17 @@ public class PaySlot : DiceSlot, IPointerEnterHandler, IPointerExitHandler, IPoi
     [Header("bool Triggers")]
     [SerializeField] private bool isConfirmed;
     public override event Action OnConfirmed;
+
+    [Header("Tweening")]
+    [SerializeField] private float popUpScale = 1.35f;
+    [SerializeField] private float popUpDuration = 0.25f;
+    private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
-    private Coroutine scaleCoroutine;
     private Coroutine colorCoroutine;
 
     private void OnEnable()
     {
+        canvasGroup = GetComponent<CanvasGroup>();
         rectTransform = GetComponent<RectTransform>();
     }
 
@@ -123,12 +129,9 @@ public class PaySlot : DiceSlot, IPointerEnterHandler, IPointerExitHandler, IPoi
                 {
                     SpendPayment(paymentType, payValue);
 
-                    GetComponent<RectTransform>().localScale = new Vector3(1.35f, 1.35f, 1.35f);
-                    if (scaleCoroutine != null)
-                    {
-                        StopCoroutine(scaleCoroutine);
-                    }
-                    scaleCoroutine = StartCoroutine(ScaleDownToNormal());
+                    rectTransform.DOKill();
+                    rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+                    rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
 
                     GetComponent<Image>().sprite = succeedSprite;
                     isConfirmed = true;
@@ -136,12 +139,9 @@ public class PaySlot : DiceSlot, IPointerEnterHandler, IPointerExitHandler, IPoi
                 }
                 else
                 {
-                    GetComponent<RectTransform>().localScale = new Vector3(1.35f, 1.35f, 1.35f);
-                    if (scaleCoroutine != null)
-                    {
-                        StopCoroutine(scaleCoroutine);
-                    }
-                    scaleCoroutine = StartCoroutine(ScaleDownToNormal());
+                    rectTransform.DOKill();
+                    rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+                    rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
 
                     GetComponent<Image>().sprite = failSprite;
                     if (colorCoroutine != null)
@@ -155,12 +155,9 @@ public class PaySlot : DiceSlot, IPointerEnterHandler, IPointerExitHandler, IPoi
             {
                 RefundPayment(paymentType, payValue);
 
-                GetComponent<RectTransform>().localScale = new Vector3(1.35f, 1.35f, 1.35f);
-                if (scaleCoroutine != null)
-                {
-                    StopCoroutine(scaleCoroutine);
-                }
-                scaleCoroutine = StartCoroutine(ScaleDownToNormal());
+                rectTransform.DOKill();
+                rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
 
                 GetComponent<Image>().sprite = defaultSprite;
                 isConfirmed = false;
@@ -252,24 +249,6 @@ public class PaySlot : DiceSlot, IPointerEnterHandler, IPointerExitHandler, IPoi
         }
 
         playerPaymentValue.Value += payValue;
-    }
-
-    private IEnumerator ScaleDownToNormal()
-    {
-        Vector3 startScale = rectTransform.localScale;
-        Vector3 endScale = new Vector3(1f, 1f, 1f);
-        float duration = 0.15f;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            rectTransform.localScale = Vector3.Lerp(startScale, endScale, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        rectTransform.localScale = endScale;
-        scaleCoroutine = null;
     }
 
     private IEnumerator ColorChangeToNormal()

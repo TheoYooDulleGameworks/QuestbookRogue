@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4287993490985304805}
   - component: {fileID: 4828238346110934143}
   - component: {fileID: 9038721271419257529}
+  - component: {fileID: 2918903338059430593}
   m_Layer: 5
   m_Name: Quest
   m_TagString: Untagged
@@ -103,6 +104,20 @@ MonoBehaviour:
   undiscoveredQuestBelt: {fileID: 2907832140934107542}
   discovered: 1
   inTransition: 0
+  popUpScale: 1.1
+  popUpDuration: 0.5
+--- !u!225 &2918903338059430593
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40540013400027030}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1270184863502770417
 GameObject:
   m_ObjectHideFlags: 0

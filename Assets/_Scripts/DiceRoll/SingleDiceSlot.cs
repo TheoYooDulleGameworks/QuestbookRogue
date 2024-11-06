@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+using DG.Tweening;
 using UnityEngine.EventSystems;
 using System;
 
@@ -24,10 +24,18 @@ public class SingleDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, 
     [Header("bool Triggers")]
     [SerializeField] private bool isConfirmed;
     public override event Action OnConfirmed;
-    private Coroutine scaleCoroutine;
+
+    [Header("Tweening")]
+    [SerializeField] private float popUpScale = 1.35f;
+    [SerializeField] private float popUpDuration = 0.25f;
+    private CanvasGroup canvasGroup;
+    private RectTransform rectTransform;
 
     private void OnEnable()
     {
+        canvasGroup = GetComponent<CanvasGroup>();
+        rectTransform = GetComponent<RectTransform>();
+
         if (slotDiceImage.gameObject.activeSelf)
         {
             slotDiceImage.gameObject.SetActive(false);
@@ -58,12 +66,9 @@ public class SingleDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, 
 
             if (rollDice.IsAboveValue(diceTypes, aboveConditionValue))
             {
-                GetComponent<RectTransform>().localScale = new Vector3(1.35f, 1.35f, 1.35f);
-                if (scaleCoroutine != null)
-                {
-                    StopCoroutine(scaleCoroutine);
-                }
-                scaleCoroutine = StartCoroutine(ScaleDownToNormal());
+                rectTransform.DOKill();
+                rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
 
                 if (!slotDiceImage.gameObject.activeSelf)
                 {
@@ -121,12 +126,9 @@ public class SingleDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, 
             isConfirmed = false;
             OnConfirmed?.Invoke();
 
-            GetComponent<RectTransform>().localScale = new Vector3(1.35f, 1.35f, 1.35f);
-            if (scaleCoroutine != null)
-            {
-                StopCoroutine(scaleCoroutine);
-            }
-            scaleCoroutine = StartCoroutine(ScaleDownToNormal());
+            rectTransform.DOKill();
+            rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+            rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
 
             keepingDicePrefab.GetComponent<RollDice>().ActivateRollDice();
             keepingDicePrefab.GetComponent<RollDice>().PopUpAnim();
@@ -151,25 +153,6 @@ public class SingleDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, 
             GetComponent<Image>().sprite = defaultSprite;
             keepingDicePrefab = null;
         }
-    }
-
-
-    private IEnumerator ScaleDownToNormal()
-    {
-        Vector3 startScale = GetComponent<RectTransform>().localScale;
-        Vector3 endScale = new Vector3(1f, 1f, 1f);
-        float duration = 0.15f;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            GetComponent<RectTransform>().localScale = Vector3.Lerp(startScale, endScale, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        GetComponent<RectTransform>().localScale = endScale;
-        scaleCoroutine = null;
     }
 
     public override bool CheckConfirmed()

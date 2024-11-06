@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using System.Collections;
+using DG.Tweening;
 
 public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
@@ -28,8 +28,11 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
     [Header("bool Trigger")]
     [SerializeField] private bool inTransition = false;
 
+    [Header("Tweening")]
+    [SerializeField] private float popUpScale = 1.1f;
+    [SerializeField] private float popUpDuration = 0.25f;
+    private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
-    private Coroutine scaleCoroutine;
 
     private void Awake()
     {
@@ -38,6 +41,7 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
 
     private void OnEnable()
     {
+        canvasGroup = GetComponent<CanvasGroup>();
         rectTransform = GetComponent<RectTransform>();
     }
 
@@ -50,24 +54,18 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
 
         if (!Discovered)
         {
-            rectTransform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
-            if (scaleCoroutine != null)
-            {
-                StopCoroutine(scaleCoroutine);
-            }
-            scaleCoroutine = StartCoroutine(ScaleDownToNormal());
+            rectTransform.DOKill();
+            rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+            rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
 
             undiscoveredQuestBelt.gameObject.SetActive(true);
             return;
         }
         else
         {
-            rectTransform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
-            if (scaleCoroutine != null)
-            {
-                StopCoroutine(scaleCoroutine);
-            }
-            scaleCoroutine = StartCoroutine(ScaleDownToNormal());
+            rectTransform.DOKill();
+            rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+            rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
         }
     }
 
@@ -87,12 +85,16 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!Discovered)
+        if (!Discovered || inTransition)
         {
             return;
         }
 
         SceneController.Instance.TransitionToContents(questData);
+
+        rectTransform.DOKill();
+        rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+        rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
     }
 
 
@@ -144,27 +146,5 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
     public void ResetQuestComponents()
     {
 
-    }
-
-
-
-    // Scale Anim //
-
-    private IEnumerator ScaleDownToNormal()
-    {
-        Vector3 startScale = rectTransform.localScale;
-        Vector3 endScale = new Vector3(1f, 1f, 1f);
-        float duration = 0.2f;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            rectTransform.localScale = Vector3.Lerp(startScale, endScale, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        rectTransform.localScale = endScale;
-        scaleCoroutine = null;
     }
 }
