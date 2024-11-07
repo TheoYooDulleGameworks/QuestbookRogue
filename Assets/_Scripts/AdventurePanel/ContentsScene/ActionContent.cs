@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 
 public class ActionContent : MonoBehaviour, IContent
 {
@@ -95,6 +96,30 @@ public class ActionContent : MonoBehaviour, IContent
     private void ProceedDeActivate()
     {
         proceedButtonRect.GetComponent<ProceedButton>().DeActivateButton();
+    }
+
+    public void FlipOnContent()
+    {
+        RectTransform contentCanvas = GetComponentInChildren<CanvasGroup>().GetComponent<RectTransform>();
+
+        contentCanvas.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+        contentCanvas.localEulerAngles = new Vector3(-2f, -90f, -2f);
+
+        contentCanvas.DOKill();
+        contentCanvas.DOScale(Vector3.one, 0.2f);
+        contentCanvas.DORotate(Vector3.zero, 0.2f);
+    }
+
+    public void FlipOffContent()
+    {
+        RectTransform contentCanvas = GetComponentInChildren<CanvasGroup>().GetComponent<RectTransform>();
+        
+        contentCanvas.localScale = Vector3.one;
+        contentCanvas.localEulerAngles = Vector3.zero;
+
+        contentCanvas.DOKill();
+        contentCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.2f);
+        contentCanvas.DORotate(new Vector3(2f, 90f, 2f), 0.2f);
     }
 
     public void DestroyContent()

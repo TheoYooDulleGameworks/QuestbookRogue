@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6d5183b7db0dc47ae8476703103f75e5
+guid: c17acd252d4984bb7bdf617ca9392f64
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -136,13 +136,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Selection Belt_0
+      name: SelectionBelt_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 26
+        y: 30
         width: 98
-        height: 13
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -151,20 +151,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e58ab41c3573a4c099eacea0fe2d5fb4
-      internalID: 1080761095
+      spriteID: 6d87c8c6c94434cae9b7d57db40c7ef4
+      internalID: -493960769
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Selection Belt_1
+      name: SelectionBelt_1
       rect:
         serializedVersion: 2
         x: 0
-        y: 13
+        y: 15
         width: 98
-        height: 13
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 07b1a870416a4445dbbed93db46e8e6e
-      internalID: 1729093150
+      spriteID: 4067da08e335f461e84ef7c84e5a979e
+      internalID: -61522568
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Selection Belt_2
+      name: SelectionBelt_2
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 98
-        height: 13
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,8 +195,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fbfbe88bdeeff426c90299dae1b15d6d
-      internalID: 1376062476
+      spriteID: 46f437410a0d843739567a42fd704547
+      internalID: -1622285292
       vertices: []
       indices: 
       edges: []
@@ -205,7 +205,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: d5aa1497a8e2241ffb0d5b2742710400
     internalID: 0
     vertices: []
     indices: 
@@ -215,9 +215,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Selection Belt_0: 1080761095
-      Selection Belt_1: 1729093150
-      Selection Belt_2: 1376062476
+      SelectionBelt_0: -493960769
+      SelectionBelt_1: -61522568
+      SelectionBelt_2: -1622285292
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

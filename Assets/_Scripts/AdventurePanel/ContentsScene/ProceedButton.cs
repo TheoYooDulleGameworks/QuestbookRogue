@@ -32,11 +32,6 @@ public class ProceedButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         GetComponent<Image>().raycastTarget = false;
     }
 
-    public void DeActivateTarget()
-    {
-        GetComponent<Image>().raycastTarget = false;
-    }
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         GetComponent<Image>().sprite = mouseOverProceedButton;
@@ -69,6 +64,6 @@ public class ProceedButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             notThisPaySlots[i].ProceedNotThisPayment();
         }
 
-        SceneController.Instance.TransitionToRewards(currentQuestData, currentActionContentData);
+        // FLIP
     }
 }

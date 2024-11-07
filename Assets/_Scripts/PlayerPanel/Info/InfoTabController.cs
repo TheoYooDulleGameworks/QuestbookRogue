@@ -1,5 +1,5 @@
 using UnityEngine;
-using System;
+using DG.Tweening;
 
 public class InfoTabController : Singleton<InfoTabController>
 {
@@ -32,7 +32,10 @@ public class InfoTabController : Singleton<InfoTabController>
         if (skillTab.activeSelf == false)
         {
             diceTab.SetActive(true);
+            diceTab.GetComponent<CanvasGroup>().alpha = 0;
+            diceTab.GetComponent<CanvasGroup>().DOKill();
             diceTab.GetComponent<DiceTabUI>().SetPlayerDices();
+            diceTab.GetComponent<CanvasGroup>().DOFade(1, 0.2f);
         }
 
         diceTabIndex.ActivateDiceTab();
@@ -45,10 +48,12 @@ public class InfoTabController : Singleton<InfoTabController>
         if (skillTab.activeSelf == false)
         {
             skillTab.SetActive(true);
+            skillTab.GetComponent<CanvasGroup>().DOKill();
+            skillTab.GetComponent<CanvasGroup>().alpha = 0;
+            skillTab.GetComponent<CanvasGroup>().DOFade(1, 0.2f);
         }
 
         skillTabIndex.ActivateSkillTab();
-
     }
 
     private void DefaultSetTabs()
@@ -76,11 +81,17 @@ public class InfoTabController : Singleton<InfoTabController>
     {
         if (diceTab.activeSelf == true)
         {
+            diceTab.GetComponent<CanvasGroup>().DOKill();
+            diceTab.GetComponent<CanvasGroup>().DOFade(0, 0.2f);
             diceTab.SetActive(false);
+            diceTab.GetComponent<CanvasGroup>().alpha = 1;
         }
         if (skillTab.activeSelf == true)
         {
+            skillTab.GetComponent<CanvasGroup>().DOKill();
+            skillTab.GetComponent<CanvasGroup>().DOFade(0, 0.2f);
             skillTab.SetActive(false);
+            skillTab.GetComponent<CanvasGroup>().alpha = 1;
         }
 
         if (skillTabIndex != null)

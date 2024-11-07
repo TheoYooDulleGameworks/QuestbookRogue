@@ -13,13 +13,15 @@ public class SceneController : Singleton<SceneController>
     [SerializeField] private RectTransform selectsScene;
     [SerializeField] private RectTransform contentsScene;
     [SerializeField] private RectTransform rollDicePanel;
-    [SerializeField] private Image transitionImage;
 
     [Header("Player Assets")]
     [SerializeField] private PlayerDiceSO playerDiceData;
 
     [Header("Tweening")]
     [SerializeField] private float rollDicePanelFadeTime = 0.5f;
+
+
+    // SETTINGS //
 
     protected override void Awake()
     {
@@ -37,149 +39,124 @@ public class SceneController : Singleton<SceneController>
         {
             rollDicePanel.gameObject.SetActive(false);
         }
-
-        ResetContentsScene();
-        ResetRollDicePanel();
     }
 
 
 
-    // PUBLICS //
+    // LOGICS //
 
     public void TransitionToContents(QuestSO _questData)
     {
-        StartCoroutine(FadeAndContents(_questData));
-    }
-
-    public void TransitionToRewards(QuestSO _questData, ContentSO _contentData)
-    {
-        StartCoroutine(FadeAndRewards(_questData, _contentData));
-    }
-
-    public void TransitionToSelects(QuestSO _questData)
-    {
-        StartCoroutine(FadeAndSelects(_questData));
-    }
-
-
-
-    // PRIVATES //
-
-    private IEnumerator FadeAndRewards(QuestSO _questData, ContentSO _contentData)
-    {
-        DeActivateContentsScene();
-
-        yield return StartCoroutine(FadeIn());
-
-        ResetContentsScene();
-        ResetRollDicePanel();
-        SetRewardsScene(_questData, _contentData);
-
-        yield return StartCoroutine(FadeOut());
-    }
-
-    private IEnumerator FadeAndContents(QuestSO _questData)
-    {
-        DeActivateSelectsScene();
-
-        yield return StartCoroutine(FadeIn());
-
-        selectsScene.gameObject.SetActive(false);
-        SetContentsScene(_questData);
-
-        yield return StartCoroutine(FadeOut());
-
+        StartCoroutine(DeActivateSelectsRoutine());
+        StartCoroutine(SetContentsRoutine(_questData));
         InfoTabController.Instance.HandleSkillTabActivate();
         SetRollDicePanel();
     }
 
-    private IEnumerator FadeAndSelects(QuestSO _questData)
+    public void TransitionToSelects(QuestSO _questData)
     {
-        DeActivateContentsScene();
-        ResetRollDicePanel();
+        StartCoroutine(ResetContentsRoutine());
+        StartCoroutine(ActivateSelectsRoutine());
         InfoTabController.Instance.HandleDiceTabActivate();
-
-        yield return StartCoroutine(FadeIn());
-
-        ResetContentsScene();
-        selectsScene.gameObject.SetActive(true);
-
-        yield return StartCoroutine(FadeOut());
-
-        ActivateSelectsScene();
+        ResetRollDicePanel();
     }
 
 
 
-    // ACTIVATE / DEACTIVATE //
+    // SELECTS //
 
-    private void ActivateSelectsScene()
+    private IEnumerator DeActivateSelectsRoutine()
     {
-        List<Quest> selectableQuests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
-        foreach (var quest in selectableQuests)
+        List<Quest> quests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
+        foreach (var quest in quests)
+        {
+            quest.DeActivateQuestCard();
+        }
+
+        for (int i = 0; i < quests.Count; i++)
+        {
+            RectTransform questCanvas = quests[i].GetComponentInChildren<CanvasGroup>().GetComponent<RectTransform>();
+
+            questCanvas.localScale = Vector3.one;
+            questCanvas.localEulerAngles = Vector3.zero;
+
+            questCanvas.DOKill();
+            questCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.2f);
+            questCanvas.DORotate(new Vector3(2f, 90f, 2f), 0.2f);
+
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        selectsScene.gameObject.SetActive(false);
+
+        List<CancelButton> cancelButtons = new List<CancelButton>(contentsScene.GetComponentsInChildren<CancelButton>());
+        foreach (var button in cancelButtons)
+        {
+            button.ActivateTarget();
+        }
+    }
+
+    private IEnumerator ActivateSelectsRoutine()
+    {
+        yield return new WaitForSeconds(0.2f);
+        selectsScene.gameObject.SetActive(true);
+
+        List<Quest> quests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
+        foreach (var quest in quests)
+        {
+            quest.DeActivateQuestCard();
+        }
+
+        for (int i = 0; i < quests.Count; i++)
+        {
+            RectTransform questCanvas = quests[i].GetComponentInChildren<CanvasGroup>().GetComponent<RectTransform>();
+
+            questCanvas.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+            questCanvas.localEulerAngles = new Vector3(-2f, -90f, -2f);
+
+            questCanvas.DOKill();
+            questCanvas.DOScale(Vector3.one, 0.2f);
+            questCanvas.DORotate(Vector3.zero, 0.2f);
+
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        foreach (var quest in quests)
         {
             quest.ActivateQuestCard();
         }
     }
 
-    private void DeActivateSelectsScene()
+
+
+    // CONTENTS //
+
+    private IEnumerator SetContentsRoutine(QuestSO _questData)
     {
-        List<Quest> selectableQuests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
-        foreach (var quest in selectableQuests)
-        {
-            quest.DeActivateQuestCard();
-        }
-    }
+        yield return new WaitForSeconds(0.2f);
+        contentsScene.gameObject.SetActive(true);
 
-    private void DeActivateContentsScene()
-    {
-        List<ProceedButton> proceedButtons = new List<ProceedButton>(contentsScene.GetComponentsInChildren<ProceedButton>());
-        foreach (var button in proceedButtons)
-        {
-            button.DeActivateTarget();
-        }
-
-        List<CancelButton> cancelButtons = new List<CancelButton>(contentsScene.GetComponentsInChildren<CancelButton>());
-        foreach (var button in cancelButtons)
-        {
-            button.DeActivateTarget();
-        }
-    }
-
-    // CONTENTS/REWARDS SCENE //
-
-    private void SetContentsScene(QuestSO _questData)
-    {
         for (int i = 0; i < _questData.questContents.Count; i++)
         {
             GameObject content = Instantiate(_questData.questContents[i].contentTemplate);
             content.transform.SetParent(contentsScene, false);
             content.name = $"content_({i + 1})";
-
             content.GetComponent<IContent>().SetContentComponents(_questData, _questData.questContents[i]);
+            content.GetComponent<IContent>().FlipOnContent();
+            yield return new WaitForSeconds(0.2f);
         }
-
-        contentsScene.gameObject.SetActive(true);
     }
 
-    private void SetRewardsScene(QuestSO _questData, ContentSO _contentData)
+    private IEnumerator ResetContentsRoutine()
     {
-        for (int i = 0; i < _contentData.rewardContents.Count; i++)
+        List<IContent> contents = new List<IContent>(contentsScene.GetComponentsInChildren<IContent>());
+        for (int i = 0; i < contents.Count; i++)
         {
-            GameObject content = Instantiate(_contentData.rewardContents[i].contentTemplate);
-            content.transform.SetParent(contentsScene, false);
-            content.name = $"reward Content_({i + 1})";
-
-            content.GetComponent<IContent>().SetContentComponents(_questData, _contentData.rewardContents[i]);
+            contents[i].FlipOffContent();
+            yield return new WaitForSeconds(0.2f);
         }
 
-        contentsScene.gameObject.SetActive(true);
-    }
-
-    private void ResetContentsScene()
-    {
-        List<IContent> completedContents = new List<IContent>(contentsScene.GetComponentsInChildren<IContent>());
-        foreach (var content in completedContents)
+        foreach (IContent content in contents)
         {
             content.DestroyContent();
         }
@@ -288,7 +265,7 @@ public class SceneController : Singleton<SceneController>
     {
         rollDicePanel.GetComponent<CanvasGroup>().alpha = 1f;
         rollDicePanel.GetComponent<RectTransform>().localPosition = Vector3.zero;
-        rollDicePanel.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0f, -120f), rollDicePanelFadeTime, false).SetEase(Ease.OutCubic);
+        rollDicePanel.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0f, -120f), rollDicePanelFadeTime, false).SetEase(Ease.InCubic);
         rollDicePanel.GetComponent<CanvasGroup>().DOFade(0, rollDicePanelFadeTime).OnComplete(() =>
         {
             foreach (Transform child in rollDicePanel)
@@ -302,51 +279,5 @@ public class SceneController : Singleton<SceneController>
 
             rollDicePanel.gameObject.SetActive(false);
         });
-    }
-
-
-
-    // TRANSITIONS //
-
-    private IEnumerator FadeIn()
-    {
-        float duration = 0.2f;
-        float elapsedTime = 0f;
-
-        Color color = transitionImage.color;
-        color.a = 0;
-        transitionImage.color = color;
-
-        while (elapsedTime < duration)
-        {
-            color.a = Mathf.Lerp(0, 1, elapsedTime / duration);
-            transitionImage.color = color;
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        color.a = 1;
-        transitionImage.color = color;
-    }
-
-    private IEnumerator FadeOut()
-    {
-        float duration = 0.2f;
-        float elapsedTime = 0f;
-
-        Color color = transitionImage.color;
-        color.a = 1;
-        transitionImage.color = color;
-
-        while (elapsedTime < duration)
-        {
-            color.a = Mathf.Lerp(1, 0, elapsedTime / duration);
-            transitionImage.color = color;
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        color.a = 0;
-        transitionImage.color = color;
     }
 }

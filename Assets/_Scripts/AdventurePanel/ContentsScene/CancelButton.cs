@@ -19,14 +19,14 @@ public class CancelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     private void OnEnable()
     {
-        GetComponent<Image>().raycastTarget = true;
-    }
-
-    public void DeActivateTarget()
-    {
         GetComponent<Image>().raycastTarget = false;
     }
 
+    public void ActivateTarget()
+    {
+        GetComponent<Image>().raycastTarget = true;
+    }
+    
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (isFreeToCancel)

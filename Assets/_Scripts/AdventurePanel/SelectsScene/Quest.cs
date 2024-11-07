@@ -1,36 +1,31 @@
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Quest Data")]
     [SerializeField] private QuestSO questData = null;
 
     [Header("Components")]
-    [SerializeField] private RectTransform questThumbnail = null;
+    [SerializeField] private RectTransform mainImage = null;
+    [SerializeField] private RectTransform selectionBelt = null;
     [SerializeField] private RectTransform questBelt = null;
     [SerializeField] private RectTransform questSeal = null;
     [SerializeField] private TextMeshProUGUI questTitleText = null;
 
-    [Header("About Discovery")]
-    [SerializeField] private Sprite undiscoveredQuestThumbnail = null;
-    [SerializeField] private RectTransform undiscoveredQuestBelt = null;
+    [SerializeField] private Sprite undiscoveredImage = null;
+
+    [Header("bool Trigger")]
     [SerializeField] private bool discovered = false;
     public bool Discovered
     {
         get { return discovered; }
     }
+    [SerializeField] public bool inTransition = false;
 
-    [Header("bool Trigger")]
-    [SerializeField] private bool inTransition = false;
-
-    [Header("Tweening")]
-    [SerializeField] private float popUpScale = 1.1f;
-    [SerializeField] private float popUpDuration = 0.25f;
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
 
@@ -41,8 +36,12 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
 
     private void OnEnable()
     {
-        canvasGroup = GetComponent<CanvasGroup>();
-        rectTransform = GetComponent<RectTransform>();
+        canvasGroup = GetComponentInChildren<CanvasGroup>();
+        rectTransform = canvasGroup.GetComponent<RectTransform>();
+
+        selectionBelt.GetComponent<Image>().raycastTarget = false;
+        selectionBelt.gameObject.SetActive(false);
+        mainImage.gameObject.SetActive(true);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -52,20 +51,45 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
             return;
         }
 
+        Vector3 rotateVector;
+        Vector3 leftRotateVector = new Vector3(-2f, -2f, -2f);
+        Vector3 rightRotateVector = new Vector3(2f, 2f, 2f);
+
+        int randomInt = Random.Range(1, 3);
+        if (randomInt == 1)
+        {
+            rotateVector = leftRotateVector;
+        }
+        else
+        {
+            rotateVector = rightRotateVector;
+        }
+
         if (!Discovered)
         {
             rectTransform.DOKill();
-            rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-            rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
-
-            undiscoveredQuestBelt.gameObject.SetActive(true);
-            return;
+            rectTransform.DORotate(rotateVector, 0.1f);
+            rectTransform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.1f).OnComplete(() =>
+            {
+                rectTransform.DOScale(Vector3.one, 0.2f);
+                rectTransform.DORotate(Vector3.zero, 0.2f);
+            });
         }
         else
         {
             rectTransform.DOKill();
-            rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-            rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
+            rectTransform.DORotate(rotateVector, 0.1f);
+            rectTransform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.1f).OnComplete(() =>
+            {
+                rectTransform.DOScale(Vector3.one, 0.2f);
+                rectTransform.DORotate(Vector3.zero, 0.2f);
+
+                selectionBelt.gameObject.SetActive(true);
+                selectionBelt.GetComponent<Selection>().questData = questData;
+                selectionBelt.GetComponent<Selection>().parentQuest = this;
+                selectionBelt.GetComponent<Selection>().parentRectTransform = rectTransform;
+                selectionBelt.GetComponent<Image>().raycastTarget = true;
+            });
         }
     }
 
@@ -78,23 +102,22 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
 
         if (!Discovered)
         {
-            undiscoveredQuestBelt.gameObject.SetActive(false);
-            return;
+            rectTransform.DOKill();
+            rectTransform.DOScale(Vector3.one, 0.25f);
+            rectTransform.DORotate(Vector3.zero, 0.25f);
         }
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (!Discovered || inTransition)
+        else
         {
-            return;
+            selectionBelt.GetComponent<Image>().raycastTarget = false;
+            selectionBelt.GetComponent<Selection>().questData = null;
+            selectionBelt.GetComponent<Selection>().parentQuest = null;
+            selectionBelt.GetComponent<Selection>().parentRectTransform = null;
+            selectionBelt.gameObject.SetActive(false);
+
+            rectTransform.DOKill();
+            rectTransform.DOScale(Vector3.one, 0.25f);
+            rectTransform.DORotate(Vector3.zero, 0.25f);
         }
-
-        SceneController.Instance.TransitionToContents(questData);
-
-        rectTransform.DOKill();
-        rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-        rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
     }
 
 
@@ -117,18 +140,17 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
 
     public void SetQuestComponents()
     {
-        undiscoveredQuestBelt.gameObject.SetActive(false);
         inTransition = false;
 
         if (Discovered)
         {
             if (questData != null)
             {
-                questThumbnail.gameObject.SetActive(true);
+                mainImage.gameObject.SetActive(true);
                 questBelt.gameObject.SetActive(true);
                 questSeal.gameObject.SetActive(true);
 
-                questThumbnail.GetComponent<Image>().sprite = questData.questThumbnail;
+                mainImage.GetComponent<Image>().sprite = questData.questThumbnail;
                 questSeal.GetComponent<Image>().sprite = questData.questSeal;
                 questTitleText.text = questData.questName;
             }
@@ -138,13 +160,8 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, I
             questBelt.gameObject.SetActive(false);
             questSeal.gameObject.SetActive(false);
 
-            questThumbnail.GetComponent<Image>().sprite = undiscoveredQuestThumbnail;
+            mainImage.GetComponent<Image>().sprite = undiscoveredImage;
             questTitleText.text = null;
         }
-    }
-
-    public void ResetQuestComponents()
-    {
-
     }
 }
