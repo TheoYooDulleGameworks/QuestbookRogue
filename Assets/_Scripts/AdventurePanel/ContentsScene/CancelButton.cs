@@ -77,6 +77,9 @@ public class CancelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        GetComponent<Image>().raycastTarget = false;
+        SceneController.Instance.NotPaySlotRefund();
+
         if (isFreeToCancel)
         {
 
@@ -84,14 +87,6 @@ public class CancelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         else
         {
 
-        }
-
-        GetComponent<Image>().raycastTarget = false;
-
-        List<PaySlot> notThisPaySlots = new List<PaySlot>(transform.parent.parent.GetComponentsInChildren<PaySlot>());
-        for (int i = 0; i < notThisPaySlots.Count; i++)
-        {
-            notThisPaySlots[i].ProceedNotThisPayment();
         }
 
         SceneController.Instance.TransitionToSelects(currentQuestData);

@@ -116,43 +116,40 @@ public class CertainDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler,
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (!isConfirmed)
         {
-            if (!isConfirmed)
-            {
-                return;
-            }
-
-            isConfirmed = false;
-            OnConfirmed?.Invoke();
-
-            rectTransform.DOKill();
-            rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-            rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
-
-            keepingDicePrefab.GetComponent<RollDice>().ActivateRollDice();
-            keepingDicePrefab.GetComponent<RollDice>().PopUpAnim();
-
-            Vector2 mousePosition = Input.mousePosition;
-            Vector2 localPoint;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                GetComponentInParent<Canvas>().GetComponent<RectTransform>(),
-                mousePosition,
-                null,
-                out localPoint
-            );
-
-            keepingDicePrefab.GetComponent<RectTransform>().anchoredPosition = localPoint;
-
-            slotDiceImage.GetComponent<Image>().sprite = null;
-            if (slotDiceImage.gameObject.activeSelf)
-            {
-                slotDiceImage.gameObject.SetActive(false);
-            }
-
-            GetComponent<Image>().sprite = defaultSprite;
-            keepingDicePrefab = null;
+            return;
         }
+
+        isConfirmed = false;
+        OnConfirmed?.Invoke();
+
+        rectTransform.DOKill();
+        rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+        rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
+
+        keepingDicePrefab.GetComponent<RollDice>().ActivateRollDice();
+        keepingDicePrefab.GetComponent<RollDice>().PopUpAnim();
+
+        Vector2 mousePosition = Input.mousePosition;
+        Vector2 localPoint;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            GetComponentInParent<Canvas>().GetComponent<RectTransform>(),
+            mousePosition,
+            null,
+            out localPoint
+        );
+
+        keepingDicePrefab.GetComponent<RectTransform>().anchoredPosition = localPoint;
+
+        slotDiceImage.GetComponent<Image>().sprite = null;
+        if (slotDiceImage.gameObject.activeSelf)
+        {
+            slotDiceImage.gameObject.SetActive(false);
+        }
+
+        GetComponent<Image>().sprite = defaultSprite;
+        keepingDicePrefab = null;
     }
 
     public override bool CheckConfirmed()

@@ -6,7 +6,6 @@ public class SingleSlotSO : SlotSO
 {
     [Header("Settings")]
     public List<DiceType> requestDiceTypes;
-    public int requestDiceValue;
 
     [Header("Sprite Sources")]
     public Sprite defaultSlotSprite;

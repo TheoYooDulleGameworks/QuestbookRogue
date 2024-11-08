@@ -18,6 +18,7 @@ public class ProceedButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private void OnEnable()
     {
         GetComponent<Image>().raycastTarget = false;
+        GetComponent<Image>().sprite = defaultProceedButton;
     }
 
     public void ActivateButton()
@@ -64,6 +65,6 @@ public class ProceedButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             notThisPaySlots[i].ProceedNotThisPayment();
         }
 
-        // FLIP
+        GetComponentInParent<ActionContent>().FlipOnReward();
     }
 }

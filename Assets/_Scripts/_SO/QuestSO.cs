@@ -18,14 +18,11 @@ public enum QuestType
 {
     General,
     Combat,
-    Obstacle,
-    Treachery,
+    Expedition,
+    Intrigue,
     Boss,
     Village,
-    Item,
-    Break,
-    Exploration,
+    Point,
     Encounter,
-    Mystic,
-    Secret,
+    Secret
 }

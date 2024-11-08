@@ -142,7 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 4, y: 8, z: 4, w: 12}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -223,6 +223,8 @@ MonoBehaviour:
   notYetRolledAndWait: 0
   onceRolled: 0
   isAdvanced: 0
+  popUpScale: 1.35
+  popUpDuration: 0.25
 --- !u!225 &5508106723815801481
 CanvasGroup:
   m_ObjectHideFlags: 0

@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25d2238dfd77342e6b49d8925f1b145a, type: 3}
-  m_Name: 1
+  m_Name: 0 (Test)
   m_EditorClassIdentifier: 
-  questID: 1
-  questName: Tavern
-  questThumbnail: {fileID: 1071830044, guid: 295ee6751e3284669a855cc492eab567, type: 3}
-  questSeal: {fileID: -1108391152, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
-  questType: 5
+  questID: 0
+  questName: Blacksmith's Hut
+  questThumbnail: {fileID: -2093589468, guid: 295ee6751e3284669a855cc492eab567, type: 3}
+  questSeal: {fileID: -623794718, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  questType: 6
   questContents:
-  - {fileID: 11400000, guid: 7259e48a62438420f8f303f268cdc0b1, type: 2}
-  - {fileID: 11400000, guid: 256357f474ac240c2aad8b106fa32b0a, type: 2}
+  - {fileID: 11400000, guid: 852f28a4b89fa400f921df840673bbc9, type: 2}
+  - {fileID: 11400000, guid: 9ad53d44fcab74316831bff1bc99eb7c, type: 2}
   - {fileID: 11400000, guid: c936086ea6bdb49c29c89dd83feedba8, type: 2}
-  - {fileID: 11400000, guid: 947ab92717dad4d16a16c3f239c17431, type: 2}
-  - {fileID: 11400000, guid: 6988d98b3e67b42cab2a5c9ea209bce5, type: 2}
-  - {fileID: 11400000, guid: 6197d05f0f863452cb2ec87261491ea3, type: 2}
+  - {fileID: 11400000, guid: a40569d9b8ce34ce489e8ab3ff038ec9, type: 2}
+  - {fileID: 11400000, guid: 5085732470e764f31887c46fbc53afc8, type: 2}
+  - {fileID: 11400000, guid: ba057450d72fa4d5a8f9f98eaa2ceed6, type: 2}
   - {fileID: 11400000, guid: c936086ea6bdb49c29c89dd83feedba8, type: 2}
   - {fileID: 11400000, guid: c936086ea6bdb49c29c89dd83feedba8, type: 2}
   - {fileID: 11400000, guid: c936086ea6bdb49c29c89dd83feedba8, type: 2}

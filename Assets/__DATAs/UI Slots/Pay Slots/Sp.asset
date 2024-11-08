@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sp
   m_EditorClassIdentifier: 
   slotPrefab: {fileID: 3156067049281004811, guid: 2070221f8f8ef4224ab50af1dc3bf88e, type: 3}
-  paymentType: 4
+  paymentType: 6
   paymentIconSprite: {fileID: 322801435, guid: e143504abf7ee4ce7a0bd82e71a8af05, type: 3}
   defaultSlotSprite: {fileID: -1937173845, guid: 7730e8f03c694447a8cbc02bc5be19b6, type: 3}
   succeedSlotSprite: {fileID: 2082582714, guid: 7730e8f03c694447a8cbc02bc5be19b6, type: 3}

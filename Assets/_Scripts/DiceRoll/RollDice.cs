@@ -469,6 +469,8 @@ public enum PaymentType
     None,
     Coin,
     Provision,
+    Xp,
+    Lv,
     Hp,
     Sp,
     Dice,

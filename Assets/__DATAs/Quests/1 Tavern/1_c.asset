@@ -22,17 +22,24 @@ MonoBehaviour:
   isFreeCancel: 0
   bodyText: 
   cancelText: 
+  actionImage: {fileID: 387024320, guid: 295ee6751e3284669a855cc492eab567, type: 3}
+  actionBelt: {fileID: 1707217300, guid: fd8805f1b66d649388fc70f6d2472d15, type: 3}
   actionTitle: Try Conversation
   actionSeal: {fileID: 939198109, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
-  actionRequestDiceSlots:
-  - {fileID: 11400000, guid: c421e8b320ed24643adf52bed7e7b312, type: 2}
-  - {fileID: 11400000, guid: af09d00925a6a434fa8165c4dccb7400, type: 2}
-  multiValue: 
-  payValue: 
+  actionRequestSlots1Row:
+  - RequestSlot: {fileID: 11400000, guid: b45cd5d486e5d4d14995666db890b170, type: 2}
+    DiceSlotType: 1
+    RequestValue: 12
+  - RequestSlot: {fileID: 11400000, guid: 17d613e2090e94d51b75f61d71d2ff41, type: 2}
+    DiceSlotType: 0
+    RequestValue: 3
+  - RequestSlot: {fileID: 11400000, guid: 17d613e2090e94d51b75f61d71d2ff41, type: 2}
+    DiceSlotType: 0
+    RequestValue: 3
+  actionRequestSlots2Row: []
   actionRewardText: unexpectedness awaits...
-  rewardContents:
-  - {fileID: 11400000, guid: dc86f2f41e3b44f5c92eeeabb2cfe8ef, type: 2}
   isThereProceedButton: 1
-  conclusionTitle: 
-  conclusionSeal: {fileID: 0}
-  conclusionText: 
+  rewardBelt: {fileID: 0}
+  rewardTitle: 
+  rewardSeal: {fileID: 0}
+  rewardSlots: []

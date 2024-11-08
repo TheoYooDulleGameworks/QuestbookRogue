@@ -13,24 +13,26 @@ public class PlayerManager : Singleton<PlayerManager>
     // Player Assets //
     [SerializeField] public PlayerStatusSO playerStatus;
     [SerializeField] public PlayerDiceSO playerDices;
+    [SerializeField] public PlayerPathSO playerPaths;
 
     protected override void Awake()
     {
         base.Awake();
 
-        SetPlayerProfile();
-        SetPlayerStatus();
-        SetPlayerDices();
+        FirstSetPlayerProfile();
+        FirstSetPlayerStatus();
+        FirstSetPlayerDices();
+        FirstSetPlayerPaths();
     }
 
-    private void SetPlayerProfile()
+    private void FirstSetPlayerProfile()
     {
         playerCard.sprite = playerCharacter.characterCard;
         playerLvContainer.sprite = playerCharacter.characterLvContainer;
         playerName.text = playerCharacter.characterName;
     }
 
-    private void SetPlayerStatus()
+    private void FirstSetPlayerStatus()
     {
         playerStatus.Lv.Value = 1;
         playerStatus.currentXp.Value = 0;
@@ -48,7 +50,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     }
 
-    private void SetPlayerDices()
+    private void FirstSetPlayerDices()
     {
         playerDices.StrNormalDice.Value = playerCharacter.startingStrength;
         playerDices.StrAdvancedDice.Value = playerCharacter.startingAdvancedStrength;
@@ -61,5 +63,10 @@ public class PlayerManager : Singleton<PlayerManager>
 
         playerDices.WilNormalDice.Value = playerCharacter.startingWillpower;
         playerDices.WilAdvancedDice.Value = playerCharacter.startingAdvancedWillpower;
+    }
+
+    private void FirstSetPlayerPaths()
+    {
+        playerPaths.FirstSetPaths();
     }
 }

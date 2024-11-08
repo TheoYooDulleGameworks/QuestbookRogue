@@ -45,14 +45,14 @@ public class PaySlot : DiceSlot, IPointerEnterHandler, IPointerExitHandler, IPoi
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public override void SetSlotComponents(ContentSO contentData, int refValueIndex, SlotSO slotData)
+    public override void SetSlotComponents(ContentSO contentData, int requestValue, SlotSO slotData)
     {
         PaySlotSO paySlotData = slotData as PaySlotSO;
 
         if (paySlotData != null)
         {
             paymentType = paySlotData.paymentType;
-            payValue = contentData.payValue[refValueIndex];
+            payValue = requestValue;
 
             payIconSprite = paySlotData.paymentIconSprite;
 
@@ -121,48 +121,45 @@ public class PaySlot : DiceSlot, IPointerEnterHandler, IPointerExitHandler, IPoi
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (!isConfirmed)
         {
-            if (!isConfirmed)
+            if (CheckPayment(paymentType, payValue) == true)
             {
-                if (CheckPayment(paymentType, payValue) == true)
-                {
-                    SpendPayment(paymentType, payValue);
-
-                    rectTransform.DOKill();
-                    rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-                    rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
-
-                    GetComponent<Image>().sprite = succeedSprite;
-                    isConfirmed = true;
-                    OnConfirmed?.Invoke();
-                }
-                else
-                {
-                    rectTransform.DOKill();
-                    rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-                    rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
-
-                    GetComponent<Image>().sprite = failSprite;
-                    if (colorCoroutine != null)
-                    {
-                        StopCoroutine(colorCoroutine);
-                    }
-                    colorCoroutine = StartCoroutine(ColorChangeToNormal());
-                }
-            }
-            else
-            {
-                RefundPayment(paymentType, payValue);
+                SpendPayment(paymentType, payValue);
 
                 rectTransform.DOKill();
                 rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
                 rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
 
-                GetComponent<Image>().sprite = defaultSprite;
-                isConfirmed = false;
+                GetComponent<Image>().sprite = succeedSprite;
+                isConfirmed = true;
                 OnConfirmed?.Invoke();
             }
+            else
+            {
+                rectTransform.DOKill();
+                rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
+
+                GetComponent<Image>().sprite = failSprite;
+                if (colorCoroutine != null)
+                {
+                    StopCoroutine(colorCoroutine);
+                }
+                colorCoroutine = StartCoroutine(ColorChangeToNormal());
+            }
+        }
+        else
+        {
+            RefundPayment(paymentType, payValue);
+
+            rectTransform.DOKill();
+            rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+            rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
+
+            GetComponent<Image>().sprite = defaultSprite;
+            isConfirmed = false;
+            OnConfirmed?.Invoke();
         }
     }
 

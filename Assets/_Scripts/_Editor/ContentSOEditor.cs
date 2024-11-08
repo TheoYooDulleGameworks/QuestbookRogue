@@ -3,13 +3,6 @@ using UnityEditor;
 [CustomEditor(typeof(ContentSO))]
 public class ContentSOEditor : Editor
 {
-
-    // CUSTOM EDITOR 항목 추가하기 //
-
-    // Step.1 SerializedProperty에 _Prop 추가
-    // Step.2 OnEnable에 Property 참조, 연결
-    // Step.3 OnInspectorGUI에 GUI Layout 연동
-
     SerializedProperty ContentType_Prop;
 
     SerializedProperty ContentTemplate_Prop;
@@ -25,18 +18,19 @@ public class ContentSOEditor : Editor
     SerializedProperty BodyText_Prop;
     SerializedProperty CancelText_Prop;
 
+    SerializedProperty ActionImage_Prop;
+    SerializedProperty ActionBelt_Prop;
     SerializedProperty ActionTitle_Prop;
     SerializedProperty ActionSeal_Prop;
-    SerializedProperty ActionRequestDiceSlots_Prop;
-    SerializedProperty MultiValue_Prop;
-    SerializedProperty PayValue_Prop;
+    SerializedProperty ActionRequestSlots1Row_Prop;
+    SerializedProperty ActionRequestSlots2Row_Prop;
     SerializedProperty ActionRewardText_Prop;
-    SerializedProperty RewardContents_Prop;
     SerializedProperty IsThereProceedButton_Prop;
 
-    SerializedProperty ConclusionTitle_Prop;
-    SerializedProperty ConclusionSeal_Prop;
-    SerializedProperty ConclusionText_Prop;
+    SerializedProperty RewardBelt_Prop;
+    SerializedProperty RewardTitle_Prop;
+    SerializedProperty RewardSeal_Prop;
+    SerializedProperty RewardSlots_Prop;
 
     private void OnEnable()
     {
@@ -55,18 +49,19 @@ public class ContentSOEditor : Editor
         BodyText_Prop = serializedObject.FindProperty("bodyText");
         CancelText_Prop = serializedObject.FindProperty("cancelText");
 
+        ActionImage_Prop = serializedObject.FindProperty("actionImage");
+        ActionBelt_Prop = serializedObject.FindProperty("actionBelt");
         ActionTitle_Prop = serializedObject.FindProperty("actionTitle");
         ActionSeal_Prop = serializedObject.FindProperty("actionSeal");
-        ActionRequestDiceSlots_Prop = serializedObject.FindProperty("actionRequestDiceSlots");
-        MultiValue_Prop = serializedObject.FindProperty("multiValue");
-        PayValue_Prop = serializedObject.FindProperty("payValue");
+        ActionRequestSlots1Row_Prop = serializedObject.FindProperty("actionRequestSlots1Row");
+        ActionRequestSlots2Row_Prop = serializedObject.FindProperty("actionRequestSlots2Row");
         ActionRewardText_Prop = serializedObject.FindProperty("actionRewardText");
-        RewardContents_Prop = serializedObject.FindProperty("rewardContents");
         IsThereProceedButton_Prop = serializedObject.FindProperty("isThereProceedButton");
 
-        ConclusionTitle_Prop = serializedObject.FindProperty("conclusionTitle");
-        ConclusionSeal_Prop = serializedObject.FindProperty("conclusionSeal");
-        ConclusionText_Prop = serializedObject.FindProperty("conclusionText");
+        RewardBelt_Prop = serializedObject.FindProperty("rewardBelt");
+        RewardTitle_Prop = serializedObject.FindProperty("rewardTitle");
+        RewardSeal_Prop = serializedObject.FindProperty("rewardSeal");
+        RewardSlots_Prop = serializedObject.FindProperty("rewardSlots");
     }
 
     public override void OnInspectorGUI()
@@ -74,15 +69,13 @@ public class ContentSOEditor : Editor
         serializedObject.Update();
 
         EditorGUILayout.PropertyField(ContentType_Prop);
+        EditorGUILayout.PropertyField(ContentTemplate_Prop);
 
         if ((ContentSO.ContentType)ContentType_Prop.enumValueIndex == ContentSO.ContentType.Blank)
         {
-            EditorGUILayout.PropertyField(ContentTemplate_Prop);
         }
         else if ((ContentSO.ContentType)ContentType_Prop.enumValueIndex == ContentSO.ContentType.Image)
         {
-            EditorGUILayout.PropertyField(ContentTemplate_Prop);
-
             EditorGUILayout.PropertyField(QuestTitle_Prop);
             EditorGUILayout.PropertyField(QuestImage_Prop);
             EditorGUILayout.PropertyField(QuestSeal_Prop);
@@ -91,8 +84,6 @@ public class ContentSOEditor : Editor
         }
         else if ((ContentSO.ContentType)ContentType_Prop.enumValueIndex == ContentSO.ContentType.Description)
         {
-            EditorGUILayout.PropertyField(ContentTemplate_Prop);
-
             EditorGUILayout.PropertyField(BackgroundImage_Prop);
 
             EditorGUILayout.PropertyField(BodyText_Prop);
@@ -100,28 +91,21 @@ public class ContentSOEditor : Editor
         }
         else if ((ContentSO.ContentType)ContentType_Prop.enumValueIndex == ContentSO.ContentType.Action)
         {
-            EditorGUILayout.PropertyField(ContentTemplate_Prop);
-
             EditorGUILayout.PropertyField(BackgroundImage_Prop);
 
+            EditorGUILayout.PropertyField(ActionImage_Prop);
+            EditorGUILayout.PropertyField(ActionBelt_Prop);
             EditorGUILayout.PropertyField(ActionTitle_Prop);
             EditorGUILayout.PropertyField(ActionSeal_Prop);
-            EditorGUILayout.PropertyField(ActionRequestDiceSlots_Prop);
-            EditorGUILayout.PropertyField(MultiValue_Prop);
-            EditorGUILayout.PropertyField(PayValue_Prop);
+            EditorGUILayout.PropertyField(ActionRequestSlots1Row_Prop);
+            EditorGUILayout.PropertyField(ActionRequestSlots2Row_Prop);
             EditorGUILayout.PropertyField(ActionRewardText_Prop);
-            EditorGUILayout.PropertyField(RewardContents_Prop);
             EditorGUILayout.PropertyField(IsThereProceedButton_Prop);
-        }
-        else if ((ContentSO.ContentType)ContentType_Prop.enumValueIndex == ContentSO.ContentType.Conclusion)
-        {
-            EditorGUILayout.PropertyField(ContentTemplate_Prop);
-            
-            EditorGUILayout.PropertyField(BackgroundImage_Prop);
-            
-            EditorGUILayout.PropertyField(ConclusionTitle_Prop);
-            EditorGUILayout.PropertyField(ConclusionSeal_Prop);
-            EditorGUILayout.PropertyField(ConclusionText_Prop);
+
+            EditorGUILayout.PropertyField(RewardBelt_Prop);
+            EditorGUILayout.PropertyField(RewardTitle_Prop);
+            EditorGUILayout.PropertyField(RewardSeal_Prop);
+            EditorGUILayout.PropertyField(RewardSlots_Prop);
         }
 
         serializedObject.ApplyModifiedProperties();

@@ -50,14 +50,14 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
         }
     }
 
-    public override void SetSlotComponents(ContentSO contentData, int refValueIndex, SlotSO slotData)
+    public override void SetSlotComponents(ContentSO contentData, int requestValue, SlotSO slotData)
     {
         MultiSlotSO multiSlotData = slotData as MultiSlotSO;
 
         if (multiSlotData != null)
         {
             diceTypes = multiSlotData.requestDiceTypes;
-            conditionValue = contentData.multiValue[refValueIndex];
+            conditionValue = requestValue;
             defaultSprite = multiSlotData.defaultSlotSprite;
             checkingSprite = multiSlotData.checkingSlotSprite;
             succeedSprite = multiSlotData.succeedSlotSprite;

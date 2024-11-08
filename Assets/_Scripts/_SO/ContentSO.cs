@@ -10,17 +10,12 @@ public class ContentSO : ScriptableObject
         Image,
         Description,
         Action,
-        Conclusion,
-        Reward,
-        Choose,
     }
 
     public ContentType contentType;
-
     [SerializeField] public GameObject contentTemplate;
 
     // Common //
-
     public Sprite backgroundImage;
 
     // Image Content //
@@ -35,20 +30,40 @@ public class ContentSO : ScriptableObject
     [TextArea] public string cancelText;
 
     // Action Content //
+    public Sprite actionImage;
+    public Sprite actionBelt;
     public string actionTitle;
     public Sprite actionSeal;
-    public List<SlotSO> actionRequestDiceSlots;
-    public List<int> multiValue;
-    public List<int> payValue;
+    public List<SlotSet> actionRequestSlots1Row;
+    public List<SlotSet> actionRequestSlots2Row;
     [TextArea] public string actionRewardText;
-    public List<ContentSO> rewardContents;
     public bool isThereProceedButton = true;
 
-    // Conclusion Content //
+    public Sprite rewardBelt; //
+    public string rewardTitle; //
+    public Sprite rewardSeal; //
+    public List<RewardSet> rewardSlots; //
+}
 
-    public string conclusionTitle;
-    public Sprite conclusionSeal;
-    [TextArea] public string conclusionText;
+[System.Serializable]
+public class SlotSet
+{
+    [SerializeField] public SlotSO RequestSlot;
+    [SerializeField] public DiceSlotType DiceSlotType;
+    [SerializeField] public int RequestValue;
+}
 
+public enum DiceSlotType
+{
+    Single,
+    Multi,
+    Pay,
+}
 
+[System.Serializable]
+public class RewardSet
+{
+    // Reward SO
+    // Reward Type
+    // Reward Value
 }

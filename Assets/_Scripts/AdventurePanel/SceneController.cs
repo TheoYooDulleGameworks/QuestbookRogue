@@ -15,18 +15,22 @@ public class SceneController : Singleton<SceneController>
     [SerializeField] private RectTransform rollDicePanel;
 
     [Header("Player Assets")]
-    [SerializeField] private PlayerDiceSO playerDiceData;
+    [SerializeField] private PlayerPathSO playerPaths;
+    [SerializeField] private PlayerDiceSO playerDices;
 
-    [Header("Tweening")]
-    [SerializeField] private float rollDicePanelFadeTime = 0.5f;
+    [Header("Quests Management")]
+    [SerializeField] public List<Quest> questIndexes;
+
+    [Header("Sources")]
+    [SerializeField] private GameObject questCardPrefab;
+    [SerializeField] private QuestSO tempQuestData;
+
 
 
     // SETTINGS //
 
-    protected override void Awake()
+    public void InitiateQuestScene()
     {
-        base.Awake();
-
         if (!selectsScene.gameObject.activeSelf)
         {
             selectsScene.gameObject.SetActive(true);
@@ -39,39 +43,90 @@ public class SceneController : Singleton<SceneController>
         {
             rollDicePanel.gameObject.SetActive(false);
         }
+
+        StartCoroutine(FirstSetSelectsRoutine());
     }
 
-
-
-    // LOGICS //
-
-    public void TransitionToContents(QuestSO _questData)
+    private IEnumerator FirstSetSelectsRoutine()
     {
-        StartCoroutine(DeActivateSelectsRoutine());
-        StartCoroutine(SetContentsRoutine(_questData));
-        InfoTabController.Instance.HandleSkillTabActivate();
-        SetRollDicePanel();
+        for (int i = 0; i < 9; i++)
+        {
+            GameObject questCard = Instantiate(questCardPrefab);
+            questCard.transform.SetParent(selectsScene, false);
+            questCard.name = $"Quest_({i + 1})";
+            questIndexes.Add(questCard.GetComponent<Quest>());
+            questCard.GetComponent<Quest>().InitiateQuestCard(playerPaths.PickRandomQuestData());
+
+            questCard.GetComponent<Quest>().GenerateQuest();
+
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        StartCoroutine(FirstSetQuestRoutine());
     }
 
-    public void TransitionToSelects(QuestSO _questData)
+    private IEnumerator FirstSetQuestRoutine()
     {
-        StartCoroutine(ResetContentsRoutine());
-        StartCoroutine(ActivateSelectsRoutine());
-        InfoTabController.Instance.HandleDiceTabActivate();
-        ResetRollDicePanel();
+        yield return new WaitForSeconds(0.2f);
+
+        for (int i = 0; i < 3; i++)
+        {
+            questIndexes[i].FlipOnQuest();
+
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        yield return new WaitForSeconds(0.2f);
+
+        List<Quest> quests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
+        foreach (var quest in quests)
+        {
+            quest.ActivateQuestCard();
+        }
     }
 
 
 
-    // SELECTS //
+    // Selects -> CONTENTS //
 
-    private IEnumerator DeActivateSelectsRoutine()
+    public void DeActivateSelects()
     {
         List<Quest> quests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
         foreach (var quest in quests)
         {
             quest.DeActivateQuestCard();
         }
+    }
+
+    public void TransitionToContents(QuestSO _questData)
+    {
+        StartCoroutine(TransitionToContentsRoutine(_questData));
+    }
+
+    private IEnumerator TransitionToContentsRoutine(QuestSO _questData)
+    {
+        StartCoroutine(DeActivateSelectsRoutine());
+        yield return StartCoroutine(SetContentsRoutine(_questData));
+
+        yield return StartCoroutine(ActivateRollDicePanel());
+
+        yield return new WaitForSeconds(0.2f);
+
+        List<CancelButton> cancelButtons = new List<CancelButton>(contentsScene.GetComponentsInChildren<CancelButton>());
+        foreach (var button in cancelButtons)
+        {
+            button.ActivateTarget();
+        }
+        List<RollDice> dices = new List<RollDice>(rollDicePanel.GetComponentsInChildren<RollDice>());
+        foreach (var dice in dices)
+        {
+            dice.GetComponent<Image>().raycastTarget = true;
+        }
+    }
+
+    private IEnumerator DeActivateSelectsRoutine()
+    {
+        List<Quest> quests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
 
         for (int i = 0; i < quests.Count; i++)
         {
@@ -88,11 +143,61 @@ public class SceneController : Singleton<SceneController>
         }
 
         selectsScene.gameObject.SetActive(false);
+    }
 
-        List<CancelButton> cancelButtons = new List<CancelButton>(contentsScene.GetComponentsInChildren<CancelButton>());
-        foreach (var button in cancelButtons)
+    private IEnumerator SetContentsRoutine(QuestSO _questData)
+    {
+        yield return new WaitForSeconds(0.2f);
+        contentsScene.gameObject.SetActive(true);
+
+        for (int i = 0; i < _questData.questContents.Count; i++)
         {
-            button.ActivateTarget();
+            GameObject content = Instantiate(_questData.questContents[i].contentTemplate);
+            content.transform.SetParent(contentsScene, false);
+            content.name = $"content_({i + 1})";
+            content.GetComponent<IContent>().SetContentComponents(_questData, _questData.questContents[i]);
+            content.GetComponent<IContent>().FlipOnContent();
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+
+
+
+    // Contents -> SELECTS //
+
+    public void NotPaySlotRefund()
+    {
+        List<PaySlot> notThisPaySlots = new List<PaySlot>(GetComponentsInChildren<PaySlot>());
+        foreach (var paySlot in notThisPaySlots)
+        {
+            paySlot.ProceedNotThisPayment();
+        }
+    }
+
+    public void TransitionToSelects(QuestSO _questData)
+    {
+        StartCoroutine(TransitionToSelectsRoutine(_questData));
+    }
+
+    private IEnumerator TransitionToSelectsRoutine(QuestSO _questData)
+    {
+        List<RollDice> dices = new List<RollDice>(rollDicePanel.GetComponentsInChildren<RollDice>());
+        for (int i = 0; i < dices.Count; i++)
+        {
+            dices[i].GetComponent<Image>().raycastTarget = false;
+        }
+
+        yield return StartCoroutine(DeActivateRollDicePanel());
+
+        StartCoroutine(ResetContentsRoutine());
+        yield return StartCoroutine(ActivateSelectsRoutine());
+
+        yield return new WaitForSeconds(0.2f);
+
+        List<Quest> quests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
+        foreach (var quest in quests)
+        {
+            quest.ActivateQuestCard();
         }
     }
 
@@ -120,31 +225,6 @@ public class SceneController : Singleton<SceneController>
 
             yield return new WaitForSeconds(0.2f);
         }
-
-        foreach (var quest in quests)
-        {
-            quest.ActivateQuestCard();
-        }
-    }
-
-
-
-    // CONTENTS //
-
-    private IEnumerator SetContentsRoutine(QuestSO _questData)
-    {
-        yield return new WaitForSeconds(0.2f);
-        contentsScene.gameObject.SetActive(true);
-
-        for (int i = 0; i < _questData.questContents.Count; i++)
-        {
-            GameObject content = Instantiate(_questData.questContents[i].contentTemplate);
-            content.transform.SetParent(contentsScene, false);
-            content.name = $"content_({i + 1})";
-            content.GetComponent<IContent>().SetContentComponents(_questData, _questData.questContents[i]);
-            content.GetComponent<IContent>().FlipOnContent();
-            yield return new WaitForSeconds(0.2f);
-        }
     }
 
     private IEnumerator ResetContentsRoutine()
@@ -168,72 +248,88 @@ public class SceneController : Singleton<SceneController>
 
     // ROLL DICE PANEL //
 
+    private IEnumerator ActivateRollDicePanel()
+    {
+        SetRollDicePanel();
+        InfoTabController.Instance.HandleSkillTabActivate();
+
+        yield return null;
+    }
+
+    private IEnumerator DeActivateRollDicePanel()
+    {
+        ResetRollDicePanel();
+        InfoTabController.Instance.HandleDiceTabActivate();
+
+        yield return null;
+    }
+
     private void SetRollDicePanel()
     {
-        int StrAdvancedDiceAmount = playerDiceData.StrAdvancedDice.Value;
-        int DexAdvancedDiceAmount = playerDiceData.DexAdvancedDice.Value;
-        int IntAdvancedDiceAmount = playerDiceData.IntAdvancedDice.Value;
-        int WilAdvancedDiceAmount = playerDiceData.WilAdvancedDice.Value;
+        int StrAdvancedDiceAmount = playerDices.StrAdvancedDice.Value;
+        int DexAdvancedDiceAmount = playerDices.DexAdvancedDice.Value;
+        int IntAdvancedDiceAmount = playerDices.IntAdvancedDice.Value;
+        int WilAdvancedDiceAmount = playerDices.WilAdvancedDice.Value;
 
-        int StrNormalDiceAmount = playerDiceData.StrNormalDice.Value;
-        int DexNormalDiceAmount = playerDiceData.DexNormalDice.Value;
-        int IntNormalDiceAmount = playerDiceData.IntNormalDice.Value;
-        int WilNormalDiceAmount = playerDiceData.WilNormalDice.Value;
+        int StrNormalDiceAmount = playerDices.StrNormalDice.Value;
+        int DexNormalDiceAmount = playerDices.DexNormalDice.Value;
+        int IntNormalDiceAmount = playerDices.IntNormalDice.Value;
+        int WilNormalDiceAmount = playerDices.WilNormalDice.Value;
 
         List<GameObject> dicePrefabs = new List<GameObject>();
 
         for (int i = 0; i < StrAdvancedDiceAmount; i++)
         {
-            GameObject StrAdvancedDicePrefab = Instantiate(playerDiceData.StrAdvancedDice_Roll);
+            GameObject StrAdvancedDicePrefab = Instantiate(playerDices.StrAdvancedDice_Roll);
             StrAdvancedDicePrefab.transform.SetParent(rollDicePanel, false);
             dicePrefabs.Add(StrAdvancedDicePrefab);
         }
 
         for (int i = 0; i < StrNormalDiceAmount; i++)
         {
-            GameObject StrNormalDicePrefab = Instantiate(playerDiceData.StrNormalDice_Roll);
+            GameObject StrNormalDicePrefab = Instantiate(playerDices.StrNormalDice_Roll);
             StrNormalDicePrefab.transform.SetParent(rollDicePanel, false);
             dicePrefabs.Add(StrNormalDicePrefab);
         }
 
         for (int i = 0; i < DexAdvancedDiceAmount; i++)
         {
-            GameObject DexAdvancedDicePrefab = Instantiate(playerDiceData.DexAdvancedDice_Roll);
+            GameObject DexAdvancedDicePrefab = Instantiate(playerDices.DexAdvancedDice_Roll);
             DexAdvancedDicePrefab.transform.SetParent(rollDicePanel, false);
             dicePrefabs.Add(DexAdvancedDicePrefab);
         }
 
         for (int i = 0; i < DexNormalDiceAmount; i++)
         {
-            GameObject DexNormalDicePrefab = Instantiate(playerDiceData.DexNormalDice_Roll);
+            GameObject DexNormalDicePrefab = Instantiate(playerDices.DexNormalDice_Roll);
             DexNormalDicePrefab.transform.SetParent(rollDicePanel, false);
             dicePrefabs.Add(DexNormalDicePrefab);
         }
 
         for (int i = 0; i < IntAdvancedDiceAmount; i++)
         {
-            GameObject IntAdvancedDicePrefab = Instantiate(playerDiceData.IntAdvancedDice_Roll);
+            GameObject IntAdvancedDicePrefab = Instantiate(playerDices.IntAdvancedDice_Roll);
             IntAdvancedDicePrefab.transform.SetParent(rollDicePanel, false);
             dicePrefabs.Add(IntAdvancedDicePrefab);
         }
 
         for (int i = 0; i < IntNormalDiceAmount; i++)
         {
-            GameObject IntNormalDicePrefab = Instantiate(playerDiceData.IntNormalDice_Roll);
+            GameObject IntNormalDicePrefab = Instantiate(playerDices.IntNormalDice_Roll);
             IntNormalDicePrefab.transform.SetParent(rollDicePanel, false);
             dicePrefabs.Add(IntNormalDicePrefab);
         }
 
         for (int i = 0; i < WilAdvancedDiceAmount; i++)
         {
-            GameObject WilAdvancedDicePrefab = Instantiate(playerDiceData.WilAdvancedDice_Roll);
+            GameObject WilAdvancedDicePrefab = Instantiate(playerDices.WilAdvancedDice_Roll);
             WilAdvancedDicePrefab.transform.SetParent(rollDicePanel, false);
             dicePrefabs.Add(WilAdvancedDicePrefab);
         }
 
         for (int i = 0; i < WilNormalDiceAmount; i++)
         {
-            GameObject WilNormalDicePrefab = Instantiate(playerDiceData.WilNormalDice_Roll);
+            GameObject WilNormalDicePrefab = Instantiate(playerDices.WilNormalDice_Roll);
             WilNormalDicePrefab.transform.SetParent(rollDicePanel, false);
             dicePrefabs.Add(WilNormalDicePrefab);
         }
@@ -257,16 +353,16 @@ public class SceneController : Singleton<SceneController>
 
         rollDicePanel.GetComponent<CanvasGroup>().alpha = 0f;
         rollDicePanel.GetComponent<RectTransform>().transform.localPosition = new Vector3(0f, -120f, 0f);
-        rollDicePanel.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0f, 0f), rollDicePanelFadeTime, false).SetEase(Ease.OutCubic);
-        rollDicePanel.GetComponent<CanvasGroup>().DOFade(1, rollDicePanelFadeTime);
+        rollDicePanel.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0f, 0f), 0.5f, false).SetEase(Ease.OutCubic);
+        rollDicePanel.GetComponent<CanvasGroup>().DOFade(1, 0.5f);
     }
 
     private void ResetRollDicePanel()
     {
         rollDicePanel.GetComponent<CanvasGroup>().alpha = 1f;
         rollDicePanel.GetComponent<RectTransform>().localPosition = Vector3.zero;
-        rollDicePanel.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0f, -120f), rollDicePanelFadeTime, false).SetEase(Ease.InCubic);
-        rollDicePanel.GetComponent<CanvasGroup>().DOFade(0, rollDicePanelFadeTime).OnComplete(() =>
+        rollDicePanel.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0f, -120f), 0.5f, false).SetEase(Ease.InCubic);
+        rollDicePanel.GetComponent<CanvasGroup>().DOFade(0, 0.5f).OnComplete(() =>
         {
             foreach (Transform child in rollDicePanel)
             {
@@ -280,4 +376,5 @@ public class SceneController : Singleton<SceneController>
             rollDicePanel.gameObject.SetActive(false);
         });
     }
+
 }
