@@ -29,6 +29,8 @@ public class ActionContent : MonoBehaviour, IContent
     [SerializeField] private RectTransform rewardSealRect = null;
     [SerializeField] private RectTransform rewardParentRect = null;
 
+    public bool isThisReward = false;
+
     [Header("DiceSlot Layout")]
     private int diceSlotSeat1Row = 0;
     private int diceSlotSeat2Row = 0;
@@ -158,6 +160,18 @@ public class ActionContent : MonoBehaviour, IContent
 
     public void FlipOnReward()
     {
+        if (isThisReward)
+        {
+            FlipOnLoot();
+        }
+        else
+        {
+            FlipOnNone();
+        }
+    }
+
+    private void FlipOnLoot()
+    {
         actionCanvas.localScale = Vector3.one;
         actionCanvas.localEulerAngles = Vector3.zero;
 
@@ -167,6 +181,37 @@ public class ActionContent : MonoBehaviour, IContent
         {
             actionCanvas.gameObject.SetActive(false);
             rewardCanvas.gameObject.SetActive(true);
+
+            rewardCanvas.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+            rewardCanvas.localEulerAngles = new Vector3(-2f, -90f, -2f);
+
+            rewardCanvas.DOKill();
+            rewardCanvas.DOScale(Vector3.one, 0.2f);
+            rewardCanvas.DORotate(Vector3.zero, 0.2f);
+        });
+    }
+
+    private void FlipOnNone()
+    {
+        List<PaySlot> notThisPaySlots = new List<PaySlot>(GetComponentsInChildren<PaySlot>());
+        foreach (var paySlot in notThisPaySlots)
+        {
+            paySlot.ProceedNotThisPayment();
+        }
+
+        actionCanvas.localScale = Vector3.one;
+        actionCanvas.localEulerAngles = Vector3.zero;
+
+        actionCanvas.DOKill();
+        actionCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.2f);
+        actionCanvas.DORotate(new Vector3(2f, 90f, 2f), 0.2f).OnComplete(() =>
+        {
+            actionCanvas.gameObject.SetActive(false);
+            rewardCanvas.gameObject.SetActive(true);
+
+            rewardTitleRect.gameObject.SetActive(false);
+            rewardTitleTMPro.gameObject.SetActive(false);
+            rewardSealRect.gameObject.SetActive(false);
 
             rewardCanvas.localScale = new Vector3(0.75f, 0.75f, 0.75f);
             rewardCanvas.localEulerAngles = new Vector3(-2f, -90f, -2f);

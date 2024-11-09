@@ -36,7 +36,7 @@ MonoBehaviour:
   actionRequestSlots2Row: []
   actionRewardText: recover 4 SP
   isThereProceedButton: 1
-  rewardBelt: {fileID: 0}
-  rewardTitle: 
-  rewardSeal: {fileID: 0}
+  rewardBelt: {fileID: 1707217300, guid: fd8805f1b66d649388fc70f6d2472d15, type: 3}
+  rewardTitle: a Reward
+  rewardSeal: {fileID: -736264972, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   rewardSlots: []

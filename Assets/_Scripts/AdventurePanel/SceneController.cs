@@ -163,7 +163,21 @@ public class SceneController : Singleton<SceneController>
 
 
 
-    // Contents -> SELECTS //
+    // REWARDS //
+
+    public void TransitionToReward()
+    {
+        List<ActionContent> actionContents = new List<ActionContent>(GetComponentsInChildren<ActionContent>());
+        foreach (ActionContent content in actionContents)
+        {
+            content.FlipOnReward();
+        }
+
+        CancelButton cancelButton = GetComponentInChildren<CancelButton>();
+        cancelButton.FreeTheCancelButton();
+    }
+
+    // REFUNDS //
 
     public void NotPaySlotRefund()
     {
@@ -173,6 +187,10 @@ public class SceneController : Singleton<SceneController>
             paySlot.ProceedNotThisPayment();
         }
     }
+
+
+
+    // Contents -> SELECTS //
 
     public void TransitionToSelects(QuestSO _questData)
     {
@@ -191,8 +209,6 @@ public class SceneController : Singleton<SceneController>
 
         StartCoroutine(ResetContentsRoutine());
         yield return StartCoroutine(ActivateSelectsRoutine());
-
-        yield return new WaitForSeconds(0.2f);
 
         List<Quest> quests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
         foreach (var quest in quests)

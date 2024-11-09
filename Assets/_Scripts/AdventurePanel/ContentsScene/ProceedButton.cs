@@ -56,15 +56,11 @@ public class ProceedButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnPointerClick(PointerEventData eventData)
     {
         GetComponent<Image>().raycastTarget = false;
+        GetComponentInParent<ActionContent>().isThisReward = true;
 
-        List<PaySlot> notThisPaySlots = new List<PaySlot>(transform.parent.parent.GetComponentsInChildren<PaySlot>());
-        List<PaySlot> parentPaySlots = new List<PaySlot>(transform.parent.GetComponentsInChildren<PaySlot>());
-        notThisPaySlots.RemoveAll(slot => parentPaySlots.Contains(slot));
-        for (int i = 0; i < notThisPaySlots.Count; i++)
-        {
-            notThisPaySlots[i].ProceedNotThisPayment();
-        }
-
-        GetComponentInParent<ActionContent>().FlipOnReward();
+        // if (FreeActionContent)
+        // { GetComponentInParent<ActionContent>().FlipOnReward()}
+        // else { }
+        SceneController.Instance.TransitionToReward();
     }
 }

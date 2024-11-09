@@ -42,7 +42,7 @@ MonoBehaviour:
     RequestValue: 3
   actionRewardText: choose 1 Random Loot of 3
   isThereProceedButton: 1
-  rewardBelt: {fileID: 0}
-  rewardTitle: 
-  rewardSeal: {fileID: 0}
+  rewardBelt: {fileID: 714842617, guid: fd8805f1b66d649388fc70f6d2472d15, type: 3}
+  rewardTitle: a Reward
+  rewardSeal: {fileID: 411623410, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   rewardSlots: []

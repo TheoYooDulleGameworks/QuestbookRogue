@@ -26,7 +26,13 @@ public class CancelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         GetComponent<Image>().raycastTarget = true;
     }
-    
+
+    public void FreeTheCancelButton()
+    {
+        isFreeToCancel = true;
+        GetComponent<Image>().sprite = defaultFreeCancelButton;
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (isFreeToCancel)
