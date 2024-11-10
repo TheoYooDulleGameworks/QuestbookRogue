@@ -7,7 +7,7 @@ using DG.Tweening;
 public class SceneController : Singleton<SceneController>
 {
     [Header("Playing Data")]
-    [SerializeField] private int currentQuestIndex;
+    [SerializeField] private int currentQuestIndex = -1;
 
     [Header("Components")]
     [SerializeField] private RectTransform selectsScene;
@@ -23,7 +23,8 @@ public class SceneController : Singleton<SceneController>
 
     [Header("Sources")]
     [SerializeField] private GameObject questCardPrefab;
-    [SerializeField] private QuestSO tempQuestData;
+
+    private bool earlyRollDicePanelDeActivated;
 
 
 
@@ -53,9 +54,8 @@ public class SceneController : Singleton<SceneController>
         {
             GameObject questCard = Instantiate(questCardPrefab);
             questCard.transform.SetParent(selectsScene, false);
-            questCard.name = $"Quest_({i + 1})";
             questIndexes.Add(questCard.GetComponent<Quest>());
-            questCard.GetComponent<Quest>().InitiateQuestCard(playerPaths.PickRandomQuestData());
+            questCard.GetComponent<Quest>().InitiateQuestCard(playerPaths.PickRandomQuestData(), i);
 
             questCard.GetComponent<Quest>().GenerateQuest();
 
@@ -98,8 +98,9 @@ public class SceneController : Singleton<SceneController>
         }
     }
 
-    public void TransitionToContents(QuestSO _questData)
+    public void TransitionToContents(QuestSO _questData, int _questIndexNumber)
     {
+        currentQuestIndex = _questIndexNumber;
         StartCoroutine(TransitionToContentsRoutine(_questData));
     }
 
@@ -109,6 +110,7 @@ public class SceneController : Singleton<SceneController>
         yield return StartCoroutine(SetContentsRoutine(_questData));
 
         yield return StartCoroutine(ActivateRollDicePanel());
+        InfoTabController.Instance.HandleSkillTabActivate();
 
         yield return new WaitForSeconds(0.2f);
 
@@ -177,6 +179,11 @@ public class SceneController : Singleton<SceneController>
         cancelButton.FreeTheCancelButton();
     }
 
+    public void DeActivateRollDicePanelEarly()
+    {
+        earlyRollDicePanelDeActivated = true;
+        StartCoroutine(DeActivateRollDicePanel());
+    }
     // REFUNDS //
 
     public void NotPaySlotRefund()
@@ -205,11 +212,69 @@ public class SceneController : Singleton<SceneController>
             dices[i].GetComponent<Image>().raycastTarget = false;
         }
 
-        yield return StartCoroutine(DeActivateRollDicePanel());
+        if (!earlyRollDicePanelDeActivated)
+        {
+            yield return StartCoroutine(DeActivateRollDicePanel());
+        }
+        InfoTabController.Instance.HandleDiceTabActivate();
 
         StartCoroutine(ResetContentsRoutine());
         yield return StartCoroutine(ActivateSelectsRoutine());
 
+        if (currentQuestIndex != -1)
+        {
+            questIndexes[currentQuestIndex].FlipOffQuest();
+
+            yield return new WaitForSeconds(0.4f);
+
+            if (currentQuestIndex == 6 || currentQuestIndex == 7 || currentQuestIndex == 8)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    questIndexes[j].DeleteQuest();
+                }
+
+                for (int k = 3; k < 9; k++)
+                {
+                    questIndexes[k].MoveUpQuest();
+                }
+
+
+                for (int l = 0; l < 3; l++)
+                {
+                    GameObject questCard = Instantiate(questCardPrefab);
+                    questCard.transform.SetParent(selectsScene, false);
+                    questIndexes.Add(questCard.GetComponent<Quest>());
+                    questCard.GetComponent<Quest>().InitiateQuestCard(playerPaths.PickRandomQuestData(), l + 6);
+
+                    questCard.GetComponent<Quest>().MoveUpGenerateQuest();
+                }
+
+                questIndexes.RemoveRange(0, 3);
+                currentQuestIndex -= 3;
+
+                yield return new WaitForSeconds(0.4f);
+            }
+
+            List<int> nearbyQuests = GetNearbyQuest(currentQuestIndex);
+            if (nearbyQuests != null)
+            {
+                foreach (int index in nearbyQuests)
+                {
+                    questIndexes[index].FlipOnQuest();
+                }
+            }
+
+            yield return new WaitForSeconds(0.4f);
+
+        }
+        else
+        {
+            Debug.LogWarning("Quest Index Error!");
+        }
+
+
+        currentQuestIndex = -1;
         List<Quest> quests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
         foreach (var quest in quests)
         {
@@ -260,14 +325,38 @@ public class SceneController : Singleton<SceneController>
         contentsScene.gameObject.SetActive(false);
     }
 
-
+    private List<int> GetNearbyQuest(int questIndex)
+    {
+        switch (questIndex)
+        {
+            case 0:
+                return new List<int> { 1, 3 };
+            case 1:
+                return new List<int> { 0, 2, 4 };
+            case 2:
+                return new List<int> { 1, 5 };
+            case 3:
+                return new List<int> { 0, 4, 6 };
+            case 4:
+                return new List<int> { 1, 3, 5, 7 };
+            case 5:
+                return new List<int> { 2, 4, 8 };
+            case 6:
+                return new List<int> { 3, 7 };
+            case 7:
+                return new List<int> { 4, 6, 8 };
+            case 8:
+                return new List<int> { 5, 7 };
+            default:
+                return null;
+        }
+    }
 
     // ROLL DICE PANEL //
 
     private IEnumerator ActivateRollDicePanel()
     {
         SetRollDicePanel();
-        InfoTabController.Instance.HandleSkillTabActivate();
 
         yield return null;
     }
@@ -275,13 +364,14 @@ public class SceneController : Singleton<SceneController>
     private IEnumerator DeActivateRollDicePanel()
     {
         ResetRollDicePanel();
-        InfoTabController.Instance.HandleDiceTabActivate();
 
         yield return null;
     }
 
     private void SetRollDicePanel()
     {
+        earlyRollDicePanelDeActivated = false;
+
         int StrAdvancedDiceAmount = playerDices.StrAdvancedDice.Value;
         int DexAdvancedDiceAmount = playerDices.DexAdvancedDice.Value;
         int IntAdvancedDiceAmount = playerDices.IntAdvancedDice.Value;

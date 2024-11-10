@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contentType: 2
   contentTemplate: {fileID: 2136181797282923763, guid: 075405a11dfbe4d9099207c471619b12, type: 3}
-  backgroundImage: {fileID: -1979458329, guid: 295ee6751e3284669a855cc492eab567, type: 3}
+  backgroundImage: {fileID: 1464333480, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
   questTitle: 
   questImage: {fileID: 0}
   questSeal: {fileID: 0}
@@ -23,14 +23,16 @@ MonoBehaviour:
   bodyText: As you step into the place, a heavy metallic scent fills the air. The
     walls are lined with soot-stained, rusted gear.
   cancelText: If cancel this quest, lose 1 SP
+  actionImage: {fileID: 0}
+  actionBelt: {fileID: 0}
   actionTitle: 
   actionSeal: {fileID: 0}
-  actionRequestDiceSlots: []
-  multiValue: 
-  payValue: 
+  actionRequestSlots1Row: []
+  actionRequestSlots2Row: []
   actionRewardText: 
-  rewardContents: []
   isThereProceedButton: 1
-  conclusionTitle: 
-  conclusionSeal: {fileID: 0}
-  conclusionText: 
+  isFreeAction: 0
+  rewardBelt: {fileID: 0}
+  rewardTitle: 
+  rewardSeal: {fileID: 0}
+  rewardObjects: []

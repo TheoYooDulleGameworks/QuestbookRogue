@@ -6,6 +6,8 @@ using DG.Tweening;
 public class Selection : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
 {
     [SerializeField] public QuestSO questData;
+    [SerializeField] public int questIndexNumber  = -1;
+
     [SerializeField] public Quest parentQuest;
     [SerializeField] public RectTransform parentRectTransform;
 
@@ -49,7 +51,7 @@ public class Selection : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         {
             parentRectTransform.DOScale(Vector3.one, 0.2f).OnComplete(() =>
             {
-                SceneController.Instance.TransitionToContents(questData);
+                SceneController.Instance.TransitionToContents(questData, questIndexNumber);
             });
         });
     }

@@ -38,6 +38,7 @@ public class ContentSO : ScriptableObject
     public List<SlotSet> actionRequestSlots2Row;
     [TextArea] public string actionRewardText;
     public bool isThereProceedButton = true;
+    public bool isFreeAction = false;
 
     public Sprite rewardBelt; //
     public string rewardTitle; //

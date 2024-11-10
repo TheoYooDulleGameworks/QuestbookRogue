@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contentType: 3
   contentTemplate: {fileID: 6148890290424915317, guid: 0ddac7414eee2495b90d5be3f730f277, type: 3}
-  backgroundImage: {fileID: 1762698868, guid: 295ee6751e3284669a855cc492eab567, type: 3}
+  backgroundImage: {fileID: 1127244235, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
   questTitle: 
   questImage: {fileID: 0}
   questSeal: {fileID: 0}
@@ -22,10 +22,10 @@ MonoBehaviour:
   isFreeCancel: 0
   bodyText: 
   cancelText: 
-  actionImage: {fileID: 387024320, guid: 295ee6751e3284669a855cc492eab567, type: 3}
+  actionImage: {fileID: 1809170628, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
   actionBelt: {fileID: 1707217300, guid: fd8805f1b66d649388fc70f6d2472d15, type: 3}
   actionTitle: Rent a Room
-  actionSeal: {fileID: 939198109, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  actionSeal: {fileID: -1017744213, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   actionRequestSlots1Row:
   - RequestSlot: {fileID: 11400000, guid: 77089c54fbbb748e2ae13a3d40ec1ee3, type: 2}
     DiceSlotType: 1
@@ -36,7 +36,10 @@ MonoBehaviour:
     RequestValue: 4
   actionRewardText: recover All HP and All SP
   isThereProceedButton: 1
+  isFreeAction: 1
   rewardBelt: {fileID: 1707217300, guid: fd8805f1b66d649388fc70f6d2472d15, type: 3}
   rewardTitle: b Reward
-  rewardSeal: {fileID: -736264972, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
-  rewardSlots: []
+  rewardSeal: {fileID: -1017744213, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  rewardObjects:
+  - rewardData: {fileID: 11400000, guid: fbbf459bdeb8345bd9687a27797e5dfe, type: 2}
+    rewardAmount: 2

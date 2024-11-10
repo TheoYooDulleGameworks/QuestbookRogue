@@ -26,6 +26,7 @@ public class ContentSOEditor : Editor
     SerializedProperty ActionRequestSlots2Row_Prop;
     SerializedProperty ActionRewardText_Prop;
     SerializedProperty IsThereProceedButton_Prop;
+    SerializedProperty IsFreeAction_Prop;
 
     SerializedProperty RewardBelt_Prop;
     SerializedProperty RewardTitle_Prop;
@@ -57,6 +58,7 @@ public class ContentSOEditor : Editor
         ActionRequestSlots2Row_Prop = serializedObject.FindProperty("actionRequestSlots2Row");
         ActionRewardText_Prop = serializedObject.FindProperty("actionRewardText");
         IsThereProceedButton_Prop = serializedObject.FindProperty("isThereProceedButton");
+        IsFreeAction_Prop = serializedObject.FindProperty("isFreeAction");
 
         RewardBelt_Prop = serializedObject.FindProperty("rewardBelt");
         RewardTitle_Prop = serializedObject.FindProperty("rewardTitle");
@@ -101,6 +103,7 @@ public class ContentSOEditor : Editor
             EditorGUILayout.PropertyField(ActionRequestSlots2Row_Prop);
             EditorGUILayout.PropertyField(ActionRewardText_Prop);
             EditorGUILayout.PropertyField(IsThereProceedButton_Prop);
+            EditorGUILayout.PropertyField(IsFreeAction_Prop);
 
             EditorGUILayout.PropertyField(RewardBelt_Prop);
             EditorGUILayout.PropertyField(RewardTitle_Prop);

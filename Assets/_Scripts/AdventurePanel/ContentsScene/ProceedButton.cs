@@ -65,6 +65,7 @@ public class ProceedButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
         else
         {
+            SceneController.Instance.DeActivateRollDicePanelEarly();
             SceneController.Instance.TransitionToReward();
         }
 

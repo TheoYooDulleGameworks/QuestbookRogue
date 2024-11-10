@@ -132,6 +132,16 @@ public class ActionContent : MonoBehaviour, IContent
         {
             proceedButtonRect.GetComponent<ProceedButton>().currentQuestData = _questData;
             proceedButtonRect.GetComponent<ProceedButton>().currentActionContentData = contentData;
+
+            if (contentData.isFreeAction == true)
+            {
+                proceedButtonRect.GetComponent<ProceedButton>().isFreeAction = true;
+            }
+            else
+            {
+                proceedButtonRect.GetComponent<ProceedButton>().isFreeAction = false;
+            }
+
             proceedButtonRect.gameObject.SetActive(true);
         }
     }

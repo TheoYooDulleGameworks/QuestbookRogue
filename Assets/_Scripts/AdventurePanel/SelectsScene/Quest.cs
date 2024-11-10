@@ -8,19 +8,28 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Quest Data")]
     [SerializeField] private QuestSO questData = null;
-    // [SerializeField] private UndiscoveredSO undiscoveredData = null;
+    [SerializeField] private int questIndexNumber = -1;
 
     [Header("Components")]
+    [SerializeField] private RectTransform blankImage = null;
     [SerializeField] private RectTransform undiscoveredImage = null;
     [SerializeField] private RectTransform mainImage = null;
     [SerializeField] private RectTransform questBelt = null;
     [SerializeField] private RectTransform questSeal = null;
+    [SerializeField] private RectTransform resolvedImage = null;
     [SerializeField] private TextMeshProUGUI questTitleText = null;
     [SerializeField] private RectTransform selectionBelt = null;
 
     [Header("bool Trigger")]
     [SerializeField] private bool discovered = false;
+    [SerializeField] private bool resolved = false;
     [SerializeField] public bool inTransition = false;
+
+    [Header("Sprite Sources")]
+    [SerializeField] private Sprite resolvedCoverSprite;
+    [SerializeField] private Sprite resolvedBelt;
+    [SerializeField] private Sprite resolvedSeal;
+    [SerializeField] private Sprite failedSeal;
 
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
@@ -31,12 +40,12 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         // rectTransform = canvasGroup.GetComponent<RectTransform>();
     }
 
-    public void InitiateQuestCard(QuestSO _questData)
+    public void InitiateQuestCard(QuestSO _questData, int _questIndexNum)
     {
         canvasGroup = GetComponentInChildren<CanvasGroup>();
         rectTransform = canvasGroup.GetComponent<RectTransform>();
 
-        undiscoveredImage.gameObject.SetActive(true);
+        blankImage.gameObject.SetActive(true);
 
         mainImage.GetComponent<Image>().sprite = null;
         mainImage.gameObject.SetActive(false);
@@ -51,6 +60,7 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         selectionBelt.gameObject.SetActive(false);
 
         questData = _questData;
+        questIndexNumber = _questIndexNum;
 
         discovered = false;
         inTransition = true;
@@ -69,6 +79,9 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         rectTransform.DORotate(new Vector3(2f, 90f, 2f), 0.2f);
         canvasGroup.DOFade(1, 0.2f).OnComplete(() =>
         {
+            blankImage.gameObject.SetActive(false);
+            undiscoveredImage.gameObject.SetActive(true);
+
             rectTransform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
             rectTransform.localEulerAngles = new Vector3(-2f, -90f, -2f);
 
@@ -80,6 +93,11 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void FlipOnQuest()
     {
+        if (discovered)
+        {
+            return;
+        }
+
         rectTransform.localScale = Vector3.one;
         rectTransform.localEulerAngles = Vector3.zero;
 
@@ -88,8 +106,8 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         rectTransform.DORotate(new Vector3(2f, 90f, 2f), 0.2f).OnComplete(() =>
         {
             undiscoveredImage.gameObject.SetActive(false);
-
             mainImage.gameObject.SetActive(true);
+
             mainImage.GetComponent<Image>().sprite = questData.questThumbnail;
 
             questBelt.gameObject.SetActive(true);
@@ -110,7 +128,65 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void FlipOffQuest()
     {
+        resolved = true;
 
+        rectTransform.localScale = Vector3.one;
+        rectTransform.localEulerAngles = Vector3.zero;
+
+        rectTransform.DOKill();
+        rectTransform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.2f);
+        rectTransform.DORotate(new Vector3(2f, 90f, 2f), 0.2f).OnComplete(() =>
+        {
+            resolvedImage.gameObject.SetActive(true);
+            resolvedImage.GetComponent<Image>().sprite = resolvedCoverSprite;
+
+            questBelt.GetComponent<Image>().sprite = resolvedBelt;
+            questSeal.GetComponent<Image>().sprite = resolvedSeal;
+
+            rectTransform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+            rectTransform.localEulerAngles = new Vector3(-2f, -90f, -2f);
+
+            rectTransform.DOKill();
+            rectTransform.DOScale(Vector3.one, 0.2f);
+            rectTransform.DORotate(Vector3.zero, 0.2f);
+        });
+    }
+
+    public void DeleteQuest()
+    {
+        canvasGroup.alpha = 1f;
+        rectTransform.anchoredPosition = Vector3.zero;
+
+        rectTransform.DOKill();
+        rectTransform.DOAnchorPos(new Vector3(0, 280, 0), 0.4f);
+        canvasGroup.DOFade(0, 0.4f).OnComplete(() =>
+        {
+            Destroy(gameObject);
+        });
+    }
+
+    public void MoveUpQuest()
+    {
+        rectTransform.anchoredPosition = Vector3.zero;
+
+        rectTransform.DOKill();
+        rectTransform.DOAnchorPos(new Vector3(0, 280, 0), 0.4f).OnComplete(() =>
+        {
+            rectTransform.anchoredPosition = Vector3.zero;
+        });
+    }
+
+    public void MoveUpGenerateQuest()
+    {
+        canvasGroup.alpha = 0f;
+        rectTransform.anchoredPosition = Vector3.zero;
+
+        rectTransform.DOKill();
+        rectTransform.DOAnchorPos(new Vector3(0, 280, 0), 0.4f);
+        canvasGroup.DOFade(1, 0.4f).OnComplete(() =>
+        {
+            rectTransform.anchoredPosition = Vector3.zero;
+        });
     }
 
 
@@ -138,7 +214,7 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             rotateVector = rightRotateVector;
         }
 
-        if (!discovered)
+        if (!discovered || resolved)
         {
             rectTransform.DOKill();
             rectTransform.DORotate(rotateVector, 0.1f);
@@ -159,6 +235,7 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
                 selectionBelt.gameObject.SetActive(true);
                 selectionBelt.GetComponent<Selection>().questData = questData;
+                selectionBelt.GetComponent<Selection>().questIndexNumber = questIndexNumber;
                 selectionBelt.GetComponent<Selection>().parentQuest = this;
                 selectionBelt.GetComponent<Selection>().parentRectTransform = rectTransform;
                 selectionBelt.GetComponent<Image>().raycastTarget = true;
@@ -173,7 +250,7 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             return;
         }
 
-        if (!discovered)
+        if (!discovered || resolved)
         {
             rectTransform.DOKill();
             rectTransform.DOScale(Vector3.one, 0.25f);
@@ -183,6 +260,7 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             selectionBelt.GetComponent<Image>().raycastTarget = false;
             selectionBelt.GetComponent<Selection>().questData = null;
+            selectionBelt.GetComponent<Selection>().questIndexNumber = -1;
             selectionBelt.GetComponent<Selection>().parentQuest = null;
             selectionBelt.GetComponent<Selection>().parentRectTransform = null;
             selectionBelt.gameObject.SetActive(false);

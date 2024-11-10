@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questID: 1
   questName: Tavern
-  questThumbnail: {fileID: 1071830044, guid: 295ee6751e3284669a855cc492eab567, type: 3}
-  questSeal: {fileID: -1108391152, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  questThumbnail: {fileID: -1523611505, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
+  questSeal: {fileID: 801913506, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   questType: 5
   questContents:
   - {fileID: 11400000, guid: 7259e48a62438420f8f303f268cdc0b1, type: 2}

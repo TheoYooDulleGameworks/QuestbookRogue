@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rewardType: 0
   resourceRewardType: 1
-  defaultSprite: {fileID: -853538263, guid: e0f9b18b8b4694c0495a71be3d22c7c5, type: 3}
-  hoverSprite: {fileID: -1919588674, guid: e0f9b18b8b4694c0495a71be3d22c7c5, type: 3}
+  defaultSprite: {fileID: -1617616538, guid: e0f9b18b8b4694c0495a71be3d22c7c5, type: 3}
+  hoverSprite: {fileID: -801575125, guid: e0f9b18b8b4694c0495a71be3d22c7c5, type: 3}

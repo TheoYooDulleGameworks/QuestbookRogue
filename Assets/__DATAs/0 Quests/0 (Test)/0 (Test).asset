@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questID: 0
   questName: Blacksmith's Hut
-  questThumbnail: {fileID: -2093589468, guid: 295ee6751e3284669a855cc492eab567, type: 3}
-  questSeal: {fileID: -623794718, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  questThumbnail: {fileID: -112679528, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
+  questSeal: {fileID: -829570617, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   questType: 6
   questContents:
   - {fileID: 11400000, guid: 852f28a4b89fa400f921df840673bbc9, type: 2}
