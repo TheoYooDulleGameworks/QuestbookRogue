@@ -474,7 +474,6 @@ public enum PaymentType
     Hp,
     Sp,
     Dice,
-    Consumable,
     Skill,
     Relic,
 }

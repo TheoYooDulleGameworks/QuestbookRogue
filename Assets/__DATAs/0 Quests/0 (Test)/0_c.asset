@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4eff72458e07d4f70abc5c0322382142, type: 3}
-  m_Name: 0_a
+  m_Name: 0_c
   m_EditorClassIdentifier: 
   contentType: 3
   contentTemplate: {fileID: 6148890290424915317, guid: 0ddac7414eee2495b90d5be3f730f277, type: 3}
@@ -24,25 +24,39 @@ MonoBehaviour:
   cancelText: 
   actionImage: {fileID: 387024320, guid: 295ee6751e3284669a855cc492eab567, type: 3}
   actionBelt: {fileID: 714842617, guid: fd8805f1b66d649388fc70f6d2472d15, type: 3}
-  actionTitle: Find a Narrow Gap
+  actionTitle: Look around Floors
   actionSeal: {fileID: 939198109, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   actionRequestSlots1Row:
-  - RequestSlot: {fileID: 11400000, guid: 113adb94d8b57419aaa858a6e22d4027, type: 2}
+  - RequestSlot: {fileID: 11400000, guid: d31232bdd0bbd49dab89bbaedadad6b3, type: 2}
     DiceSlotType: 0
     RequestValue: 2
-  - RequestSlot: {fileID: 11400000, guid: 23c6c321a84b54e96bb27f18ac66d7dc, type: 2}
+  - RequestSlot: {fileID: 11400000, guid: b21934539c04640dfa4239798e43e0f6, type: 2}
+    DiceSlotType: 2
+    RequestValue: 1
+  - RequestSlot: {fileID: 11400000, guid: b21934539c04640dfa4239798e43e0f6, type: 2}
+    DiceSlotType: 2
+    RequestValue: 1
+  - RequestSlot: {fileID: 11400000, guid: b21934539c04640dfa4239798e43e0f6, type: 2}
     DiceSlotType: 2
     RequestValue: 1
   actionRequestSlots2Row:
-  - RequestSlot: {fileID: 11400000, guid: b45cd5d486e5d4d14995666db890b170, type: 2}
-    DiceSlotType: 1
-    RequestValue: 8
-  - RequestSlot: {fileID: 11400000, guid: 92ac93647dabc4f70930a2643f2bb604, type: 2}
+  - RequestSlot: {fileID: 11400000, guid: f772afcbe42654be1bec26954c3cf41f, type: 2}
     DiceSlotType: 0
-    RequestValue: 3
-  actionRewardText: choose 1 Random Loot of 3
+    RequestValue: 2
+  - RequestSlot: {fileID: 11400000, guid: f772afcbe42654be1bec26954c3cf41f, type: 2}
+    DiceSlotType: 0
+    RequestValue: 2
+  - RequestSlot: {fileID: 11400000, guid: f772afcbe42654be1bec26954c3cf41f, type: 2}
+    DiceSlotType: 0
+    RequestValue: 2
+  - RequestSlot: {fileID: 11400000, guid: f772afcbe42654be1bec26954c3cf41f, type: 2}
+    DiceSlotType: 0
+    RequestValue: 2
+  actionRewardText: gain some Resources
   isThereProceedButton: 1
   rewardBelt: {fileID: 714842617, guid: fd8805f1b66d649388fc70f6d2472d15, type: 3}
-  rewardTitle: a Reward
+  rewardTitle: c Reward
   rewardSeal: {fileID: 411623410, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
-  rewardSlots: []
+  rewardObjects:
+  - rewardData: {fileID: 11400000, guid: be0b071b26a454e418ed3468f041f533, type: 2}
+    rewardAmount: 12

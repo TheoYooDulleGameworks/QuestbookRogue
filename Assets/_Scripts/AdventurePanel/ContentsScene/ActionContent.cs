@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -21,6 +22,10 @@ public class ActionContent : MonoBehaviour, IContent
     [SerializeField] private TextMeshProUGUI rewardTextTMPro = null;
     [SerializeField] private RectTransform proceedButtonRect = null;
 
+    [Header("DiceSlot Layout")]
+    private int diceSlotSeat1Row = 0;
+    private int diceSlotSeat2Row = 0;
+
     [Header("Reward Components")]
     [SerializeField] private RectTransform rewardCanvas = null;
     [SerializeField] private RectTransform rewardBackgroundRect = null;
@@ -28,12 +33,12 @@ public class ActionContent : MonoBehaviour, IContent
     [SerializeField] private TextMeshProUGUI rewardTitleTMPro = null;
     [SerializeField] private RectTransform rewardSealRect = null;
     [SerializeField] private RectTransform rewardParentRect = null;
+    [SerializeField] private List<GameObject> currentRewards = null;
 
+    [Header("Reward Sources")]
+    [SerializeField] private GameObject uiRewardPrefab;
     public bool isThisReward = false;
-
-    [Header("DiceSlot Layout")]
-    private int diceSlotSeat1Row = 0;
-    private int diceSlotSeat2Row = 0;
+    public bool isFlippedAlready = false;
 
 
 
@@ -41,6 +46,8 @@ public class ActionContent : MonoBehaviour, IContent
 
     public void SetContentComponents(QuestSO _questData, ContentSO _contentData)
     {
+        // Reward : 데이터 받아서 프리팹 인스탠시에이트 하고 SetRewardData 세팅 해주기 //
+
         contentData = _contentData;
 
         actionBackgroundRect.GetComponent<Image>().sprite = contentData.backgroundImage;
@@ -109,6 +116,18 @@ public class ActionContent : MonoBehaviour, IContent
 
         // Reward Setting //
 
+        for (int i = 0; i < contentData.rewardObjects.Count; i++)
+        {
+            GameObject rewardObject = Instantiate(uiRewardPrefab);
+            rewardObject.transform.SetParent(rewardParentRect, false);
+            rewardObject.name = $"Reward_({i + 1})";
+
+            rewardObject.GetComponent<UIReward>().SetRewardData(contentData.rewardObjects[i]);
+            currentRewards.Add(rewardObject);
+
+            rewardObject.gameObject.SetActive(false);
+        }
+
         if (contentData.isThereProceedButton)
         {
             proceedButtonRect.GetComponent<ProceedButton>().currentQuestData = _questData;
@@ -160,44 +179,92 @@ public class ActionContent : MonoBehaviour, IContent
 
     public void FlipOnReward()
     {
+        if (isFlippedAlready)
+        {
+            return;
+        }
+
         if (isThisReward)
         {
-            FlipOnLoot();
+            StartCoroutine(FlipOnLootRoutine());
         }
         else
         {
-            FlipOnNone();
+            StartCoroutine(FlipOnNoneRoutine());
         }
     }
 
-    private void FlipOnLoot()
+    private IEnumerator FlipOnLootRoutine()
     {
-        actionCanvas.localScale = Vector3.one;
-        actionCanvas.localEulerAngles = Vector3.zero;
+        isFlippedAlready = true;
+
+        Vector3 rotateVector;
+        Vector3 leftRotateVector = new Vector3(-2f, -2f, -2f);
+        Vector3 rightRotateVector = new Vector3(2f, 2f, 2f);
+
+        int randomInt = Random.Range(1, 3);
+        if (randomInt == 1)
+        {
+            rotateVector = leftRotateVector;
+        }
+        else
+        {
+            rotateVector = rightRotateVector;
+        }
 
         actionCanvas.DOKill();
-        actionCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.2f);
-        actionCanvas.DORotate(new Vector3(2f, 90f, 2f), 0.2f).OnComplete(() =>
+        actionCanvas.DORotate(rotateVector, 0.1f);
+        actionCanvas.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.1f).OnComplete(() =>
         {
-            actionCanvas.gameObject.SetActive(false);
-            rewardCanvas.gameObject.SetActive(true);
+            actionCanvas.DOScale(Vector3.one, 0.2f);
+            actionCanvas.DORotate(Vector3.zero, 0.2f).OnComplete(() =>
+            {
+                actionCanvas.localScale = Vector3.one;
+                actionCanvas.localEulerAngles = Vector3.zero;
 
-            rewardCanvas.localScale = new Vector3(0.75f, 0.75f, 0.75f);
-            rewardCanvas.localEulerAngles = new Vector3(-2f, -90f, -2f);
+                actionCanvas.DOKill();
+                actionCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.2f);
+                actionCanvas.DORotate(new Vector3(2f, 90f, 2f), 0.2f).OnComplete(() =>
+                {
+                    actionCanvas.gameObject.SetActive(false);
+                    rewardCanvas.gameObject.SetActive(true);
 
-            rewardCanvas.DOKill();
-            rewardCanvas.DOScale(Vector3.one, 0.2f);
-            rewardCanvas.DORotate(Vector3.zero, 0.2f);
+                    rewardCanvas.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+                    rewardCanvas.localEulerAngles = new Vector3(-2f, -90f, -2f);
+
+                    rewardCanvas.DOKill();
+                    rewardCanvas.DOScale(Vector3.one, 0.2f);
+                    rewardCanvas.DORotate(Vector3.zero, 0.2f).OnComplete(() =>
+                    {
+                        StartCoroutine(PopUpRewardRoutine());
+                    });
+                });
+            });
         });
+
+        yield return null;
     }
 
-    private void FlipOnNone()
+    private IEnumerator PopUpRewardRoutine()
     {
+        for (int i = 0; i < currentRewards.Count; i++)
+        {
+            currentRewards[i].GetComponent<UIReward>().PopUpReward();
+            yield return new WaitForSeconds(0.2f);
+        }
+        rewardParentRect.GetComponent<HorizontalLayoutGroup>().enabled = false;
+    }
+
+    private IEnumerator FlipOnNoneRoutine()
+    {
+        isFlippedAlready = true;
         List<PaySlot> notThisPaySlots = new List<PaySlot>(GetComponentsInChildren<PaySlot>());
         foreach (var paySlot in notThisPaySlots)
         {
             paySlot.ProceedNotThisPayment();
         }
+
+        yield return new WaitForSeconds(0.3f);
 
         actionCanvas.localScale = Vector3.one;
         actionCanvas.localEulerAngles = Vector3.zero;

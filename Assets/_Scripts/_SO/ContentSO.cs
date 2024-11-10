@@ -42,7 +42,7 @@ public class ContentSO : ScriptableObject
     public Sprite rewardBelt; //
     public string rewardTitle; //
     public Sprite rewardSeal; //
-    public List<RewardSet> rewardSlots; //
+    public List<RewardSet> rewardObjects; //
 }
 
 [System.Serializable]
@@ -63,7 +63,6 @@ public enum DiceSlotType
 [System.Serializable]
 public class RewardSet
 {
-    // Reward SO
-    // Reward Type
-    // Reward Value
+    public RewardSO rewardData;
+    public int rewardAmount;
 }

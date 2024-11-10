@@ -30,7 +30,7 @@ public class ContentSOEditor : Editor
     SerializedProperty RewardBelt_Prop;
     SerializedProperty RewardTitle_Prop;
     SerializedProperty RewardSeal_Prop;
-    SerializedProperty RewardSlots_Prop;
+    SerializedProperty RewardObjects_Prop;
 
     private void OnEnable()
     {
@@ -61,7 +61,7 @@ public class ContentSOEditor : Editor
         RewardBelt_Prop = serializedObject.FindProperty("rewardBelt");
         RewardTitle_Prop = serializedObject.FindProperty("rewardTitle");
         RewardSeal_Prop = serializedObject.FindProperty("rewardSeal");
-        RewardSlots_Prop = serializedObject.FindProperty("rewardSlots");
+        RewardObjects_Prop = serializedObject.FindProperty("rewardObjects");
     }
 
     public override void OnInspectorGUI()
@@ -105,7 +105,7 @@ public class ContentSOEditor : Editor
             EditorGUILayout.PropertyField(RewardBelt_Prop);
             EditorGUILayout.PropertyField(RewardTitle_Prop);
             EditorGUILayout.PropertyField(RewardSeal_Prop);
-            EditorGUILayout.PropertyField(RewardSlots_Prop);
+            EditorGUILayout.PropertyField(RewardObjects_Prop);
         }
 
         serializedObject.ApplyModifiedProperties();

@@ -8,6 +8,7 @@ public class ProceedButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [Header("Current Action Content Data")]
     [SerializeField] public QuestSO currentQuestData;
     [SerializeField] public ContentSO currentActionContentData;
+    public bool isFreeAction;
 
     [Header("Button Sprites")]
     [SerializeField] private Sprite defaultProceedButton;
@@ -58,9 +59,14 @@ public class ProceedButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         GetComponent<Image>().raycastTarget = false;
         GetComponentInParent<ActionContent>().isThisReward = true;
 
-        // if (FreeActionContent)
-        // { GetComponentInParent<ActionContent>().FlipOnReward()}
-        // else { }
-        SceneController.Instance.TransitionToReward();
+        if (isFreeAction)
+        {
+            GetComponentInParent<ActionContent>().FlipOnReward();
+        }
+        else
+        {
+            SceneController.Instance.TransitionToReward();
+        }
+
     }
 }

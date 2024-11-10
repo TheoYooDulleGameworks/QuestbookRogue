@@ -29,5 +29,4 @@ public class CharacterSO : ScriptableObject
     [Header("Items")]
     public List<SkillSO> startingSkills;
     public List<RelicSO> startingRelics;
-    public List<ConsumableSO> startingConsumables;
 }

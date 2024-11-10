@@ -171,7 +171,7 @@ public class VitalUI : MonoBehaviour
                 break;
         }
 
-        int goalXpValue = 2 + (lvValue * 2);
+        int goalXpValue = (lvValue * 5);
         int goalXpValue10th = goalXpValue / 10;
         int goalXpValue1th = goalXpValue % 10;
 

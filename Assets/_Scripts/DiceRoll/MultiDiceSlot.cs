@@ -103,8 +103,6 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
 
             if (!isConfirmed && rollDice.IsFillValue(diceTypes) == true)
             {
-                Debug.Log("Fill!!!!!");
-
                 rectTransform.DOKill();
                 rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
                 rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
@@ -152,10 +150,6 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
                 }
 
                 IsConfirmCheck();
-            }
-            else
-            {
-                Debug.Log("Fail.....");
             }
         }
     }

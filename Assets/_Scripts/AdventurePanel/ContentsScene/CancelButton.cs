@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class CancelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
 {
@@ -29,6 +30,12 @@ public class CancelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void FreeTheCancelButton()
     {
+        RectTransform rectTransform = GetComponent<RectTransform>();
+
+        rectTransform.localScale = new Vector3(1.35f, 1.35f, 1.35f);
+        rectTransform.DOKill();
+        rectTransform.DOScale(Vector3.one, 0.25f);
+
         isFreeToCancel = true;
         GetComponent<Image>().sprite = defaultFreeCancelButton;
     }
