@@ -23,14 +23,13 @@ public class TestScript : MonoBehaviour
         playerStatus.Coin.AddValue(1);
         playerStatus.Provision.AddValue(1);
 
-        playerStatus.currentHp.AddValue(1);
         playerStatus.maxHp.AddValue(1);
-        playerStatus.currentSp.AddValue(1);
+        playerStatus.currentHp.AddClampedValue(1, 0, playerStatus.maxHp.Value);
         playerStatus.maxSp.AddValue(1);
+        playerStatus.currentSp.AddClampedValue(1, 0, playerStatus.maxSp.Value);
 
         playerStatus.currentArmor.AddValue(1);
-        
+
         playerStatus.currentXp.AddValue(1);
-        playerStatus.Lv.AddValue(1);
     }
 }

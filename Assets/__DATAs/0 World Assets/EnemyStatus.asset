@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f346dac1070e544328e1b0d2ee45c28a, type: 3}
+  m_Name: EnemyStatus
+  m_EditorClassIdentifier: 
+  Lv:
+    value: 0
+  currentXp:
+    value: 0
+  currentHp:
+    value: 0
+  maxHp:
+    value: 0
+  currentSp:
+    value: 0
+  maxSp:
+    value: 0
+  currentArmor:
+    value: 0
+  Coin:
+    value: 0
+  Provision:
+    value: 0

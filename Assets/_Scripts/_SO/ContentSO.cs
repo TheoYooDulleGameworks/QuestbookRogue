@@ -38,10 +38,11 @@ public class ContentSO : ScriptableObject
     [TextArea] public string actionRewardText;
     public bool isThereProceedButton = true;
     public bool isFreeAction = false;
+    public CombatOptionSet combatOptionSet;
 
-    public Sprite rewardBelt; //
-    public string rewardTitle; //
-    public List<RewardSet> rewardObjects; //
+    public Sprite rewardBelt;
+    public string rewardTitle;
+    public List<RewardSet> rewardObjects;
 }
 
 [System.Serializable]
@@ -52,6 +53,21 @@ public class SlotSet
     [SerializeField] public int RequestValue;
 }
 
+
+[System.Serializable]
+public class RewardSet
+{
+    public RewardSO rewardData;
+    public int rewardAmount;
+}
+
+[System.Serializable]
+public class CombatOptionSet
+{
+    public CombatOptionType combatOptionType;
+    public int combatOptionAmount;
+}
+
 public enum DiceSlotType
 {
     Single,
@@ -59,9 +75,9 @@ public enum DiceSlotType
     Pay,
 }
 
-[System.Serializable]
-public class RewardSet
+public enum CombatOptionType
 {
-    public RewardSO rewardData;
-    public int rewardAmount;
+    Attack,
+    DamageDown,
+    ArmorDown,
 }

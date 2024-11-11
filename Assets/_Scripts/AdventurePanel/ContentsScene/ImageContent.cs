@@ -16,11 +16,7 @@ public class ImageContent : MonoBehaviour, IContent
 
     [Header("Button Sprites")]
     [SerializeField] private Sprite defaultCancelButton;
-    [SerializeField] private Sprite mouseOverCancelButton;
-    [SerializeField] private Sprite mouseDownCancelButton;
     [SerializeField] private Sprite defaultFreeCancelButton;
-    [SerializeField] private Sprite mouseOverFreeCancelButton;
-    [SerializeField] private Sprite mouseDownFreeCancelButton;
 
     public void SetContentComponents(QuestSO _questData, ContentSO _contentData)
     {

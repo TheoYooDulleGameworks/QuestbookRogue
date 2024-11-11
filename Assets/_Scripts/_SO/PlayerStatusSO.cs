@@ -42,4 +42,20 @@ public class StatusValue
     {
         Value -= amount;
     }
+
+    public void SetClampedValue(int newValue, int min, int max)
+    {
+        value = Mathf.Clamp(newValue, min, max);
+        OnValueChanged?.Invoke();
+    }
+
+    public void AddClampedValue(int amount, int min, int max)
+    {
+        SetClampedValue(value + amount, min, max);
+    }
+
+    public void RemoveClampedValue(int amount, int min, int max)
+    {
+        SetClampedValue(value - amount, min, max);
+    }
 }

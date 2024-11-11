@@ -95,11 +95,7 @@ MonoBehaviour:
   questSealRect: {fileID: 4212780912487430030}
   cancelButtonRect: {fileID: 3677160933777533181}
   defaultCancelButton: {fileID: 1499729013, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
-  mouseOverCancelButton: {fileID: 597708561, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
-  mouseDownCancelButton: {fileID: 2133787984, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
   defaultFreeCancelButton: {fileID: 1282020880, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
-  mouseOverFreeCancelButton: {fileID: 620331584, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
-  mouseDownFreeCancelButton: {fileID: -239779397, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
 --- !u!1 &1180670196220421802
 GameObject:
   m_ObjectHideFlags: 0

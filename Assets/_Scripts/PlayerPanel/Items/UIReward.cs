@@ -96,10 +96,10 @@ public class UIReward : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                     playerStatus.currentXp.AddValue(addValue);
                     break;
                 case ResourceRewardType.Hp:
-                    playerStatus.currentHp.AddValue(addValue);
+                    playerStatus.currentHp.AddClampedValue(addValue, 0, playerStatus.maxHp.Value);
                     break;
                 case ResourceRewardType.Sp:
-                    playerStatus.currentSp.AddValue(addValue);
+                    playerStatus.currentSp.AddClampedValue(addValue, 0, playerStatus.maxSp.Value);
                     break;
             }
         }

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eff72458e07d4f70abc5c0322382142, type: 3}
+  m_Name: 600_2 Des
+  m_EditorClassIdentifier: 
+  contentType: 2
+  contentTemplate: {fileID: 2136181797282923763, guid: 075405a11dfbe4d9099207c471619b12, type: 3}
+  backgroundImage: {fileID: 1464333480, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
+  questTitle: 
+  questImage: {fileID: 0}
+  questSeal: {fileID: 0}
+  isThereCancelButton: 1
+  isFreeCancel: 0
+  bodyText: As you step into the place, a heavy metallic scent fills the air. The
+    walls are lined with soot-stained, rusted gear.
+  cancelText: If cancel this quest, lose 1 Sp
+  actionImage: {fileID: 0}
+  actionBelt: {fileID: 0}
+  actionTitle: 
+  actionRequestSlots1Row: []
+  actionRequestSlots2Row: []
+  actionRewardText: 
+  isThereProceedButton: 1
+  isFreeAction: 0
+  rewardBelt: {fileID: 0}
+  rewardTitle: 
+  rewardObjects: []
+  enemyDefaultHp: 0
+  enemyDefaultArmor: 0
+  enemyDefaultDamage: 0

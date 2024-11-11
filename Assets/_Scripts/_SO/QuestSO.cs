@@ -4,14 +4,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "QuestSO", menuName = "Scriptable Objects/Quests/QuestSO")]
 public class QuestSO : ScriptableObject
 {
-    [SerializeField] public int questID;
-    [SerializeField] public string questName;
+    public int questID;
+    public string questName;
 
-    [SerializeField] public Sprite questThumbnail;
-    [SerializeField] public Sprite questSeal;
-    [SerializeField] public QuestType questType;
+    public Sprite questThumbnail;
+    public Sprite questSeal;
+    public QuestType questType;
 
-    [SerializeField] public List<ContentSO> questContents;
+    public List<ContentSO> questContents;
+    public EnemySO enemyData;
 }
 
 public enum QuestType
