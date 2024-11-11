@@ -30,6 +30,11 @@ public class CancelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void FreeTheCancelButton()
     {
+        if (isFreeToCancel)
+        {
+            return;
+        }
+        
         RectTransform rectTransform = GetComponent<RectTransform>();
 
         rectTransform.localScale = new Vector3(1.35f, 1.35f, 1.35f);

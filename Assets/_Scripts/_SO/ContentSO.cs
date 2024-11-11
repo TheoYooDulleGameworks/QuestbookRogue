@@ -33,7 +33,6 @@ public class ContentSO : ScriptableObject
     public Sprite actionImage;
     public Sprite actionBelt;
     public string actionTitle;
-    public Sprite actionSeal;
     public List<SlotSet> actionRequestSlots1Row;
     public List<SlotSet> actionRequestSlots2Row;
     [TextArea] public string actionRewardText;
@@ -42,7 +41,6 @@ public class ContentSO : ScriptableObject
 
     public Sprite rewardBelt; //
     public string rewardTitle; //
-    public Sprite rewardSeal; //
     public List<RewardSet> rewardObjects; //
 }
 

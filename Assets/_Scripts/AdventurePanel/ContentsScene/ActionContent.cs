@@ -17,7 +17,6 @@ public class ActionContent : MonoBehaviour, IContent
     [SerializeField] private RectTransform actionImageRect = null;
     [SerializeField] private RectTransform actionTitleRect = null;
     [SerializeField] private TextMeshProUGUI actionTitleTMPro = null;
-    [SerializeField] private RectTransform actionSealRect = null;
     [SerializeField] private RectTransform slotParentRect = null;
     [SerializeField] private TextMeshProUGUI rewardTextTMPro = null;
     [SerializeField] private RectTransform proceedButtonRect = null;
@@ -31,7 +30,6 @@ public class ActionContent : MonoBehaviour, IContent
     [SerializeField] private RectTransform rewardBackgroundRect = null;
     [SerializeField] private RectTransform rewardTitleRect = null;
     [SerializeField] private TextMeshProUGUI rewardTitleTMPro = null;
-    [SerializeField] private RectTransform rewardSealRect = null;
     [SerializeField] private RectTransform rewardParentRect = null;
     [SerializeField] private List<GameObject> currentRewards = null;
 
@@ -54,13 +52,11 @@ public class ActionContent : MonoBehaviour, IContent
         actionImageRect.GetComponent<Image>().sprite = contentData.actionImage;
         actionTitleRect.GetComponent<Image>().sprite = contentData.actionBelt;
         actionTitleTMPro.text = contentData.actionTitle;
-        actionSealRect.GetComponent<Image>().sprite = contentData.actionSeal;
         rewardTextTMPro.text = contentData.actionRewardText;
 
         rewardBackgroundRect.GetComponent<Image>().sprite = contentData.backgroundImage;
         rewardTitleRect.GetComponent<Image>().sprite = contentData.rewardBelt;
         rewardTitleTMPro.text = contentData.rewardTitle;
-        rewardSealRect.GetComponent<Image>().sprite = contentData.rewardSeal;
 
         for (int i = 0; i < contentData.actionRequestSlots1Row.Count; i++)
         {
@@ -288,7 +284,6 @@ public class ActionContent : MonoBehaviour, IContent
 
             rewardTitleRect.gameObject.SetActive(false);
             rewardTitleTMPro.gameObject.SetActive(false);
-            rewardSealRect.gameObject.SetActive(false);
 
             rewardCanvas.localScale = new Vector3(0.75f, 0.75f, 0.75f);
             rewardCanvas.localEulerAngles = new Vector3(-2f, -90f, -2f);

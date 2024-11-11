@@ -205,8 +205,6 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
         {
             int j = keepingDicePrefabs.Count;
 
-            Debug.Log(j);
-
             for (int i = 0; i < j; i++)
             {
                 Debug.Log(i);

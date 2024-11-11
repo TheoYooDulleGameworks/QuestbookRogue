@@ -23,9 +23,8 @@ MonoBehaviour:
   bodyText: 
   cancelText: 
   actionImage: {fileID: 1809170628, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
-  actionBelt: {fileID: 714842617, guid: fd8805f1b66d649388fc70f6d2472d15, type: 3}
+  actionBelt: {fileID: 1065505458, guid: fd8805f1b66d649388fc70f6d2472d15, type: 3}
   actionTitle: Find a Narrow Gap
-  actionSeal: {fileID: -1063066550, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   actionRequestSlots1Row:
   - RequestSlot: {fileID: 11400000, guid: 113adb94d8b57419aaa858a6e22d4027, type: 2}
     DiceSlotType: 0
@@ -42,7 +41,6 @@ MonoBehaviour:
   isFreeAction: 0
   rewardBelt: {fileID: 714842617, guid: fd8805f1b66d649388fc70f6d2472d15, type: 3}
   rewardTitle: a Reward
-  rewardSeal: {fileID: -1063066550, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   rewardObjects:
   - rewardData: {fileID: 11400000, guid: 2bad000a41c28457b8b56faeba46fa0b, type: 2}
     rewardAmount: 1

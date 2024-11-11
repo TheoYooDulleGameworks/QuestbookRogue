@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: FirstQuestPool
   m_EditorClassIdentifier: 
   questDatas:
-  - {fileID: 11400000, guid: 9c57b03c5ef504973adac0f064a439f7, type: 2}
   - {fileID: 11400000, guid: 7d6a971d1d42e4f06aa75ec41e251cc8, type: 2}
-  - {fileID: 11400000, guid: 9c57b03c5ef504973adac0f064a439f7, type: 2}
-  - {fileID: 11400000, guid: 9c57b03c5ef504973adac0f064a439f7, type: 2}
-  - {fileID: 11400000, guid: 9c57b03c5ef504973adac0f064a439f7, type: 2}
-  - {fileID: 11400000, guid: 7d6a971d1d42e4f06aa75ec41e251cc8, type: 2}
+  - {fileID: 11400000, guid: 34d72ea3e0133436eaa0712c10379569, type: 2}
+  - {fileID: 11400000, guid: 34d72ea3e0133436eaa0712c10379569, type: 2}
+  - {fileID: 11400000, guid: 34d72ea3e0133436eaa0712c10379569, type: 2}
+  - {fileID: 11400000, guid: 34d72ea3e0133436eaa0712c10379569, type: 2}
+  - {fileID: 11400000, guid: 34d72ea3e0133436eaa0712c10379569, type: 2}
   - {fileID: 11400000, guid: 7d6a971d1d42e4f06aa75ec41e251cc8, type: 2}
   - {fileID: 11400000, guid: 7d6a971d1d42e4f06aa75ec41e251cc8, type: 2}
   - {fileID: 11400000, guid: 7d6a971d1d42e4f06aa75ec41e251cc8, type: 2}

@@ -15,4 +15,4 @@ MonoBehaviour:
   rewardType: 0
   resourceRewardType: 2
   defaultSprite: {fileID: -1056100360, guid: e0f9b18b8b4694c0495a71be3d22c7c5, type: 3}
-  hoverSprite: {fileID: -1056100360, guid: e0f9b18b8b4694c0495a71be3d22c7c5, type: 3}
+  hoverSprite: {fileID: -102483631, guid: e0f9b18b8b4694c0495a71be3d22c7c5, type: 3}

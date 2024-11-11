@@ -21,7 +21,6 @@ public class ContentSOEditor : Editor
     SerializedProperty ActionImage_Prop;
     SerializedProperty ActionBelt_Prop;
     SerializedProperty ActionTitle_Prop;
-    SerializedProperty ActionSeal_Prop;
     SerializedProperty ActionRequestSlots1Row_Prop;
     SerializedProperty ActionRequestSlots2Row_Prop;
     SerializedProperty ActionRewardText_Prop;
@@ -30,7 +29,6 @@ public class ContentSOEditor : Editor
 
     SerializedProperty RewardBelt_Prop;
     SerializedProperty RewardTitle_Prop;
-    SerializedProperty RewardSeal_Prop;
     SerializedProperty RewardObjects_Prop;
 
     private void OnEnable()
@@ -53,7 +51,6 @@ public class ContentSOEditor : Editor
         ActionImage_Prop = serializedObject.FindProperty("actionImage");
         ActionBelt_Prop = serializedObject.FindProperty("actionBelt");
         ActionTitle_Prop = serializedObject.FindProperty("actionTitle");
-        ActionSeal_Prop = serializedObject.FindProperty("actionSeal");
         ActionRequestSlots1Row_Prop = serializedObject.FindProperty("actionRequestSlots1Row");
         ActionRequestSlots2Row_Prop = serializedObject.FindProperty("actionRequestSlots2Row");
         ActionRewardText_Prop = serializedObject.FindProperty("actionRewardText");
@@ -62,7 +59,6 @@ public class ContentSOEditor : Editor
 
         RewardBelt_Prop = serializedObject.FindProperty("rewardBelt");
         RewardTitle_Prop = serializedObject.FindProperty("rewardTitle");
-        RewardSeal_Prop = serializedObject.FindProperty("rewardSeal");
         RewardObjects_Prop = serializedObject.FindProperty("rewardObjects");
     }
 
@@ -98,7 +94,6 @@ public class ContentSOEditor : Editor
             EditorGUILayout.PropertyField(ActionImage_Prop);
             EditorGUILayout.PropertyField(ActionBelt_Prop);
             EditorGUILayout.PropertyField(ActionTitle_Prop);
-            EditorGUILayout.PropertyField(ActionSeal_Prop);
             EditorGUILayout.PropertyField(ActionRequestSlots1Row_Prop);
             EditorGUILayout.PropertyField(ActionRequestSlots2Row_Prop);
             EditorGUILayout.PropertyField(ActionRewardText_Prop);
@@ -107,7 +102,6 @@ public class ContentSOEditor : Editor
 
             EditorGUILayout.PropertyField(RewardBelt_Prop);
             EditorGUILayout.PropertyField(RewardTitle_Prop);
-            EditorGUILayout.PropertyField(RewardSeal_Prop);
             EditorGUILayout.PropertyField(RewardObjects_Prop);
         }
 

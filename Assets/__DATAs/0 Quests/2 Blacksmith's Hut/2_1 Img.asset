@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eff72458e07d4f70abc5c0322382142, type: 3}
+  m_Name: 2_1 Img
+  m_EditorClassIdentifier: 
+  contentType: 1
+  contentTemplate: {fileID: 1137144648871385227, guid: 647be9955989341b8a0eef188d4d6879, type: 3}
+  backgroundImage: {fileID: 0}
+  questTitle: Blacksmith's Hut
+  questImage: {fileID: -112679528, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
+  questSeal: {fileID: -829570617, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  isThereCancelButton: 1
+  isFreeCancel: 1
+  bodyText: 
+  cancelText: 
+  actionImage: {fileID: 0}
+  actionBelt: {fileID: 0}
+  actionTitle: 
+  actionSeal: {fileID: 0}
+  actionRequestSlots1Row: []
+  actionRequestSlots2Row: []
+  actionRewardText: 
+  isThereProceedButton: 1
+  isFreeAction: 0
+  rewardBelt: {fileID: 0}
+  rewardTitle: 
+  rewardSeal: {fileID: 0}
+  rewardObjects: []

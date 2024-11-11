@@ -15,7 +15,7 @@ MonoBehaviour:
   contentType: 1
   contentTemplate: {fileID: 1137144648871385227, guid: 647be9955989341b8a0eef188d4d6879, type: 3}
   backgroundImage: {fileID: 0}
-  questTitle: Tavern
+  questTitle: Dusty Tavern
   questImage: {fileID: -1523611505, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
   questSeal: {fileID: 801913506, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   isThereCancelButton: 1

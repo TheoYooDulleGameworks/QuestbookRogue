@@ -20,7 +20,8 @@ MonoBehaviour:
   questSeal: {fileID: 0}
   isThereCancelButton: 1
   isFreeCancel: 0
-  bodyText: Tavern Tavern Taver Tavern
+  bodyText: The tavern's air is thick with the scent of age and ale. A few patrons
+    huddle in dark corners, their gazes indifferent to your entrance.
   cancelText: This quest is free to cancel
   actionImage: {fileID: 0}
   actionBelt: {fileID: 0}
