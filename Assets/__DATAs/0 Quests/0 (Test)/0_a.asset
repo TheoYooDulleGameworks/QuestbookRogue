@@ -36,7 +36,7 @@ MonoBehaviour:
   actionRequestSlots2Row:
   - RequestSlot: {fileID: 11400000, guid: b45cd5d486e5d4d14995666db890b170, type: 2}
     DiceSlotType: 1
-    RequestValue: 8
+    RequestValue: 18
   actionRewardText: choose 1 Random Loot of 3
   isThereProceedButton: 1
   isFreeAction: 0
