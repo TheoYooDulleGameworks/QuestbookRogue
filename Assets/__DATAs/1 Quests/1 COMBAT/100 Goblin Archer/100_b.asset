@@ -27,11 +27,11 @@ MonoBehaviour:
   actionTitle: Parry Blow
   actionRequestSlots1Row:
   - RequestSlot: {fileID: 11400000, guid: 835a2e17334f54b32a41155cf48b4779, type: 2}
-    DiceSlotType: 1
+    DiceSlotType: 2
     RequestValue: 6
   - RequestSlot: {fileID: 11400000, guid: b0bb0843fc1544cfea08f87e665e95d4, type: 2}
     DiceSlotType: 0
-    RequestValue: 3
+    RequestValue: 0
   actionRequestSlots2Row: []
   actionRewardText: 
   isThereProceedButton: 1

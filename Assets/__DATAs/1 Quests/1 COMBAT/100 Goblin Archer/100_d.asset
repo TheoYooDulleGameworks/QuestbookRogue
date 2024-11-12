@@ -27,15 +27,18 @@ MonoBehaviour:
   actionTitle: Get Close
   actionRequestSlots1Row:
   - RequestSlot: {fileID: 11400000, guid: 835a2e17334f54b32a41155cf48b4779, type: 2}
-    DiceSlotType: 1
+    DiceSlotType: 2
     RequestValue: 6
   - RequestSlot: {fileID: 11400000, guid: 17d613e2090e94d51b75f61d71d2ff41, type: 2}
     DiceSlotType: 0
-    RequestValue: 3
+    RequestValue: 0
   actionRequestSlots2Row: []
   actionRewardText: 
   isThereProceedButton: 1
   isFreeAction: 0
+  combatOptionSet:
+    combatOptionType: 0
+    combatOptionAmount: 0
   rewardBelt: {fileID: 714842617, guid: fd8805f1b66d649388fc70f6d2472d15, type: 3}
   rewardTitle: d Reward
   rewardObjects: []

@@ -27,12 +27,15 @@ MonoBehaviour:
   actionTitle: Order Ale
   actionRequestSlots1Row:
   - RequestSlot: {fileID: 11400000, guid: b21934539c04640dfa4239798e43e0f6, type: 2}
-    DiceSlotType: 2
+    DiceSlotType: 3
     RequestValue: 2
   actionRequestSlots2Row: []
   actionRewardText: 
   isThereProceedButton: 1
   isFreeAction: 1
+  combatOptionSet:
+    combatOptionType: 0
+    combatOptionAmount: 0
   rewardBelt: {fileID: 637824295, guid: fd8805f1b66d649388fc70f6d2472d15, type: 3}
   rewardTitle: Drink the Dark Ale
   rewardObjects:

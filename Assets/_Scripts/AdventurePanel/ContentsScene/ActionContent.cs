@@ -44,8 +44,6 @@ public class ActionContent : MonoBehaviour, IContent
 
     public void SetContentComponents(QuestSO _questData, ContentSO _contentData)
     {
-        // Reward : 데이터 받아서 프리팹 인스탠시에이트 하고 SetRewardData 세팅 해주기 //
-
         contentData = _contentData;
 
         actionBackgroundRect.GetComponent<Image>().sprite = contentData.backgroundImage;
@@ -150,12 +148,19 @@ public class ActionContent : MonoBehaviour, IContent
     {
         RectTransform actionCard = actionCanvas.GetComponent<RectTransform>();
 
-        actionCard.localScale = new Vector3(0.75f, 0.75f, 0.75f);
-        actionCard.localEulerAngles = new Vector3(-2f, -90f, -2f);
+        actionCard.GetComponent<CanvasGroup>().alpha = 0f;
+        actionCard.localScale = new Vector3(0.75f, 0.5f, 0.5f);
+        actionCard.localEulerAngles = new Vector3(-90f, 12f, 12f);
 
         actionCard.DOKill();
-        actionCard.DOScale(Vector3.one, 0.2f);
-        actionCard.DORotate(Vector3.zero, 0.2f);
+        actionCard.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.25f);
+        actionCard.DORotate(new Vector3(4f, 12f, -2f), 0.25f);
+        actionCard.GetComponent<CanvasGroup>().DOFade(1f, 0.25f).OnComplete(() =>
+        {
+            actionCard.DOKill();
+            actionCard.DOScale(Vector3.one, 0.25f);
+            actionCard.DORotate(Vector3.zero, 0.25f);
+        });
     }
 
     private void CheckAllConfirmed()
@@ -312,22 +317,24 @@ public class ActionContent : MonoBehaviour, IContent
 
     private void FlipOffAction()
     {
-        actionCanvas.localScale = Vector3.one;
         actionCanvas.localEulerAngles = Vector3.zero;
+        actionCanvas.localScale = Vector3.one;
 
         actionCanvas.DOKill();
-        actionCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.2f);
-        actionCanvas.DORotate(new Vector3(2f, 90f, 2f), 0.2f);
+        actionCanvas.DORotate(new Vector3(-75f, -12f, -6f), 0.25f);
+        actionCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.25f);
+        actionCanvas.GetComponent<CanvasGroup>().DOFade(0, 0.25f);
     }
 
     private void FlipOffReward()
     {
-        rewardCanvas.localScale = Vector3.one;
         rewardCanvas.localEulerAngles = Vector3.zero;
+        rewardCanvas.localScale = Vector3.one;
 
         rewardCanvas.DOKill();
-        rewardCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.2f);
-        rewardCanvas.DORotate(new Vector3(2f, 90f, 2f), 0.2f);
+        rewardCanvas.DORotate(new Vector3(-75f, -12f, -6f), 0.25f);
+        rewardCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.25f);
+        rewardCanvas.GetComponent<CanvasGroup>().DOFade(0, 0.25f);
     }
 
     public void DestroyContent()

@@ -49,7 +49,7 @@ public class SingleDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, 
         if (singleSlotData != null)
         {
             diceTypes = singleSlotData.requestDiceTypes;
-            aboveConditionValue = requestvalue;
+            aboveConditionValue = singleSlotData.singleDiceValue;
             defaultSprite = singleSlotData.defaultSlotSprite;
             checkingSprite = singleSlotData.checkingSlotSprite;
             succeedSprite = singleSlotData.succeedSlotSprite;

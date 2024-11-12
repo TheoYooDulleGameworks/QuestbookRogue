@@ -71,6 +71,7 @@ public class CombatOptionSet
 public enum DiceSlotType
 {
     Single,
+    Just,
     Multi,
     Pay,
 }

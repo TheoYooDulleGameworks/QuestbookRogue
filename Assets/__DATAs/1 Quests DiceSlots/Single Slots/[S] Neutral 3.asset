@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotPrefab: {fileID: 3156067049281004811, guid: 9f07a191f12604d1d80526a557ac9b35, type: 3}
   requestDiceTypes: 01000000020000000300000004000000
-  requestDiceValue: 3
+  singleDiceValue: 3
   defaultSlotSprite: {fileID: -2009969774, guid: 53cf0eb67944545b4911e2d3e8ae2cf7, type: 3}
   checkingSlotSprite: {fileID: -232664641, guid: 53cf0eb67944545b4911e2d3e8ae2cf7, type: 3}
   succeedSlotSprite: {fileID: -232664641, guid: 53cf0eb67944545b4911e2d3e8ae2cf7, type: 3}

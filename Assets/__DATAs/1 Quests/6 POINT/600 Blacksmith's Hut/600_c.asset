@@ -28,11 +28,17 @@ MonoBehaviour:
   actionRequestSlots1Row:
   - RequestSlot: {fileID: 11400000, guid: e55257c451cc247639c7e825c4bb7281, type: 2}
     DiceSlotType: 0
-    RequestValue: 4
+    RequestValue: 0
+  - RequestSlot: {fileID: 11400000, guid: 1848186225a7d4b4195d679aa9add24e, type: 2}
+    DiceSlotType: 1
+    RequestValue: 0
   actionRequestSlots2Row: []
   actionRewardText: 
   isThereProceedButton: 1
   isFreeAction: 0
+  combatOptionSet:
+    combatOptionType: 0
+    combatOptionAmount: 0
   rewardBelt: {fileID: 1065505458, guid: fd8805f1b66d649388fc70f6d2472d15, type: 3}
   rewardTitle: Found Hidden Coins
   rewardObjects:

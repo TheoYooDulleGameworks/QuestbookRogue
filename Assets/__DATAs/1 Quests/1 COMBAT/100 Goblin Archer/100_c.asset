@@ -27,12 +27,15 @@ MonoBehaviour:
   actionTitle: Basic Attack
   actionRequestSlots1Row:
   - RequestSlot: {fileID: 11400000, guid: 77089c54fbbb748e2ae13a3d40ec1ee3, type: 2}
-    DiceSlotType: 1
+    DiceSlotType: 2
     RequestValue: 6
   actionRequestSlots2Row: []
   actionRewardText: 
   isThereProceedButton: 1
   isFreeAction: 0
+  combatOptionSet:
+    combatOptionType: 0
+    combatOptionAmount: 0
   rewardBelt: {fileID: 714842617, guid: fd8805f1b66d649388fc70f6d2472d15, type: 3}
   rewardTitle: c Reward
   rewardObjects: []

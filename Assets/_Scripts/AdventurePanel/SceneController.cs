@@ -59,7 +59,7 @@ public class SceneController : Singleton<SceneController>
 
             questCard.GetComponent<Quest>().GenerateQuest();
 
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.25f);
         }
 
         StartCoroutine(FirstSetQuestRoutine());
@@ -67,16 +67,16 @@ public class SceneController : Singleton<SceneController>
 
     private IEnumerator FirstSetQuestRoutine()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
 
         for (int i = 0; i < 3; i++)
         {
             questIndexes[i].FlipOnQuest();
 
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.25f);
         }
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.3f); // 0.25s + additional 0.05s +
 
         List<Quest> quests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
         foreach (var quest in quests)
@@ -112,7 +112,7 @@ public class SceneController : Singleton<SceneController>
         yield return StartCoroutine(ActivateRollDicePanel());
         InfoTabController.Instance.HandleSkillTabActivate();
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
 
         List<CancelButton> cancelButtons = new List<CancelButton>(contentsScene.GetComponentsInChildren<CancelButton>());
         foreach (var button in cancelButtons)
@@ -134,22 +134,23 @@ public class SceneController : Singleton<SceneController>
         {
             RectTransform questCanvas = quests[i].GetComponentInChildren<CanvasGroup>().GetComponent<RectTransform>();
 
-            questCanvas.localScale = Vector3.one;
             questCanvas.localEulerAngles = Vector3.zero;
+            questCanvas.localScale = Vector3.one;
 
             questCanvas.DOKill();
-            questCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.2f);
-            questCanvas.DORotate(new Vector3(2f, 90f, 2f), 0.2f);
-
-            yield return new WaitForSeconds(0.2f);
+            questCanvas.DORotate(new Vector3(-75f, -12f, -6f), 0.25f);
+            questCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.25f);
+            questCanvas.GetComponent<CanvasGroup>().DOFade(0, 0.25f);
         }
+
+        yield return new WaitForSeconds(0.25f);
 
         selectsScene.gameObject.SetActive(false);
     }
 
     private IEnumerator SetContentsRoutine(QuestSO _questData)
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
         contentsScene.gameObject.SetActive(true);
 
         for (int i = 0; i < _questData.questContents.Count; i++)
@@ -158,8 +159,15 @@ public class SceneController : Singleton<SceneController>
             content.transform.SetParent(contentsScene, false);
             content.name = $"content_({i + 1})";
             content.GetComponent<IContent>().SetContentComponents(_questData, _questData.questContents[i]);
-            content.GetComponent<IContent>().FlipOnContent();
-            yield return new WaitForSeconds(0.2f);
+            if (content.GetComponent<BlankContent>())
+            {
+                continue;
+            }
+            else
+            {
+                content.GetComponent<IContent>().FlipOnContent();
+            }
+            yield return new WaitForSeconds(0.25f);
         }
     }
 
@@ -225,7 +233,7 @@ public class SceneController : Singleton<SceneController>
         {
             questIndexes[currentQuestIndex].FlipOffQuest();
 
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.5f);
 
             if (currentQuestIndex == 6 || currentQuestIndex == 7 || currentQuestIndex == 8)
             {
@@ -253,7 +261,7 @@ public class SceneController : Singleton<SceneController>
                 questIndexes.RemoveRange(0, 3);
                 currentQuestIndex -= 3;
 
-                yield return new WaitForSeconds(0.4f);
+                yield return new WaitForSeconds(0.5f);
             }
 
             List<int> nearbyQuests = GetNearbyQuest(currentQuestIndex);
@@ -265,14 +273,13 @@ public class SceneController : Singleton<SceneController>
                 }
             }
 
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.5f);
 
         }
         else
         {
             Debug.LogWarning("Quest Index Error!");
         }
-
 
         currentQuestIndex = -1;
         List<Quest> quests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
@@ -282,9 +289,27 @@ public class SceneController : Singleton<SceneController>
         }
     }
 
+    private IEnumerator ResetContentsRoutine()
+    {
+        List<IContent> contents = new List<IContent>(contentsScene.GetComponentsInChildren<IContent>());
+        for (int i = 0; i < contents.Count; i++)
+        {
+            contents[i].FlipOffContent();
+        }
+
+        yield return new WaitForSeconds(0.5f);
+
+        foreach (IContent content in contents)
+        {
+            content.DestroyContent();
+        }
+
+        contentsScene.gameObject.SetActive(false);
+    }
+
     private IEnumerator ActivateSelectsRoutine()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.5f);
         selectsScene.gameObject.SetActive(true);
 
         List<Quest> quests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
@@ -295,34 +320,10 @@ public class SceneController : Singleton<SceneController>
 
         for (int i = 0; i < quests.Count; i++)
         {
-            RectTransform questCanvas = quests[i].GetComponentInChildren<CanvasGroup>().GetComponent<RectTransform>();
+            quests[i].ReOpenQuest();
 
-            questCanvas.localScale = new Vector3(0.75f, 0.75f, 0.75f);
-            questCanvas.localEulerAngles = new Vector3(-2f, -90f, -2f);
-
-            questCanvas.DOKill();
-            questCanvas.DOScale(Vector3.one, 0.2f);
-            questCanvas.DORotate(Vector3.zero, 0.2f);
-
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.25f);
         }
-    }
-
-    private IEnumerator ResetContentsRoutine()
-    {
-        List<IContent> contents = new List<IContent>(contentsScene.GetComponentsInChildren<IContent>());
-        for (int i = 0; i < contents.Count; i++)
-        {
-            contents[i].FlipOffContent();
-            yield return new WaitForSeconds(0.2f);
-        }
-
-        foreach (IContent content in contents)
-        {
-            content.DestroyContent();
-        }
-
-        contentsScene.gameObject.SetActive(false);
     }
 
     private List<int> GetNearbyQuest(int questIndex)

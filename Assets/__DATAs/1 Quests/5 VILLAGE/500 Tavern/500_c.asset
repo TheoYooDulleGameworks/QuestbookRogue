@@ -27,15 +27,18 @@ MonoBehaviour:
   actionTitle: Try Conversation
   actionRequestSlots1Row:
   - RequestSlot: {fileID: 11400000, guid: b45cd5d486e5d4d14995666db890b170, type: 2}
-    DiceSlotType: 1
+    DiceSlotType: 2
     RequestValue: 8
   - RequestSlot: {fileID: 11400000, guid: 7a5eb1c12fc524b90ac96e0bfdd38fd3, type: 2}
-    DiceSlotType: 1
+    DiceSlotType: 2
     RequestValue: 12
   actionRequestSlots2Row: []
   actionRewardText: 
   isThereProceedButton: 1
   isFreeAction: 0
+  combatOptionSet:
+    combatOptionType: 0
+    combatOptionAmount: 0
   rewardBelt: {fileID: 1707217300, guid: fd8805f1b66d649388fc70f6d2472d15, type: 3}
   rewardTitle: Rumors Afloat
   rewardObjects:

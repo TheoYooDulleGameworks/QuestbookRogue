@@ -28,17 +28,20 @@ MonoBehaviour:
   actionRequestSlots1Row:
   - RequestSlot: {fileID: 11400000, guid: e55257c451cc247639c7e825c4bb7281, type: 2}
     DiceSlotType: 0
-    RequestValue: 3
+    RequestValue: 0
   - RequestSlot: {fileID: 11400000, guid: be31b5c46e0074f1085c4a13609fe782, type: 2}
     DiceSlotType: 0
-    RequestValue: 4
+    RequestValue: 0
   - RequestSlot: {fileID: 11400000, guid: a40ab70f68c7e474394611ec95267182, type: 2}
     DiceSlotType: 0
-    RequestValue: 5
+    RequestValue: 0
   actionRequestSlots2Row: []
   actionRewardText: 
   isThereProceedButton: 1
   isFreeAction: 0
+  combatOptionSet:
+    combatOptionType: 0
+    combatOptionAmount: 0
   rewardBelt: {fileID: 714842617, guid: fd8805f1b66d649388fc70f6d2472d15, type: 3}
   rewardTitle: a Reward
   rewardObjects: []
