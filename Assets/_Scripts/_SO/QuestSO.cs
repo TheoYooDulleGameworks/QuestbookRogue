@@ -4,14 +4,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "QuestSO", menuName = "Scriptable Objects/Quests/QuestSO")]
 public class QuestSO : ScriptableObject
 {
+    [Header("__________ ID _______________________________________________________________")]
     public int questID;
     public string questName;
 
-    public Sprite questThumbnail;
-    public Sprite questSeal;
+    [Header("__________ TYPE _______________________________________________________________")]
     public QuestType questType;
+    public Sprite questSeal;
 
+    [Header("__________ CONTENTS _______________________________________________________________")]
+    public Sprite questMainImage;
     public List<ContentSO> questContents;
+
+    [Header("__________ COMBAT _______________________________________________________________")]
     public EnemySO enemyData;
 }
 

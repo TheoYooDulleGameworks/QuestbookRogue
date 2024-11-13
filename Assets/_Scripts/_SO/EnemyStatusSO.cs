@@ -5,8 +5,8 @@ using UnityEngine;
 public class EnemyStatusSO : ScriptableObject
 {
     public EnemyStatusValue Lv;
-    public EnemyStatusValue maxHp;
-    public EnemyStatusValue currentHp;
+    public EnemyStatusValue maxHealth;
+    public EnemyStatusValue currentHealth;
     public EnemyStatusValue maxArmor;
     public EnemyStatusValue currentArmor;
     public EnemyStatusValue maxDamage;

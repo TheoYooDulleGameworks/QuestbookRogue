@@ -16,8 +16,8 @@ public class WorldManager : Singleton<WorldManager>
     {
         enemyStatus.Lv.Value = 1;
 
-        enemyStatus.maxHp.Value = 0;
-        enemyStatus.currentHp.Value = 0;
+        enemyStatus.maxHealth.Value = 0;
+        enemyStatus.currentHealth.Value = 0;
         
         enemyStatus.maxArmor.Value = 0;
         enemyStatus.currentArmor.Value = 0;

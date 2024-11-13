@@ -11,7 +11,7 @@ public class ActionContent : MonoBehaviour, IContent
     [Header("Content Data")]
     [SerializeField] private ContentSO contentData = null;
 
-    [Header("Components")]
+    [Header("Action Components")]
     [SerializeField] private RectTransform actionCanvas = null;
     [SerializeField] private RectTransform actionBackgroundRect = null;
     [SerializeField] private RectTransform actionImageRect = null;
@@ -33,8 +33,10 @@ public class ActionContent : MonoBehaviour, IContent
     [SerializeField] private RectTransform rewardParentRect = null;
     [SerializeField] private List<GameObject> currentRewards = null;
 
-    [Header("Reward Sources")]
+    [Header("Prefab Sources")]
     [SerializeField] private GameObject uiRewardPrefab;
+
+    [Header("Reward Bools")]
     public bool isThisReward = false;
     public bool isFlippedAlready = false;
 
@@ -55,6 +57,8 @@ public class ActionContent : MonoBehaviour, IContent
         rewardBackgroundRect.GetComponent<Image>().sprite = contentData.backgroundImage;
         rewardTitleRect.GetComponent<Image>().sprite = contentData.rewardBelt;
         rewardTitleTMPro.text = contentData.rewardTitle;
+
+        // DiceSlot Setting //
 
         for (int i = 0; i < contentData.actionRequestSlots1Row.Count; i++)
         {
@@ -209,22 +213,11 @@ public class ActionContent : MonoBehaviour, IContent
     {
         isFlippedAlready = true;
 
-        Vector3 rotateVector;
-        Vector3 leftRotateVector = new Vector3(-2f, -2f, -2f);
-        Vector3 rightRotateVector = new Vector3(2f, 2f, 2f);
-
-        int randomInt = Random.Range(1, 3);
-        if (randomInt == 1)
-        {
-            rotateVector = leftRotateVector;
-        }
-        else
-        {
-            rotateVector = rightRotateVector;
-        }
+        actionCanvas.localEulerAngles = Vector3.zero;
+        actionCanvas.localScale = Vector3.one;
 
         actionCanvas.DOKill();
-        actionCanvas.DORotate(rotateVector, 0.1f);
+        actionCanvas.DORotate(new Vector3(-4f, -12f, 2f), 0.1f);
         actionCanvas.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.1f).OnComplete(() =>
         {
             actionCanvas.DOScale(Vector3.one, 0.2f);
@@ -234,20 +227,26 @@ public class ActionContent : MonoBehaviour, IContent
                 actionCanvas.localEulerAngles = Vector3.zero;
 
                 actionCanvas.DOKill();
-                actionCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.2f);
-                actionCanvas.DORotate(new Vector3(2f, 90f, 2f), 0.2f).OnComplete(() =>
+                actionCanvas.DOScale(new Vector3(0.75f, 0.5f, 0.5f), 0.25f);
+                actionCanvas.DORotate(new Vector3(-90f, -12f, -12f), 0.25f).OnComplete(() =>
                 {
                     actionCanvas.gameObject.SetActive(false);
                     rewardCanvas.gameObject.SetActive(true);
 
-                    rewardCanvas.localScale = new Vector3(0.75f, 0.75f, 0.75f);
-                    rewardCanvas.localEulerAngles = new Vector3(-2f, -90f, -2f);
+                    rewardCanvas.localScale = new Vector3(0.75f, 0.5f, 0.5f);
+                    rewardCanvas.localEulerAngles = new Vector3(-90, 12f, 12f);
 
                     rewardCanvas.DOKill();
-                    rewardCanvas.DOScale(Vector3.one, 0.2f);
-                    rewardCanvas.DORotate(Vector3.zero, 0.2f).OnComplete(() =>
+                    rewardCanvas.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.25f);
+                    rewardCanvas.DORotate(new Vector3(4f, 12f, -2f), 0.25f).OnComplete(() =>
                     {
-                        StartCoroutine(PopUpRewardRoutine());
+                        rewardCanvas.DOKill();
+                        rewardCanvas.DORotate(Vector3.zero, 0.25f);
+                        rewardCanvas.DOScale(Vector3.one, 0.25f).OnComplete(() =>
+                        {
+                            StartCoroutine(PopUpRewardRoutine());
+
+                        });
                     });
                 });
             });
@@ -269,6 +268,7 @@ public class ActionContent : MonoBehaviour, IContent
     private IEnumerator FlipOnNoneRoutine()
     {
         isFlippedAlready = true;
+
         List<PaySlot> notThisPaySlots = new List<PaySlot>(GetComponentsInChildren<PaySlot>());
         foreach (var paySlot in notThisPaySlots)
         {
@@ -281,8 +281,8 @@ public class ActionContent : MonoBehaviour, IContent
         actionCanvas.localEulerAngles = Vector3.zero;
 
         actionCanvas.DOKill();
-        actionCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.2f);
-        actionCanvas.DORotate(new Vector3(2f, 90f, 2f), 0.2f).OnComplete(() =>
+        actionCanvas.DOScale(new Vector3(0.75f, 0.5f, 0.5f), 0.25f);
+        actionCanvas.DORotate(new Vector3(-90f, -12f, -12f), 0.25f).OnComplete(() =>
         {
             actionCanvas.gameObject.SetActive(false);
             rewardCanvas.gameObject.SetActive(true);
@@ -290,12 +290,17 @@ public class ActionContent : MonoBehaviour, IContent
             rewardTitleRect.gameObject.SetActive(false);
             rewardTitleTMPro.gameObject.SetActive(false);
 
-            rewardCanvas.localScale = new Vector3(0.75f, 0.75f, 0.75f);
-            rewardCanvas.localEulerAngles = new Vector3(-2f, -90f, -2f);
+            rewardCanvas.localScale = new Vector3(0.75f, 0.5f, 0.5f);
+            rewardCanvas.localEulerAngles = new Vector3(-90, 12f, 12f);
 
             rewardCanvas.DOKill();
-            rewardCanvas.DOScale(Vector3.one, 0.2f);
-            rewardCanvas.DORotate(Vector3.zero, 0.2f);
+            rewardCanvas.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.25f);
+            rewardCanvas.DORotate(new Vector3(4f, 12f, -2f), 0.25f).OnComplete(() =>
+            {
+                rewardCanvas.DOKill();
+                rewardCanvas.DORotate(Vector3.zero, 0.25f);
+                rewardCanvas.DOScale(Vector3.one, 0.25f);
+            });
         });
     }
 

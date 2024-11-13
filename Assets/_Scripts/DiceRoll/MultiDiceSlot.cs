@@ -207,8 +207,6 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
 
             for (int i = 0; i < j; i++)
             {
-                Debug.Log(i);
-
                 rectTransform.DOKill();
                 rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
                 rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);

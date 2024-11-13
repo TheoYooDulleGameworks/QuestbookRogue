@@ -18,15 +18,15 @@ public class ContentSOEditor : Editor
     SerializedProperty BodyText_Prop;
     SerializedProperty CancelText_Prop;
 
+    SerializedProperty ActionTitle_Prop;
     SerializedProperty ActionImage_Prop;
     SerializedProperty ActionBelt_Prop;
-    SerializedProperty ActionTitle_Prop;
+    SerializedProperty ActionRewardText_Prop;
     SerializedProperty ActionRequestSlots1Row_Prop;
     SerializedProperty ActionRequestSlots2Row_Prop;
-    SerializedProperty ActionRewardText_Prop;
     SerializedProperty IsThereProceedButton_Prop;
     SerializedProperty IsFreeAction_Prop;
-    SerializedProperty CombatOptionSet_Prop;
+    SerializedProperty CombatOptionSets_Prop;
 
     SerializedProperty RewardBelt_Prop;
     SerializedProperty RewardTitle_Prop;
@@ -49,15 +49,15 @@ public class ContentSOEditor : Editor
         BodyText_Prop = serializedObject.FindProperty("bodyText");
         CancelText_Prop = serializedObject.FindProperty("cancelText");
 
+        ActionTitle_Prop = serializedObject.FindProperty("actionTitle");
         ActionImage_Prop = serializedObject.FindProperty("actionImage");
         ActionBelt_Prop = serializedObject.FindProperty("actionBelt");
-        ActionTitle_Prop = serializedObject.FindProperty("actionTitle");
+        ActionRewardText_Prop = serializedObject.FindProperty("actionRewardText");
         ActionRequestSlots1Row_Prop = serializedObject.FindProperty("actionRequestSlots1Row");
         ActionRequestSlots2Row_Prop = serializedObject.FindProperty("actionRequestSlots2Row");
-        ActionRewardText_Prop = serializedObject.FindProperty("actionRewardText");
         IsThereProceedButton_Prop = serializedObject.FindProperty("isThereProceedButton");
         IsFreeAction_Prop = serializedObject.FindProperty("isFreeAction");
-        CombatOptionSet_Prop = serializedObject.FindProperty("combatOptionSet");
+        CombatOptionSets_Prop = serializedObject.FindProperty("combatOptionSets");
 
         RewardBelt_Prop = serializedObject.FindProperty("rewardBelt");
         RewardTitle_Prop = serializedObject.FindProperty("rewardTitle");
@@ -93,15 +93,15 @@ public class ContentSOEditor : Editor
         {
             EditorGUILayout.PropertyField(BackgroundImage_Prop);
 
+            EditorGUILayout.PropertyField(ActionTitle_Prop);
             EditorGUILayout.PropertyField(ActionImage_Prop);
             EditorGUILayout.PropertyField(ActionBelt_Prop);
-            EditorGUILayout.PropertyField(ActionTitle_Prop);
+            EditorGUILayout.PropertyField(ActionRewardText_Prop);
             EditorGUILayout.PropertyField(ActionRequestSlots1Row_Prop);
             EditorGUILayout.PropertyField(ActionRequestSlots2Row_Prop);
-            EditorGUILayout.PropertyField(ActionRewardText_Prop);
             EditorGUILayout.PropertyField(IsThereProceedButton_Prop);
             EditorGUILayout.PropertyField(IsFreeAction_Prop);
-            EditorGUILayout.PropertyField(CombatOptionSet_Prop);
+            EditorGUILayout.PropertyField(CombatOptionSets_Prop);
 
             EditorGUILayout.PropertyField(RewardBelt_Prop);
             EditorGUILayout.PropertyField(RewardTitle_Prop);

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: PlayerDice
   m_EditorClassIdentifier: 
   StrNormalDice:
-    value: 2
+    value: 1
   StrAdvancedDice:
-    value: 0
+    value: 1
   DexNormalDice:
-    value: 4
+    value: 3
   DexAdvancedDice:
     value: 0
   IntNormalDice:
@@ -25,7 +25,7 @@ MonoBehaviour:
   IntAdvancedDice:
     value: 0
   WilNormalDice:
-    value: 2
+    value: 1
   WilAdvancedDice:
     value: 0
   StrNormalDice_UI: {fileID: 11400000, guid: 2ba31342960704c2e873ad0580b6fb6f, type: 2}

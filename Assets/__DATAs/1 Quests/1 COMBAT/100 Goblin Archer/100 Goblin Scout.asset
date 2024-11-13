@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questID: 100
   questName: Goblin Scout
-  questThumbnail: {fileID: 584859402, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
-  questSeal: {fileID: -736264972, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   questType: 1
+  questSeal: {fileID: -736264972, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  questMainImage: {fileID: 584859402, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
   questContents:
   - {fileID: 11400000, guid: 2e9bf7fea1b9f42e7a39730ff7c344c5, type: 2}
   - {fileID: 11400000, guid: 940d253108f6640e5880f0b87d7fc312, type: 2}
@@ -24,7 +24,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ab58db0a78cc742948f86268df60a6aa, type: 2}
   - {fileID: 11400000, guid: 10d3c114a144b42e6bb8ef28f98420ef, type: 2}
   - {fileID: 11400000, guid: e4def51fe1b8f477fb2f86cfc26bf730, type: 2}
-  - {fileID: 11400000, guid: c936086ea6bdb49c29c89dd83feedba8, type: 2}
-  - {fileID: 11400000, guid: c936086ea6bdb49c29c89dd83feedba8, type: 2}
-  - {fileID: 11400000, guid: c936086ea6bdb49c29c89dd83feedba8, type: 2}
   enemyData: {fileID: 11400000, guid: f1e0b975c66bc4f7aac8ca5b6b80b557, type: 2}

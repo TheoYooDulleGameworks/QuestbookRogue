@@ -12,34 +12,43 @@ public class ContentSO : ScriptableObject
         Action,
     }
 
+    [Header("__________ COMMON _______________________________________________________________")]
     public ContentType contentType;
     [SerializeField] public GameObject contentTemplate;
-
-    // Common //
     public Sprite backgroundImage;
 
     // Image Content //
+    [Header("__________ IMAGE _______________________________________________________________")]
     public string questTitle;
     public Sprite questImage;
     public Sprite questSeal;
+
+    [Header("__________ BUTTON BOOL _______________________________________________________________")]
     public bool isThereCancelButton = true;
     public bool isFreeCancel = false;
 
     // Description Content //
+    [Header("__________ DESCRIPTION _______________________________________________________________")]
     [TextArea] public string bodyText;
     [TextArea] public string cancelText;
 
     // Action Content //
+    [Header("__________ ACTION _______________________________________________________________")]
+    public string actionTitle;
     public Sprite actionImage;
     public Sprite actionBelt;
-    public string actionTitle;
+    [TextArea] public string actionRewardText;
     public List<SlotSet> actionRequestSlots1Row;
     public List<SlotSet> actionRequestSlots2Row;
-    [TextArea] public string actionRewardText;
+
+    [Header("__________ BUTTON BOOL _______________________________________________________________")]
     public bool isThereProceedButton = true;
     public bool isFreeAction = false;
-    public CombatOptionSet combatOptionSet;
 
+    [Header("__________ COMBAT _______________________________________________________________")]
+    public List<CombatOptionSet> combatOptionSets;
+
+    [Header("__________ REWARD _______________________________________________________________")]
     public Sprite rewardBelt;
     public string rewardTitle;
     public List<RewardSet> rewardObjects;
@@ -65,7 +74,8 @@ public class RewardSet
 public class CombatOptionSet
 {
     public CombatOptionType combatOptionType;
-    public int combatOptionAmount;
+    public OptionModifyType optionModifyType;
+    public int optionAmount;
 }
 
 public enum DiceSlotType
@@ -79,6 +89,13 @@ public enum DiceSlotType
 public enum CombatOptionType
 {
     Attack,
-    DamageDown,
-    ArmorDown,
+    DamageModify,
+    ArmorModify,
+}
+
+public enum OptionModifyType
+{
+    None,
+    Minus,
+    Plus,
 }

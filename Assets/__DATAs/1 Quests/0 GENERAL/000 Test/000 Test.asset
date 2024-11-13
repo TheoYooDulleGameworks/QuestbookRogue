@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: 000 Test
   m_EditorClassIdentifier: 
   questID: 0
-  questName: 
-  questThumbnail: {fileID: 0}
-  questSeal: {fileID: 0}
+  questName: Test
   questType: 0
+  questSeal: {fileID: 0}
+  questMainImage: {fileID: 0}
   questContents: []
   enemyData: {fileID: 0}

@@ -10,6 +10,9 @@ public class CombatImageContent : MonoBehaviour, IContent
     [SerializeField] private ContentSO contentData = null;
     [SerializeField] private EnemySO enemyData = null;
 
+    [Header("Enemy Status")]
+    public EnemyStatusSO enemyStatus;
+
     [Header("Components")]
     [SerializeField] private TextMeshProUGUI questTitleTMPro = null;
     [SerializeField] private RectTransform questImageRect = null;
@@ -23,15 +26,14 @@ public class CombatImageContent : MonoBehaviour, IContent
     [SerializeField] private Sprite defaultFreeCancelButton;
 
     [Header("Stats")]
-    public EnemyStatusSO enemyStatus;
     [SerializeField] private RectTransform healthRect;
     [SerializeField] private RectTransform armorRect;
     [SerializeField] private RectTransform damageRect;
 
     [Header("Stats Sources")]
-    [SerializeField] private RectTransform currentHp10thRect;
-    [SerializeField] private RectTransform currentHp1thRect;
-    [SerializeField] private List<Sprite> currentHpNumbers = new List<Sprite>();
+    [SerializeField] private RectTransform currentHealth10thRect;
+    [SerializeField] private RectTransform currentHealth1thRect;
+    [SerializeField] private List<Sprite> currentHealthNumbers = new List<Sprite>();
 
     [SerializeField] private RectTransform currentArmor10thRect;
     [SerializeField] private RectTransform currentArmor1thRect;
@@ -45,14 +47,14 @@ public class CombatImageContent : MonoBehaviour, IContent
 
     private void OnEnable()
     {
-        enemyStatus.currentHp.OnValueChanged += UpdateEnemyHpUI;
+        enemyStatus.currentHealth.OnValueChanged += UpdateEnemyHealthUI;
         enemyStatus.currentArmor.OnValueChanged += UpdateEnemyArmorUI;
         enemyStatus.currentDamage.OnValueChanged += UpdateEnemyDamageUI;
     }
 
     private void OnDisable()
     {
-        enemyStatus.currentHp.OnValueChanged -= UpdateEnemyHpUI;
+        enemyStatus.currentHealth.OnValueChanged -= UpdateEnemyHealthUI;
         enemyStatus.currentArmor.OnValueChanged -= UpdateEnemyArmorUI;
         enemyStatus.currentDamage.OnValueChanged -= UpdateEnemyDamageUI;
     }
@@ -62,14 +64,27 @@ public class CombatImageContent : MonoBehaviour, IContent
         contentData = _contentData;
         enemyData = _questData.enemyData;
 
-        enemyStatus.maxHp.Value = enemyData.defaultHp;
-        enemyStatus.currentHp.Value = enemyData.defaultHp;
+        enemyStatus.maxHealth.Value = enemyData.defaultHealth;
+        enemyStatus.currentHealth.Value = enemyData.defaultHealth;
 
         enemyStatus.maxArmor.Value = enemyData.defaultArmor;
         enemyStatus.currentArmor.Value = enemyData.defaultArmor;
 
         enemyStatus.maxDamage.Value = enemyData.defaultDamage;
         enemyStatus.currentDamage.Value = enemyData.defaultDamage;
+
+        if (enemyData.defaultHealth == 0)
+        {
+            healthRect.gameObject.SetActive(false);
+        }
+        if (enemyData.defaultArmor == 0)
+        {
+            armorRect.gameObject.SetActive(false);
+        }
+        if (enemyData.defaultDamage == 0)
+        {
+            damageRect.gameObject.SetActive(false);
+        }
 
         questTitleTMPro.text = contentData.questTitle;
         questImageRect.GetComponent<Image>().sprite = contentData.questImage;
@@ -94,7 +109,7 @@ public class CombatImageContent : MonoBehaviour, IContent
             }
         }
 
-        UpdateEnemyHpUI();
+        UpdateEnemyHealthUI();
         UpdateEnemyArmorUI();
         UpdateEnemyDamageUI();
     }
@@ -103,24 +118,32 @@ public class CombatImageContent : MonoBehaviour, IContent
     {
         RectTransform contentCanvas = GetComponentInChildren<CanvasGroup>().GetComponent<RectTransform>();
 
-        contentCanvas.localScale = new Vector3(0.75f, 0.75f, 0.75f);
-        contentCanvas.localEulerAngles = new Vector3(-2f, -90f, -2f);
+        contentCanvas.GetComponent<CanvasGroup>().alpha = 0f;
+        contentCanvas.localScale = new Vector3(0.75f, 0.5f, 0.5f);
+        contentCanvas.localEulerAngles = new Vector3(-90f, 12f, 12f);
 
         contentCanvas.DOKill();
-        contentCanvas.DOScale(Vector3.one, 0.2f);
-        contentCanvas.DORotate(Vector3.zero, 0.2f);
+        contentCanvas.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.25f);
+        contentCanvas.DORotate(new Vector3(4f, 12f, -2f), 0.25f);
+        contentCanvas.GetComponent<CanvasGroup>().DOFade(1f, 0.25f).OnComplete(() =>
+        {
+            contentCanvas.DOKill();
+            contentCanvas.DOScale(Vector3.one, 0.25f);
+            contentCanvas.DORotate(Vector3.zero, 0.25f);
+        });
     }
 
     public void FlipOffContent()
     {
         RectTransform contentCanvas = GetComponentInChildren<CanvasGroup>().GetComponent<RectTransform>();
 
-        contentCanvas.localScale = Vector3.one;
         contentCanvas.localEulerAngles = Vector3.zero;
+        contentCanvas.localScale = Vector3.one;
 
         contentCanvas.DOKill();
-        contentCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.2f);
-        contentCanvas.DORotate(new Vector3(2f, 90f, 2f), 0.2f);
+        contentCanvas.DORotate(new Vector3(-75f, -12f, -6f), 0.25f);
+        contentCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.25f);
+        contentCanvas.GetComponent<CanvasGroup>().DOFade(0, 0.25f);
     }
 
     public void DestroyContent()
@@ -132,93 +155,93 @@ public class CombatImageContent : MonoBehaviour, IContent
 
     // Stats UI Update //
 
-    private void UpdateEnemyHpUI()
+    private void UpdateEnemyHealthUI()
     {
-        int currentHpValue = enemyStatus.currentHp.Value;
-        int currentHpValue10th = currentHpValue / 10;
-        int currentHpValue1th = currentHpValue % 10;
+        int currentHealthValue = enemyStatus.currentHealth.Value;
+        int currentHealthValue10th = currentHealthValue / 10;
+        int currentHealthValue1th = currentHealthValue % 10;
 
-        if (currentHpValue >= 10)
+        if (currentHealthValue >= 10)
         {
-            if (currentHp10thRect.gameObject != null)
+            if (currentHealth10thRect.gameObject != null)
             {
-                currentHp10thRect.gameObject.SetActive(true);
+                currentHealth10thRect.gameObject.SetActive(true);
             }
         }
         else
         {
-            if (currentHp10thRect.gameObject != null)
+            if (currentHealth10thRect.gameObject != null)
             {
-                currentHp10thRect.gameObject.SetActive(false);
+                currentHealth10thRect.gameObject.SetActive(false);
             }
         }
 
-        switch (currentHpValue10th)
+        switch (currentHealthValue10th)
         {
             case 0:
-                currentHp10thRect.GetComponent<Image>().sprite = null;
+                currentHealth10thRect.GetComponent<Image>().sprite = null;
                 break;
             case 1:
-                currentHp10thRect.GetComponent<Image>().sprite = currentHpNumbers[1];
+                currentHealth10thRect.GetComponent<Image>().sprite = currentHealthNumbers[1];
                 break;
             case 2:
-                currentHp10thRect.GetComponent<Image>().sprite = currentHpNumbers[2];
+                currentHealth10thRect.GetComponent<Image>().sprite = currentHealthNumbers[2];
                 break;
             case 3:
-                currentHp10thRect.GetComponent<Image>().sprite = currentHpNumbers[3];
+                currentHealth10thRect.GetComponent<Image>().sprite = currentHealthNumbers[3];
                 break;
             case 4:
-                currentHp10thRect.GetComponent<Image>().sprite = currentHpNumbers[4];
+                currentHealth10thRect.GetComponent<Image>().sprite = currentHealthNumbers[4];
                 break;
             case 5:
-                currentHp10thRect.GetComponent<Image>().sprite = currentHpNumbers[5];
+                currentHealth10thRect.GetComponent<Image>().sprite = currentHealthNumbers[5];
                 break;
             case 6:
-                currentHp10thRect.GetComponent<Image>().sprite = currentHpNumbers[6];
+                currentHealth10thRect.GetComponent<Image>().sprite = currentHealthNumbers[6];
                 break;
             case 7:
-                currentHp10thRect.GetComponent<Image>().sprite = currentHpNumbers[7];
+                currentHealth10thRect.GetComponent<Image>().sprite = currentHealthNumbers[7];
                 break;
             case 8:
-                currentHp10thRect.GetComponent<Image>().sprite = currentHpNumbers[8];
+                currentHealth10thRect.GetComponent<Image>().sprite = currentHealthNumbers[8];
                 break;
             case 9:
-                currentHp10thRect.GetComponent<Image>().sprite = currentHpNumbers[9];
+                currentHealth10thRect.GetComponent<Image>().sprite = currentHealthNumbers[9];
                 break;
             default:
                 break;
         }
-        switch (currentHpValue1th)
+        switch (currentHealthValue1th)
         {
             case 0:
-                currentHp1thRect.GetComponent<Image>().sprite = currentHpNumbers[0];
+                currentHealth1thRect.GetComponent<Image>().sprite = currentHealthNumbers[0];
                 break;
             case 1:
-                currentHp1thRect.GetComponent<Image>().sprite = currentHpNumbers[1];
+                currentHealth1thRect.GetComponent<Image>().sprite = currentHealthNumbers[1];
                 break;
             case 2:
-                currentHp1thRect.GetComponent<Image>().sprite = currentHpNumbers[2];
+                currentHealth1thRect.GetComponent<Image>().sprite = currentHealthNumbers[2];
                 break;
             case 3:
-                currentHp1thRect.GetComponent<Image>().sprite = currentHpNumbers[3];
+                currentHealth1thRect.GetComponent<Image>().sprite = currentHealthNumbers[3];
                 break;
             case 4:
-                currentHp1thRect.GetComponent<Image>().sprite = currentHpNumbers[4];
+                currentHealth1thRect.GetComponent<Image>().sprite = currentHealthNumbers[4];
                 break;
             case 5:
-                currentHp1thRect.GetComponent<Image>().sprite = currentHpNumbers[5];
+                currentHealth1thRect.GetComponent<Image>().sprite = currentHealthNumbers[5];
                 break;
             case 6:
-                currentHp1thRect.GetComponent<Image>().sprite = currentHpNumbers[6];
+                currentHealth1thRect.GetComponent<Image>().sprite = currentHealthNumbers[6];
                 break;
             case 7:
-                currentHp1thRect.GetComponent<Image>().sprite = currentHpNumbers[7];
+                currentHealth1thRect.GetComponent<Image>().sprite = currentHealthNumbers[7];
                 break;
             case 8:
-                currentHp1thRect.GetComponent<Image>().sprite = currentHpNumbers[8];
+                currentHealth1thRect.GetComponent<Image>().sprite = currentHealthNumbers[8];
                 break;
             case 9:
-                currentHp1thRect.GetComponent<Image>().sprite = currentHpNumbers[9];
+                currentHealth1thRect.GetComponent<Image>().sprite = currentHealthNumbers[9];
                 break;
             default:
                 break;

@@ -110,7 +110,7 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             undiscoveredImage.gameObject.SetActive(false);
             mainImage.gameObject.SetActive(true);
 
-            mainImage.GetComponent<Image>().sprite = questData.questThumbnail;
+            mainImage.GetComponent<Image>().sprite = questData.questMainImage;
 
             questBelt.gameObject.SetActive(true);
             questSeal.gameObject.SetActive(true);

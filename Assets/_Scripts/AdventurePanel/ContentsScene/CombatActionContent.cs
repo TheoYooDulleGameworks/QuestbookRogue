@@ -11,15 +11,14 @@ public class CombatActionContent : MonoBehaviour, IContent
     [Header("Content Data")]
     [SerializeField] private ContentSO contentData = null;
 
-    [Header("Components")]
+    [Header("Action Components")]
     [SerializeField] private RectTransform actionCanvas = null;
     [SerializeField] private RectTransform actionBackgroundRect = null;
     [SerializeField] private RectTransform actionImageRect = null;
     [SerializeField] private RectTransform actionTitleRect = null;
     [SerializeField] private TextMeshProUGUI actionTitleTMPro = null;
     [SerializeField] private RectTransform slotParentRect = null;
-    [SerializeField] private TextMeshProUGUI rewardTextTMPro = null;
-    [SerializeField] private RectTransform proceedButtonRect = null;
+    [SerializeField] private CombatOptionButton combatOptionsButton = null;
 
     [Header("DiceSlot Layout")]
     private int diceSlotSeat1Row = 0;
@@ -33,8 +32,11 @@ public class CombatActionContent : MonoBehaviour, IContent
     [SerializeField] private RectTransform rewardParentRect = null;
     [SerializeField] private List<GameObject> currentRewards = null;
 
-    [Header("Reward Sources")]
+    [Header("Prefab Sources")]
     [SerializeField] private GameObject uiRewardPrefab;
+    [SerializeField] private GameObject uiCombatOptionPrefab;
+
+    [Header("Reward Bools")]
     public bool isThisReward = false;
     public bool isFlippedAlready = false;
 
@@ -44,19 +46,18 @@ public class CombatActionContent : MonoBehaviour, IContent
 
     public void SetContentComponents(QuestSO _questData, ContentSO _contentData)
     {
-        // Reward : 데이터 받아서 프리팹 인스탠시에이트 하고 SetRewardData 세팅 해주기 //
-
         contentData = _contentData;
 
         actionBackgroundRect.GetComponent<Image>().sprite = contentData.backgroundImage;
         actionImageRect.GetComponent<Image>().sprite = contentData.actionImage;
         actionTitleRect.GetComponent<Image>().sprite = contentData.actionBelt;
         actionTitleTMPro.text = contentData.actionTitle;
-        rewardTextTMPro.text = contentData.actionRewardText;
 
         rewardBackgroundRect.GetComponent<Image>().sprite = contentData.backgroundImage;
         rewardTitleRect.GetComponent<Image>().sprite = contentData.rewardBelt;
         rewardTitleTMPro.text = contentData.rewardTitle;
+
+        // DiceSlot Setting //
 
         for (int i = 0; i < contentData.actionRequestSlots1Row.Count; i++)
         {
@@ -124,21 +125,18 @@ public class CombatActionContent : MonoBehaviour, IContent
             rewardObject.gameObject.SetActive(false);
         }
 
-        if (contentData.isThereProceedButton)
+        // CombatOption Setting //
+        
+        for (int i = 0; i < contentData.combatOptionSets.Count; i++)
         {
-            proceedButtonRect.GetComponent<ProceedButton>().currentQuestData = _questData;
-            proceedButtonRect.GetComponent<ProceedButton>().currentActionContentData = contentData;
+            GameObject combatOption = Instantiate(uiCombatOptionPrefab);
+            combatOption.transform.SetParent(combatOptionsButton.transform, false);
+            combatOption.name = $"CombatOption_({i + 1})";
 
-            if (contentData.isFreeAction == true)
-            {
-                proceedButtonRect.GetComponent<ProceedButton>().isFreeAction = true;
-            }
-            else
-            {
-                proceedButtonRect.GetComponent<ProceedButton>().isFreeAction = false;
-            }
+            CombatOptionSet thisOptionSet = contentData.combatOptionSets[i];
 
-            proceedButtonRect.gameObject.SetActive(true);
+            combatOptionsButton.combatOptionLists.Add(combatOption.GetComponent<CombatOption>());
+            combatOption.GetComponent<CombatOption>().SetOptionComponents(thisOptionSet.combatOptionType, thisOptionSet.optionModifyType, thisOptionSet.optionAmount);
         }
     }
 
@@ -150,12 +148,19 @@ public class CombatActionContent : MonoBehaviour, IContent
     {
         RectTransform actionCard = actionCanvas.GetComponent<RectTransform>();
 
-        actionCard.localScale = new Vector3(0.75f, 0.75f, 0.75f);
-        actionCard.localEulerAngles = new Vector3(-2f, -90f, -2f);
+        actionCard.GetComponent<CanvasGroup>().alpha = 0f;
+        actionCard.localScale = new Vector3(0.75f, 0.5f, 0.5f);
+        actionCard.localEulerAngles = new Vector3(-90f, 12f, 12f);
 
         actionCard.DOKill();
-        actionCard.DOScale(Vector3.one, 0.2f);
-        actionCard.DORotate(Vector3.zero, 0.2f);
+        actionCard.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.25f);
+        actionCard.DORotate(new Vector3(4f, 12f, -2f), 0.25f);
+        actionCard.GetComponent<CanvasGroup>().DOFade(1f, 0.25f).OnComplete(() =>
+        {
+            actionCard.DOKill();
+            actionCard.DOScale(Vector3.one, 0.25f);
+            actionCard.DORotate(Vector3.zero, 0.25f);
+        });
     }
 
     private void CheckAllConfirmed()
@@ -174,11 +179,11 @@ public class CombatActionContent : MonoBehaviour, IContent
 
     private void ProceedActivate()
     {
-        proceedButtonRect.GetComponent<ProceedButton>().ActivateButton();
+        combatOptionsButton.ActivateButton();
     }
     private void ProceedDeActivate()
     {
-        proceedButtonRect.GetComponent<ProceedButton>().DeActivateButton();
+        combatOptionsButton.DeActivateButton();
     }
 
     // Reward //
@@ -204,22 +209,11 @@ public class CombatActionContent : MonoBehaviour, IContent
     {
         isFlippedAlready = true;
 
-        Vector3 rotateVector;
-        Vector3 leftRotateVector = new Vector3(-2f, -2f, -2f);
-        Vector3 rightRotateVector = new Vector3(2f, 2f, 2f);
-
-        int randomInt = Random.Range(1, 3);
-        if (randomInt == 1)
-        {
-            rotateVector = leftRotateVector;
-        }
-        else
-        {
-            rotateVector = rightRotateVector;
-        }
+        actionCanvas.localEulerAngles = Vector3.zero;
+        actionCanvas.localScale = Vector3.one;
 
         actionCanvas.DOKill();
-        actionCanvas.DORotate(rotateVector, 0.1f);
+        actionCanvas.DORotate(new Vector3(-4f, -12f, 2f), 0.1f);
         actionCanvas.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.1f).OnComplete(() =>
         {
             actionCanvas.DOScale(Vector3.one, 0.2f);
@@ -229,20 +223,26 @@ public class CombatActionContent : MonoBehaviour, IContent
                 actionCanvas.localEulerAngles = Vector3.zero;
 
                 actionCanvas.DOKill();
-                actionCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.2f);
-                actionCanvas.DORotate(new Vector3(2f, 90f, 2f), 0.2f).OnComplete(() =>
+                actionCanvas.DOScale(new Vector3(0.75f, 0.5f, 0.5f), 0.25f);
+                actionCanvas.DORotate(new Vector3(-90f, -12f, -12f), 0.25f).OnComplete(() =>
                 {
                     actionCanvas.gameObject.SetActive(false);
                     rewardCanvas.gameObject.SetActive(true);
 
-                    rewardCanvas.localScale = new Vector3(0.75f, 0.75f, 0.75f);
-                    rewardCanvas.localEulerAngles = new Vector3(-2f, -90f, -2f);
+                    rewardCanvas.localScale = new Vector3(0.75f, 0.5f, 0.5f);
+                    rewardCanvas.localEulerAngles = new Vector3(-90, 12f, 12f);
 
                     rewardCanvas.DOKill();
-                    rewardCanvas.DOScale(Vector3.one, 0.2f);
-                    rewardCanvas.DORotate(Vector3.zero, 0.2f).OnComplete(() =>
+                    rewardCanvas.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.25f);
+                    rewardCanvas.DORotate(new Vector3(4f, 12f, -2f), 0.25f).OnComplete(() =>
                     {
-                        StartCoroutine(PopUpRewardRoutine());
+                        rewardCanvas.DOKill();
+                        rewardCanvas.DORotate(Vector3.zero, 0.25f);
+                        rewardCanvas.DOScale(Vector3.one, 0.25f).OnComplete(() =>
+                        {
+                            StartCoroutine(PopUpRewardRoutine());
+
+                        });
                     });
                 });
             });
@@ -264,6 +264,7 @@ public class CombatActionContent : MonoBehaviour, IContent
     private IEnumerator FlipOnNoneRoutine()
     {
         isFlippedAlready = true;
+
         List<PaySlot> notThisPaySlots = new List<PaySlot>(GetComponentsInChildren<PaySlot>());
         foreach (var paySlot in notThisPaySlots)
         {
@@ -276,8 +277,8 @@ public class CombatActionContent : MonoBehaviour, IContent
         actionCanvas.localEulerAngles = Vector3.zero;
 
         actionCanvas.DOKill();
-        actionCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.2f);
-        actionCanvas.DORotate(new Vector3(2f, 90f, 2f), 0.2f).OnComplete(() =>
+        actionCanvas.DOScale(new Vector3(0.75f, 0.5f, 0.5f), 0.25f);
+        actionCanvas.DORotate(new Vector3(-90f, -12f, -12f), 0.25f).OnComplete(() =>
         {
             actionCanvas.gameObject.SetActive(false);
             rewardCanvas.gameObject.SetActive(true);
@@ -285,12 +286,17 @@ public class CombatActionContent : MonoBehaviour, IContent
             rewardTitleRect.gameObject.SetActive(false);
             rewardTitleTMPro.gameObject.SetActive(false);
 
-            rewardCanvas.localScale = new Vector3(0.75f, 0.75f, 0.75f);
-            rewardCanvas.localEulerAngles = new Vector3(-2f, -90f, -2f);
+            rewardCanvas.localScale = new Vector3(0.75f, 0.5f, 0.5f);
+            rewardCanvas.localEulerAngles = new Vector3(-90, 12f, 12f);
 
             rewardCanvas.DOKill();
-            rewardCanvas.DOScale(Vector3.one, 0.2f);
-            rewardCanvas.DORotate(Vector3.zero, 0.2f);
+            rewardCanvas.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.25f);
+            rewardCanvas.DORotate(new Vector3(4f, 12f, -2f), 0.25f).OnComplete(() =>
+            {
+                rewardCanvas.DOKill();
+                rewardCanvas.DORotate(Vector3.zero, 0.25f);
+                rewardCanvas.DOScale(Vector3.one, 0.25f);
+            });
         });
     }
 
@@ -312,22 +318,24 @@ public class CombatActionContent : MonoBehaviour, IContent
 
     private void FlipOffAction()
     {
-        actionCanvas.localScale = Vector3.one;
         actionCanvas.localEulerAngles = Vector3.zero;
+        actionCanvas.localScale = Vector3.one;
 
         actionCanvas.DOKill();
-        actionCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.2f);
-        actionCanvas.DORotate(new Vector3(2f, 90f, 2f), 0.2f);
+        actionCanvas.DORotate(new Vector3(-75f, -12f, -6f), 0.25f);
+        actionCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.25f);
+        actionCanvas.GetComponent<CanvasGroup>().DOFade(0, 0.25f);
     }
 
     private void FlipOffReward()
     {
-        rewardCanvas.localScale = Vector3.one;
         rewardCanvas.localEulerAngles = Vector3.zero;
+        rewardCanvas.localScale = Vector3.one;
 
         rewardCanvas.DOKill();
-        rewardCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.2f);
-        rewardCanvas.DORotate(new Vector3(2f, 90f, 2f), 0.2f);
+        rewardCanvas.DORotate(new Vector3(-75f, -12f, -6f), 0.25f);
+        rewardCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.25f);
+        rewardCanvas.GetComponent<CanvasGroup>().DOFade(0, 0.25f);
     }
 
     public void DestroyContent()

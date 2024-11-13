@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemySO", menuName = "Scriptable Objects/Quests/EnemySO")]
 public class EnemySO : ScriptableObject
 {
-    public int defaultHp;
+    public int defaultHealth;
     public int defaultArmor;
     public int defaultDamage;
 

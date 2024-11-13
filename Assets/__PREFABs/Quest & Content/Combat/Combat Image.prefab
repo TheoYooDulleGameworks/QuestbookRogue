@@ -450,7 +450,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 521258591, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  m_Sprite: {fileID: -9209461, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -525,7 +525,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1144576322, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  m_Sprite: {fileID: 631557038, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1554,6 +1554,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contentData: {fileID: 0}
   enemyData: {fileID: 0}
+  enemyStatus: {fileID: 11400000, guid: 35469e39dc7cd46fc8a48500664b7419, type: 2}
   questTitleTMPro: {fileID: 2021082297862162685}
   questImageRect: {fileID: 2362615245344732026}
   questSealRect: {fileID: 3777655571679357866}
@@ -1562,49 +1563,48 @@ MonoBehaviour:
   defaultTurnEndButton: {fileID: -14395874, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
   defaultCancelButton: {fileID: 1499729013, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
   defaultFreeCancelButton: {fileID: 1282020880, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
-  enemyStatus: {fileID: 11400000, guid: 35469e39dc7cd46fc8a48500664b7419, type: 2}
   healthRect: {fileID: 2326913811380479744}
   armorRect: {fileID: 8546485187565670998}
   damageRect: {fileID: 1549645636265489953}
-  currentHp10thRect: {fileID: 3076189025199673638}
-  currentHp1thRect: {fileID: 7812179089386483667}
-  currentHpNumbers:
-  - {fileID: 559252562, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: 1207832600, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: -727314488, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: 2014139175, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: 2003671724, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: 1814877713, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: -2013767565, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: -1189486228, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: 844388072, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: -34567137, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  currentHealth10thRect: {fileID: 3076189025199673638}
+  currentHealth1thRect: {fileID: 7812179089386483667}
+  currentHealthNumbers:
+  - {fileID: 1385811532, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: 121942796, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: 992898614, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: -585501952, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: 1026783888, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: -1182310079, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: 2065958288, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: -1455123201, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: 770145679, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: 206742553, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
   currentArmor10thRect: {fileID: 5494909610529681958}
   currentArmor1thRect: {fileID: 5428981683789954580}
   currentArmorNumbers:
-  - {fileID: 1588804117, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: 1765861074, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: 311733248, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: -1939264155, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: -379478139, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: -1773568646, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: 83287222, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: 1641947784, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: 573117824, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: -599051706, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: -1492289743, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: -1390730540, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: -145894510, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: 120717565, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: -1162957983, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: -1925350056, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: -810757513, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: 1161349069, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: -1816503159, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: 2118187818, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
   currentDamage10thRect: {fileID: 78811827218564707}
   currentDamage1thRect: {fileID: 4032897900537634463}
   currentDamageNumbers:
-  - {fileID: 134451275, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: -1558775142, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: -539605958, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: -222358265, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: -798757646, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: 664987945, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: 186983974, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: -247247608, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: -216758159, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
-  - {fileID: -1557327709, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: -1192442875, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: -1224983463, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: 715589375, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: 1761320145, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: 203365190, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: -244298711, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: -964201375, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: 638277994, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: -522762285, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  - {fileID: -2100542428, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
 --- !u!1 &6621429492732252206
 GameObject:
   m_ObjectHideFlags: 0
@@ -2315,7 +2315,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -354777365, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
+  m_Sprite: {fileID: 1600949848, guid: 27a4c823fbc07416ca062d943b8db213, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

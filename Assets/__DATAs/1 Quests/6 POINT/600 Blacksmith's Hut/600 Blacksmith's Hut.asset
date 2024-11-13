@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questID: 600
   questName: Blacksmith's Hut
-  questThumbnail: {fileID: -112679528, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
-  questSeal: {fileID: -829570617, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   questType: 6
+  questSeal: {fileID: -829570617, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  questMainImage: {fileID: -112679528, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
   questContents:
   - {fileID: 11400000, guid: 6a71f8fc2ce6144ceacff9fbfae77cc9, type: 2}
   - {fileID: 11400000, guid: 64510333ccd2b4a8fb05c5e510922c6b, type: 2}
@@ -27,3 +27,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c936086ea6bdb49c29c89dd83feedba8, type: 2}
   - {fileID: 11400000, guid: c936086ea6bdb49c29c89dd83feedba8, type: 2}
   - {fileID: 11400000, guid: c936086ea6bdb49c29c89dd83feedba8, type: 2}
+  enemyData: {fileID: 0}
