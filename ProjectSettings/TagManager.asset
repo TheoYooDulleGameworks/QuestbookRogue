@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - DiceValueCheck
+  - Canvas
   layers:
   - Default
   - TransparentFX

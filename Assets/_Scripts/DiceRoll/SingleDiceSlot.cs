@@ -163,4 +163,23 @@ public class SingleDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, 
             return false;
         }
     }
+
+    public override void DeleteKeepingDices()
+    {
+        if (!isConfirmed)
+        {
+            return;
+        }
+
+        rectTransform.DOKill();
+        rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+        rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
+
+        Destroy(keepingDicePrefab);
+        keepingDicePrefab = null;
+        slotDiceImage.GetComponent<Image>().sprite = null;
+        slotDiceImage.gameObject.SetActive(false);
+        GetComponent<Image>().sprite = defaultSprite;
+        isConfirmed = false;
+    }
 }

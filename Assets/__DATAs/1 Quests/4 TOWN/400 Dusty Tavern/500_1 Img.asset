@@ -10,30 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4eff72458e07d4f70abc5c0322382142, type: 3}
-  m_Name: 600_2 Des
+  m_Name: 500_1 Img
   m_EditorClassIdentifier: 
-  contentType: 2
-  contentTemplate: {fileID: 2136181797282923763, guid: 075405a11dfbe4d9099207c471619b12, type: 3}
-  backgroundImage: {fileID: 1464333480, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
-  questTitle: 
-  questImage: {fileID: 0}
-  questSeal: {fileID: 0}
+  contentType: 1
+  contentTemplate: {fileID: 1137144648871385227, guid: 647be9955989341b8a0eef188d4d6879, type: 3}
+  backgroundImage: {fileID: 0}
+  questTitle: Dusty Tavern
+  questImage: {fileID: -1523611505, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
+  questSeal: {fileID: -1108391152, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   isThereCancelButton: 1
-  isFreeCancel: 0
-  bodyText: As you step into the place, a heavy metallic scent fills the air. The
-    walls are lined with soot-stained, rusted gear.
-  cancelText: If cancel this quest, lose 1 Sp
+  isFreeCancel: 1
+  bodyText: 
+  cancelText: 
+  actionTitle: 
   actionImage: {fileID: 0}
   actionBelt: {fileID: 0}
-  actionTitle: 
+  actionRewardText: 
   actionRequestSlots1Row: []
   actionRequestSlots2Row: []
-  actionRewardText: 
   isThereProceedButton: 1
   isFreeAction: 0
+  combatOptionSets: []
   rewardBelt: {fileID: 0}
   rewardTitle: 
   rewardObjects: []
-  enemyDefaultHp: 0
-  enemyDefaultArmor: 0
-  enemyDefaultDamage: 0

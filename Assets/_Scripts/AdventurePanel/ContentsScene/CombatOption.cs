@@ -89,6 +89,7 @@ public class CombatOption : MonoBehaviour
 
                     enemyStatus.currentHealth.RemoveClampedValue(attackAmount, 0, enemyStatus.maxHealth.Value);
                     DefaultOptionUI();
+                    DeleteDices();
                 }
                 break;
             case CombatOptionType.DamageModify:
@@ -109,6 +110,15 @@ public class CombatOption : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+
+    private void DeleteDices()
+    {
+        List<DiceSlot> diceSlots = new List<DiceSlot>(transform.parent.parent.GetComponentsInChildren<DiceSlot>());
+        foreach (DiceSlot slot in diceSlots)
+        {
+            slot.DeleteKeepingDices();
         }
     }
 

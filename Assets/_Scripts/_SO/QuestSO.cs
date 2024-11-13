@@ -24,11 +24,8 @@ public enum QuestType
 {
     General,
     Combat,
-    Expedition,
-    Intrigue,
-    Boss,
-    Village,
-    Point,
+    Exploration,
     Encounter,
+    Town,
     Secret
 }

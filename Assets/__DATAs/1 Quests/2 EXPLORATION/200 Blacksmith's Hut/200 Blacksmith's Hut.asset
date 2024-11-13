@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25d2238dfd77342e6b49d8925f1b145a, type: 3}
-  m_Name: 600 Blacksmith's Hut
+  m_Name: 200 Blacksmith's Hut
   m_EditorClassIdentifier: 
   questID: 600
   questName: Blacksmith's Hut
-  questType: 6
-  questSeal: {fileID: -829570617, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  questType: 2
+  questSeal: {fileID: -623794718, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   questMainImage: {fileID: -112679528, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
   questContents:
   - {fileID: 11400000, guid: 6a71f8fc2ce6144ceacff9fbfae77cc9, type: 2}

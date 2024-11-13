@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerPath
   m_EditorClassIdentifier: 
   questPoolDatas:
-  - {fileID: 11400000, guid: c9f4cd74796314ddbb0237602189cc72, type: 2}
+  - {fileID: 11400000, guid: 3ccfaf3a4f9c442999ae97cdb62ddc76, type: 2}
   currentPossibleQuestDatas: []
   impossibleQuestDatas: []
   triggerSavedQuestDatas: []

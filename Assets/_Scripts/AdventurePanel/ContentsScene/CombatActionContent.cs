@@ -41,6 +41,15 @@ public class CombatActionContent : MonoBehaviour, IContent
     public bool isFlippedAlready = false;
 
 
+    private void OnEnable()
+    {
+        GameManager.Instance.OnStagePhaseChanged += HandleStagePhaseChange;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.OnStagePhaseChanged -= HandleStagePhaseChange;
+    }
 
     // Settings //
 
@@ -126,7 +135,7 @@ public class CombatActionContent : MonoBehaviour, IContent
         }
 
         // CombatOption Setting //
-        
+
         for (int i = 0; i < contentData.combatOptionSets.Count; i++)
         {
             GameObject combatOption = Instantiate(uiCombatOptionPrefab);
@@ -137,6 +146,24 @@ public class CombatActionContent : MonoBehaviour, IContent
 
             combatOptionsButton.combatOptionLists.Add(combatOption.GetComponent<CombatOption>());
             combatOption.GetComponent<CombatOption>().SetOptionComponents(thisOptionSet.combatOptionType, thisOptionSet.optionModifyType, thisOptionSet.optionAmount);
+        }
+
+        GameManager.Instance.UpdateStagePhase(StagePhase.Beginning);
+    }
+
+
+
+    // Combat - Turn Management //
+
+    private void HandleStagePhaseChange(StagePhase stagePhase)
+    {
+        if (stagePhase == StagePhase.DiceHolding)
+        {
+            List<DiceSlot> diceSlots = new List<DiceSlot>(GetComponentsInChildren<DiceSlot>());
+            foreach (DiceSlot slot in diceSlots)
+            {
+                slot.DeleteKeepingDices();
+            }
         }
     }
 

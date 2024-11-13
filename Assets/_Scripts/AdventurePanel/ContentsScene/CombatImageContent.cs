@@ -50,6 +50,8 @@ public class CombatImageContent : MonoBehaviour, IContent
         enemyStatus.currentHealth.OnValueChanged += UpdateEnemyHealthUI;
         enemyStatus.currentArmor.OnValueChanged += UpdateEnemyArmorUI;
         enemyStatus.currentDamage.OnValueChanged += UpdateEnemyDamageUI;
+
+        GameManager.Instance.OnStagePhaseChanged += HandleStagePhaseChange;
     }
 
     private void OnDisable()
@@ -57,6 +59,8 @@ public class CombatImageContent : MonoBehaviour, IContent
         enemyStatus.currentHealth.OnValueChanged -= UpdateEnemyHealthUI;
         enemyStatus.currentArmor.OnValueChanged -= UpdateEnemyArmorUI;
         enemyStatus.currentDamage.OnValueChanged -= UpdateEnemyDamageUI;
+
+        GameManager.Instance.OnStagePhaseChanged -= HandleStagePhaseChange;
     }
 
     public void SetContentComponents(QuestSO _questData, ContentSO _contentData)
@@ -113,6 +117,24 @@ public class CombatImageContent : MonoBehaviour, IContent
         UpdateEnemyArmorUI();
         UpdateEnemyDamageUI();
     }
+
+
+
+    // Combat - Turn Management //
+
+    private void HandleStagePhaseChange(StagePhase stagePhase)
+    {
+        if (stagePhase == StagePhase.DiceHolding)
+        {
+            SceneController.Instance.ResetRollDicePanel();
+
+            // Enemy's Attack Sequence -> DiceWaiting -> RollDicePanel SetUp / Button Initialize / EnemyMaxStat Initialize ...
+        }
+    }
+
+
+
+    // On & Off //
 
     public void FlipOnContent()
     {
@@ -433,4 +455,5 @@ public class CombatImageContent : MonoBehaviour, IContent
                 break;
         }
     }
+
 }

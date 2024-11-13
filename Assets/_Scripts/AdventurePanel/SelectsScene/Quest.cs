@@ -35,8 +35,14 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void Awake()
     {
-        // canvasGroup = GetComponentInChildren<CanvasGroup>();
-        // rectTransform = canvasGroup.GetComponent<RectTransform>();
+        // Test
+        InitiateQuestCard(questData, 0);
+    }
+
+    private void Start()
+    {
+        // Test
+        FlipOnQuest();
     }
 
     public void InitiateQuestCard(QuestSO _questData, int _questIndexNum)
@@ -62,7 +68,8 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         questIndexNumber = _questIndexNum;
 
         discovered = false;
-        inTransition = true;
+        // inTransition = true;
+        // Test
     }
 
     // Open & Close //

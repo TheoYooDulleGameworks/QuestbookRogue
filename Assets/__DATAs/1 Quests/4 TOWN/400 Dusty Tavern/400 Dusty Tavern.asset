@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25d2238dfd77342e6b49d8925f1b145a, type: 3}
-  m_Name: 500 Dusty Tavern
+  m_Name: 400 Dusty Tavern
   m_EditorClassIdentifier: 
   questID: 500
   questName: Dusty Tavern
-  questType: 5
-  questSeal: {fileID: 801913506, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  questType: 4
+  questSeal: {fileID: -1108391152, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   questMainImage: {fileID: -1523611505, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
   questContents:
   - {fileID: 11400000, guid: 7259e48a62438420f8f303f268cdc0b1, type: 2}

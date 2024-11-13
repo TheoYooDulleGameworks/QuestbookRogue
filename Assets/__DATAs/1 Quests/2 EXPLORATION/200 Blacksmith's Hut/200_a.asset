@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4eff72458e07d4f70abc5c0322382142, type: 3}
-  m_Name: 600_c
+  m_Name: 200_a
   m_EditorClassIdentifier: 
   contentType: 3
   contentTemplate: {fileID: 6148890290424915317, guid: 0ddac7414eee2495b90d5be3f730f277, type: 3}
@@ -24,13 +24,16 @@ MonoBehaviour:
   cancelText: 
   actionImage: {fileID: 1809170628, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
   actionBelt: {fileID: 1065505458, guid: fd8805f1b66d649388fc70f6d2472d15, type: 3}
-  actionTitle: Look around Floors
+  actionTitle: Find a Narrow Gap
   actionRequestSlots1Row:
-  - RequestSlot: {fileID: 11400000, guid: e55257c451cc247639c7e825c4bb7281, type: 2}
+  - RequestSlot: {fileID: 11400000, guid: 91e88b79100d84fe7aef9ce4e6ceac0e, type: 2}
     DiceSlotType: 0
     RequestValue: 0
-  - RequestSlot: {fileID: 11400000, guid: 1848186225a7d4b4195d679aa9add24e, type: 2}
-    DiceSlotType: 1
+  - RequestSlot: {fileID: 11400000, guid: 91e88b79100d84fe7aef9ce4e6ceac0e, type: 2}
+    DiceSlotType: 0
+    RequestValue: 0
+  - RequestSlot: {fileID: 11400000, guid: af09d00925a6a434fa8165c4dccb7400, type: 2}
+    DiceSlotType: 0
     RequestValue: 0
   actionRequestSlots2Row: []
   actionRewardText: 
@@ -40,9 +43,9 @@ MonoBehaviour:
     combatOptionType: 0
     combatOptionAmount: 0
   rewardBelt: {fileID: 1065505458, guid: fd8805f1b66d649388fc70f6d2472d15, type: 3}
-  rewardTitle: Found Hidden Coins
+  rewardTitle: a Reward
   rewardObjects:
   - rewardData: {fileID: 11400000, guid: 2bad000a41c28457b8b56faeba46fa0b, type: 2}
+    rewardAmount: 3
+  - rewardData: {fileID: 11400000, guid: 5b63c8915ffb64e50ac93ff61947b48a, type: 2}
     rewardAmount: 1
-  - rewardData: {fileID: 11400000, guid: fbbf459bdeb8345bd9687a27797e5dfe, type: 2}
-    rewardAmount: 2

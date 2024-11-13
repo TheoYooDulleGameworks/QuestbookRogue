@@ -621,6 +621,7 @@ GameObject:
   - component: {fileID: 2246340136069331871}
   - component: {fileID: 5421697451685133187}
   - component: {fileID: 2653127160344382366}
+  - component: {fileID: 9036735500451325922}
   m_Layer: 5
   m_Name: TurnEnd Button
   m_TagString: Untagged
@@ -685,6 +686,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &9036735500451325922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2953118780997272476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c128a1b42c98a4ace95ec97f264c757b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultTurnEndButton: {fileID: -14395874, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
+  activatedTurnEndButton: {fileID: 1418789837, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
+  mouseOverTurnEndButton: {fileID: -737341777, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
+  mouseDownTurnEndButton: {fileID: 1330514404, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
+  isActivated: 0
 --- !u!1 &3436810098247403069
 GameObject:
   m_ObjectHideFlags: 0

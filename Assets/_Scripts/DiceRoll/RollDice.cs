@@ -48,14 +48,14 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] private float popUpDuration = 0.25f;
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
-    private Canvas canvas;
+    [SerializeField] private Canvas canvas;
     private Animator animator;
 
     private void OnEnable()
     {
         canvasGroup = GetComponent<CanvasGroup>();
         rectTransform = GetComponent<RectTransform>();
-        canvas = GetComponentInParent<Canvas>();
+        canvas = GameObject.FindWithTag("Canvas").GetComponent<Canvas>();
         animator = GetComponent<Animator>();
         animator.enabled = false;
 
@@ -316,6 +316,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private void RollAllDice()
     {
         StartCoroutine(RollAllDiceSequence());
+        GameManager.Instance.UpdateStagePhase(StagePhase.DiceUsing);
     }
 
     private IEnumerator RollAllDiceSequence()

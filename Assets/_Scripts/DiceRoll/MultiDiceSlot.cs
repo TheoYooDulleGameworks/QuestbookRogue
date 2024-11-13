@@ -217,7 +217,7 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
                 Vector2 mousePosition = Input.mousePosition;
                 Vector2 localPoint;
                 RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                    GetComponentInParent<Canvas>().GetComponent<RectTransform>(),
+                    GameObject.FindWithTag("Canvas").GetComponent<RectTransform>(),
                     mousePosition,
                     null,
                     out localPoint
@@ -332,6 +332,43 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
         else
         {
             return false;
+        }
+    }
+    public override void DeleteKeepingDices()
+    {
+        if (keepingDicePrefabs.Count == 0)
+        {
+            return;
+        }
+
+        rectTransform.DOKill();
+        rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+        rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
+
+        isConfirmed = false;
+        currentValue = 0;
+
+        foreach (GameObject keepingDicePrefab in keepingDicePrefabs)
+        {
+            Destroy(keepingDicePrefab);
+        }
+        keepingDicePrefabs.Clear();
+
+        slotDiceImage.GetComponent<Image>().sprite = null;
+        slotDiceImage.gameObject.SetActive(false);
+
+        GetComponent<Image>().sprite = defaultSprite;
+
+        currentValueImage10th.GetComponent<Image>().sprite = null;
+        currentValueImage1th.GetComponent<Image>().sprite = null;
+
+        if (currentValueImage10th.gameObject.activeSelf)
+        {
+            currentValueImage10th.gameObject.SetActive(false);
+        }
+        if (currentValueImage1th.gameObject.activeSelf)
+        {
+            currentValueImage1th.gameObject.SetActive(false);
         }
     }
 }

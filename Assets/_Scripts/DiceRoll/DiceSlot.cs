@@ -14,4 +14,9 @@ public abstract class DiceSlot : MonoBehaviour
         OnConfirmed?.Invoke();
         return false;
     }
+
+    public virtual void DeleteKeepingDices()
+    {
+        
+    }
 }

@@ -369,7 +369,7 @@ public class SceneController : Singleton<SceneController>
         yield return null;
     }
 
-    private void SetRollDicePanel()
+    public void SetRollDicePanel()
     {
         earlyRollDicePanelDeActivated = false;
 
@@ -464,7 +464,7 @@ public class SceneController : Singleton<SceneController>
         rollDicePanel.GetComponent<CanvasGroup>().DOFade(1, 0.5f);
     }
 
-    private void ResetRollDicePanel()
+    public void ResetRollDicePanel()
     {
         rollDicePanel.GetComponent<CanvasGroup>().alpha = 1f;
         rollDicePanel.GetComponent<RectTransform>().localPosition = Vector3.zero;
