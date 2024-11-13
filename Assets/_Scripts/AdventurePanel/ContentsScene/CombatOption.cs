@@ -68,8 +68,8 @@ public class CombatOption : MonoBehaviour
 
     public void ResetOptionUI()
     {
-        DefaultOptionUI();
         isClosed = false;
+        DefaultOptionUI();
     }
 
     public void ApplyEffect()

@@ -119,11 +119,8 @@ public class SceneController : Singleton<SceneController>
         {
             button.ActivateTarget();
         }
-        List<RollDice> dices = new List<RollDice>(rollDicePanel.GetComponentsInChildren<RollDice>());
-        foreach (var dice in dices)
-        {
-            dice.GetComponent<Image>().raycastTarget = true;
-        }
+
+        ActivateRollDices();
     }
 
     private IEnumerator DeActivateSelectsRoutine()
@@ -214,11 +211,7 @@ public class SceneController : Singleton<SceneController>
 
     private IEnumerator TransitionToSelectsRoutine(QuestSO _questData)
     {
-        List<RollDice> dices = new List<RollDice>(rollDicePanel.GetComponentsInChildren<RollDice>());
-        for (int i = 0; i < dices.Count; i++)
-        {
-            dices[i].GetComponent<Image>().raycastTarget = false;
-        }
+        DeActivateRollDices();
 
         if (!earlyRollDicePanelDeActivated)
         {
@@ -484,4 +477,21 @@ public class SceneController : Singleton<SceneController>
         });
     }
 
+    public void ActivateRollDices()
+    {
+        List<RollDice> dices = new List<RollDice>(rollDicePanel.GetComponentsInChildren<RollDice>());
+        foreach (var dice in dices)
+        {
+            dice.GetComponent<Image>().raycastTarget = true;
+        }
+    }
+
+    public void DeActivateRollDices()
+    {
+        List<RollDice> dices = new List<RollDice>(rollDicePanel.GetComponentsInChildren<RollDice>());
+        for (int i = 0; i < dices.Count; i++)
+        {
+            dices[i].GetComponent<Image>().raycastTarget = false;
+        }
+    }
 }

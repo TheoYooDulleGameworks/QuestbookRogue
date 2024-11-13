@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections.Generic;
+using System.Collections;
 
 public class CombatImageContent : MonoBehaviour, IContent
 {
@@ -10,8 +11,9 @@ public class CombatImageContent : MonoBehaviour, IContent
     [SerializeField] private ContentSO contentData = null;
     [SerializeField] private EnemySO enemyData = null;
 
-    [Header("Enemy Status")]
+    [Header("Status")]
     public EnemyStatusSO enemyStatus;
+    public PlayerStatusSO playerStatus;
 
     [Header("Components")]
     [SerializeField] private TextMeshProUGUI questTitleTMPro = null;
@@ -26,6 +28,7 @@ public class CombatImageContent : MonoBehaviour, IContent
     [SerializeField] private Sprite defaultFreeCancelButton;
 
     [Header("Stats")]
+    [SerializeField] private RectTransform statsRect;
     [SerializeField] private RectTransform healthRect;
     [SerializeField] private RectTransform armorRect;
     [SerializeField] private RectTransform damageRect;
@@ -128,8 +131,40 @@ public class CombatImageContent : MonoBehaviour, IContent
         {
             SceneController.Instance.ResetRollDicePanel();
 
-            // Enemy's Attack Sequence -> DiceWaiting -> RollDicePanel SetUp / Button Initialize / EnemyMaxStat Initialize ...
+            StartCoroutine(EnemyAttackSequenceRoutine());
         }
+        else if (stagePhase == StagePhase.DiceWaiting)
+        {
+            SceneController.Instance.SetRollDicePanel();
+
+            StartCoroutine(InitializeCombatContentsRoutine());
+        }
+    }
+
+    private IEnumerator EnemyAttackSequenceRoutine()
+    {
+        int initailAttackAmount = enemyStatus.currentDamage.Value;
+        int attackAmount = Mathf.Clamp(initailAttackAmount -= playerStatus.currentArmor.Value, 0, enemyStatus.currentDamage.Value);
+
+        playerStatus.currentHp.RemoveClampedValue(attackAmount, 0, playerStatus.maxHp.Value);
+
+        yield return new WaitForSeconds(0.5f);
+
+        GameManager.Instance.UpdateStagePhase(StagePhase.DiceWaiting);
+    }
+
+    private IEnumerator InitializeCombatContentsRoutine()
+    {
+        statsRect.DOKill();
+        statsRect.localScale = new Vector3(1.35f, 1.35f, 1.35f);
+        statsRect.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutCubic);
+
+        enemyStatus.currentDamage.Value = enemyStatus.maxDamage.Value;
+        enemyStatus.currentArmor.Value = enemyStatus.maxArmor.Value;
+
+        yield return new WaitForSeconds(0.5f);
+
+        SceneController.Instance.ActivateRollDices();
     }
 
 

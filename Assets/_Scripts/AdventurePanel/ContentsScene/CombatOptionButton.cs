@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class CombatOptionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
 {
@@ -12,6 +13,16 @@ public class CombatOptionButton : MonoBehaviour, IPointerEnterHandler, IPointerE
     {
         isActivated = false;
         GetComponent<Image>().raycastTarget = false;
+
+        GameManager.Instance.OnStagePhaseChanged += HandleStagePhaseChange;
+    }
+
+    private void OnDisable()
+    {
+        isActivated = false;
+        GetComponent<Image>().raycastTarget = false;
+
+        GameManager.Instance.OnStagePhaseChanged -= HandleStagePhaseChange;
     }
 
     public void ActivateButton()
@@ -36,6 +47,21 @@ public class CombatOptionButton : MonoBehaviour, IPointerEnterHandler, IPointerE
         }
     }
 
+    private void HandleStagePhaseChange(StagePhase stagePhase)
+    {
+        if (stagePhase == StagePhase.DiceWaiting)
+        {
+            GetComponent<RectTransform>().DOKill();
+            GetComponent<RectTransform>().localScale = new Vector3(1.35f, 1.35f, 1.35f);
+            GetComponent<RectTransform>().DOScale(Vector3.one, 0.25f).SetEase(Ease.OutCubic);
+
+            foreach (CombatOption option in combatOptionLists)
+            {
+                option.ResetOptionUI();
+            }
+        }
+    }
+    
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!isActivated)

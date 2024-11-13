@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class TurnEndButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
 {
@@ -36,6 +37,10 @@ public class TurnEndButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (stagePhase == StagePhase.DiceUsing)
         {
             isActivated = true;
+
+            GetComponent<RectTransform>().DOKill();
+            GetComponent<RectTransform>().localScale = new Vector3(1.35f, 1.35f, 1.35f);
+            GetComponent<RectTransform>().DOScale(Vector3.one, 0.25f).SetEase(Ease.OutCubic);
 
             GetComponent<Image>().sprite = activatedTurnEndButton;
             GetComponent<Image>().raycastTarget = true;

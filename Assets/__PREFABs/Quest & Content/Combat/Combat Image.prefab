@@ -1573,6 +1573,7 @@ MonoBehaviour:
   contentData: {fileID: 0}
   enemyData: {fileID: 0}
   enemyStatus: {fileID: 11400000, guid: 35469e39dc7cd46fc8a48500664b7419, type: 2}
+  playerStatus: {fileID: 11400000, guid: 993710e803cd849039fec356e2a7e319, type: 2}
   questTitleTMPro: {fileID: 2021082297862162685}
   questImageRect: {fileID: 2362615245344732026}
   questSealRect: {fileID: 3777655571679357866}
@@ -1581,6 +1582,7 @@ MonoBehaviour:
   defaultTurnEndButton: {fileID: -14395874, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
   defaultCancelButton: {fileID: 1499729013, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
   defaultFreeCancelButton: {fileID: 1282020880, guid: c7e758bac401b4dc1841d019b1b4fd5e, type: 3}
+  statsRect: {fileID: 5410185330530124726}
   healthRect: {fileID: 2326913811380479744}
   armorRect: {fileID: 8546485187565670998}
   damageRect: {fileID: 1549645636265489953}
