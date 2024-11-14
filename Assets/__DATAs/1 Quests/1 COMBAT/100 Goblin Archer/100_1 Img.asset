@@ -17,22 +17,21 @@ MonoBehaviour:
   backgroundImage: {fileID: 0}
   questTitle: Goblin Scout
   questImage: {fileID: 584859402, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
+  combatHittedImage: {fileID: -481864746, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
   questSeal: {fileID: -736264972, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
   isThereCancelButton: 1
   isFreeCancel: 0
   bodyText: 
   cancelText: 
+  actionTitle: 
   actionImage: {fileID: 0}
   actionBelt: {fileID: 0}
-  actionTitle: 
+  actionRewardText: 
   actionRequestSlots1Row: []
   actionRequestSlots2Row: []
-  actionRewardText: 
   isThereProceedButton: 1
   isFreeAction: 0
-  combatOptionSet:
-    combatOptionType: 0
-    combatOptionAmount: 0
+  combatOptionSets: []
   rewardBelt: {fileID: 0}
   rewardTitle: 
   rewardObjects: []

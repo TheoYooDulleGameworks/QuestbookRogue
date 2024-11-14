@@ -79,6 +79,8 @@ public class CombatOption : MonoBehaviour
             return;
         }
 
+        CombatImageContent enemyProfile = transform.parent.parent.parent.parent.GetComponentInChildren<CombatImageContent>();
+
         switch (combatOptionType)
         {
             case CombatOptionType.Attack:
@@ -87,7 +89,22 @@ public class CombatOption : MonoBehaviour
                     int initailAttackAmount = optionAmount;
                     int attackAmount = Mathf.Clamp(initailAttackAmount -= enemyStatus.currentArmor.Value, 0, optionAmount);
 
+
+                    if (attackAmount > 0)
+                    {
+                        VfxManager.Instance.BasicAttackVfx(enemyProfile.GetComponent<RectTransform>());
+                        PopUpManager.Instance.AttackPopUp(enemyProfile.GetComponent<RectTransform>(), attackAmount);
+                        enemyProfile.HittedGetDamage();
+                    }
+                    else if (attackAmount <= 0)
+                    {
+                        VfxManager.Instance.BlockedAttackVfx(enemyProfile.GetComponent<RectTransform>());
+                        PopUpManager.Instance.BlockPopUp(enemyProfile.GetComponent<RectTransform>());
+                        enemyProfile.HittedBlock();
+                    }
+
                     enemyStatus.currentHealth.RemoveClampedValue(attackAmount, 0, enemyStatus.maxHealth.Value);
+
                     DefaultOptionUI();
                     DeleteDices();
                 }
@@ -95,6 +112,11 @@ public class CombatOption : MonoBehaviour
             case CombatOptionType.DamageModify:
                 if (optionModifyType == OptionModifyType.Minus)
                 {
+                    if (optionAmount > 0)
+                    {
+                        PopUpManager.Instance.DamageReducePopUp(enemyProfile.GetComponent<RectTransform>(), optionAmount);
+                    }
+
                     enemyStatus.currentDamage.RemoveClampedValue(optionAmount, 0, enemyStatus.maxDamage.Value);
                     isClosed = true;
                     ClosedOptionUI();
@@ -103,6 +125,11 @@ public class CombatOption : MonoBehaviour
             case CombatOptionType.ArmorModify:
                 if (optionModifyType == OptionModifyType.Minus)
                 {
+                    if (optionAmount > 0)
+                    {
+                        PopUpManager.Instance.ArmorReducePopUp(enemyProfile.GetComponent<RectTransform>(), optionAmount);
+                    }
+
                     enemyStatus.currentArmor.RemoveClampedValue(optionAmount, 0, enemyStatus.maxArmor.Value);
                     isClosed = true;
                     ClosedOptionUI();

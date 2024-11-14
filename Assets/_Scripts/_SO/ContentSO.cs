@@ -21,6 +21,7 @@ public class ContentSO : ScriptableObject
     [Header("__________ IMAGE _______________________________________________________________")]
     public string questTitle;
     public Sprite questImage;
+    public Sprite combatHittedImage;
     public Sprite questSeal;
 
     [Header("__________ BUTTON BOOL _______________________________________________________________")]

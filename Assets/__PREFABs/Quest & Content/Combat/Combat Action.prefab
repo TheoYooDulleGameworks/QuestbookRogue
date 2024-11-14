@@ -1175,6 +1175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combatOptionLists: []
+  isActivated: 0
 --- !u!1 &7814622198631723393
 GameObject:
   m_ObjectHideFlags: 0

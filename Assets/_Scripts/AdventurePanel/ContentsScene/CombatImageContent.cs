@@ -18,6 +18,7 @@ public class CombatImageContent : MonoBehaviour, IContent
     [Header("Components")]
     [SerializeField] private TextMeshProUGUI questTitleTMPro = null;
     [SerializeField] private RectTransform questImageRect = null;
+    [SerializeField] private RectTransform hittedImage = null;
     [SerializeField] private RectTransform questSealRect = null;
     [SerializeField] private RectTransform turnEndButtonRect = null;
     [SerializeField] private RectTransform cancelButtonRect = null;
@@ -129,12 +130,16 @@ public class CombatImageContent : MonoBehaviour, IContent
     {
         if (stagePhase == StagePhase.DiceHolding)
         {
+            // ENEMY TURN -> //
+
             SceneController.Instance.ResetRollDicePanel();
 
             StartCoroutine(EnemyAttackSequenceRoutine());
         }
         else if (stagePhase == StagePhase.DiceWaiting)
         {
+            // PLAYER TURN -> //
+
             SceneController.Instance.SetRollDicePanel();
 
             StartCoroutine(InitializeCombatContentsRoutine());
@@ -208,6 +213,32 @@ public class CombatImageContent : MonoBehaviour, IContent
         Destroy(gameObject);
     }
 
+
+    // Stats Vfx Update //
+
+    public void HittedGetDamage()
+    {
+        RectTransform contentCanvas = GetComponentInChildren<CanvasGroup>().GetComponent<RectTransform>();
+
+        contentCanvas.DOShakeRotation(0.35f, 20, 0, 15);
+        contentCanvas.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.1f);
+        hittedImage.GetComponent<Image>().DOFade(1, 0.1f).OnComplete(() =>
+        {
+            hittedImage.GetComponent<Image>().DOFade(0, 0.25f);
+            contentCanvas.DOScale(Vector3.one, 0.25f);
+        });
+    }
+
+    public void HittedBlock()
+    {
+        RectTransform contentCanvas = GetComponentInChildren<CanvasGroup>().GetComponent<RectTransform>();
+
+        contentCanvas.DOShakeRotation(0.25f, 10, 0, 15);
+        contentCanvas.DOScale(new Vector3(1.05f, 1.05f, 1.05f), 0.1f).OnComplete(() =>
+        {
+            contentCanvas.DOScale(Vector3.one, 0.15f);
+        });
+    }
 
 
     // Stats UI Update //

@@ -11,6 +11,7 @@ public class ContentSOEditor : Editor
 
     SerializedProperty QuestTitle_Prop;
     SerializedProperty QuestImage_Prop;
+    SerializedProperty CombatHittedImage_Prop;
     SerializedProperty QuestSeal_Prop;
     SerializedProperty IsThereCancelButton_Prop;
     SerializedProperty IsFreeCancel_Prop;
@@ -42,6 +43,7 @@ public class ContentSOEditor : Editor
 
         QuestTitle_Prop = serializedObject.FindProperty("questTitle");
         QuestImage_Prop = serializedObject.FindProperty("questImage");
+        CombatHittedImage_Prop = serializedObject.FindProperty("combatHittedImage");
         QuestSeal_Prop = serializedObject.FindProperty("questSeal");
         IsThereCancelButton_Prop = serializedObject.FindProperty("isThereCancelButton");
         IsFreeCancel_Prop = serializedObject.FindProperty("isFreeCancel");
@@ -78,6 +80,7 @@ public class ContentSOEditor : Editor
         {
             EditorGUILayout.PropertyField(QuestTitle_Prop);
             EditorGUILayout.PropertyField(QuestImage_Prop);
+            EditorGUILayout.PropertyField(CombatHittedImage_Prop);
             EditorGUILayout.PropertyField(QuestSeal_Prop);
             EditorGUILayout.PropertyField(IsThereCancelButton_Prop);
             EditorGUILayout.PropertyField(IsFreeCancel_Prop);
