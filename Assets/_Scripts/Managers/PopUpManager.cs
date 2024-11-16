@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class PopUpManager : Singleton<PopUpManager>
 {
+    [SerializeField] private RectTransform playerPanel;
     [SerializeField] private RectTransform adventurePanel;
 
     [SerializeField] private GameObject effectPopUpPrefab; // Upper Position
@@ -14,6 +15,30 @@ public class PopUpManager : Singleton<PopUpManager>
     [SerializeField] private Sprite blockSprite;
     [SerializeField] private List<Sprite> damageReduceSprites;
     [SerializeField] private List<Sprite> armorReduceSprites;
+
+    public void PlayerImpactPopUp(RectTransform playerProfilePosition, int attackAmount)
+    {
+        GameObject popUp = Instantiate(damagePopUpPrefab);
+
+        if (attackAmount > 20)
+        {
+            attackAmount = 0;
+        }
+        popUp.GetComponentInChildren<Image>().sprite = attackSprites[attackAmount];
+
+        popUp.transform.SetParent(playerPanel, false);
+        popUp.transform.position = playerProfilePosition.transform.position;
+    }
+
+    public void PlayerBlockPopUp(RectTransform playerProfilePosition)
+    {
+        GameObject popUp = Instantiate(blockPopUpPrefab);
+
+        popUp.GetComponentInChildren<Image>().sprite = blockSprite;
+
+        popUp.transform.SetParent(playerPanel, false);
+        popUp.transform.position = playerProfilePosition.transform.position;
+    }
 
     public void AttackPopUp(RectTransform targetPosition, int attackAmount)
     {

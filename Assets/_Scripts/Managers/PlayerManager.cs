@@ -6,8 +6,9 @@ public class PlayerManager : Singleton<PlayerManager>
 {
     [SerializeField] public CharacterSO playerCharacter;
 
-    [SerializeField] private Image playerCard;
-    [SerializeField] private Image playerLvContainer;
+    [SerializeField] private RectTransform characterImageRect;
+    [SerializeField] private RectTransform hittedImageRect;
+    [SerializeField] private RectTransform playerLvContainer;
     [SerializeField] private TextMeshProUGUI playerName;
 
     // Player Assets //
@@ -27,8 +28,9 @@ public class PlayerManager : Singleton<PlayerManager>
 
     private void FirstSetPlayerProfile()
     {
-        playerCard.sprite = playerCharacter.characterCard;
-        playerLvContainer.sprite = playerCharacter.characterLvContainer;
+        characterImageRect.GetComponent<Image>().sprite = playerCharacter.characterImage;
+        hittedImageRect.GetComponent<Image>().sprite = playerCharacter.hittedImage;
+        playerLvContainer.GetComponent<Image>().sprite = playerCharacter.characterLvContainer;
         playerName.text = playerCharacter.characterName;
     }
 
@@ -54,7 +56,7 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         playerDices.StrNormalDice.Value = playerCharacter.startingStrength;
         playerDices.StrAdvancedDice.Value = playerCharacter.startingAdvancedStrength;
-        
+
         playerDices.DexNormalDice.Value = playerCharacter.startingDexterity;
         playerDices.DexAdvancedDice.Value = playerCharacter.startingAdvancedDexterity;
 

@@ -68,7 +68,7 @@ public class JustDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, IP
             {
                 rectTransform.DOKill();
                 rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
+                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
 
                 if (!slotDiceImage.gameObject.activeSelf)
                 {
@@ -126,7 +126,7 @@ public class JustDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, IP
 
         rectTransform.DOKill();
         rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-        rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
+        rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
 
         keepingDicePrefab.GetComponent<RollDice>().ActivateRollDice();
         keepingDicePrefab.GetComponent<RollDice>().PopUpAnim();
@@ -172,7 +172,7 @@ public class JustDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, IP
         
         rectTransform.DOKill();
         rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-        rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
+        rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
 
         Destroy(keepingDicePrefab);
         keepingDicePrefab = null;

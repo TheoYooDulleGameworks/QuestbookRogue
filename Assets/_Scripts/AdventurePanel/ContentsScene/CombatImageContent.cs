@@ -151,9 +151,47 @@ public class CombatImageContent : MonoBehaviour, IContent
         int initailAttackAmount = enemyStatus.currentDamage.Value;
         int attackAmount = Mathf.Clamp(initailAttackAmount -= playerStatus.currentArmor.Value, 0, enemyStatus.currentDamage.Value);
 
-        playerStatus.currentHp.RemoveClampedValue(attackAmount, 0, playerStatus.maxHp.Value);
+        CharacterProfile characterProfile = transform.parent.parent.parent.GetComponentInChildren<CharacterProfile>();
+
+        RectTransform contentCanvas = GetComponentInChildren<CanvasGroup>().GetComponent<RectTransform>();
 
         yield return new WaitForSeconds(0.5f);
+
+        contentCanvas.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.2f).OnComplete(() =>
+        {
+            contentCanvas.DOScale(Vector3.one, 0.3f);
+
+            contentCanvas.DOAnchorPos(new Vector3(60, 12, 0), 0.3f).OnComplete(() =>
+            {
+                if (attackAmount > 0)
+                {
+                    VfxManager.Instance.PlayerBasicImpactVfx(characterProfile.GetComponent<RectTransform>());
+                    PopUpManager.Instance.PlayerImpactPopUp(characterProfile.GetComponent<RectTransform>(), attackAmount);
+                    //VignetteManager
+
+                    characterProfile.HittedGetDamage();
+                }
+                else if (attackAmount <= 0)
+                {
+                    //VfxManager.Instance.PlayerBasicBlockedVfx(enemyProfile.GetComponent<RectTransform>());
+                    PopUpManager.Instance.PlayerBlockPopUp(characterProfile.GetComponent<RectTransform>());
+                    //VignetteManager
+
+                    //enemyProfile.HittedBlock();
+                }
+
+                playerStatus.currentHp.RemoveClampedValue(attackAmount, 0, playerStatus.maxHp.Value);
+
+                contentCanvas.DOScale(new Vector3(1.35f, 1.35f, 1.35f), 0.1f);
+                contentCanvas.DOAnchorPos(new Vector3(-120, -12, 0), 0.1f).OnComplete(() =>
+                {
+                    contentCanvas.DOScale(Vector3.one, 0.4f);
+                    contentCanvas.DOAnchorPos(Vector3.zero, 0.4f);
+                });
+            });
+        });
+
+        yield return new WaitForSeconds(1f);
 
         GameManager.Instance.UpdateStagePhase(StagePhase.DiceWaiting);
     }
@@ -161,18 +199,18 @@ public class CombatImageContent : MonoBehaviour, IContent
     private IEnumerator InitializeCombatContentsRoutine()
     {
         statsRect.DOKill();
-        statsRect.localScale = new Vector3(1.35f, 1.35f, 1.35f);
-        statsRect.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutCubic);
+        statsRect.DOScale(new Vector3(1.35f, 1.35f, 1.35f), 0.1f).OnComplete(() =>
+        {
+            statsRect.DOScale(Vector3.one, 0.2f);
 
-        enemyStatus.currentDamage.Value = enemyStatus.maxDamage.Value;
-        enemyStatus.currentArmor.Value = enemyStatus.maxArmor.Value;
+            enemyStatus.currentDamage.Value = enemyStatus.maxDamage.Value;
+            enemyStatus.currentArmor.Value = enemyStatus.maxArmor.Value;
+        });
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
 
         SceneController.Instance.ActivateRollDices();
     }
-
-
 
     // On & Off //
 
@@ -221,11 +259,15 @@ public class CombatImageContent : MonoBehaviour, IContent
         RectTransform contentCanvas = GetComponentInChildren<CanvasGroup>().GetComponent<RectTransform>();
 
         contentCanvas.DOShakeRotation(0.35f, 20, 0, 15);
-        contentCanvas.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.1f);
-        hittedImage.GetComponent<Image>().DOFade(1, 0.1f).OnComplete(() =>
+
+        contentCanvas.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.1f).OnComplete(() =>
         {
-            hittedImage.GetComponent<Image>().DOFade(0, 0.25f);
-            contentCanvas.DOScale(Vector3.one, 0.25f);
+            contentCanvas.DOScale(Vector3.one, 0.2f);
+        });
+
+        hittedImage.GetComponent<Image>().DOFade(1, 0.2f).OnComplete(() =>
+        {
+            hittedImage.GetComponent<Image>().DOFade(0, 0.1f);
         });
     }
 

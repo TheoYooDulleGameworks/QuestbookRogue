@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8122fe49e813d4ec5a24fbc4b7460745
+guid: a769d5432626d451d881deb0c3e78bd6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -136,7 +136,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Rogue Profile_0
+      name: PlayerImpactVFX_1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -151,14 +151,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 459f9dd6e881c42ab8d9658843b1697a
-      internalID: -1789202559
+      spriteID: 5a062868ff0ef410a8a1b53db8f5bda2
+      internalID: 873205271
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Rogue Profile_1
+      name: PlayerImpactVFX_1_1
       rect:
         serializedVersion: 2
         x: 96
@@ -173,8 +173,162 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6fe294d8e5d0942c1a48752ea957e243
-      internalID: 227126551
+      spriteID: e76c9be1687df4ba2a6d4d94c83c6676
+      internalID: -2036999082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerImpactVFX_1_2
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 96
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 761ec1d7f25e442b8bb3d2381e6aa732
+      internalID: -615527187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerImpactVFX_1_3
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 96
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1352ebc276f14448b9f14bf781597f99
+      internalID: 365680173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerImpactVFX_1_4
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 96
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2bf4999879b245e38edd80ef9b2fd59
+      internalID: -2129701197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerImpactVFX_1_5
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 96
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fc5dd964a8364724adb1eda049ecc70
+      internalID: -1331892866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerImpactVFX_1_6
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 96
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0bbf7d17bee64582af3d948b51fe684
+      internalID: 1190165932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerImpactVFX_1_7
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 0
+        width: 96
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c4485007e68d4beb8a54509dd79cd5e
+      internalID: 1978681042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerImpactVFX_1_8
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 96
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b578d682c9494e7181122d1fcd946eb
+      internalID: -673957153
       vertices: []
       indices: 
       edges: []
@@ -183,7 +337,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: d4c717675d8724be6b2fdfc7e42257df
     internalID: 0
     vertices: []
     indices: 
@@ -193,8 +347,15 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Rogue Profile_0: -1789202559
-      Rogue Profile_1: 227126551
+      PlayerImpactVFX_1_0: 873205271
+      PlayerImpactVFX_1_1: -2036999082
+      PlayerImpactVFX_1_2: -615527187
+      PlayerImpactVFX_1_3: 365680173
+      PlayerImpactVFX_1_4: -2129701197
+      PlayerImpactVFX_1_5: -1331892866
+      PlayerImpactVFX_1_6: 1190165932
+      PlayerImpactVFX_1_7: 1978681042
+      PlayerImpactVFX_1_8: -673957153
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

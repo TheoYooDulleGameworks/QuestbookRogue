@@ -129,7 +129,7 @@ public class PaySlot : DiceSlot, IPointerEnterHandler, IPointerExitHandler, IPoi
 
                 rectTransform.DOKill();
                 rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
+                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
 
                 GetComponent<Image>().sprite = succeedSprite;
                 isConfirmed = true;
@@ -139,7 +139,7 @@ public class PaySlot : DiceSlot, IPointerEnterHandler, IPointerExitHandler, IPoi
             {
                 rectTransform.DOKill();
                 rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
+                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
 
                 GetComponent<Image>().sprite = failSprite;
                 if (colorCoroutine != null)
@@ -155,7 +155,7 @@ public class PaySlot : DiceSlot, IPointerEnterHandler, IPointerExitHandler, IPoi
 
             rectTransform.DOKill();
             rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-            rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
+            rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
 
             GetComponent<Image>().sprite = defaultSprite;
             isConfirmed = false;

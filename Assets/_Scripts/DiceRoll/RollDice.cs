@@ -161,7 +161,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             rectTransform.DOKill();
             rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-            rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
+            rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
 
             if (checkCollider.activeSelf)
             {
@@ -184,7 +184,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             if (!wasRolled)
             {
                 rectTransform.DOKill();
-                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
+                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
                 notYetRolledAndWait = false;
 
                 return;
@@ -194,7 +194,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             rectTransform.DOKill();
             rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-            rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
+            rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
 
             rectTransform.localScale = new Vector3(1f, 1f, 1f);
 
@@ -260,7 +260,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
                 rectTransform.DOKill();
                 rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
+                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
 
                 isDragging = false;
                 if (shadowImage.gameObject.activeSelf == false)
@@ -452,7 +452,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         rectTransform.DOKill();
         rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-        rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
+        rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
     }
 }
 

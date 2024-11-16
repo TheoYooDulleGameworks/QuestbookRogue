@@ -89,7 +89,6 @@ public class CombatOption : MonoBehaviour
                     int initailAttackAmount = optionAmount;
                     int attackAmount = Mathf.Clamp(initailAttackAmount -= enemyStatus.currentArmor.Value, 0, optionAmount);
 
-
                     if (attackAmount > 0)
                     {
                         VfxManager.Instance.BasicAttackVfx(enemyProfile.GetComponent<RectTransform>());

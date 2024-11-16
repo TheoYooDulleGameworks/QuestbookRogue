@@ -5,7 +5,8 @@ using UnityEngine;
 public class CharacterSO : ScriptableObject
 {
     [Header("Profile")]
-    public Sprite characterCard;
+    public Sprite characterImage;
+    public Sprite hittedImage;
     public Sprite characterLvContainer;
     public string characterName;
 

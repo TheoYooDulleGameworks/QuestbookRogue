@@ -453,7 +453,7 @@ public class SceneController : Singleton<SceneController>
 
         rollDicePanel.GetComponent<CanvasGroup>().alpha = 0f;
         rollDicePanel.GetComponent<RectTransform>().transform.localPosition = new Vector3(0f, -120f, 0f);
-        rollDicePanel.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0f, 0f), 0.5f, false).SetEase(Ease.OutCubic);
+        rollDicePanel.GetComponent<RectTransform>().DOAnchorPos(new Vector2(0f, 0f), 0.5f, false);
         rollDicePanel.GetComponent<CanvasGroup>().DOFade(1, 0.5f);
     }
 

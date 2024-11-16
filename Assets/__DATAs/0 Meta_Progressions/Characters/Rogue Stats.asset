@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 333a5a885d4604e95aac5604a6ba4b9d, type: 3}
   m_Name: Rogue Stats
   m_EditorClassIdentifier: 
-  characterCard: {fileID: 21300000, guid: 8122fe49e813d4ec5a24fbc4b7460745, type: 3}
+  characterImage: {fileID: -1789202559, guid: 8122fe49e813d4ec5a24fbc4b7460745, type: 3}
+  hittedImage: {fileID: 227126551, guid: 8122fe49e813d4ec5a24fbc4b7460745, type: 3}
   characterLvContainer: {fileID: -1237222171, guid: 1767a71d735254df58b70056f55a8d5a, type: 3}
   characterName: Rogue
   defaultHp: 8
@@ -29,4 +30,3 @@ MonoBehaviour:
   startingAdvancedWillpower: 0
   startingSkills: []
   startingRelics: []
-  startingConsumables: []

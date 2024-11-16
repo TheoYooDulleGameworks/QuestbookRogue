@@ -105,7 +105,7 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
             {
                 rectTransform.DOKill();
                 rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
+                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
 
                 if (!slotDiceImage.gameObject.activeSelf)
                 {
@@ -209,7 +209,7 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
             {
                 rectTransform.DOKill();
                 rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
+                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
 
                 keepingDicePrefabs.First().GetComponent<RollDice>().ActivateRollDice();
                 keepingDicePrefabs.First().GetComponent<RollDice>().PopUpAnim();
@@ -236,7 +236,7 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
         {
             rectTransform.DOKill();
             rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-            rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
+            rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
 
             keepingDicePrefabs.Last().GetComponent<RollDice>().ActivateRollDice();
             keepingDicePrefabs.Last().GetComponent<RollDice>().PopUpAnim();
@@ -343,7 +343,7 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
 
         rectTransform.DOKill();
         rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-        rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).SetEase(Ease.OutCubic);
+        rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
 
         isConfirmed = false;
         currentValue = 0;

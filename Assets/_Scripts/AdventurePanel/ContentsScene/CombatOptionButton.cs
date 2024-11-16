@@ -52,16 +52,19 @@ public class CombatOptionButton : MonoBehaviour, IPointerEnterHandler, IPointerE
         if (stagePhase == StagePhase.DiceWaiting)
         {
             GetComponent<RectTransform>().DOKill();
-            GetComponent<RectTransform>().localScale = new Vector3(1.35f, 1.35f, 1.35f);
-            GetComponent<RectTransform>().DOScale(Vector3.one, 0.25f).SetEase(Ease.OutCubic);
-
-            foreach (CombatOption option in combatOptionLists)
+            GetComponent<RectTransform>().DOScale(new Vector3(1.35f, 1.35f, 1.35f), 0.1f).OnComplete(() =>
             {
-                option.ResetOptionUI();
-            }
+                GetComponent<RectTransform>().DOScale(Vector3.one, 0.2f);
+
+                foreach (CombatOption option in combatOptionLists)
+                {
+                    option.ResetOptionUI();
+                }
+            });
         }
     }
-    
+
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!isActivated)

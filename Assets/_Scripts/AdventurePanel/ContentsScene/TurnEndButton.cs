@@ -39,11 +39,13 @@ public class TurnEndButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             isActivated = true;
 
             GetComponent<RectTransform>().DOKill();
-            GetComponent<RectTransform>().localScale = new Vector3(1.35f, 1.35f, 1.35f);
-            GetComponent<RectTransform>().DOScale(Vector3.one, 0.25f).SetEase(Ease.OutCubic);
+            GetComponent<RectTransform>().DOScale(new Vector3(1.35f, 1.35f, 1.35f), 0.1f).OnComplete(() =>
+            {
+                GetComponent<RectTransform>().DOScale(Vector3.one, 0.2f);
+                GetComponent<Image>().sprite = activatedTurnEndButton;
+                GetComponent<Image>().raycastTarget = true;
+            });
 
-            GetComponent<Image>().sprite = activatedTurnEndButton;
-            GetComponent<Image>().raycastTarget = true;
         }
         else if (stagePhase == StagePhase.DiceHolding)
         {
