@@ -4763,6 +4763,7 @@ RectTransform:
   - {fileID: 1916754505}
   - {fileID: 291870774}
   - {fileID: 1162697552}
+  - {fileID: 2092608831}
   - {fileID: 1780843290}
   - {fileID: 565552856}
   m_Father: {fileID: 0}
@@ -6156,9 +6157,12 @@ MonoBehaviour:
   playerPanel: {fileID: 1916754505}
   adventurePanel: {fileID: 291870774}
   playerBasicImpactVfxPrefab: {fileID: 4930109249087556256, guid: 7ae0ee0b84c4242d9811ddacecec77f0, type: 3}
-  playerBlockedImpactVfxPrefab: {fileID: 0}
+  playerBlockImpactVfxPrefab: {fileID: 4930109249087556256, guid: 315d0f72976fc4e09ac9a927bf1408cb, type: 3}
   basicAttackVfxPrefab: {fileID: 4930109249087556256, guid: 005ad88a8ba154547a6bae9cca9b9e29, type: 3}
-  blockedAttackVfxPrefab: {fileID: 4930109249087556256, guid: 7ee9e66d85e2e4b019a0ba4d5f4f3207, type: 3}
+  blockAttackVfxPrefab: {fileID: 4930109249087556256, guid: 7ee9e66d85e2e4b019a0ba4d5f4f3207, type: 3}
+  vignetteRect: {fileID: 2092608831}
+  impactVignette: {fileID: 1590318569, guid: b76e70713708f4716867c7eefce69b17, type: 3}
+  blockVignette: {fileID: 1390226173, guid: b76e70713708f4716867c7eefce69b17, type: 3}
 --- !u!1 &1486429688
 GameObject:
   m_ObjectHideFlags: 0
@@ -8700,6 +8704,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TEST
       objectReference: {fileID: 0}
+    - target: {fileID: 8440536153520294390, guid: 3c5b54a3a64a94f2487d9e04e38b9004, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8779,6 +8787,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2065651453}
+  m_CullTransparentMesh: 1
+--- !u!1 &2092608830
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2092608831}
+  - component: {fileID: 2092608833}
+  - component: {fileID: 2092608832}
+  m_Layer: 5
+  m_Name: Vignette Filter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2092608831
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092608830}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1121710232}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1920, y: 1080}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2092608832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092608830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 1590318569, guid: b76e70713708f4716867c7eefce69b17, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2092608833
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092608830}
   m_CullTransparentMesh: 1
 --- !u!1 &2105492505
 GameObject:

@@ -315,11 +315,20 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void RollAllDice()
     {
-        StartCoroutine(RollAllDiceSequence());
-        GameManager.Instance.UpdateStagePhase(StagePhase.DiceUsing);
+        StartCoroutine(RollAllDiceRoutine());
     }
 
-    private IEnumerator RollAllDiceSequence()
+    private IEnumerator RollAllDiceRoutine()
+    {
+        yield return StartCoroutine(RollAllDiceSequenceRoutine());
+
+        if (GameManager.Instance.currentStagePhase != StagePhase.DiceUsing)
+        {
+            GameManager.Instance.UpdateStagePhase(StagePhase.DiceUsing);
+        }
+    }
+
+    private IEnumerator RollAllDiceSequenceRoutine()
     {
         List<RollDice> allDices = new List<RollDice>(transform.parent.GetComponentsInChildren<RollDice>());
 

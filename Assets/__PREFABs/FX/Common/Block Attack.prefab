@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2565828327359695005}
   - component: {fileID: 8195075019710371718}
   m_Layer: 6
-  m_Name: Blocked Attack
+  m_Name: Block Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

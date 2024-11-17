@@ -167,23 +167,21 @@ public class CombatImageContent : MonoBehaviour, IContent
                 {
                     VfxManager.Instance.PlayerBasicImpactVfx(characterProfile.GetComponent<RectTransform>());
                     PopUpManager.Instance.PlayerImpactPopUp(characterProfile.GetComponent<RectTransform>(), attackAmount);
-                    //VignetteManager
 
                     characterProfile.HittedGetDamage();
                 }
                 else if (attackAmount <= 0)
                 {
-                    //VfxManager.Instance.PlayerBasicBlockedVfx(enemyProfile.GetComponent<RectTransform>());
+                    VfxManager.Instance.PlayerBasicBlockVfx(characterProfile.GetComponent<RectTransform>());
                     PopUpManager.Instance.PlayerBlockPopUp(characterProfile.GetComponent<RectTransform>());
-                    //VignetteManager
 
-                    //enemyProfile.HittedBlock();
+                    characterProfile.HittedBlock();
                 }
 
                 playerStatus.currentHp.RemoveClampedValue(attackAmount, 0, playerStatus.maxHp.Value);
 
                 contentCanvas.DOScale(new Vector3(1.35f, 1.35f, 1.35f), 0.1f);
-                contentCanvas.DOAnchorPos(new Vector3(-120, -12, 0), 0.1f).OnComplete(() =>
+                contentCanvas.DOAnchorPos(new Vector3(-120, 24, 0), 0.1f).OnComplete(() =>
                 {
                     contentCanvas.DOScale(Vector3.one, 0.4f);
                     contentCanvas.DOAnchorPos(Vector3.zero, 0.4f);

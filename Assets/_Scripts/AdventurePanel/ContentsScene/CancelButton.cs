@@ -34,7 +34,7 @@ public class CancelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         {
             return;
         }
-        
+
         RectTransform rectTransform = GetComponent<RectTransform>();
 
         rectTransform.localScale = new Vector3(1.35f, 1.35f, 1.35f);
@@ -108,6 +108,7 @@ public class CancelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         }
 
         SceneController.Instance.TransitionToSelects(currentQuestData);
+        GameManager.Instance.UpdateStagePhase(StagePhase.None);
     }
 }
 

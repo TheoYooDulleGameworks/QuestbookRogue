@@ -6,8 +6,8 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BlockedAttack
+  m_Name: PlayerBasicBlock
   m_Controller: {fileID: 9100000, guid: 2cbb8d1d1aa884d778cfb78f03009167, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 9309562d18dc541f292d73195248ae56, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: fe6ec744f75d5409497db9ef5cb0396e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: aee289268ceb648b39705e1192e780f5, type: 2}

@@ -97,7 +97,7 @@ public class CombatOption : MonoBehaviour
                     }
                     else if (attackAmount <= 0)
                     {
-                        VfxManager.Instance.BlockedAttackVfx(enemyProfile.GetComponent<RectTransform>());
+                        VfxManager.Instance.BlockAttackVfx(enemyProfile.GetComponent<RectTransform>());
                         PopUpManager.Instance.BlockPopUp(enemyProfile.GetComponent<RectTransform>());
                         enemyProfile.HittedBlock();
                     }

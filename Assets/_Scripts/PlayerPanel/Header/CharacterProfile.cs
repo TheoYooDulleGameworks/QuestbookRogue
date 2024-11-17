@@ -25,4 +25,15 @@ public class CharacterProfile : MonoBehaviour
         });
 
     }
+
+    public void HittedBlock()
+    {
+        RectTransform profileCard = GetComponent<RectTransform>();
+
+        profileCard.DOShakeRotation(0.25f, 10, 0, 15);
+        profileCard.DOScale(new Vector3(1.05f, 1.05f, 1.05f), 0.1f).OnComplete(() =>
+        {
+            profileCard.DOScale(Vector3.one, 0.15f);
+        });
+    }
 }

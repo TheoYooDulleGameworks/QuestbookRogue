@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    [SerializeField] private GamePhase currentGamePhase;
+    [SerializeField] public GamePhase currentGamePhase;
     public event Action<GamePhase> OnGamePhaseChanged;
 
-    [SerializeField] private StagePhase currentStagePhase;
+    [SerializeField] public StagePhase currentStagePhase;
     public event Action<StagePhase> OnStagePhaseChanged;
 
     private void Start()

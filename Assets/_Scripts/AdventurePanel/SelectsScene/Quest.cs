@@ -76,6 +76,8 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void GenerateQuest()
     {
+        inTransition = true;
+
         canvasGroup.alpha = 0f;
         rectTransform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
         rectTransform.localEulerAngles = new Vector3(0f, -12f, -12f);
@@ -95,13 +97,18 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 rectTransform.DOKill();
                 rectTransform.DORotate(Vector3.zero, 0.25f);
-                rectTransform.DOScale(Vector3.one, 0.25f);
+                rectTransform.DOScale(Vector3.one, 0.25f).OnComplete(() =>
+                {
+                    inTransition = false;
+                });
             });
         });
     }
 
     public void FlipOnQuest()
     {
+        inTransition = true;
+
         if (discovered)
         {
             return;
@@ -133,15 +140,19 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 rectTransform.DOKill();
                 rectTransform.DORotate(Vector3.zero, 0.25f);
-                rectTransform.DOScale(Vector3.one, 0.25f);
+                rectTransform.DOScale(Vector3.one, 0.25f).OnComplete(() =>
+                {
+                    inTransition = false;
+                    discovered = true;
+                });
             });
 
-            discovered = true;
         });
     }
 
     public void FlipOffQuest()
     {
+        inTransition = true;
         resolved = true;
 
         rectTransform.localScale = Vector3.one;
@@ -166,13 +177,18 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 rectTransform.DOKill();
                 rectTransform.DOScale(Vector3.one, 0.25f);
-                rectTransform.DORotate(Vector3.zero, 0.25f);
+                rectTransform.DORotate(Vector3.zero, 0.25f).OnComplete(() =>
+                {
+                    inTransition = false;
+                }); ;
             });
         });
     }
 
     public void ReOpenQuest()
     {
+        inTransition = true;
+
         rectTransform.GetComponent<CanvasGroup>().alpha = 0f;
         rectTransform.localScale = new Vector3(0.75f, 0.5f, 0.5f);
         rectTransform.localEulerAngles = new Vector3(-90f, 12f, 12f);
@@ -184,7 +200,10 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             rectTransform.DOKill();
             rectTransform.DOScale(Vector3.one, 0.25f);
-            rectTransform.DORotate(Vector3.zero, 0.25f);
+            rectTransform.DORotate(Vector3.zero, 0.25f).OnComplete(() =>
+            {
+                inTransition = false;
+            }); ;
         });
     }
 
