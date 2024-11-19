@@ -172,6 +172,11 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (QuestIsOver)
+        {
+            return;
+        }
+        
         if (keepingDicePrefabs.Count != 0)
         {
             if (isConfirmed)
@@ -184,6 +189,11 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (QuestIsOver)
+        {
+            return;
+        }
+
         if (keepingDicePrefabs.Count != 0)
         {
             if (isConfirmed)
@@ -196,6 +206,11 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (QuestIsOver)
+        {
+            return;
+        }
+
         if (keepingDicePrefabs.Count == 0)
         {
             return;

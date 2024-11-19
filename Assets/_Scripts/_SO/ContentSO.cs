@@ -15,44 +15,32 @@ public class ContentSO : ScriptableObject
     [Header("__________ COMMON _______________________________________________________________")]
     public ContentType contentType;
     [SerializeField] public GameObject contentTemplate;
-    public Sprite backgroundImage;
 
     // Image Content //
     [Header("__________ IMAGE _______________________________________________________________")]
-    public string questTitle;
-    public Sprite questImage;
-    public Sprite combatHittedImage;
-    public Sprite questSeal;
-
-    [Header("__________ BUTTON BOOL _______________________________________________________________")]
-    public bool isThereCancelButton = true;
     public bool isFreeCancel = false;
 
     // Description Content //
     [Header("__________ DESCRIPTION _______________________________________________________________")]
     [TextArea] public string bodyText;
-    [TextArea] public string cancelText;
 
     // Action Content //
     [Header("__________ ACTION _______________________________________________________________")]
     public string actionTitle;
-    public Sprite actionImage;
-    public Sprite actionBelt;
-    [TextArea] public string actionRewardText;
     public List<SlotSet> actionRequestSlots1Row;
     public List<SlotSet> actionRequestSlots2Row;
-
-    [Header("__________ BUTTON BOOL _______________________________________________________________")]
-    public bool isThereProceedButton = true;
-    public bool isFreeAction = false;
 
     [Header("__________ COMBAT _______________________________________________________________")]
     public List<CombatOptionSet> combatOptionSets;
 
-    [Header("__________ REWARD _______________________________________________________________")]
-    public Sprite rewardBelt;
-    public string rewardTitle;
-    public List<RewardSet> rewardObjects;
+    [Header("__________ COMBAT REWARD _______________________________________________________________")]
+    public ContentSO combatEpilogue;
+    public List<RewardSet> combatRewards;
+
+    [Header("__________ EVENT REWARD _______________________________________________________________")]
+    public Sprite eventEpilogueImage;
+    public ContentSO eventEpilogue;
+    public List<RewardSet> eventRewards;
 }
 
 [System.Serializable]
@@ -63,12 +51,23 @@ public class SlotSet
     [SerializeField] public int RequestValue;
 }
 
-
 [System.Serializable]
 public class RewardSet
 {
     public RewardSO rewardData;
+    public RewardTier rewardTier;
     public int rewardAmount;
+}
+
+public enum RewardTier
+{
+    Neutral,
+    Common,
+    Rare,
+    Legendary,
+    Unique,
+    Secret,
+    Cursed,
 }
 
 [System.Serializable]

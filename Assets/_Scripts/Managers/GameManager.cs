@@ -9,8 +9,10 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] public StagePhase currentStagePhase;
     public event Action<StagePhase> OnStagePhaseChanged;
 
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
+
         UpdateGamePhase(GamePhase.None);
         UpdateStagePhase(StagePhase.None);
     }

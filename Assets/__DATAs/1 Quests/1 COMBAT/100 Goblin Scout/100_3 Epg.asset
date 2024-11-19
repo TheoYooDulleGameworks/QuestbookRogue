@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eff72458e07d4f70abc5c0322382142, type: 3}
+  m_Name: 100_3 Epg
+  m_EditorClassIdentifier: 
+  contentType: 2
+  contentTemplate: {fileID: 2136181797282923763, guid: 075405a11dfbe4d9099207c471619b12, type: 3}
+  isFreeCancel: 0
+  bodyText: nudged the goblin's body with boot, yet the shadow of their cunning lingered
+    in your thoughts.
+  actionTitle: 
+  actionImage: {fileID: 0}
+  actionRequestSlots1Row: []
+  actionRequestSlots2Row: []
+  combatOptionSets: []
+  combatEpilogue: {fileID: 0}
+  combatRewards: []
+  eventEpilogueImage: {fileID: 0}
+  eventEpilogue: {fileID: 0}
+  eventRewards: []

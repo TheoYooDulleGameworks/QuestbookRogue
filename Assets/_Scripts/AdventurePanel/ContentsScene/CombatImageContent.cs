@@ -8,6 +8,7 @@ using System.Collections;
 public class CombatImageContent : MonoBehaviour, IContent
 {
     [Header("Content Data")]
+    [SerializeField] private QuestSO questData = null;
     [SerializeField] private ContentSO contentData = null;
     [SerializeField] private EnemySO enemyData = null;
 
@@ -17,8 +18,10 @@ public class CombatImageContent : MonoBehaviour, IContent
 
     [Header("Components")]
     [SerializeField] private TextMeshProUGUI questTitleTMPro = null;
+    [SerializeField] private RectTransform questTitleBeltRect = null;
     [SerializeField] private RectTransform questImageRect = null;
-    [SerializeField] private RectTransform hittedImage = null;
+    [SerializeField] private RectTransform hittedShader = null;
+    [SerializeField] private RectTransform defeatedShader = null;
     [SerializeField] private RectTransform questSealRect = null;
     [SerializeField] private RectTransform turnEndButtonRect = null;
     [SerializeField] private RectTransform cancelButtonRect = null;
@@ -47,6 +50,14 @@ public class CombatImageContent : MonoBehaviour, IContent
     [SerializeField] private RectTransform currentDamage1thRect;
     [SerializeField] private List<Sprite> currentDamageNumbers = new List<Sprite>();
 
+    [Header("Dead Enemy Sources")]
+    [SerializeField] private Sprite deadEnemyImage = null;
+    [SerializeField] private Sprite deadEnemySeal = null;
+    [SerializeField] private Sprite deadEnemyBelt = null;
+
+    [Header("Rewards")]
+    [SerializeField] private GameObject rewardContentPrefab;
+
 
 
     private void OnEnable()
@@ -69,6 +80,7 @@ public class CombatImageContent : MonoBehaviour, IContent
 
     public void SetContentComponents(QuestSO _questData, ContentSO _contentData)
     {
+        questData = _questData;
         contentData = _contentData;
         enemyData = _questData.enemyData;
 
@@ -94,28 +106,30 @@ public class CombatImageContent : MonoBehaviour, IContent
             damageRect.gameObject.SetActive(false);
         }
 
-        questTitleTMPro.text = contentData.questTitle;
-        questImageRect.GetComponent<Image>().sprite = contentData.questImage;
-        questSealRect.GetComponent<Image>().sprite = contentData.questSeal;
+        questTitleTMPro.text = _questData.questName;
+        questImageRect.GetComponent<Image>().sprite = _questData.questMainImage;
+        questSealRect.GetComponent<Image>().sprite = _questData.questSeal;
+
+        hittedShader.GetComponent<Image>().sprite = _questData.hittedEnemyShader;
+        deadEnemyImage = _questData.deadEnemyImage;
 
         turnEndButtonRect.GetComponent<Image>().sprite = defaultTurnEndButton;
 
-        if (contentData.isThereCancelButton)
-        {
-            cancelButtonRect.gameObject.SetActive(true);
-            cancelButtonRect.GetComponent<CancelButton>().currentQuestData = _questData;
+        cancelButtonRect.gameObject.SetActive(true);
+        cancelButtonRect.GetComponent<CancelButton>().currentQuestData = _questData;
 
-            if (contentData.isFreeCancel)
-            {
-                cancelButtonRect.GetComponent<Image>().sprite = defaultFreeCancelButton;
-                cancelButtonRect.GetComponent<CancelButton>().isFreeToCancel = true;
-            }
-            else
-            {
-                cancelButtonRect.GetComponent<Image>().sprite = defaultCancelButton;
-                cancelButtonRect.GetComponent<CancelButton>().isFreeToCancel = false;
-            }
+        if (contentData.isFreeCancel)
+        {
+            cancelButtonRect.GetComponent<Image>().sprite = defaultFreeCancelButton;
+            cancelButtonRect.GetComponent<CancelButton>().isFreeToCancel = true;
         }
+        else
+        {
+            cancelButtonRect.GetComponent<Image>().sprite = defaultCancelButton;
+            cancelButtonRect.GetComponent<CancelButton>().isFreeToCancel = false;
+        }
+
+
 
         UpdateEnemyHealthUI();
         UpdateEnemyArmorUI();
@@ -124,7 +138,46 @@ public class CombatImageContent : MonoBehaviour, IContent
 
 
 
-    // Combat - Turn Management //
+    // On & Off //
+
+    public void FlipOnContent()
+    {
+        RectTransform contentCanvas = GetComponentInChildren<CanvasGroup>().GetComponent<RectTransform>();
+
+        contentCanvas.GetComponent<CanvasGroup>().alpha = 0f;
+        contentCanvas.localScale = new Vector3(0.75f, 0.5f, 0.5f);
+        contentCanvas.localEulerAngles = new Vector3(-90f, 12f, 12f);
+
+        contentCanvas.DOKill();
+        contentCanvas.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.25f);
+        contentCanvas.DORotate(new Vector3(4f, 12f, -2f), 0.25f);
+        contentCanvas.GetComponent<CanvasGroup>().DOFade(1f, 0.25f).OnComplete(() =>
+        {
+            contentCanvas.DOKill();
+            contentCanvas.DOScale(Vector3.one, 0.25f);
+            contentCanvas.DORotate(Vector3.zero, 0.25f);
+        });
+    }
+
+    public void FlipOffContent()
+    {
+        RectTransform contentCanvas = GetComponentInChildren<CanvasGroup>().GetComponent<RectTransform>();
+
+        contentCanvas.localEulerAngles = Vector3.zero;
+        contentCanvas.localScale = Vector3.one;
+
+        contentCanvas.DOKill();
+        contentCanvas.DORotate(new Vector3(-75f, -12f, -6f), 0.25f);
+        contentCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.25f);
+        contentCanvas.GetComponent<CanvasGroup>().DOFade(0, 0.25f).OnComplete(() =>
+        {
+            Destroy(gameObject);
+        });
+    }
+
+
+
+    // Turn Management //
 
     private void HandleStagePhaseChange(StagePhase stagePhase)
     {
@@ -132,15 +185,11 @@ public class CombatImageContent : MonoBehaviour, IContent
         {
             // ENEMY TURN -> //
 
-            SceneController.Instance.ResetRollDicePanel();
-
             StartCoroutine(EnemyAttackSequenceRoutine());
         }
         else if (stagePhase == StagePhase.DiceWaiting)
         {
             // PLAYER TURN -> //
-
-            SceneController.Instance.SetRollDicePanel();
 
             StartCoroutine(InitializeCombatContentsRoutine());
         }
@@ -155,7 +204,7 @@ public class CombatImageContent : MonoBehaviour, IContent
 
         RectTransform contentCanvas = GetComponentInChildren<CanvasGroup>().GetComponent<RectTransform>();
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
 
         contentCanvas.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.2f).OnComplete(() =>
         {
@@ -189,7 +238,7 @@ public class CombatImageContent : MonoBehaviour, IContent
             });
         });
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
 
         GameManager.Instance.UpdateStagePhase(StagePhase.DiceWaiting);
     }
@@ -197,7 +246,7 @@ public class CombatImageContent : MonoBehaviour, IContent
     private IEnumerator InitializeCombatContentsRoutine()
     {
         statsRect.DOKill();
-        statsRect.DOScale(new Vector3(1.35f, 1.35f, 1.35f), 0.1f).OnComplete(() =>
+        statsRect.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.1f).OnComplete(() =>
         {
             statsRect.DOScale(Vector3.one, 0.2f);
 
@@ -205,52 +254,14 @@ public class CombatImageContent : MonoBehaviour, IContent
             enemyStatus.currentArmor.Value = enemyStatus.maxArmor.Value;
         });
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(1.5f);
 
         SceneController.Instance.ActivateRollDices();
     }
 
-    // On & Off //
-
-    public void FlipOnContent()
-    {
-        RectTransform contentCanvas = GetComponentInChildren<CanvasGroup>().GetComponent<RectTransform>();
-
-        contentCanvas.GetComponent<CanvasGroup>().alpha = 0f;
-        contentCanvas.localScale = new Vector3(0.75f, 0.5f, 0.5f);
-        contentCanvas.localEulerAngles = new Vector3(-90f, 12f, 12f);
-
-        contentCanvas.DOKill();
-        contentCanvas.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.25f);
-        contentCanvas.DORotate(new Vector3(4f, 12f, -2f), 0.25f);
-        contentCanvas.GetComponent<CanvasGroup>().DOFade(1f, 0.25f).OnComplete(() =>
-        {
-            contentCanvas.DOKill();
-            contentCanvas.DOScale(Vector3.one, 0.25f);
-            contentCanvas.DORotate(Vector3.zero, 0.25f);
-        });
-    }
-
-    public void FlipOffContent()
-    {
-        RectTransform contentCanvas = GetComponentInChildren<CanvasGroup>().GetComponent<RectTransform>();
-
-        contentCanvas.localEulerAngles = Vector3.zero;
-        contentCanvas.localScale = Vector3.one;
-
-        contentCanvas.DOKill();
-        contentCanvas.DORotate(new Vector3(-75f, -12f, -6f), 0.25f);
-        contentCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.25f);
-        contentCanvas.GetComponent<CanvasGroup>().DOFade(0, 0.25f);
-    }
-
-    public void DestroyContent()
-    {
-        Destroy(gameObject);
-    }
 
 
-    // Stats Vfx Update //
+    // Stats Management //
 
     public void HittedGetDamage()
     {
@@ -263,9 +274,9 @@ public class CombatImageContent : MonoBehaviour, IContent
             contentCanvas.DOScale(Vector3.one, 0.2f);
         });
 
-        hittedImage.GetComponent<Image>().DOFade(1, 0.2f).OnComplete(() =>
+        hittedShader.GetComponent<Image>().DOFade(1, 0.2f).OnComplete(() =>
         {
-            hittedImage.GetComponent<Image>().DOFade(0, 0.1f);
+            hittedShader.GetComponent<Image>().DOFade(0, 0.1f);
         });
     }
 
@@ -278,6 +289,92 @@ public class CombatImageContent : MonoBehaviour, IContent
         {
             contentCanvas.DOScale(Vector3.one, 0.15f);
         });
+    }
+
+
+
+
+    // Complete Management //
+
+    private void FlipOnDeadEnemy()
+    {
+        RectTransform contentCanvas = GetComponentInChildren<CanvasGroup>().GetComponent<RectTransform>();
+
+        contentCanvas.localEulerAngles = Vector3.zero;
+        contentCanvas.localScale = Vector3.one;
+
+        contentCanvas.DOKill();
+        contentCanvas.DORotate(new Vector3(-4f, -12f, 2f), 0.1f);
+        defeatedShader.GetComponent<Image>().DOFade(1, 0.3f);
+        contentCanvas.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.1f).OnComplete(() =>
+        {
+            contentCanvas.DOScale(Vector3.one, 0.2f);
+            contentCanvas.DORotate(Vector3.zero, 0.2f).OnComplete(() =>
+            {
+                GameManager.Instance.UpdateStagePhase(StagePhase.Finishing);
+
+                contentCanvas.localScale = Vector3.one;
+                contentCanvas.localEulerAngles = Vector3.zero;
+
+                contentCanvas.DOKill();
+                contentCanvas.DOScale(new Vector3(0.75f, 0.5f, 0.5f), 0.25f);
+                contentCanvas.DORotate(new Vector3(-90f, -12f, -12f), 0.25f).OnComplete(() =>
+                {
+                    turnEndButtonRect.gameObject.SetActive(false);
+                    statsRect.gameObject.SetActive(false);
+                    questImageRect.GetComponent<Image>().sprite = deadEnemyImage;
+                    questTitleBeltRect.GetComponent<Image>().sprite = deadEnemyBelt;
+                    questSealRect.GetComponent<Image>().sprite = deadEnemySeal;
+
+                    contentCanvas.localScale = new Vector3(0.75f, 0.5f, 0.5f);
+                    contentCanvas.localEulerAngles = new Vector3(-90, 12f, 12f);
+
+                    contentCanvas.DOKill();
+                    contentCanvas.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.25f);
+                    contentCanvas.DORotate(new Vector3(4f, 12f, -2f), 0.25f).OnComplete(() =>
+                    {
+
+                        defeatedShader.GetComponent<Image>().DOFade(0, 0.25f);
+                        contentCanvas.DOKill();
+                        contentCanvas.DORotate(Vector3.zero, 0.25f);
+                        contentCanvas.DOScale(Vector3.one, 0.25f).OnComplete(() =>
+                        {
+                            cancelButtonRect.GetComponent<CancelButton>().FreeTheCancelButton();
+                        });
+                    });
+                });
+            });
+        });
+    }
+
+    public void SetRewards()
+    {
+        StartCoroutine(SetRewardsRoutine());
+    }
+
+    private IEnumerator SetRewardsRoutine()
+    {
+        yield return new WaitForSeconds(2f);
+
+        GameObject epilogueContent = Instantiate(contentData.combatEpilogue.contentTemplate);
+        epilogueContent.transform.SetParent(transform.parent, false);
+        epilogueContent.name = "Epilogue";
+        epilogueContent.GetComponent<DescriptionContent>().SetEpilogueComponents(contentData.combatEpilogue);
+        epilogueContent.GetComponent<IContent>().FlipOnContent();
+
+        yield return new WaitForSeconds(0.25f);
+
+        for (int i = 0; i < contentData.combatRewards.Count; i++)
+        {
+            GameObject rewardContent = Instantiate(rewardContentPrefab);
+            rewardContent.transform.SetParent(transform.parent, false);
+            rewardContent.name = $"Reward_({i + 1})";
+
+            rewardContent.GetComponent<RewardContent>().SetRewardComponents(contentData.combatRewards[i]);
+            rewardContent.GetComponent<IContent>().FlipOnContent();
+
+            yield return new WaitForSeconds(0.25f);
+        }
     }
 
 
@@ -373,6 +470,11 @@ public class CombatImageContent : MonoBehaviour, IContent
                 break;
             default:
                 break;
+        }
+
+        if (currentHealthValue <= 0)
+        {
+            FlipOnDeadEnemy();
         }
     }
 

@@ -322,6 +322,8 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         yield return StartCoroutine(RollAllDiceSequenceRoutine());
 
+        yield return new WaitForSeconds(0.5f);
+
         if (GameManager.Instance.currentStagePhase != StagePhase.DiceUsing)
         {
             GameManager.Instance.UpdateStagePhase(StagePhase.DiceUsing);

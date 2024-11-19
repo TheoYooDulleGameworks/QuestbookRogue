@@ -7,31 +7,20 @@ public class ContentSOEditor : Editor
 
     SerializedProperty ContentTemplate_Prop;
 
-    SerializedProperty BackgroundImage_Prop;
-
-    SerializedProperty QuestTitle_Prop;
-    SerializedProperty QuestImage_Prop;
-    SerializedProperty CombatHittedImage_Prop;
-    SerializedProperty QuestSeal_Prop;
-    SerializedProperty IsThereCancelButton_Prop;
     SerializedProperty IsFreeCancel_Prop;
+    SerializedProperty CombatEpilogue_Prop;
+    SerializedProperty CombatRewards_Prop;
 
     SerializedProperty BodyText_Prop;
-    SerializedProperty CancelText_Prop;
 
     SerializedProperty ActionTitle_Prop;
-    SerializedProperty ActionImage_Prop;
-    SerializedProperty ActionBelt_Prop;
-    SerializedProperty ActionRewardText_Prop;
     SerializedProperty ActionRequestSlots1Row_Prop;
     SerializedProperty ActionRequestSlots2Row_Prop;
-    SerializedProperty IsThereProceedButton_Prop;
-    SerializedProperty IsFreeAction_Prop;
     SerializedProperty CombatOptionSets_Prop;
 
-    SerializedProperty RewardBelt_Prop;
-    SerializedProperty RewardTitle_Prop;
-    SerializedProperty RewardObjects_Prop;
+    SerializedProperty EventEpilogueImage_Prop;
+    SerializedProperty EventEpilogue_Prop;
+    SerializedProperty EventRewards_Prop;
 
     private void OnEnable()
     {
@@ -39,31 +28,20 @@ public class ContentSOEditor : Editor
 
         ContentTemplate_Prop = serializedObject.FindProperty("contentTemplate");
 
-        BackgroundImage_Prop = serializedObject.FindProperty("backgroundImage");
-
-        QuestTitle_Prop = serializedObject.FindProperty("questTitle");
-        QuestImage_Prop = serializedObject.FindProperty("questImage");
-        CombatHittedImage_Prop = serializedObject.FindProperty("combatHittedImage");
-        QuestSeal_Prop = serializedObject.FindProperty("questSeal");
-        IsThereCancelButton_Prop = serializedObject.FindProperty("isThereCancelButton");
         IsFreeCancel_Prop = serializedObject.FindProperty("isFreeCancel");
+        CombatEpilogue_Prop = serializedObject.FindProperty("combatEpilogue");
+        CombatRewards_Prop = serializedObject.FindProperty("combatRewards");
 
         BodyText_Prop = serializedObject.FindProperty("bodyText");
-        CancelText_Prop = serializedObject.FindProperty("cancelText");
 
         ActionTitle_Prop = serializedObject.FindProperty("actionTitle");
-        ActionImage_Prop = serializedObject.FindProperty("actionImage");
-        ActionBelt_Prop = serializedObject.FindProperty("actionBelt");
-        ActionRewardText_Prop = serializedObject.FindProperty("actionRewardText");
         ActionRequestSlots1Row_Prop = serializedObject.FindProperty("actionRequestSlots1Row");
         ActionRequestSlots2Row_Prop = serializedObject.FindProperty("actionRequestSlots2Row");
-        IsThereProceedButton_Prop = serializedObject.FindProperty("isThereProceedButton");
-        IsFreeAction_Prop = serializedObject.FindProperty("isFreeAction");
         CombatOptionSets_Prop = serializedObject.FindProperty("combatOptionSets");
 
-        RewardBelt_Prop = serializedObject.FindProperty("rewardBelt");
-        RewardTitle_Prop = serializedObject.FindProperty("rewardTitle");
-        RewardObjects_Prop = serializedObject.FindProperty("rewardObjects");
+        EventEpilogueImage_Prop = serializedObject.FindProperty("eventEpilogueImage");
+        EventEpilogue_Prop = serializedObject.FindProperty("eventEpilogue");
+        EventRewards_Prop = serializedObject.FindProperty("eventRewards");
     }
 
     public override void OnInspectorGUI()
@@ -78,37 +56,25 @@ public class ContentSOEditor : Editor
         }
         else if ((ContentSO.ContentType)ContentType_Prop.enumValueIndex == ContentSO.ContentType.Image)
         {
-            EditorGUILayout.PropertyField(QuestTitle_Prop);
-            EditorGUILayout.PropertyField(QuestImage_Prop);
-            EditorGUILayout.PropertyField(CombatHittedImage_Prop);
-            EditorGUILayout.PropertyField(QuestSeal_Prop);
-            EditorGUILayout.PropertyField(IsThereCancelButton_Prop);
             EditorGUILayout.PropertyField(IsFreeCancel_Prop);
+
+            EditorGUILayout.PropertyField(CombatEpilogue_Prop);
+            EditorGUILayout.PropertyField(CombatRewards_Prop);
         }
         else if ((ContentSO.ContentType)ContentType_Prop.enumValueIndex == ContentSO.ContentType.Description)
         {
-            EditorGUILayout.PropertyField(BackgroundImage_Prop);
-
             EditorGUILayout.PropertyField(BodyText_Prop);
-            EditorGUILayout.PropertyField(CancelText_Prop);
         }
         else if ((ContentSO.ContentType)ContentType_Prop.enumValueIndex == ContentSO.ContentType.Action)
         {
-            EditorGUILayout.PropertyField(BackgroundImage_Prop);
-
             EditorGUILayout.PropertyField(ActionTitle_Prop);
-            EditorGUILayout.PropertyField(ActionImage_Prop);
-            EditorGUILayout.PropertyField(ActionBelt_Prop);
-            EditorGUILayout.PropertyField(ActionRewardText_Prop);
             EditorGUILayout.PropertyField(ActionRequestSlots1Row_Prop);
             EditorGUILayout.PropertyField(ActionRequestSlots2Row_Prop);
-            EditorGUILayout.PropertyField(IsThereProceedButton_Prop);
-            EditorGUILayout.PropertyField(IsFreeAction_Prop);
             EditorGUILayout.PropertyField(CombatOptionSets_Prop);
 
-            EditorGUILayout.PropertyField(RewardBelt_Prop);
-            EditorGUILayout.PropertyField(RewardTitle_Prop);
-            EditorGUILayout.PropertyField(RewardObjects_Prop);
+            EditorGUILayout.PropertyField(EventEpilogueImage_Prop);
+            EditorGUILayout.PropertyField(EventEpilogue_Prop);
+            EditorGUILayout.PropertyField(EventRewards_Prop);
         }
 
         serializedObject.ApplyModifiedProperties();

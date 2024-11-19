@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25d2238dfd77342e6b49d8925f1b145a, type: 3}
+  m_Name: 100
+  m_EditorClassIdentifier: 
+  questID: 100
+  questName: Goblin Scout
+  questType: 1
+  questSeal: {fileID: -736264972, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  questMainImage: {fileID: 584859402, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
+  questBackgroundImage: {fileID: 1025196532, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
+  questBeltImage: {fileID: 714842617, guid: fd8805f1b66d649388fc70f6d2472d15, type: 3}
+  questContents:
+  - {fileID: 11400000, guid: 2e9bf7fea1b9f42e7a39730ff7c344c5, type: 2}
+  - {fileID: 11400000, guid: 8e2c79982ba274ea9924c98398615f8f, type: 2}
+  - {fileID: 11400000, guid: 940d253108f6640e5880f0b87d7fc312, type: 2}
+  - {fileID: 11400000, guid: ab58db0a78cc742948f86268df60a6aa, type: 2}
+  - {fileID: 11400000, guid: 10d3c114a144b42e6bb8ef28f98420ef, type: 2}
+  - {fileID: 11400000, guid: e4def51fe1b8f477fb2f86cfc26bf730, type: 2}
+  enemyData: {fileID: 11400000, guid: f1e0b975c66bc4f7aac8ca5b6b80b557, type: 2}
+  hittedEnemyShader: {fileID: -481864746, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
+  deadEnemyImage: {fileID: 1898149913, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}

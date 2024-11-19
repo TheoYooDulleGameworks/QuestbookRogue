@@ -14,6 +14,8 @@ public class UIReward : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [Header("Components")]
     [SerializeField] private RectTransform rewardImage;
 
+    private bool isConsumed = false;
+
     public void SetRewardData(RewardSet _rewardDataSet)
     {
         rewardDataSet = _rewardDataSet;
@@ -22,7 +24,6 @@ public class UIReward : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void PopUpReward()
     {
-        gameObject.SetActive(true);
         RectTransform rewardRect = GetComponent<RectTransform>();
 
         rewardRect.DOKill();
@@ -67,6 +68,13 @@ public class UIReward : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (isConsumed)
+        {
+            return;
+        }
+
+        isConsumed = true;
+
         rewardImage.DOKill();
         rewardImage.DOScale(new Vector3(1.5f, 1.5f, 1.5f), 0.1f).OnComplete(() =>
         {

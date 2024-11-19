@@ -42,6 +42,8 @@ public class VitalUI : MonoBehaviour
 
     private void Start()
     {
+        GameManager.Instance.OnStagePhaseChanged += HandleStagePhaseChange;
+
         playerStatus.Lv.OnValueChanged += UpdateLvUI;
         playerStatus.currentXp.OnValueChanged += UpdateXpUI;
 
@@ -68,6 +70,14 @@ public class VitalUI : MonoBehaviour
         playerStatus.maxSp.OnValueChanged -= UpdateSpUI;
 
         playerStatus.currentArmor.OnValueChanged -= UpdateArmorUI;
+    }
+
+    private void HandleStagePhaseChange(StagePhase stagePhase)
+    {
+        if (stagePhase == StagePhase.DiceWaiting)
+        {
+            playerStatus.currentArmor.RemoveClampedValue(9999, 0, playerStatus.currentArmor.Value);
+        }
     }
 
     private void SetDefaultStatus()

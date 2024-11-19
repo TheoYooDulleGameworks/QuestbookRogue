@@ -18,11 +18,14 @@ public class BlankContent : MonoBehaviour, IContent
 
     public void FlipOffContent()
     {
-        //
-    }
+        RectTransform contentCanvas = GetComponentInChildren<CanvasGroup>().GetComponent<RectTransform>();
 
-    public void DestroyContent()
-    {
-        Destroy(gameObject);
+        contentCanvas.localScale = Vector3.one;
+
+        contentCanvas.DOKill();
+        contentCanvas.DOScale(Vector3.one, 0.5f).OnComplete(() =>
+        {
+            Destroy(gameObject);
+        });
     }
 }

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947a05553bb794e5c8976b96b5ed8d7a, type: 3}
   m_Name: Provision_Berry
   m_EditorClassIdentifier: 
+  rewardName: Berry
+  rewardMark: 1
   rewardType: 0
   resourceRewardType: 1
   defaultSprite: {fileID: -1617616538, guid: e0f9b18b8b4694c0495a71be3d22c7c5, type: 3}

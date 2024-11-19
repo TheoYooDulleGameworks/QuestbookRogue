@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69c89e7e223ba48858467503387ba692, type: 3}
   m_Name: 100E Goblin Scout
   m_EditorClassIdentifier: 
-  defaultHealth: 6
+  defaultHealth: 1
   defaultArmor: 1
   defaultDamage: 4

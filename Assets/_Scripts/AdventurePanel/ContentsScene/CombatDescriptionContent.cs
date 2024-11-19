@@ -11,15 +11,13 @@ public class CombatDescriptionContent : MonoBehaviour, IContent
     [Header("Components")]
     [SerializeField] private RectTransform backgroundImageRect = null;
     [SerializeField] private TextMeshProUGUI bodyTextTMPro = null;
-    [SerializeField] private TextMeshProUGUI cancelTextTMPro = null;
 
     public void SetContentComponents(QuestSO _questData, ContentSO _contentData)
     {
         contentData = _contentData;
 
-        backgroundImageRect.GetComponent<Image>().sprite = contentData.backgroundImage;
+        backgroundImageRect.GetComponent<Image>().sprite = _questData.questBackgroundImage;
         bodyTextTMPro.text = contentData.bodyText;
-        cancelTextTMPro.text = contentData.cancelText;
     }
 
     public void FlipOnContent()
@@ -51,11 +49,9 @@ public class CombatDescriptionContent : MonoBehaviour, IContent
         contentCanvas.DOKill();
         contentCanvas.DORotate(new Vector3(-75f, -12f, -6f), 0.25f);
         contentCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.25f);
-        contentCanvas.GetComponent<CanvasGroup>().DOFade(0, 0.25f);
-    }
-
-    public void DestroyContent()
-    {
-        Destroy(gameObject);
+        contentCanvas.GetComponent<CanvasGroup>().DOFade(0, 0.25f).OnComplete(() =>
+        {
+            Destroy(gameObject);
+        });
     }
 }

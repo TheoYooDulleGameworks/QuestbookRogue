@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eff72458e07d4f70abc5c0322382142, type: 3}
+  m_Name: 100_1 Img
+  m_EditorClassIdentifier: 
+  contentType: 1
+  contentTemplate: {fileID: 6248658951457923038, guid: 4072b238593ba4c279d0e97a107b609c, type: 3}
+  isFreeCancel: 0
+  bodyText: 
+  actionTitle: 
+  actionImage: {fileID: 0}
+  actionRequestSlots1Row: []
+  actionRequestSlots2Row: []
+  combatOptionSets: []
+  combatEpilogue: {fileID: 11400000, guid: 4681f9747f8a34fd49d742bc09ceb2c9, type: 2}
+  combatRewards:
+  - rewardData: {fileID: 11400000, guid: e5beba5686d4245a3ac45d6b9fa750a8, type: 2}
+    rewardAmount: 3
+  - rewardData: {fileID: 11400000, guid: 5b63c8915ffb64e50ac93ff61947b48a, type: 2}
+    rewardAmount: 1
+  - rewardData: {fileID: 11400000, guid: ce1ed7d9c176f49c88ff6fafdd07bf0e, type: 2}
+    rewardAmount: 5
+  eventEpilogueImage: {fileID: 0}
+  eventEpilogue: {fileID: 0}
+  eventRewards: []

@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "RewardSO", menuName = "Scriptable Objects/Items/RewardSO")]
 public class RewardSO : ScriptableObject
 {
+    public string rewardName;
     public RewardType rewardType;
     public ResourceRewardType resourceRewardType;
 

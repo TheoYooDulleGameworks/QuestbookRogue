@@ -92,6 +92,11 @@ public class SingleDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, 
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (QuestIsOver)
+        {
+            return;
+        }
+
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             if (isConfirmed)
@@ -104,6 +109,11 @@ public class SingleDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, 
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (QuestIsOver)
+        {
+            return;
+        }
+
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             if (isConfirmed)
@@ -116,6 +126,11 @@ public class SingleDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, 
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (QuestIsOver)
+        {
+            return;
+        }
+        
         if (!isConfirmed)
         {
             return;

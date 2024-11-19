@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25d2238dfd77342e6b49d8925f1b145a, type: 3}
+  m_Name: 000 Tavern Test
+  m_EditorClassIdentifier: 
+  questID: 500
+  questName: Dusty Tavern
+  questType: 4
+  questSeal: {fileID: -1108391152, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  questMainImage: {fileID: -1523611505, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
+  questBackgroundImage: {fileID: 1127244235, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
+  questBeltImage: {fileID: 1707217300, guid: fd8805f1b66d649388fc70f6d2472d15, type: 3}
+  questContents:
+  - {fileID: 11400000, guid: 7259e48a62438420f8f303f268cdc0b1, type: 2}
+  - {fileID: 11400000, guid: 256357f474ac240c2aad8b106fa32b0a, type: 2}
+  - {fileID: 11400000, guid: c936086ea6bdb49c29c89dd83feedba8, type: 2}
+  - {fileID: 11400000, guid: 947ab92717dad4d16a16c3f239c17431, type: 2}
+  - {fileID: 11400000, guid: 6988d98b3e67b42cab2a5c9ea209bce5, type: 2}
+  enemyData: {fileID: 0}
+  hittedEnemyShader: {fileID: 0}
+  deadEnemyImage: {fileID: 0}

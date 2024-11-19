@@ -1,14 +1,13 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class ProceedButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
 {
     [Header("Current Action Content Data")]
     [SerializeField] public QuestSO currentQuestData;
     [SerializeField] public ContentSO currentActionContentData;
-    public bool isFreeAction;
 
     [Header("Button Sprites")]
     [SerializeField] private Sprite defaultProceedButton;
@@ -57,16 +56,19 @@ public class ProceedButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnPointerClick(PointerEventData eventData)
     {
         GetComponent<Image>().raycastTarget = false;
-        GetComponentInParent<ActionContent>().isThisReward = true;
 
-        if (isFreeAction)
+        List<PaySlot> paySlots = new List<PaySlot>(transform.parent.GetComponentsInChildren<PaySlot>());
+        if (paySlots != null && paySlots.Count > 0)
         {
-            GetComponentInParent<ActionContent>().FlipOnReward();
+            foreach (PaySlot paySlot in paySlots)
+            {
+                paySlot.isPrice = true;
+            }
         }
-        else
-        {
-            SceneController.Instance.DeActivateRollDicePanelEarly();
-            SceneController.Instance.TransitionToReward();
-        }
+
+        SceneController.Instance.DontRefundDices();
+        SceneController.Instance.NotPaySlotRefund();
+
+        GetComponentInParent<ActionContent>().DeliverRewards();
     }
 }

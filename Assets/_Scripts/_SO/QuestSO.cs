@@ -14,10 +14,14 @@ public class QuestSO : ScriptableObject
 
     [Header("__________ CONTENTS _______________________________________________________________")]
     public Sprite questMainImage;
+    public Sprite questBackgroundImage;
+    public Sprite questBeltImage;
     public List<ContentSO> questContents;
 
     [Header("__________ COMBAT _______________________________________________________________")]
     public EnemySO enemyData;
+    public Sprite hittedEnemyShader;
+    public Sprite deadEnemyImage;
 }
 
 public enum QuestType

@@ -79,6 +79,8 @@ public class CombatOption : MonoBehaviour
             return;
         }
 
+        DeleteDices();
+
         CombatImageContent enemyProfile = transform.parent.parent.parent.parent.GetComponentInChildren<CombatImageContent>();
 
         switch (combatOptionType)
@@ -105,7 +107,6 @@ public class CombatOption : MonoBehaviour
                     enemyStatus.currentHealth.RemoveClampedValue(attackAmount, 0, enemyStatus.maxHealth.Value);
 
                     DefaultOptionUI();
-                    DeleteDices();
                 }
                 break;
             case CombatOptionType.DamageModify:

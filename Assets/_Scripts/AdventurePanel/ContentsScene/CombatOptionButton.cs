@@ -52,7 +52,7 @@ public class CombatOptionButton : MonoBehaviour, IPointerEnterHandler, IPointerE
         if (stagePhase == StagePhase.DiceWaiting)
         {
             GetComponent<RectTransform>().DOKill();
-            GetComponent<RectTransform>().DOScale(new Vector3(1.35f, 1.35f, 1.35f), 0.1f).OnComplete(() =>
+            GetComponent<RectTransform>().DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.1f).OnComplete(() =>
             {
                 GetComponent<RectTransform>().DOScale(Vector3.one, 0.2f);
 

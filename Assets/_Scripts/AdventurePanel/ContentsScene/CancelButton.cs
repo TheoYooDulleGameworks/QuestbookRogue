@@ -96,15 +96,17 @@ public class CancelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void OnPointerClick(PointerEventData eventData)
     {
         GetComponent<Image>().raycastTarget = false;
+
         SceneController.Instance.NotPaySlotRefund();
 
         if (isFreeToCancel)
         {
-
+            // Quest Complete -> Save
         }
         else
         {
-
+            SceneController.Instance.FailedQuest();
+            // Quest Failed -> Save
         }
 
         SceneController.Instance.TransitionToSelects(currentQuestData);

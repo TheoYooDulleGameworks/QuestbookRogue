@@ -14,6 +14,12 @@ public class SceneController : Singleton<SceneController>
     [SerializeField] private RectTransform contentsScene;
     [SerializeField] private RectTransform rollDicePanel;
 
+    [Header("Scrolls")]
+    [SerializeField] private RectTransform completeScroll;
+    [SerializeField] private RectTransform failedScroll;
+    [SerializeField] private RectTransform playerTurnScroll;
+    [SerializeField] private RectTransform enemyTurnScroll;
+
     [Header("Player Assets")]
     [SerializeField] private PlayerPathSO playerPaths;
     [SerializeField] private PlayerDiceSO playerDices;
@@ -24,11 +30,14 @@ public class SceneController : Singleton<SceneController>
     [Header("Sources")]
     [SerializeField] private GameObject questCardPrefab;
 
-    private bool earlyRollDicePanelDeActivated;
-
 
 
     // SETTINGS //
+
+    private void Start()
+    {
+        GameManager.Instance.OnStagePhaseChanged += HandleStagePhaseChange;
+    }
 
     public void InitiateQuestScene()
     {
@@ -82,6 +91,66 @@ public class SceneController : Singleton<SceneController>
         foreach (var quest in quests)
         {
             quest.ActivateQuestCard();
+        }
+    }
+
+
+
+    // StagePhase Management //
+
+    private void HandleStagePhaseChange(StagePhase stagePhase)
+    {
+        if (stagePhase == StagePhase.DiceHolding)
+        {
+            ResetRollDicePanel();
+
+            enemyTurnScroll.gameObject.SetActive(true);
+        }
+        if (stagePhase == StagePhase.DiceWaiting)
+        {
+            SetRollDicePanel();
+
+            playerTurnScroll.gameObject.SetActive(true);
+        }
+        if (stagePhase == StagePhase.Finishing)
+        {
+            ResetRollDicePanel();
+
+            completeScroll.gameObject.SetActive(true);
+
+            if (GetComponentInChildren<CombatImageContent>() != null)
+            {
+                GetComponentInChildren<CombatDescriptionContent>().FlipOffContent();
+                List<CombatActionContent> combatActions = new List<CombatActionContent>(GetComponentsInChildren<CombatActionContent>());
+                foreach (var action in combatActions)
+                {
+                    action.FlipOffContent();
+                }
+                List<BlankContent> balnks = new List<BlankContent>(GetComponentsInChildren<BlankContent>());
+                foreach (var blank in balnks)
+                {
+                    blank.FlipOffContent();
+                }
+
+                GetComponentInChildren<CombatImageContent>().SetRewards();
+            }
+
+            if (GetComponentInChildren<ImageContent>() != null)
+            {
+                GetComponentInChildren<DescriptionContent>().FlipOffContent();
+                List<ActionContent> combatActions = new List<ActionContent>(GetComponentsInChildren<ActionContent>());
+                foreach (var action in combatActions)
+                {
+                    action.FlipOffContent();
+                }
+                List<BlankContent> balnks = new List<BlankContent>(GetComponentsInChildren<BlankContent>());
+                foreach (var blank in balnks)
+                {
+                    blank.FlipOffContent();
+                }
+
+                GetComponentInChildren<ImageContent>().SetRewards();
+            }
         }
     }
 
@@ -169,35 +238,33 @@ public class SceneController : Singleton<SceneController>
     }
 
 
+    // PREVENT CHEATING //
 
-    // REWARDS //
-
-    public void TransitionToReward()
+    public void DontRefundDices()
     {
-        List<ActionContent> actionContents = new List<ActionContent>(GetComponentsInChildren<ActionContent>());
-        foreach (ActionContent content in actionContents)
+        List<DiceSlot> diceSlots = new List<DiceSlot>(GetComponentsInChildren<DiceSlot>());
+        foreach (DiceSlot diceSlot in diceSlots)
         {
-            content.FlipOnReward();
+            diceSlot.QuestIsOver = true;
         }
-
-        CancelButton cancelButton = GetComponentInChildren<CancelButton>();
-        cancelButton.FreeTheCancelButton();
     }
-
-    public void DeActivateRollDicePanelEarly()
-    {
-        earlyRollDicePanelDeActivated = true;
-        StartCoroutine(DeActivateRollDicePanel());
-    }
-    // REFUNDS //
 
     public void NotPaySlotRefund()
     {
         List<PaySlot> notThisPaySlots = new List<PaySlot>(GetComponentsInChildren<PaySlot>());
-        foreach (var paySlot in notThisPaySlots)
+        foreach (PaySlot paySlot in notThisPaySlots)
         {
             paySlot.ProceedNotThisPayment();
         }
+    }
+
+
+
+    // FAILED QUEST //
+
+    public void FailedQuest()
+    {
+        failedScroll.gameObject.SetActive(true);
     }
 
 
@@ -213,10 +280,8 @@ public class SceneController : Singleton<SceneController>
     {
         DeActivateRollDices();
 
-        if (!earlyRollDicePanelDeActivated)
-        {
-            yield return StartCoroutine(DeActivateRollDicePanel());
-        }
+        yield return StartCoroutine(DeActivateRollDicePanel());
+
         InfoTabController.Instance.HandleDiceTabActivate();
 
         StartCoroutine(ResetContentsRoutine());
@@ -292,11 +357,6 @@ public class SceneController : Singleton<SceneController>
 
         yield return new WaitForSeconds(0.5f);
 
-        foreach (IContent content in contents)
-        {
-            content.DestroyContent();
-        }
-
         contentsScene.gameObject.SetActive(false);
     }
 
@@ -346,6 +406,8 @@ public class SceneController : Singleton<SceneController>
         }
     }
 
+
+
     // ROLL DICE PANEL //
 
     private IEnumerator ActivateRollDicePanel()
@@ -364,8 +426,6 @@ public class SceneController : Singleton<SceneController>
 
     public void SetRollDicePanel()
     {
-        earlyRollDicePanelDeActivated = false;
-
         int StrAdvancedDiceAmount = playerDices.StrAdvancedDice.Value;
         int DexAdvancedDiceAmount = playerDices.DexAdvancedDice.Value;
         int IntAdvancedDiceAmount = playerDices.IntAdvancedDice.Value;

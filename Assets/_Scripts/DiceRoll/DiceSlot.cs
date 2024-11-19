@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class DiceSlot : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public abstract class DiceSlot : MonoBehaviour
     {
 
     }
+
+    public bool QuestIsOver = false;
 
     public virtual bool CheckConfirmed()
     {

@@ -31,6 +31,7 @@ public class PaySlot : DiceSlot, IPointerEnterHandler, IPointerExitHandler, IPoi
     [Header("bool Triggers")]
     [SerializeField] private bool isConfirmed;
     public override event Action OnConfirmed;
+    [SerializeField] public bool isPrice = false;
 
     [Header("Tweening")]
     [SerializeField] private float popUpScale = 1.35f;
@@ -87,6 +88,11 @@ public class PaySlot : DiceSlot, IPointerEnterHandler, IPointerExitHandler, IPoi
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (QuestIsOver)
+        {
+            return;
+        }
+
         Color color = maskImage.GetComponent<Image>().color;
         color.a = 0.3f;
         maskImage.GetComponent<Image>().color = color;
@@ -94,6 +100,11 @@ public class PaySlot : DiceSlot, IPointerEnterHandler, IPointerExitHandler, IPoi
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (QuestIsOver)
+        {
+            return;
+        }
+
         Color color = maskImage.GetComponent<Image>().color;
         color.a = 0f;
         maskImage.GetComponent<Image>().color = color;
@@ -101,6 +112,11 @@ public class PaySlot : DiceSlot, IPointerEnterHandler, IPointerExitHandler, IPoi
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (QuestIsOver)
+        {
+            return;
+        }
+
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             Color color = maskImage.GetComponent<Image>().color;
@@ -111,6 +127,11 @@ public class PaySlot : DiceSlot, IPointerEnterHandler, IPointerExitHandler, IPoi
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (QuestIsOver)
+        {
+            return;
+        }
+
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             Color color = maskImage.GetComponent<Image>().color;
@@ -121,6 +142,11 @@ public class PaySlot : DiceSlot, IPointerEnterHandler, IPointerExitHandler, IPoi
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (QuestIsOver)
+        {
+            return;
+        }
+
         if (!isConfirmed)
         {
             if (CheckPayment(paymentType, payValue) == true)
@@ -269,7 +295,7 @@ public class PaySlot : DiceSlot, IPointerEnterHandler, IPointerExitHandler, IPoi
 
     public void ProceedNotThisPayment()
     {
-        if (isConfirmed)
+        if (isConfirmed && !isPrice)
         {
             RefundPayment(paymentType, payValue);
         }

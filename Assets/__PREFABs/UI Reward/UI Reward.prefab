@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: -12, y: -12, z: -12, w: -12}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -164,6 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c770e8f7f1a3f40419aa805308da65cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewardData: {fileID: 0}
+  rewardDataSet:
+    rewardData: {fileID: 0}
+    rewardAmount: 0
   playerStatus: {fileID: 11400000, guid: 993710e803cd849039fec356e2a7e319, type: 2}
   rewardImage: {fileID: 4086534274285946591}
