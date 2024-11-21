@@ -200,7 +200,7 @@ public class SceneController : Singleton<SceneController>
     {
         pageTransition.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(1.02f);
+        yield return new WaitForSeconds(1f);
 
         selectsScene.gameObject.SetActive(false);
     }
@@ -363,7 +363,7 @@ public class SceneController : Singleton<SceneController>
             quest.DeActivateQuestCard();
         }
 
-        yield return new WaitForSeconds(1.03f);
+        yield return new WaitForSeconds(1f);
 
         foreach (var quest in quests)
         {

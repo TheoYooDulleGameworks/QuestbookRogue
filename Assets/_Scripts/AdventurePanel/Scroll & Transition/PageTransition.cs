@@ -8,7 +8,7 @@ public class PageTransition : MonoBehaviour
     {
         RectTransform rect = GetComponent<RectTransform>();
 
-        rect.DOScale(Vector3.one, 1.03f).OnComplete(() =>
+        rect.DOScale(Vector3.one, 1f).OnComplete(() =>
         {
             this.gameObject.SetActive(false);
         });
