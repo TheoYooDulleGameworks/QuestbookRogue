@@ -105,7 +105,7 @@ public class CancelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         }
         else
         {
-            SceneController.Instance.FailedQuest();
+            // SceneController.Instance.FailedQuest();
             // Quest Failed -> Save
         }
 

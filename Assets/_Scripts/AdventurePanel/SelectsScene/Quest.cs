@@ -185,28 +185,6 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         });
     }
 
-    public void ReOpenQuest()
-    {
-        inTransition = true;
-
-        rectTransform.GetComponent<CanvasGroup>().alpha = 0f;
-        rectTransform.localScale = new Vector3(0.75f, 0.5f, 0.5f);
-        rectTransform.localEulerAngles = new Vector3(-90f, 12f, 12f);
-
-        rectTransform.DOKill();
-        rectTransform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.25f);
-        rectTransform.DORotate(new Vector3(4f, 12f, -2f), 0.25f);
-        rectTransform.GetComponent<CanvasGroup>().DOFade(1f, 0.25f).OnComplete(() =>
-        {
-            rectTransform.DOKill();
-            rectTransform.DOScale(Vector3.one, 0.25f);
-            rectTransform.DORotate(Vector3.zero, 0.25f).OnComplete(() =>
-            {
-                inTransition = false;
-            }); ;
-        });
-    }
-
     public void DeleteQuest()
     {
         canvasGroup.alpha = 1f;

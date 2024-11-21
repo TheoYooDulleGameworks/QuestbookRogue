@@ -20,6 +20,10 @@ public class SceneController : Singleton<SceneController>
     [SerializeField] private RectTransform playerTurnScroll;
     [SerializeField] private RectTransform enemyTurnScroll;
 
+    [Header("Transitions")]
+    [SerializeField] private RectTransform pageTransition;
+    [SerializeField] private RectTransform pageTransitionBack;
+
     [Header("Player Assets")]
     [SerializeField] private PlayerPathSO playerPaths;
     [SerializeField] private PlayerDiceSO playerDices;
@@ -194,29 +198,16 @@ public class SceneController : Singleton<SceneController>
 
     private IEnumerator DeActivateSelectsRoutine()
     {
-        List<Quest> quests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
+        pageTransition.gameObject.SetActive(true);
 
-        for (int i = 0; i < quests.Count; i++)
-        {
-            RectTransform questCanvas = quests[i].GetComponentInChildren<CanvasGroup>().GetComponent<RectTransform>();
-
-            questCanvas.localEulerAngles = Vector3.zero;
-            questCanvas.localScale = Vector3.one;
-
-            questCanvas.DOKill();
-            questCanvas.DORotate(new Vector3(-75f, -12f, -6f), 0.25f);
-            questCanvas.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.25f);
-            questCanvas.GetComponent<CanvasGroup>().DOFade(0, 0.25f);
-        }
-
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(1.02f);
 
         selectsScene.gameObject.SetActive(false);
     }
 
     private IEnumerator SetContentsRoutine(QuestSO _questData)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
         contentsScene.gameObject.SetActive(true);
 
         for (int i = 0; i < _questData.questContents.Count; i++)
@@ -357,12 +348,13 @@ public class SceneController : Singleton<SceneController>
 
         yield return new WaitForSeconds(0.5f);
 
+        pageTransitionBack.gameObject.SetActive(true);
         contentsScene.gameObject.SetActive(false);
     }
 
     private IEnumerator ActivateSelectsRoutine()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.6f);
         selectsScene.gameObject.SetActive(true);
 
         List<Quest> quests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
@@ -371,11 +363,11 @@ public class SceneController : Singleton<SceneController>
             quest.DeActivateQuestCard();
         }
 
-        for (int i = 0; i < quests.Count; i++)
-        {
-            quests[i].ReOpenQuest();
+        yield return new WaitForSeconds(1.03f);
 
-            yield return new WaitForSeconds(0.25f);
+        foreach (var quest in quests)
+        {
+            quest.ActivateQuestCard();
         }
     }
 
