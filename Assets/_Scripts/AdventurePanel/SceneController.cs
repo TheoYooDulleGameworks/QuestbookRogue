@@ -75,27 +75,7 @@ public class SceneController : Singleton<SceneController>
             yield return new WaitForSeconds(0.25f);
         }
 
-        StartCoroutine(FirstSetQuestRoutine());
-    }
-
-    private IEnumerator FirstSetQuestRoutine()
-    {
-        yield return new WaitForSeconds(0.5f);
-
-        for (int i = 0; i < 3; i++)
-        {
-            questIndexes[i].FlipOnQuest();
-
-            yield return new WaitForSeconds(0.25f);
-        }
-
-        yield return new WaitForSeconds(0.3f); // 0.25s + additional 0.05s +
-
-        List<Quest> quests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
-        foreach (var quest in quests)
-        {
-            quest.ActivateQuestCard();
-        }
+        questIndexes[0].FlipOnQuest();
     }
 
 
@@ -106,18 +86,27 @@ public class SceneController : Singleton<SceneController>
     {
         if (stagePhase == StagePhase.DiceHolding)
         {
+            CancelButton cancelButton = GetComponentInChildren<CancelButton>();
+            cancelButton.DeActivateTarget();
+
             ResetRollDicePanel();
 
             enemyTurnScroll.gameObject.SetActive(true);
         }
         if (stagePhase == StagePhase.DiceWaiting)
         {
+            CancelButton cancelButton = GetComponentInChildren<CancelButton>();
+            cancelButton.WaitAndActivateTarget();
+
             SetRollDicePanel();
 
             playerTurnScroll.gameObject.SetActive(true);
         }
         if (stagePhase == StagePhase.Finishing)
         {
+            CancelButton cancelButton = GetComponentInChildren<CancelButton>();
+            cancelButton.DeActivateTarget();
+
             ResetRollDicePanel();
 
             completeScroll.gameObject.SetActive(true);
@@ -226,6 +215,8 @@ public class SceneController : Singleton<SceneController>
             }
             yield return new WaitForSeconds(0.25f);
         }
+
+        GameManager.Instance.UpdateStagePhase(StagePhase.Beginning);
     }
 
 
@@ -280,54 +271,28 @@ public class SceneController : Singleton<SceneController>
 
         if (currentQuestIndex != -1)
         {
-            questIndexes[currentQuestIndex].FlipOffQuest();
-
-            yield return new WaitForSeconds(0.5f);
-
-            if (currentQuestIndex == 6 || currentQuestIndex == 7 || currentQuestIndex == 8)
+            if (currentQuestIndex == 8)
             {
-                for (int j = 0; j < 3; j++)
+                foreach (var quest in questIndexes)
                 {
-                    questIndexes[j].DeleteQuest();
+                    quest.DeleteQuest();
                 }
 
-                for (int k = 3; k < 9; k++)
-                {
-                    questIndexes[k].MoveUpQuest();
-                }
-
-
-                for (int l = 0; l < 3; l++)
-                {
-                    GameObject questCard = Instantiate(questCardPrefab);
-                    questCard.transform.SetParent(selectsScene, false);
-                    questIndexes.Add(questCard.GetComponent<Quest>());
-                    questCard.GetComponent<Quest>().InitiateQuestCard(playerPaths.PickRandomQuestData(), l + 6);
-
-                    questCard.GetComponent<Quest>().MoveUpGenerateQuest();
-                }
-
-                questIndexes.RemoveRange(0, 3);
-                currentQuestIndex -= 3;
-
-                yield return new WaitForSeconds(0.5f);
+                yield return null;
             }
-
-            List<int> nearbyQuests = GetNearbyQuest(currentQuestIndex);
-            if (nearbyQuests != null)
+            else
             {
-                foreach (int index in nearbyQuests)
+                List<int> nearbyQuests = GetNearbyQuest(currentQuestIndex);
+                if (nearbyQuests != null)
                 {
-                    questIndexes[index].FlipOnQuest();
+                    foreach (int index in nearbyQuests)
+                    {
+                        questIndexes[index].FlipOnQuest();
+                    }
                 }
+
+                yield return new WaitForSeconds(0.75f);
             }
-
-            yield return new WaitForSeconds(0.5f);
-
-        }
-        else
-        {
-            Debug.LogWarning("Quest Index Error!");
         }
 
         currentQuestIndex = -1;
@@ -357,6 +322,11 @@ public class SceneController : Singleton<SceneController>
         yield return new WaitForSeconds(0.6f);
         selectsScene.gameObject.SetActive(true);
 
+        if (currentQuestIndex != -1)
+        {
+            questIndexes[currentQuestIndex].ResolvedQuest();
+        }
+
         List<Quest> quests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
         foreach (var quest in quests)
         {
@@ -378,21 +348,19 @@ public class SceneController : Singleton<SceneController>
             case 0:
                 return new List<int> { 1, 3 };
             case 1:
-                return new List<int> { 0, 2, 4 };
+                return new List<int> { 2, 4 };
             case 2:
-                return new List<int> { 1, 5 };
+                return new List<int> { 5 };
             case 3:
-                return new List<int> { 0, 4, 6 };
+                return new List<int> { 4, 6 };
             case 4:
-                return new List<int> { 1, 3, 5, 7 };
-            case 5:
-                return new List<int> { 2, 4, 8 };
-            case 6:
-                return new List<int> { 3, 7 };
-            case 7:
-                return new List<int> { 4, 6, 8 };
-            case 8:
                 return new List<int> { 5, 7 };
+            case 5:
+                return new List<int> { 8 };
+            case 6:
+                return new List<int> { 7 };
+            case 7:
+                return new List<int> { 8 };
             default:
                 return null;
         }

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -23,9 +23,24 @@ public class CancelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         GetComponent<Image>().raycastTarget = false;
     }
 
+    public void DeActivateTarget()
+    {
+        GetComponent<Image>().raycastTarget = false;
+    }
+
     public void ActivateTarget()
     {
         GetComponent<Image>().raycastTarget = true;
+    }
+
+    public void WaitAndActivateTarget()
+    {
+        RectTransform rectTransform = GetComponent<RectTransform>();
+
+        rectTransform.DOScale(Vector3.one, 1.5f).OnComplete(() =>
+        {
+            GetComponent<Image>().raycastTarget = true;
+        });
     }
 
     public void FreeTheCancelButton()
@@ -39,10 +54,16 @@ public class CancelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         rectTransform.localScale = new Vector3(1.35f, 1.35f, 1.35f);
         rectTransform.DOKill();
-        rectTransform.DOScale(Vector3.one, 0.25f);
-
         isFreeToCancel = true;
         GetComponent<Image>().sprite = defaultFreeCancelButton;
+
+        rectTransform.DOScale(Vector3.one, 0.25f).OnComplete(() =>
+        {
+            rectTransform.DOScale(Vector3.one, 0.75f).OnComplete(() =>
+            {
+                GetComponent<Image>().raycastTarget = true;
+            });
+        });
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -105,12 +126,22 @@ public class CancelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         }
         else
         {
-            // SceneController.Instance.FailedQuest();
-            // Quest Failed -> Save
+            StartCoroutine(FailedQuestRoutine());
+            return;
         }
 
         SceneController.Instance.TransitionToSelects(currentQuestData);
         GameManager.Instance.UpdateStagePhase(StagePhase.None);
     }
-}
 
+    private IEnumerator FailedQuestRoutine()
+    {
+        SceneController.Instance.FailedQuest();
+        SceneController.Instance.DeActivateRollDices();
+
+        yield return new WaitForSeconds(2f);
+
+        SceneController.Instance.TransitionToSelects(currentQuestData);
+        GameManager.Instance.UpdateStagePhase(StagePhase.None);
+    }
+}

@@ -112,8 +112,6 @@ public class CombatActionContent : MonoBehaviour, IContent
             combatOptionsButton.combatOptionLists.Add(combatOption.GetComponent<CombatOption>());
             combatOption.GetComponent<CombatOption>().SetOptionComponents(thisOptionSet.combatOptionType, thisOptionSet.optionModifyType, thisOptionSet.optionAmount);
         }
-
-        GameManager.Instance.UpdateStagePhase(StagePhase.Beginning);
     }
 
 

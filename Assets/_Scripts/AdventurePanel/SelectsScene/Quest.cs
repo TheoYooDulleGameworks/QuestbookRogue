@@ -33,16 +33,18 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
 
+    private bool isStandby;
+
     private void Awake()
     {
         // Test
-        InitiateQuestCard(questData, 0);
+        //InitiateQuestCard(questData, 0);
     }
 
     private void Start()
     {
         // Test
-        FlipOnQuest();
+        //FlipOnQuest();
     }
 
     public void InitiateQuestCard(QuestSO _questData, int _questIndexNum)
@@ -68,16 +70,13 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         questIndexNumber = _questIndexNum;
 
         discovered = false;
-        // inTransition = true;
-        // Test
+        inTransition = true;
     }
 
     // Open & Close //
 
     public void GenerateQuest()
     {
-        inTransition = true;
-
         canvasGroup.alpha = 0f;
         rectTransform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
         rectTransform.localEulerAngles = new Vector3(0f, -12f, -12f);
@@ -97,10 +96,7 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 rectTransform.DOKill();
                 rectTransform.DORotate(Vector3.zero, 0.25f);
-                rectTransform.DOScale(Vector3.one, 0.25f).OnComplete(() =>
-                {
-                    inTransition = false;
-                });
+                rectTransform.DOScale(Vector3.one, 0.25f);
             });
         });
     }
@@ -142,83 +138,41 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 rectTransform.DORotate(Vector3.zero, 0.25f);
                 rectTransform.DOScale(Vector3.one, 0.25f).OnComplete(() =>
                 {
-                    inTransition = false;
                     discovered = true;
+                    inTransition = false;
                 });
             });
 
         });
     }
 
-    public void FlipOffQuest()
+    public void ResolvedQuest()
     {
-        inTransition = true;
         resolved = true;
 
-        rectTransform.localScale = Vector3.one;
-        rectTransform.localEulerAngles = Vector3.zero;
+        resolvedImage.gameObject.SetActive(true);
+        resolvedImage.GetComponent<Image>().sprite = resolvedCoverSprite;
 
-        rectTransform.DOKill();
-        rectTransform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.25f);
-        rectTransform.DORotate(new Vector3(-90f, -12f, -12f), 0.25f).OnComplete(() =>
-        {
-            resolvedImage.gameObject.SetActive(true);
-            resolvedImage.GetComponent<Image>().sprite = resolvedCoverSprite;
+        questBelt.GetComponent<Image>().sprite = resolvedBelt;
+        questSeal.GetComponent<Image>().sprite = resolvedSeal;
+    }
 
-            questBelt.GetComponent<Image>().sprite = resolvedBelt;
-            questSeal.GetComponent<Image>().sprite = resolvedSeal;
-
-            rectTransform.localScale = new Vector3(0.75f, 0.5f, 0.5f);
-            rectTransform.localEulerAngles = new Vector3(-90f, 12f, 12f);
-
-            rectTransform.DOKill();
-            rectTransform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.25f);
-            rectTransform.DORotate(new Vector3(4f, 12f, -2f), 0.25f).OnComplete(() =>
-            {
-                rectTransform.DOKill();
-                rectTransform.DOScale(Vector3.one, 0.25f);
-                rectTransform.DORotate(Vector3.zero, 0.25f).OnComplete(() =>
-                {
-                    inTransition = false;
-                }); ;
-            });
-        });
+    public void UnselectedQuest()
+    {
+        // Later
     }
 
     public void DeleteQuest()
     {
-        canvasGroup.alpha = 1f;
-        rectTransform.anchoredPosition = Vector3.zero;
+        rectTransform.localEulerAngles = Vector3.zero;
+        rectTransform.localScale = Vector3.one;
 
         rectTransform.DOKill();
-        rectTransform.DOAnchorPos(new Vector3(0, 280, 0), 0.5f);
-        canvasGroup.DOFade(0, 0.5f).OnComplete(() =>
+        rectTransform.DORotate(new Vector3(-75f, -12f, -6f), 0.25f);
+        rectTransform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.25f);
+        canvasGroup.DOFade(0, 0.25f).OnComplete(() =>
         {
             Destroy(gameObject);
-        });
-    }
-
-    public void MoveUpQuest()
-    {
-        rectTransform.anchoredPosition = Vector3.zero;
-
-        rectTransform.DOKill();
-        rectTransform.DOAnchorPos(new Vector3(0, 280, 0), 0.5f).OnComplete(() =>
-        {
-            rectTransform.anchoredPosition = Vector3.zero;
-        });
-    }
-
-    public void MoveUpGenerateQuest()
-    {
-        canvasGroup.alpha = 0f;
-        rectTransform.anchoredPosition = Vector3.zero;
-
-        rectTransform.DOKill();
-        rectTransform.DOAnchorPos(new Vector3(0, 280, 0), 0.5f);
-        canvasGroup.DOFade(1, 0.5f).OnComplete(() =>
-        {
-            rectTransform.anchoredPosition = Vector3.zero;
         });
     }
 
@@ -228,7 +182,7 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (inTransition)
+        if (inTransition || isStandby)
         {
             return;
         }
@@ -245,6 +199,8 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
         else
         {
+            isStandby = true;
+
             rectTransform.DOKill();
             rectTransform.DORotate(new Vector3(-4f, -12f, 2f), 0.1f);
             rectTransform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.1f).OnComplete(() =>
@@ -272,21 +228,26 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (!discovered || resolved)
         {
             rectTransform.DOKill();
-            rectTransform.DOScale(Vector3.one, 0.25f);
-            rectTransform.DORotate(Vector3.zero, 0.25f);
+            rectTransform.DOScale(Vector3.one, 0.1f);
+            rectTransform.DORotate(Vector3.zero, 0.1f);
         }
         else
         {
-            selectionBelt.GetComponent<Image>().raycastTarget = false;
-            selectionBelt.GetComponent<Selection>().questData = null;
-            selectionBelt.GetComponent<Selection>().questIndexNumber = -1;
-            selectionBelt.GetComponent<Selection>().parentQuest = null;
-            selectionBelt.GetComponent<Selection>().parentRectTransform = null;
-            selectionBelt.gameObject.SetActive(false);
+            if (isStandby)
+            {
+                isStandby = false;
 
-            rectTransform.DOKill();
-            rectTransform.DOScale(Vector3.one, 0.25f);
-            rectTransform.DORotate(Vector3.zero, 0.25f);
+                selectionBelt.GetComponent<Image>().raycastTarget = false;
+                selectionBelt.GetComponent<Selection>().questData = null;
+                selectionBelt.GetComponent<Selection>().questIndexNumber = -1;
+                selectionBelt.GetComponent<Selection>().parentQuest = null;
+                selectionBelt.GetComponent<Selection>().parentRectTransform = null;
+                selectionBelt.gameObject.SetActive(false);
+
+                rectTransform.DOKill();
+                rectTransform.DOScale(Vector3.one, 0.1f);
+                rectTransform.DORotate(Vector3.zero, 0.1f);
+            }
         }
     }
 
