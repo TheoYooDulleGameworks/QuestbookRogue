@@ -94,8 +94,8 @@ public class UIReward : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             switch (_rewardDataSet.rewardData.resourceRewardType)
             {
-                case ResourceRewardType.Coin:
-                    playerStatus.Coin.AddValue(addValue);
+                case ResourceRewardType.Gold:
+                    playerStatus.Gold.AddValue(addValue);
                     break;
                 case ResourceRewardType.Provision:
                     playerStatus.Provision.AddValue(addValue);
@@ -105,9 +105,6 @@ public class UIReward : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                     break;
                 case ResourceRewardType.Hp:
                     playerStatus.currentHp.AddClampedValue(addValue, 0, playerStatus.maxHp.Value);
-                    break;
-                case ResourceRewardType.Sp:
-                    playerStatus.currentSp.AddClampedValue(addValue, 0, playerStatus.maxSp.Value);
                     break;
             }
         }

@@ -4,32 +4,20 @@ using UnityEngine;
 public class PlayerDiceSO : ScriptableObject
 {
     [Header("Player's Dices")]
-    public StatusValue StrNormalDice;
-    public StatusValue StrAdvancedDice;
-    public StatusValue DexNormalDice;
-    public StatusValue DexAdvancedDice;
-    public StatusValue IntNormalDice;
-    public StatusValue IntAdvancedDice;
-    public StatusValue WilNormalDice;
-    public StatusValue WilAdvancedDice;
+    public StatusValue StrDice;
+    public StatusValue AgiDice;
+    public StatusValue IntDice;
+    public StatusValue WilDice;
 
     [Header("UIDice Datasets")]
-    public DiceSO StrNormalDice_UI;
-    public DiceSO StrAdvancedDice_UI;
-    public DiceSO DexNormalDice_UI;
-    public DiceSO DexAdvancedDice_UI;
-    public DiceSO IntNormalDice_UI;
-    public DiceSO IntAdvancedDice_UI;
-    public DiceSO WilNormalDice_UI;
-    public DiceSO WilAdvancedDice_UI;
+    public DiceSO StrDice_UI;
+    public DiceSO AgiDice_UI;
+    public DiceSO IntDice_UI;
+    public DiceSO WilDice_UI;
 
     [Header("RollDice Datasets")]
-    public GameObject StrNormalDice_Roll;
-    public GameObject StrAdvancedDice_Roll;
-    public GameObject DexNormalDice_Roll;
-    public GameObject DexAdvancedDice_Roll;
-    public GameObject IntNormalDice_Roll;
-    public GameObject IntAdvancedDice_Roll;
-    public GameObject WilNormalDice_Roll;
-    public GameObject WilAdvancedDice_Roll;
+    public GameObject StrDice_Roll;
+    public GameObject AgiDice_Roll;
+    public GameObject IntDice_Roll;
+    public GameObject WilDice_Roll;
 }

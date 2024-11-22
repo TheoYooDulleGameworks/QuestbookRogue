@@ -195,17 +195,14 @@ public class PaySlot : DiceSlot, IPointerEnterHandler, IPointerExitHandler, IPoi
 
         switch (paymentType)
         {
-            case PaymentType.Coin:
-                playerPaymentValue = playerStatus.Coin;
+            case PaymentType.Gold:
+                playerPaymentValue = playerStatus.Gold;
                 break;
             case PaymentType.Provision:
                 playerPaymentValue = playerStatus.Provision;
                 break;
             case PaymentType.Hp:
                 playerPaymentValue = playerStatus.currentHp;
-                break;
-            case PaymentType.Sp:
-                playerPaymentValue = playerStatus.currentSp;
                 break;
             default:
                 playerPaymentValue = playerStatus.Lv;
@@ -228,17 +225,14 @@ public class PaySlot : DiceSlot, IPointerEnterHandler, IPointerExitHandler, IPoi
 
         switch (paymentType)
         {
-            case PaymentType.Coin:
-                playerPaymentValue = playerStatus.Coin;
+            case PaymentType.Gold:
+                playerPaymentValue = playerStatus.Gold;
                 break;
             case PaymentType.Provision:
                 playerPaymentValue = playerStatus.Provision;
                 break;
             case PaymentType.Hp:
                 playerPaymentValue = playerStatus.currentHp;
-                break;
-            case PaymentType.Sp:
-                playerPaymentValue = playerStatus.currentSp;
                 break;
             default:
                 playerPaymentValue = playerStatus.Lv;
@@ -254,17 +248,14 @@ public class PaySlot : DiceSlot, IPointerEnterHandler, IPointerExitHandler, IPoi
 
         switch (paymentType)
         {
-            case PaymentType.Coin:
-                playerPaymentValue = playerStatus.Coin;
+            case PaymentType.Gold:
+                playerPaymentValue = playerStatus.Gold;
                 break;
             case PaymentType.Provision:
                 playerPaymentValue = playerStatus.Provision;
                 break;
             case PaymentType.Hp:
                 playerPaymentValue = playerStatus.currentHp;
-                break;
-            case PaymentType.Sp:
-                playerPaymentValue = playerStatus.currentSp;
                 break;
             default:
                 playerPaymentValue = playerStatus.Lv;

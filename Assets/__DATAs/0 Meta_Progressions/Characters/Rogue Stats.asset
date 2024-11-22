@@ -17,16 +17,11 @@ MonoBehaviour:
   characterLvContainer: {fileID: -1237222171, guid: 1767a71d735254df58b70056f55a8d5a, type: 3}
   characterName: Rogue
   defaultHp: 8
-  defaultSp: 8
-  defaultCoin: 4
+  defaultGold: 4
   defaultProvision: 2
-  startingStrength: 1
-  startingDexterity: 3
+  startingStrength: 2
+  startingAgility: 4
   startingIntelligence: 1
-  startingWillpower: 0
-  startingAdvancedStrength: 0
-  startingAdvancedDexterity: 0
-  startingAdvancedIntelligence: 0
-  startingAdvancedWillpower: 0
+  startingWillpower: 1
   startingSkills: []
   startingRelics: []

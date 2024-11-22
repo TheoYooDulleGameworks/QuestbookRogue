@@ -27,14 +27,6 @@ public class VitalUI : MonoBehaviour
     [SerializeField] private RectTransform maxHp1thRect;
     [SerializeField] private List<Sprite> maxHpNumbers = new List<Sprite>();
 
-    [SerializeField] private RectTransform currentSp10thRect;
-    [SerializeField] private RectTransform currentSp1thRect;
-    [SerializeField] private List<Sprite> currentSpNumbers = new List<Sprite>();
-
-    [SerializeField] private RectTransform maxSp10thRect;
-    [SerializeField] private RectTransform maxSp1thRect;
-    [SerializeField] private List<Sprite> maxSpNumbers = new List<Sprite>();
-
     [SerializeField] private RectTransform armorIcon;
     [SerializeField] private RectTransform currentArmor10thRect;
     [SerializeField] private RectTransform currentArmor1thRect;
@@ -50,9 +42,6 @@ public class VitalUI : MonoBehaviour
         playerStatus.currentHp.OnValueChanged += UpdateHpUI;
         playerStatus.maxHp.OnValueChanged += UpdateHpUI;
 
-        playerStatus.currentSp.OnValueChanged += UpdateSpUI;
-        playerStatus.maxSp.OnValueChanged += UpdateSpUI;
-
         playerStatus.currentArmor.OnValueChanged += UpdateArmorUI;
 
         SetDefaultStatus();
@@ -65,9 +54,6 @@ public class VitalUI : MonoBehaviour
 
         playerStatus.currentHp.OnValueChanged -= UpdateHpUI;
         playerStatus.maxHp.OnValueChanged -= UpdateHpUI;
-
-        playerStatus.currentSp.OnValueChanged -= UpdateSpUI;
-        playerStatus.maxSp.OnValueChanged -= UpdateSpUI;
 
         playerStatus.currentArmor.OnValueChanged -= UpdateArmorUI;
     }
@@ -85,7 +71,6 @@ public class VitalUI : MonoBehaviour
         UpdateLvUI();
         UpdateXpUI();
         UpdateHpUI();
-        UpdateSpUI();
         UpdateArmorUI();
     }
 
@@ -548,213 +533,13 @@ public class VitalUI : MonoBehaviour
         }
     }
 
-    private void UpdateSpUI()
-    {
-        int currentSpValue = playerStatus.currentSp.Value;
-        int currentSpValue10th = currentSpValue / 10;
-        int currentSpValue1th = currentSpValue % 10;
-
-        if (currentSpValue >= 10)
-        {
-            if (currentSp10thRect.gameObject != null)
-            {
-                currentSp10thRect.gameObject.SetActive(true);
-            }
-        }
-        else
-        {
-            if (currentSp10thRect.gameObject != null)
-            {
-                currentSp10thRect.gameObject.SetActive(false);
-            }
-        }
-
-        switch (currentSpValue10th)
-        {
-            case 0:
-                currentSp10thRect.GetComponent<Image>().sprite = null;
-                break;
-            case 1:
-                currentSp10thRect.GetComponent<Image>().sprite = currentSpNumbers[1];
-                break;
-            case 2:
-                currentSp10thRect.GetComponent<Image>().sprite = currentSpNumbers[2];
-                break;
-            case 3:
-                currentSp10thRect.GetComponent<Image>().sprite = currentSpNumbers[3];
-                break;
-            case 4:
-                currentSp10thRect.GetComponent<Image>().sprite = currentSpNumbers[4];
-                break;
-            case 5:
-                currentSp10thRect.GetComponent<Image>().sprite = currentSpNumbers[5];
-                break;
-            case 6:
-                currentSp10thRect.GetComponent<Image>().sprite = currentSpNumbers[6];
-                break;
-            case 7:
-                currentSp10thRect.GetComponent<Image>().sprite = currentSpNumbers[7];
-                break;
-            case 8:
-                currentSp10thRect.GetComponent<Image>().sprite = currentSpNumbers[8];
-                break;
-            case 9:
-                currentSp10thRect.GetComponent<Image>().sprite = currentSpNumbers[9];
-                break;
-            default:
-                break;
-        }
-        switch (currentSpValue1th)
-        {
-            case 0:
-                currentSp1thRect.GetComponent<Image>().sprite = currentSpNumbers[0];
-                break;
-            case 1:
-                currentSp1thRect.GetComponent<Image>().sprite = currentSpNumbers[1];
-                break;
-            case 2:
-                currentSp1thRect.GetComponent<Image>().sprite = currentSpNumbers[2];
-                break;
-            case 3:
-                currentSp1thRect.GetComponent<Image>().sprite = currentSpNumbers[3];
-                break;
-            case 4:
-                currentSp1thRect.GetComponent<Image>().sprite = currentSpNumbers[4];
-                break;
-            case 5:
-                currentSp1thRect.GetComponent<Image>().sprite = currentSpNumbers[5];
-                break;
-            case 6:
-                currentSp1thRect.GetComponent<Image>().sprite = currentSpNumbers[6];
-                break;
-            case 7:
-                currentSp1thRect.GetComponent<Image>().sprite = currentSpNumbers[7];
-                break;
-            case 8:
-                currentSp1thRect.GetComponent<Image>().sprite = currentSpNumbers[8];
-                break;
-            case 9:
-                currentSp1thRect.GetComponent<Image>().sprite = currentSpNumbers[9];
-                break;
-            default:
-                break;
-        }
-
-        int maxSpValue = playerStatus.maxSp.Value;
-        int maxSpValue10th = maxSpValue / 10;
-        int maxSpValue1th = maxSpValue % 10;
-
-        if (maxSpValue >= 10)
-        {
-            if (maxSp10thRect.gameObject != null)
-            {
-                maxSp10thRect.gameObject.SetActive(true);
-            }
-        }
-        else
-        {
-            if (maxSp10thRect.gameObject != null)
-            {
-                maxSp10thRect.gameObject.SetActive(false);
-            }
-        }
-
-        switch (maxSpValue10th)
-        {
-            case 0:
-                maxSp10thRect.GetComponent<Image>().sprite = null;
-                break;
-            case 1:
-                maxSp10thRect.GetComponent<Image>().sprite = maxSpNumbers[1];
-                break;
-            case 2:
-                maxSp10thRect.GetComponent<Image>().sprite = maxSpNumbers[2];
-                break;
-            case 3:
-                maxSp10thRect.GetComponent<Image>().sprite = maxSpNumbers[3];
-                break;
-            case 4:
-                maxSp10thRect.GetComponent<Image>().sprite = maxSpNumbers[4];
-                break;
-            case 5:
-                maxSp10thRect.GetComponent<Image>().sprite = maxSpNumbers[5];
-                break;
-            case 6:
-                maxSp10thRect.GetComponent<Image>().sprite = maxSpNumbers[6];
-                break;
-            case 7:
-                maxSp10thRect.GetComponent<Image>().sprite = maxSpNumbers[7];
-                break;
-            case 8:
-                maxSp10thRect.GetComponent<Image>().sprite = maxSpNumbers[8];
-                break;
-            case 9:
-                maxSp10thRect.GetComponent<Image>().sprite = maxSpNumbers[9];
-                break;
-            default:
-                break;
-        }
-        switch (maxSpValue1th)
-        {
-            case 0:
-                maxSp1thRect.GetComponent<Image>().sprite = maxSpNumbers[0];
-                break;
-            case 1:
-                maxSp1thRect.GetComponent<Image>().sprite = maxSpNumbers[1];
-                break;
-            case 2:
-                maxSp1thRect.GetComponent<Image>().sprite = maxSpNumbers[2];
-                break;
-            case 3:
-                maxSp1thRect.GetComponent<Image>().sprite = maxSpNumbers[3];
-                break;
-            case 4:
-                maxSp1thRect.GetComponent<Image>().sprite = maxSpNumbers[4];
-                break;
-            case 5:
-                maxSp1thRect.GetComponent<Image>().sprite = maxSpNumbers[5];
-                break;
-            case 6:
-                maxSp1thRect.GetComponent<Image>().sprite = maxSpNumbers[6];
-                break;
-            case 7:
-                maxSp1thRect.GetComponent<Image>().sprite = maxSpNumbers[7];
-                break;
-            case 8:
-                maxSp1thRect.GetComponent<Image>().sprite = maxSpNumbers[8];
-                break;
-            case 9:
-                maxSp1thRect.GetComponent<Image>().sprite = maxSpNumbers[9];
-                break;
-            default:
-                break;
-        }
-    }
-
     private void UpdateArmorUI()
     {
         int currentArmorValue = playerStatus.currentArmor.Value;
         int currentArmorValue10th = currentArmorValue / 10;
         int currentArmorValue1th = currentArmorValue % 10;
 
-        if (currentArmorValue == 0)
-        {
-            if (armorIcon.gameObject != null)
-            {
-                armorIcon.gameObject.SetActive(false);
-            }
-            if (currentArmor10thRect.gameObject != null)
-            {
-                currentArmor10thRect.gameObject.SetActive(false);
-            }
-            if (currentArmor1thRect.gameObject != null)
-            {
-                currentArmor1thRect.gameObject.SetActive(false);
-            }
-
-            return;
-        }
-        else if (currentArmorValue >= 10)
+        if (currentArmorValue >= 10)
         {
             if (armorIcon.gameObject != null)
             {

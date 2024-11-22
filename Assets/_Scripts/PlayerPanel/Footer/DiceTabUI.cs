@@ -9,7 +9,7 @@ public class DiceTabUI : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] private RectTransform StrDiceGroup;
-    [SerializeField] private RectTransform DexDiceGroup;
+    [SerializeField] private RectTransform AgiDiceGroup;
     [SerializeField] private RectTransform IntDiceGroup;
     [SerializeField] private RectTransform WilDiceGroup;
     [SerializeField] private RectTransform SpecialDiceGroup;
@@ -21,14 +21,10 @@ public class DiceTabUI : MonoBehaviour
             SetPlayerDices();
         }
 
-        playerDiceData.StrNormalDice.OnValueChanged += UpdateStrGroup;
-        playerDiceData.StrAdvancedDice.OnValueChanged += UpdateStrGroup;
-        playerDiceData.DexNormalDice.OnValueChanged += UpdateDexGroup;
-        playerDiceData.DexAdvancedDice.OnValueChanged += UpdateDexGroup;
-        playerDiceData.IntNormalDice.OnValueChanged += UpdateIntGroup;
-        playerDiceData.IntAdvancedDice.OnValueChanged += UpdateIntGroup;
-        playerDiceData.WilNormalDice.OnValueChanged += UpdateWilGroup;
-        playerDiceData.WilAdvancedDice.OnValueChanged += UpdateWilGroup;
+        playerDiceData.StrDice.OnValueChanged += UpdateStrGroup;
+        playerDiceData.AgiDice.OnValueChanged += UpdateAgiGroup;
+        playerDiceData.IntDice.OnValueChanged += UpdateIntGroup;
+        playerDiceData.WilDice.OnValueChanged += UpdateWilGroup;
     }
 
     public void SetPlayerDices()
@@ -39,7 +35,7 @@ public class DiceTabUI : MonoBehaviour
         {
             previousUIDices.Add(uiDice);
         }
-        foreach (UIDice uiDice in DexDiceGroup.GetComponentsInChildren<UIDice>())
+        foreach (UIDice uiDice in AgiDiceGroup.GetComponentsInChildren<UIDice>())
         {
             previousUIDices.Add(uiDice);
         }
@@ -59,87 +55,45 @@ public class DiceTabUI : MonoBehaviour
         {
             uiDice.DestroyUIDice();
         }
+        int StrDiceAmount = playerDiceData.StrDice.Value;
+        int AgiDiceAmount = playerDiceData.AgiDice.Value;
+        int IntDiceAmount = playerDiceData.IntDice.Value;
+        int WilDiceAmount = playerDiceData.WilDice.Value;
 
-        int StrAdvancedDiceAmount = playerDiceData.StrAdvancedDice.Value;
-        int DexAdvancedDiceAmount = playerDiceData.DexAdvancedDice.Value;
-        int IntAdvancedDiceAmount = playerDiceData.IntAdvancedDice.Value;
-        int WilAdvancedDiceAmount = playerDiceData.WilAdvancedDice.Value;
-
-        int StrNormalDiceAmount = playerDiceData.StrNormalDice.Value;
-        int DexNormalDiceAmount = playerDiceData.DexNormalDice.Value;
-        int IntNormalDiceAmount = playerDiceData.IntNormalDice.Value;
-        int WilNormalDiceAmount = playerDiceData.WilNormalDice.Value;
-
-        for (int i = 0; i < StrAdvancedDiceAmount; i++)
+        for (int i = 0; i < StrDiceAmount; i++)
         {
-            GameObject StrAdvanceduiDicePrefab = Instantiate(uiDicePrefab);
-            StrAdvanceduiDicePrefab.transform.SetParent(StrDiceGroup, false);
-            StrAdvanceduiDicePrefab.name = $"Str Advanced Dice _({i + 1})";
-            StrAdvanceduiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.StrAdvancedDice_UI;
-            StrAdvanceduiDicePrefab.GetComponent<UIDice>().SetDiceData();
+            GameObject StruiDicePrefab = Instantiate(uiDicePrefab);
+            StruiDicePrefab.transform.SetParent(StrDiceGroup, false);
+            StruiDicePrefab.name = $"Str  Dice _({i + 1})";
+            StruiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.StrDice_UI;
+            StruiDicePrefab.GetComponent<UIDice>().SetDiceData();
         }
 
-        for (int i = 0; i < StrNormalDiceAmount; i++)
+        for (int i = 0; i < AgiDiceAmount; i++)
         {
-            GameObject StrNormaluiDicePrefab = Instantiate(uiDicePrefab);
-            StrNormaluiDicePrefab.transform.SetParent(StrDiceGroup, false);
-            StrNormaluiDicePrefab.name = $"Str Normal Dice _({i + 1})";
-            StrNormaluiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.StrNormalDice_UI;
-            StrNormaluiDicePrefab.GetComponent<UIDice>().SetDiceData();
+            GameObject AgiuiDicePrefab = Instantiate(uiDicePrefab);
+            AgiuiDicePrefab.transform.SetParent(AgiDiceGroup, false);
+            AgiuiDicePrefab.name = $"Agi  Dice _({i + 1})";
+            AgiuiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.AgiDice_UI;
+            AgiuiDicePrefab.GetComponent<UIDice>().SetDiceData();
         }
 
-        for (int i = 0; i < DexAdvancedDiceAmount; i++)
+        for (int i = 0; i < IntDiceAmount; i++)
         {
-            GameObject DexAdvanceduiDicePrefab = Instantiate(uiDicePrefab);
-            DexAdvanceduiDicePrefab.transform.SetParent(DexDiceGroup, false);
-            DexAdvanceduiDicePrefab.name = $"Dex Advanced Dice _({i + 1})";
-            DexAdvanceduiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.DexAdvancedDice_UI;
-            DexAdvanceduiDicePrefab.GetComponent<UIDice>().SetDiceData();
+            GameObject IntuiDicePrefab = Instantiate(uiDicePrefab);
+            IntuiDicePrefab.transform.SetParent(IntDiceGroup, false);
+            IntuiDicePrefab.name = $"Int  Dice _({i + 1})";
+            IntuiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.IntDice_UI;
+            IntuiDicePrefab.GetComponent<UIDice>().SetDiceData();
         }
 
-        for (int i = 0; i < DexNormalDiceAmount; i++)
+        for (int i = 0; i < WilDiceAmount; i++)
         {
-            GameObject DexNormaluiDicePrefab = Instantiate(uiDicePrefab);
-            DexNormaluiDicePrefab.transform.SetParent(DexDiceGroup, false);
-            DexNormaluiDicePrefab.name = $"Dex Normal Dice _({i + 1})";
-            DexNormaluiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.DexNormalDice_UI;
-            DexNormaluiDicePrefab.GetComponent<UIDice>().SetDiceData();
-        }
-
-        for (int i = 0; i < IntAdvancedDiceAmount; i++)
-        {
-            GameObject IntAdvanceduiDicePrefab = Instantiate(uiDicePrefab);
-            IntAdvanceduiDicePrefab.transform.SetParent(IntDiceGroup, false);
-            IntAdvanceduiDicePrefab.name = $"Int Advanced Dice _({i + 1})";
-            IntAdvanceduiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.IntAdvancedDice_UI;
-            IntAdvanceduiDicePrefab.GetComponent<UIDice>().SetDiceData();
-        }
-
-        for (int i = 0; i < IntNormalDiceAmount; i++)
-        {
-            GameObject IntNormaluiDicePrefab = Instantiate(uiDicePrefab);
-            IntNormaluiDicePrefab.transform.SetParent(IntDiceGroup, false);
-            IntNormaluiDicePrefab.name = $"Int Normal Dice _({i + 1})";
-            IntNormaluiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.IntNormalDice_UI;
-            IntNormaluiDicePrefab.GetComponent<UIDice>().SetDiceData();
-        }
-
-        for (int i = 0; i < WilAdvancedDiceAmount; i++)
-        {
-            GameObject WilAdvanceduiDicePrefab = Instantiate(uiDicePrefab);
-            WilAdvanceduiDicePrefab.transform.SetParent(WilDiceGroup, false);
-            WilAdvanceduiDicePrefab.name = $"Wil Advanced Dice _({i + 1})";
-            WilAdvanceduiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.WilAdvancedDice_UI;
-            WilAdvanceduiDicePrefab.GetComponent<UIDice>().SetDiceData();
-        }
-
-        for (int i = 0; i < WilNormalDiceAmount; i++)
-        {
-            GameObject WilNormaluiDicePrefab = Instantiate(uiDicePrefab);
-            WilNormaluiDicePrefab.transform.SetParent(WilDiceGroup, false);
-            WilNormaluiDicePrefab.name = $"Wil Normal Dice _({i + 1})";
-            WilNormaluiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.WilNormalDice_UI;
-            WilNormaluiDicePrefab.GetComponent<UIDice>().SetDiceData();
+            GameObject WiluiDicePrefab = Instantiate(uiDicePrefab);
+            WiluiDicePrefab.transform.SetParent(WilDiceGroup, false);
+            WiluiDicePrefab.name = $"Wil  Dice _({i + 1})";
+            WiluiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.WilDice_UI;
+            WiluiDicePrefab.GetComponent<UIDice>().SetDiceData();
         }
     }
 
@@ -150,54 +104,34 @@ public class DiceTabUI : MonoBehaviour
             uiDice.DestroyUIDice();
         }
 
-        int StrAdvancedDiceAmount = playerDiceData.StrAdvancedDice.Value;
-        int StrNormalDiceAmount = playerDiceData.StrNormalDice.Value;
+        int StrDiceAmount = playerDiceData.StrDice.Value;
 
-        for (int i = 0; i < StrAdvancedDiceAmount; i++)
+        for (int i = 0; i < StrDiceAmount; i++)
         {
-            GameObject StrAdvanceduiDicePrefab = Instantiate(uiDicePrefab);
-            StrAdvanceduiDicePrefab.transform.SetParent(StrDiceGroup, false);
-            StrAdvanceduiDicePrefab.name = $"Str Advanced Dice _({i + 1})";
-            StrAdvanceduiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.StrAdvancedDice_UI;
-            StrAdvanceduiDicePrefab.GetComponent<UIDice>().SetDiceData();
-        }
-
-        for (int i = 0; i < StrNormalDiceAmount; i++)
-        {
-            GameObject StrNormaluiDicePrefab = Instantiate(uiDicePrefab);
-            StrNormaluiDicePrefab.transform.SetParent(StrDiceGroup, false);
-            StrNormaluiDicePrefab.name = $"Str Normal Dice _({i + 1})";
-            StrNormaluiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.StrNormalDice_UI;
-            StrNormaluiDicePrefab.GetComponent<UIDice>().SetDiceData();
+            GameObject StruiDicePrefab = Instantiate(uiDicePrefab);
+            StruiDicePrefab.transform.SetParent(StrDiceGroup, false);
+            StruiDicePrefab.name = $"Str  Dice _({i + 1})";
+            StruiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.StrDice_UI;
+            StruiDicePrefab.GetComponent<UIDice>().SetDiceData();
         }
     }
 
-    private void UpdateDexGroup()
+    private void UpdateAgiGroup()
     {
-        foreach (UIDice uiDice in DexDiceGroup.GetComponentsInChildren<UIDice>())
+        foreach (UIDice uiDice in AgiDiceGroup.GetComponentsInChildren<UIDice>())
         {
             uiDice.DestroyUIDice();
         }
 
-        int DexAdvancedDiceAmount = playerDiceData.DexAdvancedDice.Value;
-        int DexNormalDiceAmount = playerDiceData.DexNormalDice.Value;
+        int AgiDiceAmount = playerDiceData.AgiDice.Value;
 
-        for (int i = 0; i < DexAdvancedDiceAmount; i++)
+        for (int i = 0; i < AgiDiceAmount; i++)
         {
-            GameObject DexAdvanceduiDicePrefab = Instantiate(uiDicePrefab);
-            DexAdvanceduiDicePrefab.transform.SetParent(DexDiceGroup, false);
-            DexAdvanceduiDicePrefab.name = $"Dex Advanced Dice _({i + 1})";
-            DexAdvanceduiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.DexAdvancedDice_UI;
-            DexAdvanceduiDicePrefab.GetComponent<UIDice>().SetDiceData();
-        }
-
-        for (int i = 0; i < DexNormalDiceAmount; i++)
-        {
-            GameObject DexNormaluiDicePrefab = Instantiate(uiDicePrefab);
-            DexNormaluiDicePrefab.transform.SetParent(DexDiceGroup, false);
-            DexNormaluiDicePrefab.name = $"Dex Normal Dice _({i + 1})";
-            DexNormaluiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.DexNormalDice_UI;
-            DexNormaluiDicePrefab.GetComponent<UIDice>().SetDiceData();
+            GameObject AgiuiDicePrefab = Instantiate(uiDicePrefab);
+            AgiuiDicePrefab.transform.SetParent(AgiDiceGroup, false);
+            AgiuiDicePrefab.name = $"Agi  Dice _({i + 1})";
+            AgiuiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.AgiDice_UI;
+            AgiuiDicePrefab.GetComponent<UIDice>().SetDiceData();
         }
     }
 
@@ -208,25 +142,15 @@ public class DiceTabUI : MonoBehaviour
             uiDice.DestroyUIDice();
         }
 
-        int IntAdvancedDiceAmount = playerDiceData.IntAdvancedDice.Value;
-        int IntNormalDiceAmount = playerDiceData.IntNormalDice.Value;
+        int IntDiceAmount = playerDiceData.IntDice.Value;
 
-        for (int i = 0; i < IntAdvancedDiceAmount; i++)
+        for (int i = 0; i < IntDiceAmount; i++)
         {
-            GameObject IntAdvanceduiDicePrefab = Instantiate(uiDicePrefab);
-            IntAdvanceduiDicePrefab.transform.SetParent(IntDiceGroup, false);
-            IntAdvanceduiDicePrefab.name = $"Int Advanced Dice _({i + 1})";
-            IntAdvanceduiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.IntAdvancedDice_UI;
-            IntAdvanceduiDicePrefab.GetComponent<UIDice>().SetDiceData();
-        }
-
-        for (int i = 0; i < IntNormalDiceAmount; i++)
-        {
-            GameObject IntNormaluiDicePrefab = Instantiate(uiDicePrefab);
-            IntNormaluiDicePrefab.transform.SetParent(IntDiceGroup, false);
-            IntNormaluiDicePrefab.name = $"Int Normal Dice _({i + 1})";
-            IntNormaluiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.IntNormalDice_UI;
-            IntNormaluiDicePrefab.GetComponent<UIDice>().SetDiceData();
+            GameObject IntuiDicePrefab = Instantiate(uiDicePrefab);
+            IntuiDicePrefab.transform.SetParent(IntDiceGroup, false);
+            IntuiDicePrefab.name = $"Int  Dice _({i + 1})";
+            IntuiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.IntDice_UI;
+            IntuiDicePrefab.GetComponent<UIDice>().SetDiceData();
         }
     }
 
@@ -237,25 +161,15 @@ public class DiceTabUI : MonoBehaviour
             uiDice.DestroyUIDice();
         }
 
-        int WilAdvancedDiceAmount = playerDiceData.WilAdvancedDice.Value;
-        int WilNormalDiceAmount = playerDiceData.WilNormalDice.Value;
+        int WilDiceAmount = playerDiceData.WilDice.Value;
 
-        for (int i = 0; i < WilAdvancedDiceAmount; i++)
+        for (int i = 0; i < WilDiceAmount; i++)
         {
-            GameObject WilAdvanceduiDicePrefab = Instantiate(uiDicePrefab);
-            WilAdvanceduiDicePrefab.transform.SetParent(WilDiceGroup, false);
-            WilAdvanceduiDicePrefab.name = $"Wil Advanced Dice _({i + 1})";
-            WilAdvanceduiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.WilAdvancedDice_UI;
-            WilAdvanceduiDicePrefab.GetComponent<UIDice>().SetDiceData();
-        }
-
-        for (int i = 0; i < WilNormalDiceAmount; i++)
-        {
-            GameObject WilNormaluiDicePrefab = Instantiate(uiDicePrefab);
-            WilNormaluiDicePrefab.transform.SetParent(WilDiceGroup, false);
-            WilNormaluiDicePrefab.name = $"Wil Normal Dice _({i + 1})";
-            WilNormaluiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.WilNormalDice_UI;
-            WilNormaluiDicePrefab.GetComponent<UIDice>().SetDiceData();
+            GameObject WiluiDicePrefab = Instantiate(uiDicePrefab);
+            WiluiDicePrefab.transform.SetParent(WilDiceGroup, false);
+            WiluiDicePrefab.name = $"Wil  Dice _({i + 1})";
+            WiluiDicePrefab.GetComponent<UIDice>().diceData = playerDiceData.WilDice_UI;
+            WiluiDicePrefab.GetComponent<UIDice>().SetDiceData();
         }
     }
 }

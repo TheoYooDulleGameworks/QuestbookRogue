@@ -8,11 +8,9 @@ public class PlayerStatusSO : ScriptableObject
     public StatusValue currentXp;
     public StatusValue currentHp;
     public StatusValue maxHp;
-    public StatusValue currentSp;
-    public StatusValue maxSp;
     public StatusValue currentArmor;
 
-    public StatusValue Coin;
+    public StatusValue Gold;
     public StatusValue Provision;
 }
 

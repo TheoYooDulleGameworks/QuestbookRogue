@@ -30,4 +30,9 @@ public class PlayerPathSO : ScriptableObject
 
         return pickedQuestData;
     }
+
+    public void ResetPaths()
+    {
+        currentPossibleQuestDatas.Clear();
+    }
 }

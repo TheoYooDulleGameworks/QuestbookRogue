@@ -6,9 +6,9 @@ public class ResourceUI : MonoBehaviour
 {
     [SerializeField] private PlayerStatusSO playerStatus;
 
-    [SerializeField] private RectTransform coin10thRect;
-    [SerializeField] private RectTransform coin1thRect;
-    [SerializeField] private List<Sprite> coinNumbers = new List<Sprite>();
+    [SerializeField] private RectTransform gold10thRect;
+    [SerializeField] private RectTransform gold1thRect;
+    [SerializeField] private List<Sprite> goldNumbers = new List<Sprite>();
 
     [SerializeField] private RectTransform provision10thRect;
     [SerializeField] private RectTransform provision1thRect;
@@ -16,7 +16,7 @@ public class ResourceUI : MonoBehaviour
 
     private void Start()
     {
-        playerStatus.Coin.OnValueChanged += UpdateCoinUI;
+        playerStatus.Gold.OnValueChanged += UpdateGoldUI;
         playerStatus.Provision.OnValueChanged += UpdateProvisionUI;
 
         SetDefaultResources();
@@ -24,103 +24,103 @@ public class ResourceUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        playerStatus.Coin.OnValueChanged -= UpdateCoinUI;
+        playerStatus.Gold.OnValueChanged -= UpdateGoldUI;
         playerStatus.Provision.OnValueChanged -= UpdateProvisionUI;
     }
 
     private void SetDefaultResources()
     {
-        UpdateCoinUI();
+        UpdateGoldUI();
         UpdateProvisionUI();
     }
 
-    private void UpdateCoinUI()
+    private void UpdateGoldUI()
     {
-        int coinValue = playerStatus.Coin.Value;
-        int coinValue10th = coinValue / 10;
-        int coinValue1th = coinValue % 10;
+        int goldValue = playerStatus.Gold.Value;
+        int goldValue10th = goldValue / 10;
+        int goldValue1th = goldValue % 10;
 
-        if (coinValue >= 10)
+        if (goldValue >= 10)
         {
-            if (coin10thRect.gameObject != null)
+            if (gold10thRect.gameObject != null)
             {
-                coin10thRect.gameObject.SetActive(true);
+                gold10thRect.gameObject.SetActive(true);
             }
         }
         else
         {
-            if (coin10thRect.gameObject != null)
+            if (gold10thRect.gameObject != null)
             {
-                coin10thRect.gameObject.SetActive(false);
+                gold10thRect.gameObject.SetActive(false);
             }
         }
 
-        switch (coinValue10th)
+        switch (goldValue10th)
         {
             case 0:
-                coin10thRect.GetComponent<Image>().sprite = null;
+                gold10thRect.GetComponent<Image>().sprite = null;
                 break;
             case 1:
-                coin10thRect.GetComponent<Image>().sprite = coinNumbers[1];
+                gold10thRect.GetComponent<Image>().sprite = goldNumbers[1];
                 break;
             case 2:
-                coin10thRect.GetComponent<Image>().sprite = coinNumbers[2];
+                gold10thRect.GetComponent<Image>().sprite = goldNumbers[2];
                 break;
             case 3:
-                coin10thRect.GetComponent<Image>().sprite = coinNumbers[3];
+                gold10thRect.GetComponent<Image>().sprite = goldNumbers[3];
                 break;
             case 4:
-                coin10thRect.GetComponent<Image>().sprite = coinNumbers[4];
+                gold10thRect.GetComponent<Image>().sprite = goldNumbers[4];
                 break;
             case 5:
-                coin10thRect.GetComponent<Image>().sprite = coinNumbers[5];
+                gold10thRect.GetComponent<Image>().sprite = goldNumbers[5];
                 break;
             case 6:
-                coin10thRect.GetComponent<Image>().sprite = coinNumbers[6];
+                gold10thRect.GetComponent<Image>().sprite = goldNumbers[6];
                 break;
             case 7:
-                coin10thRect.GetComponent<Image>().sprite = coinNumbers[7];
+                gold10thRect.GetComponent<Image>().sprite = goldNumbers[7];
                 break;
             case 8:
-                coin10thRect.GetComponent<Image>().sprite = coinNumbers[8];
+                gold10thRect.GetComponent<Image>().sprite = goldNumbers[8];
                 break;
             case 9:
-                coin10thRect.GetComponent<Image>().sprite = coinNumbers[9];
+                gold10thRect.GetComponent<Image>().sprite = goldNumbers[9];
                 break;
             default:
                 break;
         }
-        switch (coinValue1th)
+        switch (goldValue1th)
         {
             case 0:
-                coin1thRect.GetComponent<Image>().sprite = coinNumbers[0];
+                gold1thRect.GetComponent<Image>().sprite = goldNumbers[0];
                 break;
             case 1:
-                coin1thRect.GetComponent<Image>().sprite = coinNumbers[1];
+                gold1thRect.GetComponent<Image>().sprite = goldNumbers[1];
                 break;
             case 2:
-                coin1thRect.GetComponent<Image>().sprite = coinNumbers[2];
+                gold1thRect.GetComponent<Image>().sprite = goldNumbers[2];
                 break;
             case 3:
-                coin1thRect.GetComponent<Image>().sprite = coinNumbers[3];
+                gold1thRect.GetComponent<Image>().sprite = goldNumbers[3];
                 break;
             case 4:
-                coin1thRect.GetComponent<Image>().sprite = coinNumbers[4];
+                gold1thRect.GetComponent<Image>().sprite = goldNumbers[4];
                 break;
             case 5:
-                coin1thRect.GetComponent<Image>().sprite = coinNumbers[5];
+                gold1thRect.GetComponent<Image>().sprite = goldNumbers[5];
                 break;
             case 6:
-                coin1thRect.GetComponent<Image>().sprite = coinNumbers[6];
+                gold1thRect.GetComponent<Image>().sprite = goldNumbers[6];
                 break;
             case 7:
-                coin1thRect.GetComponent<Image>().sprite = coinNumbers[7];
+                gold1thRect.GetComponent<Image>().sprite = goldNumbers[7];
                 break;
             case 8:
-                coin1thRect.GetComponent<Image>().sprite = coinNumbers[8];
+                gold1thRect.GetComponent<Image>().sprite = goldNumbers[8];
                 break;
             case 9:
-                coin1thRect.GetComponent<Image>().sprite = coinNumbers[9];
+                gold1thRect.GetComponent<Image>().sprite = goldNumbers[9];
                 break;
             default:
                 break;

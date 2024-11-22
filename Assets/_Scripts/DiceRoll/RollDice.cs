@@ -40,9 +40,6 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] private bool notYetRolledAndWait = false;
     [SerializeField] private bool onceRolled = false;
 
-    [Header("Advanced")]
-    [SerializeField] private bool isAdvanced = false;
-
     [Header("Tweening")]
     [SerializeField] private float popUpScale = 1.35f;
     [SerializeField] private float popUpDuration = 0.25f;
@@ -359,14 +356,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         if (randomValue == 0)
         {
-            if (isAdvanced)
-            {
-                dieValue = 1;
-            }
-            else
-            {
-                dieValue = 0;
-            }
+            dieValue = 0;
         }
         else
         {
@@ -471,7 +461,7 @@ public enum DiceType
 {
     None,
     Strength,
-    Dexterity,
+    Agility,
     Intelligence,
     Willpower,
 }
@@ -479,12 +469,11 @@ public enum DiceType
 public enum PaymentType
 {
     None,
-    Coin,
+    Gold,
     Provision,
     Xp,
     Lv,
     Hp,
-    Sp,
     Dice,
     Skill,
     Relic,

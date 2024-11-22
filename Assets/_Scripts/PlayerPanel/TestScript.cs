@@ -15,18 +15,16 @@ public class TestScript : MonoBehaviour
 
     private void TestAddValue()
     {
-        playerDice.StrNormalDice.AddValue(1);
-        playerDice.DexAdvancedDice.AddValue(1);
-        playerDice.IntNormalDice.AddValue(1);
-        playerDice.WilNormalDice.AddValue(1);
+        playerDice.StrDice.AddValue(1);
+        playerDice.AgiDice.AddValue(1);
+        playerDice.IntDice.AddValue(1);
+        playerDice.WilDice.AddValue(1);
 
-        playerStatus.Coin.AddValue(1);
+        playerStatus.Gold.AddValue(1);
         playerStatus.Provision.AddValue(1);
 
         playerStatus.maxHp.AddValue(1);
         playerStatus.currentHp.AddClampedValue(1, 0, playerStatus.maxHp.Value);
-        playerStatus.maxSp.AddValue(1);
-        playerStatus.currentSp.AddClampedValue(1, 0, playerStatus.maxSp.Value);
 
         playerStatus.currentArmor.AddValue(1);
 

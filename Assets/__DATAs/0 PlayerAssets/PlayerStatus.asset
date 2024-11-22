@@ -12,27 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae2fcc6866cc46a8b2bb5d0dec09775, type: 3}
   m_Name: PlayerStatus
   m_EditorClassIdentifier: 
-  LV:
-    value: 11
-  currentXP:
-    value: 86
-  currentHP:
-    value: 94
-  maxHP:
-    value: 94
-  currentSP:
-    value: 94
-  maxSP:
-    value: 94
-  STR:
-    value: 87
-  DEX:
-    value: 89
-  INT:
-    value: 87
+  Lv:
+    value: 0
+  currentXp:
+    value: 0
+  currentHp:
+    value: 0
+  maxHp:
+    value: 0
+  currentArmor:
+    value: 0
   Gold:
-    value: 90
-  Food:
-    value: 88
-  Key:
-    value: 87
+    value: 0
+  Provision:
+    value: 0

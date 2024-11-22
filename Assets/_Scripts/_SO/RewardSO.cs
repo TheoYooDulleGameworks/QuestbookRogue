@@ -20,9 +20,8 @@ public enum RewardType
 
 public enum ResourceRewardType
 {
-    Coin,
+    Gold,
     Provision,
     Xp,
     Hp,
-    Sp,
 }

@@ -418,85 +418,60 @@ public class SceneController : Singleton<SceneController>
 
     public void SetRollDicePanel()
     {
-        int StrAdvancedDiceAmount = playerDices.StrAdvancedDice.Value;
-        int DexAdvancedDiceAmount = playerDices.DexAdvancedDice.Value;
-        int IntAdvancedDiceAmount = playerDices.IntAdvancedDice.Value;
-        int WilAdvancedDiceAmount = playerDices.WilAdvancedDice.Value;
-
-        int StrNormalDiceAmount = playerDices.StrNormalDice.Value;
-        int DexNormalDiceAmount = playerDices.DexNormalDice.Value;
-        int IntNormalDiceAmount = playerDices.IntNormalDice.Value;
-        int WilNormalDiceAmount = playerDices.WilNormalDice.Value;
+        int StrDiceAmount = playerDices.StrDice.Value;
+        int AgiDiceAmount = playerDices.AgiDice.Value;
+        int IntDiceAmount = playerDices.IntDice.Value;
+        int WilDiceAmount = playerDices.WilDice.Value;
 
         List<GameObject> dicePrefabs = new List<GameObject>();
 
-        for (int i = 0; i < StrAdvancedDiceAmount; i++)
+        for (int i = 0; i < StrDiceAmount; i++)
         {
-            GameObject StrAdvancedDicePrefab = Instantiate(playerDices.StrAdvancedDice_Roll);
-            StrAdvancedDicePrefab.transform.SetParent(rollDicePanel, false);
-            dicePrefabs.Add(StrAdvancedDicePrefab);
+            GameObject StrDicePrefab = Instantiate(playerDices.StrDice_Roll);
+            StrDicePrefab.transform.SetParent(rollDicePanel, false);
+            dicePrefabs.Add(StrDicePrefab);
+        }
+        for (int i = 0; i < AgiDiceAmount; i++)
+        {
+            GameObject AgiDicePrefab = Instantiate(playerDices.AgiDice_Roll);
+            AgiDicePrefab.transform.SetParent(rollDicePanel, false);
+            dicePrefabs.Add(AgiDicePrefab);
         }
 
-        for (int i = 0; i < StrNormalDiceAmount; i++)
+        for (int i = 0; i < IntDiceAmount; i++)
         {
-            GameObject StrNormalDicePrefab = Instantiate(playerDices.StrNormalDice_Roll);
-            StrNormalDicePrefab.transform.SetParent(rollDicePanel, false);
-            dicePrefabs.Add(StrNormalDicePrefab);
+            GameObject IntDicePrefab = Instantiate(playerDices.IntDice_Roll);
+            IntDicePrefab.transform.SetParent(rollDicePanel, false);
+            dicePrefabs.Add(IntDicePrefab);
         }
 
-        for (int i = 0; i < DexAdvancedDiceAmount; i++)
+        for (int i = 0; i < WilDiceAmount; i++)
         {
-            GameObject DexAdvancedDicePrefab = Instantiate(playerDices.DexAdvancedDice_Roll);
-            DexAdvancedDicePrefab.transform.SetParent(rollDicePanel, false);
-            dicePrefabs.Add(DexAdvancedDicePrefab);
+            GameObject WilDicePrefab = Instantiate(playerDices.WilDice_Roll);
+            WilDicePrefab.transform.SetParent(rollDicePanel, false);
+            dicePrefabs.Add(WilDicePrefab);
         }
 
-        for (int i = 0; i < DexNormalDiceAmount; i++)
-        {
-            GameObject DexNormalDicePrefab = Instantiate(playerDices.DexNormalDice_Roll);
-            DexNormalDicePrefab.transform.SetParent(rollDicePanel, false);
-            dicePrefabs.Add(DexNormalDicePrefab);
-        }
-
-        for (int i = 0; i < IntAdvancedDiceAmount; i++)
-        {
-            GameObject IntAdvancedDicePrefab = Instantiate(playerDices.IntAdvancedDice_Roll);
-            IntAdvancedDicePrefab.transform.SetParent(rollDicePanel, false);
-            dicePrefabs.Add(IntAdvancedDicePrefab);
-        }
-
-        for (int i = 0; i < IntNormalDiceAmount; i++)
-        {
-            GameObject IntNormalDicePrefab = Instantiate(playerDices.IntNormalDice_Roll);
-            IntNormalDicePrefab.transform.SetParent(rollDicePanel, false);
-            dicePrefabs.Add(IntNormalDicePrefab);
-        }
-
-        for (int i = 0; i < WilAdvancedDiceAmount; i++)
-        {
-            GameObject WilAdvancedDicePrefab = Instantiate(playerDices.WilAdvancedDice_Roll);
-            WilAdvancedDicePrefab.transform.SetParent(rollDicePanel, false);
-            dicePrefabs.Add(WilAdvancedDicePrefab);
-        }
-
-        for (int i = 0; i < WilNormalDiceAmount; i++)
-        {
-            GameObject WilNormalDicePrefab = Instantiate(playerDices.WilNormalDice_Roll);
-            WilNormalDicePrefab.transform.SetParent(rollDicePanel, false);
-            dicePrefabs.Add(WilNormalDicePrefab);
-        }
-
-        int rowCount = Mathf.CeilToInt(dicePrefabs.Count / 12f);
-        int rowHeight = 100;
-        int baseYPosition = -470 + ((rowCount - 1) * rowHeight);
+        int rowCount = Mathf.CeilToInt(dicePrefabs.Count / 14f);
+        int rowHeight = 96;
+        int baseYPosition = -464 + ((rowCount - 1) * rowHeight);
 
         for (int i = 0; i < dicePrefabs.Count; i++)
         {
-            int currentRow = i / 12;
-            int indexInRow = i % 12;
+            int currentRow = i / 14;
+            int indexInRow = i % 14;
 
-            float xPosition = -275 + (indexInRow * 100);
-            float yPosition = baseYPosition - (currentRow * rowHeight);
+            float xPosition = -358 + (indexInRow * 96);
+            float yPosition;
+
+            if (dicePrefabs.Count <= 14)
+            {
+                yPosition = -424;
+            }
+            else
+            {
+                yPosition = baseYPosition - (currentRow * rowHeight);
+            }
 
             dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(xPosition, yPosition);
         }

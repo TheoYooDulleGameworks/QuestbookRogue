@@ -42,33 +42,27 @@ public class PlayerManager : Singleton<PlayerManager>
         playerStatus.maxHp.Value = playerCharacter.defaultHp;
         playerStatus.currentHp.Value = playerStatus.maxHp.Value;
 
-        playerStatus.maxSp.Value = playerCharacter.defaultSp;
-        playerStatus.currentSp.Value = playerStatus.maxSp.Value;
-
         playerStatus.currentArmor.Value = 0;
 
-        playerStatus.Coin.Value = playerCharacter.defaultCoin;
+        playerStatus.Gold.Value = playerCharacter.defaultGold;
         playerStatus.Provision.Value = playerCharacter.defaultProvision;
 
     }
 
     private void FirstSetPlayerDices()
     {
-        playerDices.StrNormalDice.Value = playerCharacter.startingStrength;
-        playerDices.StrAdvancedDice.Value = playerCharacter.startingAdvancedStrength;
+        playerDices.StrDice.Value = playerCharacter.startingStrength;
 
-        playerDices.DexNormalDice.Value = playerCharacter.startingDexterity;
-        playerDices.DexAdvancedDice.Value = playerCharacter.startingAdvancedDexterity;
+        playerDices.AgiDice.Value = playerCharacter.startingAgility;
 
-        playerDices.IntNormalDice.Value = playerCharacter.startingIntelligence;
-        playerDices.IntAdvancedDice.Value = playerCharacter.startingAdvancedIntelligence;
+        playerDices.IntDice.Value = playerCharacter.startingIntelligence;
 
-        playerDices.WilNormalDice.Value = playerCharacter.startingWillpower;
-        playerDices.WilAdvancedDice.Value = playerCharacter.startingAdvancedWillpower;
+        playerDices.WilDice.Value = playerCharacter.startingWillpower;
     }
 
     private void FirstSetPlayerPaths()
     {
+        playerPaths.ResetPaths();
         playerPaths.FirstSetPaths();
     }
 }

@@ -12,35 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 580344204d11f40b18f2450ade53999b, type: 3}
   m_Name: PlayerDice
   m_EditorClassIdentifier: 
-  StrNormalDice:
-    value: 1
-  StrAdvancedDice:
-    value: 1
-  DexNormalDice:
-    value: 3
-  DexAdvancedDice:
+  StrDice:
     value: 0
-  IntNormalDice:
-    value: 1
-  IntAdvancedDice:
+  AgiDice:
     value: 0
-  WilNormalDice:
-    value: 1
-  WilAdvancedDice:
+  IntDice:
     value: 0
-  StrNormalDice_UI: {fileID: 11400000, guid: 2ba31342960704c2e873ad0580b6fb6f, type: 2}
-  StrAdvancedDice_UI: {fileID: 11400000, guid: 6e41345c7fca04ee8b977d29222a82a9, type: 2}
-  DexNormalDice_UI: {fileID: 11400000, guid: b539324a1149047feb692582b9412734, type: 2}
-  DexAdvancedDice_UI: {fileID: 11400000, guid: e25497618e57a4d10ba24cc4926c9408, type: 2}
-  IntNormalDice_UI: {fileID: 11400000, guid: 720fe53a85b084d0c832d74ce9939154, type: 2}
-  IntAdvancedDice_UI: {fileID: 11400000, guid: 7539700edf8e84933878b90074b57ce7, type: 2}
-  WilNormalDice_UI: {fileID: 11400000, guid: bd7d97fd74a1647678fb31c01672ed04, type: 2}
-  WilAdvancedDice_UI: {fileID: 11400000, guid: 657aa998c37cb4698988af5c505eba23, type: 2}
-  StrNormalDice_Roll: {fileID: 4807499828365440339, guid: 9293760d9c06e45a183ea711165af8ac, type: 3}
-  StrAdvancedDice_Roll: {fileID: 4807499828365440339, guid: d1e13f71fa9ea4c6b93e7f36acc504c6, type: 3}
-  DexNormalDice_Roll: {fileID: 3179542757343590632, guid: 413d0ba1e0bce40bdbefeddf5e6a7578, type: 3}
-  DexAdvancedDice_Roll: {fileID: 3179542757343590632, guid: 94e17482be53740ec8968eefea1c9ec1, type: 3}
-  IntNormalDice_Roll: {fileID: 4725204236395935142, guid: b5198b635bded49cea751fd60b321e16, type: 3}
-  IntAdvancedDice_Roll: {fileID: 4725204236395935142, guid: e1c72adc6e89e4d0c8e66c610a7c5846, type: 3}
-  WilNormalDice_Roll: {fileID: 3166094036481820240, guid: 9145c7aded2114c34b46970d76ede43f, type: 3}
-  WilAdvancedDice_Roll: {fileID: 3166094036481820240, guid: c1a9a99e648934fe0a154440466a87b8, type: 3}
+  WilDice:
+    value: 0
+  StrDice_UI: {fileID: 11400000, guid: 2ba31342960704c2e873ad0580b6fb6f, type: 2}
+  AgiDice_UI: {fileID: 11400000, guid: b539324a1149047feb692582b9412734, type: 2}
+  IntDice_UI: {fileID: 11400000, guid: 720fe53a85b084d0c832d74ce9939154, type: 2}
+  WilDice_UI: {fileID: 11400000, guid: bd7d97fd74a1647678fb31c01672ed04, type: 2}
+  StrDice_Roll: {fileID: 4807499828365440339, guid: 9293760d9c06e45a183ea711165af8ac, type: 3}
+  AgiDice_Roll: {fileID: 3179542757343590632, guid: 413d0ba1e0bce40bdbefeddf5e6a7578, type: 3}
+  IntDice_Roll: {fileID: 4725204236395935142, guid: b5198b635bded49cea751fd60b321e16, type: 3}
+  WilDice_Roll: {fileID: 3166094036481820240, guid: 9145c7aded2114c34b46970d76ede43f, type: 3}
