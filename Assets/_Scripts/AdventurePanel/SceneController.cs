@@ -84,6 +84,10 @@ public class SceneController : Singleton<SceneController>
 
     private void HandleStagePhaseChange(StagePhase stagePhase)
     {
+        if (stagePhase == StagePhase.DiceUsing)
+        {
+            InfoTabController.Instance.SetActiveTab(InfoTab.SkillTab);
+        }
         if (stagePhase == StagePhase.DiceHolding)
         {
             CancelButton cancelButton = GetComponentInChildren<CancelButton>();
@@ -172,7 +176,6 @@ public class SceneController : Singleton<SceneController>
         yield return StartCoroutine(SetContentsRoutine(_questData));
 
         yield return StartCoroutine(ActivateRollDicePanel());
-        InfoTabController.Instance.HandleSkillTabActivate();
 
         yield return new WaitForSeconds(0.1f);
 
@@ -263,8 +266,6 @@ public class SceneController : Singleton<SceneController>
         DeActivateRollDices();
 
         yield return StartCoroutine(DeActivateRollDicePanel());
-
-        InfoTabController.Instance.HandleDiceTabActivate();
 
         StartCoroutine(ResetContentsRoutine());
         yield return StartCoroutine(ActivateSelectsRoutine());

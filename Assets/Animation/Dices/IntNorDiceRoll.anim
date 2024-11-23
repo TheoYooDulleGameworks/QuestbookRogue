@@ -66,15 +66,6 @@ AnimationClip:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.9722222
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -185,7 +176,7 @@ AnimationClip:
       value: {fileID: 1536512520, guid: 67d8c2ebc4cda409189d24c3b93d5263, type: 3}
     - time: 0.7777778
       value: {fileID: 917876430, guid: 67d8c2ebc4cda409189d24c3b93d5263, type: 3}
-    - time: 0.9722222
+    - time: 0.9444444
       value: {fileID: 917876430, guid: 67d8c2ebc4cda409189d24c3b93d5263, type: 3}
     attribute: m_Sprite
     path: Shadow Image
@@ -279,7 +270,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1
+    m_StopTime: 0.9722222
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -344,15 +335,6 @@ AnimationClip:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.9722222
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -379,7 +361,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.9444444
+  - time: 0.9722222
     functionName: DiceRollValue
     data: 
     objectReferenceParameter: {fileID: 0}

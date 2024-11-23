@@ -48,6 +48,11 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] private Canvas canvas;
     private Animator animator;
 
+    [Header("Skill Check")]
+    private bool isSkillChecking;
+    private bool isClickable;
+    [SerializeField] private RectTransform deactivateImageRect;
+
     private void OnEnable()
     {
         canvasGroup = GetComponent<CanvasGroup>();
@@ -204,6 +209,14 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (isSkillChecking)
+        {
+            if (isClickable)
+            {
+                // Selected
+            }
+        }
+
         if (eventData.button == PointerEventData.InputButton.Left)
         {
 
@@ -218,6 +231,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
+            // Test //
             OnReRollTriggered();
         }
     }
@@ -371,11 +385,15 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         animator.enabled = false;
         diceImage.GetComponent<Image>().sprite = valueSprite;
-        GetComponent<Image>().raycastTarget = true;
-        wasRolled = true;
-        isMouseInputInitialized = true;
 
-        PopUpAnim();
+        rectTransform.DOKill();
+        rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+        rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).OnComplete(() =>
+        {
+            GetComponent<Image>().raycastTarget = true;
+            wasRolled = true;
+            isMouseInputInitialized = true;
+        });
     }
 
 
@@ -454,6 +472,35 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         rectTransform.DOKill();
         rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
         rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
+    }
+
+
+
+    // SKILLS //
+
+
+
+    public void SkillActivate()
+    {
+        isClickable = true;
+        GetComponent<CanvasGroup>().blocksRaycasts = true;
+        deactivateImageRect.gameObject.SetActive(false);
+    }
+
+    public void SkillDeActivate()
+    {
+        isSkillChecking = true;
+        isClickable = false;
+        GetComponent<CanvasGroup>().blocksRaycasts = false;
+        deactivateImageRect.gameObject.SetActive(true);
+    }
+
+    public void SkillCanceled()
+    {
+        isSkillChecking = false;
+        isClickable = false;
+        GetComponent<CanvasGroup>().blocksRaycasts = true;
+        deactivateImageRect.gameObject.SetActive(false);
     }
 }
 

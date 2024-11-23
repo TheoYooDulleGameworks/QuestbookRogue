@@ -1,106 +1,105 @@
 using UnityEngine;
 using DG.Tweening;
+using System.Collections.Generic;
 
 public class InfoTabController : Singleton<InfoTabController>
 {
+    [SerializeField] private InfoTab currentTab;
+
     [SerializeField] private GameObject diceTab;
     [SerializeField] private GameObject skillTab;
     [SerializeField] private GameObject relicTab;
     [SerializeField] private GameObject logTab;
 
-    [SerializeField] private DiceTabIndex diceTabIndex;
-    [SerializeField] private SkillTabIndex skillTabIndex;
+    [SerializeField] private InfoTabButton diceButton;
+    [SerializeField] private InfoTabButton skillButton;
+    [SerializeField] private InfoTabButton relicButton;
+    [SerializeField] private InfoTabButton logButton;
+
+    private Dictionary<InfoTab, GameObject> tabDictionary;
 
     private void Start()
     {
-        DefaultSetTabs();
-
-        diceTabIndex.OnDiceTabClicked += HandleDiceTabActivate;
-        skillTabIndex.OnSkillTabClicked += HandleSkillTabActivate;
+        InitializeTabs();
+        currentTab = InfoTab.None;
+        SetActiveTab(InfoTab.DiceTab);
     }
 
-    private void OnDestroy()
+    private void InitializeTabs()
     {
-        diceTabIndex.OnDiceTabClicked -= HandleDiceTabActivate;
-        skillTabIndex.OnSkillTabClicked -= HandleSkillTabActivate;
+        tabDictionary = new Dictionary<InfoTab, GameObject>
+        {
+            { InfoTab.DiceTab, diceTab },
+            { InfoTab.SkillTab, skillTab },
+            { InfoTab.RelicTab, relicTab },
+            { InfoTab.LogTab, logTab }
+        };
+
+        foreach (var tab in tabDictionary.Values)
+        {
+            if (tab != null)
+            {
+                tab.SetActive(false);
+                tab.GetComponent<CanvasGroup>().alpha = 1; // 초기화
+            }
+        }
     }
 
-    public void HandleDiceTabActivate()
+    public void SetActiveTab(InfoTab tabToActivate)
     {
-        ResetTabs();
-
-        if (skillTab.activeSelf == false)
+        if (currentTab == tabToActivate)
         {
-            diceTab.SetActive(true);
-            diceTab.GetComponent<CanvasGroup>().alpha = 0;
-            diceTab.GetComponent<CanvasGroup>().DOKill();
-            diceTab.GetComponent<DiceTabUI>().SetPlayerDices();
-            diceTab.GetComponent<CanvasGroup>().DOFade(1, 0.2f);
+            return;
         }
 
-        diceTabIndex.ActivateDiceTab();
-    }
-
-    public void HandleSkillTabActivate()
-    {
-        ResetTabs();
-
-        if (skillTab.activeSelf == false)
+        foreach (var tab in tabDictionary.Values)
         {
-            skillTab.SetActive(true);
-            skillTab.GetComponent<CanvasGroup>().DOKill();
-            skillTab.GetComponent<CanvasGroup>().alpha = 0;
-            skillTab.GetComponent<CanvasGroup>().DOFade(1, 0.2f);
+            if (tab.activeSelf)
+            {
+                tab.GetComponent<CanvasGroup>().DOKill();
+                tab.GetComponent<CanvasGroup>().DOFade(0, 0.15f).OnComplete(() => tab.SetActive(false));
+            }
         }
 
-        skillTabIndex.ActivateSkillTab();
-    }
+        diceButton.DeActivateButton();
+        skillButton.DeActivateButton();
+        relicButton.DeActivateButton();
+        logButton.DeActivateButton();
 
-    private void DefaultSetTabs()
-    {
-        if (skillTab != null)
+        switch (tabToActivate)
         {
-            skillTab.SetActive(false);
-        }
-        if (diceTab != null)
-        {
-            diceTab.SetActive(true);
+            case InfoTab.DiceTab:
+                diceButton.ActivateButton();
+                break;
+            case InfoTab.SkillTab:
+                skillButton.ActivateButton();
+                break;
+            case InfoTab.RelicTab:
+                relicButton.ActivateButton();
+                break;
+            case InfoTab.LogTab:
+                logButton.ActivateButton();
+                break;
+            default:
+                break;
         }
 
-        if (diceTabIndex != null)
+        if (tabDictionary.TryGetValue(tabToActivate, out GameObject selectedTab))
         {
-            diceTabIndex.ActivateDiceTab();
-        }
-        if (skillTabIndex != null)
-        {
-            skillTabIndex.DeActivateSkillTab();
+            selectedTab.SetActive(true);
+            selectedTab.GetComponent<CanvasGroup>().DOKill();
+            selectedTab.GetComponent<CanvasGroup>().alpha = 0;
+            selectedTab.GetComponent<CanvasGroup>().DOFade(1, 0.15f);
+            currentTab = tabToActivate;
         }
     }
+}
 
-    private void ResetTabs()
-    {
-        if (diceTab.activeSelf == true)
-        {
-            diceTab.GetComponent<CanvasGroup>().DOKill();
-            diceTab.GetComponent<CanvasGroup>().DOFade(0, 0.2f);
-            diceTab.SetActive(false);
-            diceTab.GetComponent<CanvasGroup>().alpha = 1;
-        }
-        if (skillTab.activeSelf == true)
-        {
-            skillTab.GetComponent<CanvasGroup>().DOKill();
-            skillTab.GetComponent<CanvasGroup>().DOFade(0, 0.2f);
-            skillTab.SetActive(false);
-            skillTab.GetComponent<CanvasGroup>().alpha = 1;
-        }
-
-        if (skillTabIndex != null)
-        {
-            skillTabIndex.DeActivateSkillTab();
-        }
-        if (diceTabIndex != null)
-        {
-            diceTabIndex.DeActivateDiceTab();
-        }
-    }
+public enum InfoTab
+{
+    DiceTab,
+    SkillTab,
+    RelicTab,
+    LogTab,
+    None
 }

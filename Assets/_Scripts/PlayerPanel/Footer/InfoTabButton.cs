@@ -1,25 +1,36 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using System;
 
-public class DiceTabIndex : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerClickHandler
+public class InfoTabButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerClickHandler
 {
     private Image myImage;
+    [SerializeField] private InfoTab thisTab;
 
-    [SerializeField] public bool isCurrentTab = true;
+    public bool isCurrentTab = true;
 
     [SerializeField] public Sprite currentTabSprite;
     [SerializeField] public Sprite mouseOverTabSprite;
     [SerializeField] public Sprite mouseDownTabSprite;
     [SerializeField] public Sprite defaultTabSprite;
 
-    public event Action OnDiceTabClicked;
-
     private void Awake()
     {
         myImage = GetComponent<Image>();
     }
+
+    public void ActivateButton()
+    {
+        isCurrentTab = true;
+        myImage.sprite = currentTabSprite;
+    }
+
+    public void DeActivateButton()
+    {
+        isCurrentTab = false;
+        myImage.sprite = defaultTabSprite;
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!isCurrentTab)
@@ -60,18 +71,6 @@ public class DiceTabIndex : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             return;
         }
 
-        OnDiceTabClicked?.Invoke();
-    }
-
-    public void ActivateDiceTab()
-    {
-        isCurrentTab = true;
-        myImage.sprite = currentTabSprite;
-    }
-
-    public void DeActivateDiceTab()
-    {
-        isCurrentTab = false;
-        myImage.sprite = defaultTabSprite;
+        InfoTabController.Instance.SetActiveTab(thisTab);
     }
 }
