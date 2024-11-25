@@ -38,13 +38,13 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private void Awake()
     {
         // Test
-        //InitiateQuestCard(questData, 0);
+        InitiateQuestCard(questData, 0);
     }
 
     private void Start()
     {
         // Test
-        //FlipOnQuest();
+        FlipOnQuest();
     }
 
     public void InitiateQuestCard(QuestSO _questData, int _questIndexNum)

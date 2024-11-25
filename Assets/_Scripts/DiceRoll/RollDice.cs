@@ -49,9 +49,12 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private Animator animator;
 
     [Header("Skill Check")]
-    private bool isSkillChecking;
-    private bool isClickable;
+    [SerializeField] private bool isSkillChecking;
+    [SerializeField] private bool isClickable;
+    [SerializeField] private bool isSelected;
     [SerializeField] private RectTransform deactivateImageRect;
+    [SerializeField] private RectTransform selectedImageRect;
+
 
     private void OnEnable()
     {
@@ -110,6 +113,14 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (isSkillChecking)
+        {
+            if (!isClickable)
+            {
+                return;
+            }
+        }
+
         if (isDragging || notYetRolledAndWait)
         {
             return;
@@ -126,6 +137,14 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (isSkillChecking)
+        {
+            if (!isClickable)
+            {
+                return;
+            }
+        }
+
         if (isDragging || notYetRolledAndWait)
         {
             return;
@@ -144,6 +163,11 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
+            if (isSkillChecking)
+            {
+                return;
+            }
+
             CursorManager.Instance.OnClickCursor();
 
             if (!wasRolled)
@@ -176,6 +200,11 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
+            if (isSkillChecking)
+            {
+                return;
+            }
+
             if (!isMouseInputInitialized)
             {
                 isMouseInputInitialized = true;
@@ -209,16 +238,34 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (isSkillChecking)
-        {
-            if (isClickable)
-            {
-                // Selected
-            }
-        }
-
         if (eventData.button == PointerEventData.InputButton.Left)
         {
+            if (isSkillChecking)
+            {
+                if (isClickable)
+                {
+                    transform.SetAsLastSibling();
+
+                    if (!isSelected)
+                    {
+                        isSelected = true;
+                        selectedImageRect.gameObject.SetActive(true);
+                        SkillManager.Instance.SkillCostCount(1, rectTransform);
+                        return;
+                    }
+                    else
+                    {
+                        isSelected = false;
+                        selectedImageRect.gameObject.SetActive(false);
+                        SkillManager.Instance.SkillCostCount(-1, rectTransform);
+                        return;
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            }
 
             if (wasRolled)
             {
@@ -238,47 +285,51 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left && wasRolled && isMouseInputInitialized)
         {
-            if (wasRolled && isMouseInputInitialized)
+            if (isSkillChecking)
             {
-                if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                     canvas.transform as RectTransform,
-                     eventData.position,
-                     eventData.pressEventCamera,
-                     out Vector2 localPoint))
+                return;
+            }
+
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                canvas.transform as RectTransform,
+                eventData.position,
+                eventData.pressEventCamera,
+                out Vector2 localPoint))
+            {
+                rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+                ClampPositionToBoundary();
+
+                if (!IsPointerInsideBounds(eventData.position))
                 {
-                    rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
-                    ClampPositionToBoundary();
+                    EndDrag();
                 }
             }
         }
     }
 
-    private void Update()
+    private bool IsPointerInsideBounds(Vector2 mousePosition)
     {
-        if (isDragging)
+        return mousePosition.x >= 1040 && mousePosition.x <= 1920 * canvas.scaleFactor &&
+               mousePosition.y >= 0 && mousePosition.y <= 1080 * canvas.scaleFactor;
+    }
+
+    private void EndDrag()
+    {
+        isMouseInputInitialized = false;
+
+        CursorManager.Instance.OnDefaultCursor();
+        diceImage.GetComponent<Image>().sprite = valueSprite;
+
+        rectTransform.DOKill();
+        rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+        rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
+
+        isDragging = false;
+        if (shadowImage.gameObject.activeSelf == false)
         {
-            Vector2 mousePosition = Input.mousePosition;
-
-            if (isDragging && (mousePosition.x < 0 || mousePosition.x > 1920 * canvas.scaleFactor || mousePosition.y < 0 || mousePosition.y > 1080 * canvas.scaleFactor))
-
-            {
-                isMouseInputInitialized = false;
-
-                CursorManager.Instance.OnDefaultCursor();
-                diceImage.GetComponent<Image>().sprite = valueSprite;
-
-                rectTransform.DOKill();
-                rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
-
-                isDragging = false;
-                if (shadowImage.gameObject.activeSelf == false)
-                {
-                    shadowImage.gameObject.SetActive(true);
-                }
-            }
+            shadowImage.gameObject.SetActive(true);
         }
     }
 
@@ -298,6 +349,11 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
+            if (isSkillChecking)
+            {
+                return;
+            }
+
             if (!wasRolled)
             {
                 return;
@@ -313,6 +369,11 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
+            if (isSkillChecking)
+            {
+                return;
+            }
+
             if (!wasRolled)
             {
                 return;
@@ -478,29 +539,86 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     // SKILLS //
 
-
+    public void SkillCheck()
+    {
+        isSkillChecking = true;
+    }
 
     public void SkillActivate()
     {
         isClickable = true;
-        GetComponent<CanvasGroup>().blocksRaycasts = true;
-        deactivateImageRect.gameObject.SetActive(false);
     }
 
     public void SkillDeActivate()
     {
-        isSkillChecking = true;
-        isClickable = false;
-        GetComponent<CanvasGroup>().blocksRaycasts = false;
-        deactivateImageRect.gameObject.SetActive(true);
+        if (!isSelected)
+        {
+            isClickable = false;
+        }
     }
 
-    public void SkillCanceled()
+    public void SkillExcept()
+    {
+        isClickable = false;
+
+        deactivateImageRect.gameObject.SetActive(true);
+
+        Color color = deactivateImageRect.GetComponent<Image>().color;
+        color.a = 0;
+        deactivateImageRect.GetComponent<Image>().color = color;
+
+        deactivateImageRect.GetComponent<Image>().DOFade(1, 0.25f);
+    }
+
+    public void SkillFix(int fixedValue)
+    {
+        dieValue = fixedValue;
+        wasRolled = true;
+        onceRolled = true;
+        isMouseInputInitialized = true;
+
+        valueSprite = possibleValues[fixedValue - 1];
+        valueHoverSprite = possibleHovers[fixedValue - 1];
+        valueClickSprite = possibleClicks[fixedValue - 1];
+        valueSlotSprite = possibleSlotValues[fixedValue - 1];
+        valueSlotClickSprite = possibleSlotClicks[fixedValue - 1];
+
+        diceImage.GetComponent<Image>().sprite = valueSprite;
+    }
+
+    public void SkillSpend()
+    {
+        if (isSkillChecking && isSelected)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void SkillCancel()
     {
         isSkillChecking = false;
-        isClickable = false;
-        GetComponent<CanvasGroup>().blocksRaycasts = true;
-        deactivateImageRect.gameObject.SetActive(false);
+
+        if (isClickable)
+        {
+            isClickable = false;
+        }
+        else
+        {
+            Color color = deactivateImageRect.GetComponent<Image>().color;
+            color.a = 1;
+            deactivateImageRect.GetComponent<Image>().color = color;
+
+            deactivateImageRect.GetComponent<Image>().DOFade(0, 0.25f).OnComplete(() =>
+            {
+                deactivateImageRect.gameObject.SetActive(false);
+            });
+        }
+
+        if (isSelected)
+        {
+            isSelected = false;
+            selectedImageRect.gameObject.SetActive(false);
+        }
     }
 }
 

@@ -4,18 +4,23 @@ using UnityEngine.UI;
 
 public class UISkill : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-    [Header("DiceData")]
+    [Header("SkillData")]
     public SkillSO skillData;
 
     [Header("Components")]
     [SerializeField] private RectTransform skillImage;
 
-    public void SetDiceData()
+    private void OnEnable()
+    {
+        SetSkillData();
+    }
+
+    public void SetSkillData()
     {
         skillImage.GetComponent<Image>().sprite = skillData.defaultSprite;
     }
 
-    public void DestroyUIDice()
+    public void DestroyUISkill()
     {
         Destroy(gameObject);
     }
@@ -27,11 +32,14 @@ public class UISkill : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
 
     public void OnPointerExit(PointerEventData eventData)
     {
-       skillImage.GetComponent<Image>().sprite = skillData.defaultSprite;
+        skillImage.GetComponent<Image>().sprite = skillData.defaultSprite;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        SkillManager.Instance.SkillCostPhase(skillData);
+        if (!skillData.isCooldown)
+        {
+            SkillManager.Instance.SkillCostPhase(skillData);
+        }
     }
 }

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7eea00f745c4e41578514d4e5f69f339, type: 3}
-  m_Name: Valor
+  m_Name: Aggression
   m_EditorClassIdentifier: 
-  skillName: Valor
-  defaultSprite: {fileID: -1966314690, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
-  defaultHoverSprite: {fileID: -765798721, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
-  skillDescription: Spend Strength Dice 1+, Get new Willpower Dice
+  skillName: Aggression
+  defaultSprite: {fileID: 1481675888, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
+  defaultHoverSprite: {fileID: 1698592924, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
+  skillDescription: Spend Strength Dice 1+, Get Strength Dice 6
   costDescription: Select 1 Dice to Spend
   castDescription: 
   skillLimitType: 0
@@ -24,6 +24,8 @@ MonoBehaviour:
   costType: 0
   singleDiceTypes: 0100000004000000
   aboveConditionValue: 1
-  castType: 0
-  newDiceSets: 04000000
-  fixedDiceSets: []
+  castType: 1
+  newDiceSets: 
+  fixedDiceSets:
+  - fixedDiceType: 1
+    fixedDiceValue: 6

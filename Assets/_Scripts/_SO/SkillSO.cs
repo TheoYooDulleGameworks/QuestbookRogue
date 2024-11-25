@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SkillSO", menuName = "Scriptable Objects/Items/SkillSO")]
@@ -5,39 +6,63 @@ public class SkillSO : ScriptableObject
 {
     [Header("Notes")]
     public string skillName;
-    public string skillDescription;
-
-    [Header("Sprites")]
     public Sprite defaultSprite;
     public Sprite defaultHoverSprite;
+    [TextArea] public string skillDescription;
+    [TextArea] public string costDescription;
+    [TextArea] public string castDescription;
 
-    [Header("Costs")]
+    [Header("Cooldown")]
+    public SkillLimitType skillLimitType;
+    public SkillCooldownType skillCooldownType;
+    public bool isCooldown = false;
+
+    [Header("COST")]
     public SkillCostType costType;
+    public List<DiceType> singleDiceTypes;
+    public int aboveConditionValue;
 
-    [Header("Casts")]
+    [Header("CAST")]
     public SkillCastType castType;
+    public List<DiceType> newDiceSets;
+    public List<FixedDiceSet> fixedDiceSets;
+}
 
-    [Header("Outputs")]
-    public SkillOutputType outputType;
-    public DiceSO diceOutput;
+public enum SkillLimitType
+{
+    Common,
+    Combat,
+    Event,
+}
+
+public enum SkillCooldownType
+{
+    None,
+    Turn,
+    Season,
 }
 
 public enum SkillCostType
 {
-
+    SingleDiceCost,
+    MultiDiceCost,
+    ResourceCost,
 }
 
 public enum SkillCastType
 {
-
+    NewDice,
+    FixedDice,
+    ReRoll,
+    Modify,
+    StaminaPoint,
+    SignaturePoint,
+    Effect,
 }
 
-public enum SkillOutputType
+[System.Serializable]
+public class FixedDiceSet
 {
-    None,
-    Dice,
-    DiceModify,
-    StaminaPoint,
-    ExclusivePoint,
-    Effect,
+    public DiceType fixedDiceType;
+    public int fixedDiceValue;
 }

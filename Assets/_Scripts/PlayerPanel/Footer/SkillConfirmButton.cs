@@ -2,18 +2,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class SkillCancelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
+public class SkillConfirmButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
 {
     [Header("Button Sprites")]
-    [SerializeField] private Sprite defaultCancelButton;
-    [SerializeField] private Sprite mouseOverCancelButton;
-    [SerializeField] private Sprite mouseDownCancelButton;
+    [SerializeField] private Sprite defaultConfirmButton;
+    [SerializeField] private Sprite mouseOverConfirmButton;
+    [SerializeField] private Sprite mouseDownConfirmButton;
 
     private bool inTransition = true;
 
     public void OnEnable()
     {
-        GetComponent<Image>().sprite = defaultCancelButton;
+        GetComponent<Image>().sprite = defaultConfirmButton;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -23,7 +23,7 @@ public class SkillCancelButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
             return;
         }
 
-        GetComponent<Image>().sprite = mouseOverCancelButton;
+        GetComponent<Image>().sprite = mouseOverConfirmButton;
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -33,17 +33,17 @@ public class SkillCancelButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
             return;
         }
 
-        GetComponent<Image>().sprite = defaultCancelButton;
+        GetComponent<Image>().sprite = defaultConfirmButton;
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        GetComponent<Image>().sprite = mouseDownCancelButton;
+        GetComponent<Image>().sprite = mouseDownConfirmButton;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        GetComponent<Image>().sprite = defaultCancelButton;
+        GetComponent<Image>().sprite = defaultConfirmButton;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -54,10 +54,10 @@ public class SkillCancelButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
         }
 
         inTransition = true;
-        SkillManager.Instance.CancelSkill();
+        SkillManager.Instance.ConfirmSkill();
     }
 
-    public void ActiavteCancelButton()
+    public void ActiavteConfirmButton()
     {
         inTransition = false;
     }
