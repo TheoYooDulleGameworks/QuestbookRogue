@@ -26,6 +26,7 @@ public class SkillSO : ScriptableObject
     public SkillCastType castType;
     public int castValue;
     public int modifyValue;
+    public List<DiceType> castDiceType;
     public List<DiceCastSet> diceCastSets;
 }
 

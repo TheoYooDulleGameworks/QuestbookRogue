@@ -20,8 +20,8 @@ public class SkillManager : Singleton<SkillManager>
 
     [Header("Skill Check")]
     [SerializeField] private SkillSO currentSkill;
-    [SerializeField] private int goalCost;
-    [SerializeField] private int currentCost;
+    [SerializeField] private int goalSelection;
+    [SerializeField] private int currentSelection;
 
     [SerializeField] private PlayerDiceSO playerDices;
     [SerializeField] private RectTransform rollDicePanel;
@@ -29,6 +29,7 @@ public class SkillManager : Singleton<SkillManager>
     public List<RollDice> rollDices;
     public List<RollDice> clickableDices;
     public List<RollDice> nonClickalbeDices;
+    public List<RollDice> castDices;
 
 
 
@@ -57,11 +58,11 @@ public class SkillManager : Singleton<SkillManager>
     public void SkillCostPhase(SkillSO skillData)
     {
         currentSkill = skillData;
-        currentCost = 0;
+        currentSelection = 0;
 
         if (currentSkill.costType == SkillCostType.SingleDiceCost)
         {
-            goalCost = 1;
+            goalSelection = 1;
 
             rollDices = new List<RollDice>(rollDicePanel.GetComponentsInChildren<RollDice>());
 
@@ -79,7 +80,7 @@ public class SkillManager : Singleton<SkillManager>
 
             foreach (var dice in rollDices)
             {
-                dice.SkillCheck();
+                dice.SkillCostCheck();
             }
             foreach (var dice in clickableDices)
             {
@@ -130,19 +131,23 @@ public class SkillManager : Singleton<SkillManager>
         }
     }
 
-    public void SkillCostCount(int costAmount)
+    public void SkillCostCount(int costCount)
     {
-        currentCost += costAmount;
+        currentSelection += costCount;
         CheckCostCount();
     }
 
     private void CheckCostCount()
     {
-        if (currentCost >= goalCost)
+        if (currentSelection >= goalSelection)
         {
+            goalSelection = 0;
+            currentSelection = 0;
             ConfirmSkill();
         }
     }
+
+
 
     // CAST CHECK //
 
@@ -159,26 +164,30 @@ public class SkillManager : Singleton<SkillManager>
         if (currentSkill.castType == SkillCastType.NewDice)
         {
             CastNewDice();
+            CancelSkill();
         }
         if (currentSkill.castType == SkillCastType.FixedDice)
         {
             CastFixedDice();
+            CancelSkill();
         }
         if (currentSkill.castType == SkillCastType.ReRoll)
         {
-
+            SkillCastPhase();
         }
         if (currentSkill.castType == SkillCastType.Modify)
         {
-
+            SkillCastPhase();
         }
         if (currentSkill.castType == SkillCastType.StaminaPoint)
         {
             staminaPoint.AddClampedValue(currentSkill.castValue, 0, maxStamina);
+            CancelSkill();
         }
         if (currentSkill.castType == SkillCastType.SignaturePoint)
         {
             signaturePoint.AddClampedValue(currentSkill.castValue, 0, maxSignature);
+            CancelSkill();
         }
         if (currentSkill.castType == SkillCastType.Effect)
         {
@@ -189,8 +198,81 @@ public class SkillManager : Singleton<SkillManager>
         {
             currentSkill.isCooldown = true;
         }
+    }
 
-        CancelSkill();
+    public void SkillCastPhase()
+    {
+        currentSelection = 0;
+        goalSelection = currentSkill.castValue;
+
+        rollDices = new List<RollDice>(rollDicePanel.GetComponentsInChildren<RollDice>());
+
+        foreach (var dice in rollDices)
+        {
+            if (dice.IsSameType(currentSkill.castDiceType))
+            {
+                clickableDices.Add(dice);
+            }
+            else
+            {
+                nonClickalbeDices.Add(dice);
+            }
+        }
+
+        foreach (var dice in rollDices)
+        {
+            dice.SkillCastCheck();
+        }
+        foreach (var dice in clickableDices)
+        {
+            dice.SkillActivate();
+        }
+        foreach (var dice in nonClickalbeDices)
+        {
+            dice.SkillDeActivate();
+        }
+
+        if (isFaded)
+        {
+
+        }
+        else
+        {
+            FadeInScene();
+        }
+    }
+
+    public void SkillCastCount(int castCount, RollDice castRollDice)
+    {
+        if (castCount > 0)
+        {
+            currentSelection += castCount;
+            castDices.Add(castRollDice);
+        }
+        else
+        {
+            currentSelection -= castCount;
+            castDices.Remove(castRollDice);
+        }
+
+        CheckCastCount();
+    }
+
+    private void CheckCastCount()
+    {
+        if (currentSelection >= goalSelection)
+        {
+            goalSelection = 0;
+            currentSelection = 0;
+            if (currentSkill.castType == SkillCastType.ReRoll)
+            {
+                CastReRoll();
+            }
+            if (currentSkill.castType == SkillCastType.Modify)
+            {
+                CastModify();
+            }
+        }
     }
 
     public void CastNewDice()
@@ -329,6 +411,26 @@ public class SkillManager : Singleton<SkillManager>
         dicePrefabs.Clear();
     }
 
+    public void CastReRoll()
+    {
+        foreach (RollDice dice in castDices)
+        {
+            // ReRoll
+        }
+
+        CancelSkill();
+    }
+
+    public void CastModify()
+    {
+        foreach (RollDice dice in castDices)
+        {
+            // Modify(int)
+        }
+
+        CancelSkill();
+    }
+
 
 
     // CANCEL //
@@ -336,8 +438,8 @@ public class SkillManager : Singleton<SkillManager>
     public void CancelSkill()
     {
         currentSkill = null;
-        goalCost = 0;
-        currentCost = 0;
+        goalSelection = 0;
+        currentSelection = 0;
 
         rollDices = new List<RollDice>(rollDicePanel.GetComponentsInChildren<RollDice>());
         foreach (var dice in rollDices)
@@ -396,7 +498,6 @@ public class SkillManager : Singleton<SkillManager>
             skillPanel.gameObject.SetActive(false);
             playerPanel.blocksRaycasts = true;
             adventurePanel.blocksRaycasts = true;
-
         });
     }
 }

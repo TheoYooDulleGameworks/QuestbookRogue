@@ -49,7 +49,8 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private Animator animator;
 
     [Header("Skill Check")]
-    [SerializeField] private bool isSkillChecking;
+    [SerializeField] private bool isSkillCostChecking;
+    [SerializeField] private bool isSkillCastChecking;
     [SerializeField] private bool isClickable;
     [SerializeField] private bool isSelected;
     [SerializeField] private RectTransform deactivateImageRect;
@@ -113,7 +114,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (isSkillChecking)
+        if (isSkillCostChecking || isSkillCastChecking)
         {
             if (!isClickable)
             {
@@ -137,7 +138,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (isSkillChecking)
+        if (isSkillCostChecking || isSkillCastChecking)
         {
             if (!isClickable)
             {
@@ -163,7 +164,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if (isSkillChecking)
+            if (isSkillCostChecking || isSkillCastChecking)
             {
                 return;
             }
@@ -200,7 +201,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if (isSkillChecking)
+            if (isSkillCostChecking || isSkillCastChecking)
             {
                 return;
             }
@@ -240,7 +241,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if (isSkillChecking)
+            if (isSkillCostChecking)
             {
                 if (isClickable)
                 {
@@ -258,6 +259,33 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                         isSelected = false;
                         selectedImageRect.gameObject.SetActive(false);
                         SkillManager.Instance.SkillCostCount(-1);
+                        return;
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            if (isSkillCastChecking)
+            {
+                if (isClickable)
+                {
+                    transform.SetAsLastSibling();
+
+                    if (!isSelected)
+                    {
+                        isSelected = true;
+                        selectedImageRect.gameObject.SetActive(true);
+                        SkillManager.Instance.SkillCastCount(1, this);
+                        return;
+                    }
+                    else
+                    {
+                        isSelected = false;
+                        selectedImageRect.gameObject.SetActive(false);
+                        SkillManager.Instance.SkillCastCount(-1, this);
                         return;
                     }
                 }
@@ -287,7 +315,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left && wasRolled && isMouseInputInitialized)
         {
-            if (isSkillChecking)
+            if (isSkillCostChecking || isSkillCastChecking)
             {
                 return;
             }
@@ -349,7 +377,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if (isSkillChecking)
+            if (isSkillCostChecking || isSkillCastChecking)
             {
                 return;
             }
@@ -369,7 +397,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if (isSkillChecking)
+            if (isSkillCostChecking || isSkillCastChecking)
             {
                 return;
             }
@@ -497,6 +525,18 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
+    public bool IsSameType(List<DiceType> diceTypes)
+    {
+        if (diceTypes.Contains(diceType))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public bool IsFillValue(List<DiceType> diceTypes)
     {
         if (diceTypes.Contains(diceType))
@@ -539,9 +579,16 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     // SKILLS //
 
-    public void SkillCheck()
+    public void SkillCostCheck()
     {
-        isSkillChecking = true;
+        isSkillCostChecking = true;
+        isSkillCastChecking = false;
+    }
+
+    public void SkillCastCheck()
+    {
+        isSkillCostChecking = false;
+        isSkillCastChecking = true;
     }
 
     public void SkillActivate()
@@ -580,7 +627,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void SkillSpend()
     {
-        if (isSkillChecking && isSelected)
+        if (isSkillCostChecking && isSelected)
         {
             Destroy(gameObject);
         }
@@ -588,7 +635,8 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void SkillCancel()
     {
-        isSkillChecking = false;
+        isSkillCostChecking = false;
+        isSkillCastChecking = false;
 
         if (isClickable)
         {

@@ -23,10 +23,10 @@ MonoBehaviour:
   isCooldown: 0
   costType: 0
   costValue: 0
-  singleDiceTypes: 01000000020000000300000004000000
-  aboveConditionValue: 0
-  multiDiceCostSets: []
+  diceCostSets:
+  - diceTypes: 01000000020000000300000004000000
+    aboveConditionValue: 0
   castType: 4
   castValue: 1
-  newDiceSets: 
-  fixedDiceSets: []
+  modifyValue: 0
+  diceCastSets: []

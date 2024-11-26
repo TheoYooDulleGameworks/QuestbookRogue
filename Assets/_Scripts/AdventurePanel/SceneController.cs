@@ -168,6 +168,8 @@ public class SceneController : Singleton<SceneController>
     {
         currentQuestIndex = _questIndexNumber;
         StartCoroutine(TransitionToContentsRoutine(_questData));
+
+        AudioManager.Instance.PlayBgm(Bgm.Combat);
     }
 
     private IEnumerator TransitionToContentsRoutine(QuestSO _questData)
@@ -259,6 +261,8 @@ public class SceneController : Singleton<SceneController>
     public void TransitionToSelects(QuestSO _questData)
     {
         StartCoroutine(TransitionToSelectsRoutine(_questData));
+
+        AudioManager.Instance.PlayBgm(Bgm.Intro);
     }
 
     private IEnumerator TransitionToSelectsRoutine(QuestSO _questData)
