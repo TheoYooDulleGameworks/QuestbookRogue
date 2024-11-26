@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SkillSO", menuName = "Scriptable Objects/Items/SkillSO")]
 public class SkillSO : ScriptableObject
 {
-    [Header("Notes")]
+    [Header("__________ NOTES _______________________________________________________________")]
     public string skillName;
     public Sprite defaultSprite;
     public Sprite defaultHoverSprite;
@@ -12,20 +12,21 @@ public class SkillSO : ScriptableObject
     [TextArea] public string costDescription;
     [TextArea] public string castDescription;
 
-    [Header("Cooldown")]
+    [Header("__________ COOLDOWN _______________________________________________________________")]
     public SkillLimitType skillLimitType;
     public SkillCooldownType skillCooldownType;
     public bool isCooldown = false;
 
-    [Header("COST")]
+    [Header("__________ COST _______________________________________________________________")]
     public SkillCostType costType;
-    public List<DiceType> singleDiceTypes;
-    public int aboveConditionValue;
+    public int costValue;
+    public List<DiceCostSet> diceCostSets;
 
-    [Header("CAST")]
+    [Header("__________ CAST _______________________________________________________________")]
     public SkillCastType castType;
-    public List<DiceType> newDiceSets;
-    public List<FixedDiceSet> fixedDiceSets;
+    public int castValue;
+    public int modifyValue;
+    public List<DiceCastSet> diceCastSets;
 }
 
 public enum SkillLimitType
@@ -46,7 +47,15 @@ public enum SkillCostType
 {
     SingleDiceCost,
     MultiDiceCost,
-    ResourceCost,
+    StaminaPointCost,
+    SignaturePointCost,
+}
+
+[System.Serializable]
+public class DiceCostSet
+{
+    public List<DiceType> diceTypes;
+    public int aboveConditionValue;
 }
 
 public enum SkillCastType
@@ -61,8 +70,8 @@ public enum SkillCastType
 }
 
 [System.Serializable]
-public class FixedDiceSet
+public class DiceCastSet
 {
-    public DiceType fixedDiceType;
-    public int fixedDiceValue;
+    public DiceType diceType;
+    public int diceValue;
 }

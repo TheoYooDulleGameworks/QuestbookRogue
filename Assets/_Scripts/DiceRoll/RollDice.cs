@@ -250,14 +250,14 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                     {
                         isSelected = true;
                         selectedImageRect.gameObject.SetActive(true);
-                        SkillManager.Instance.SkillCostCount(1, rectTransform);
+                        SkillManager.Instance.SkillCostCount(1);
                         return;
                     }
                     else
                     {
                         isSelected = false;
                         selectedImageRect.gameObject.SetActive(false);
-                        SkillManager.Instance.SkillCostCount(-1, rectTransform);
+                        SkillManager.Instance.SkillCostCount(-1);
                         return;
                     }
                 }
@@ -550,14 +550,6 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     }
 
     public void SkillDeActivate()
-    {
-        if (!isSelected)
-        {
-            isClickable = false;
-        }
-    }
-
-    public void SkillExcept()
     {
         isClickable = false;
 

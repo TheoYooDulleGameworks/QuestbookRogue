@@ -5,27 +5,30 @@ using System.Collections.Generic;
 
 public class SkillManager : Singleton<SkillManager>
 {
+    [Header("Points")]
+    public StatusValue staminaPoint;
+    public StatusValue signaturePoint;
+    public int maxStamina = 6;
+    public int maxSignature = 6;
+
     [Header("Transition")]
     [SerializeField] private CanvasGroup playerPanel;
     [SerializeField] private CanvasGroup adventurePanel;
     [SerializeField] private RectTransform skillFadeFilter;
     [SerializeField] private RectTransform skillPanel;
-    [SerializeField] private RectTransform skillConfirmButton;
+    private bool isFaded;
 
     [Header("Skill Check")]
-    // [SerializeField] private int staminaPoint = 0;
-    // [SerializeField] private int signaturePoint = 0;
-    [SerializeField] private RectTransform rollDicePanel;
+    [SerializeField] private SkillSO currentSkill;
+    [SerializeField] private int goalCost;
+    [SerializeField] private int currentCost;
 
-    [Header("Dataset")]
     [SerializeField] private PlayerDiceSO playerDices;
+    [SerializeField] private RectTransform rollDicePanel;
 
     public List<RollDice> rollDices;
     public List<RollDice> clickableDices;
     public List<RollDice> nonClickalbeDices;
-    private SkillSO currentSkill;
-    private int goalCost;
-    private int currentCost;
 
 
 
@@ -34,6 +37,9 @@ public class SkillManager : Singleton<SkillManager>
     private void Start()
     {
         GameManager.Instance.OnStagePhaseChanged += HandleStagePhaseChange;
+
+        staminaPoint.Value = 0;
+        signaturePoint.Value = 0;
     }
 
     private void HandleStagePhaseChange(StagePhase stagePhase)
@@ -61,7 +67,7 @@ public class SkillManager : Singleton<SkillManager>
 
             foreach (var dice in rollDices)
             {
-                if (dice.IsAboveValue(currentSkill.singleDiceTypes, currentSkill.aboveConditionValue))
+                if (dice.IsAboveValue(currentSkill.diceCostSets[0].diceTypes, currentSkill.diceCostSets[0].aboveConditionValue))
                 {
                     clickableDices.Add(dice);
                 }
@@ -81,67 +87,62 @@ public class SkillManager : Singleton<SkillManager>
             }
             foreach (var dice in nonClickalbeDices)
             {
-                dice.SkillExcept();
+                dice.SkillDeActivate();
             }
 
             FadeInScene();
         }
+        else if (currentSkill.costType == SkillCostType.StaminaPointCost)
+        {
+            if (currentSkill.costValue == -1)
+            {
+                // # => # Logic
+            }
+
+            if (staminaPoint.Value < currentSkill.costValue)
+            {
+                CancelSkill();
+                return;
+            }
+            else
+            {
+                staminaPoint.RemoveClampedValue(currentSkill.costValue, 0, maxStamina);
+                ConfirmSkill();
+            }
+        }
+        else if (currentSkill.costType == SkillCostType.SignaturePointCost)
+        {
+            if (currentSkill.costValue == -1)
+            {
+                // # => # Logic
+            }
+
+            if (signaturePoint.Value < currentSkill.costValue)
+            {
+                CancelSkill();
+                return;
+            }
+            else
+            {
+                signaturePoint.RemoveClampedValue(currentSkill.costValue, 0, maxSignature);
+                ConfirmSkill();
+            }
+        }
     }
 
-    public void SkillCostCount(int costAmount, RectTransform rectTransform)
+    public void SkillCostCount(int costAmount)
     {
         currentCost += costAmount;
-        CheckCostCount(rectTransform);
+        CheckCostCount();
     }
 
-    private void CheckCostCount(RectTransform rectTransform)
+    private void CheckCostCount()
     {
         if (currentCost >= goalCost)
         {
-            CostReady(rectTransform);
-        }
-        else
-        {
-            CostNoReady();
+            ConfirmSkill();
         }
     }
-
-    private void CostReady(RectTransform rectTransform)
-    {
-        foreach (var dice in clickableDices)
-        {
-            dice.SkillDeActivate();
-        }
-
-        skillConfirmButton.gameObject.SetActive(true);
-
-        Vector2 localPosition;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            skillConfirmButton.parent as RectTransform,
-            rectTransform.position,
-            null,
-            out localPosition);
-
-        skillConfirmButton.anchoredPosition = localPosition + new Vector2(64, 64);
-
-        skillConfirmButton.GetComponent<CanvasGroup>().alpha = 0;
-        skillConfirmButton.GetComponent<CanvasGroup>().DOFade(1, 0.25f).OnComplete(() =>
-        {
-            skillConfirmButton.GetComponent<SkillConfirmButton>().ActiavteConfirmButton();
-        });
-    }
-
-    private void CostNoReady()
-    {
-        foreach (var dice in clickableDices)
-        {
-            dice.SkillActivate();
-        }
-
-        skillConfirmButton.gameObject.SetActive(false);
-    }
-
-
 
     // CAST CHECK //
 
@@ -173,18 +174,22 @@ public class SkillManager : Singleton<SkillManager>
         }
         if (currentSkill.castType == SkillCastType.StaminaPoint)
         {
-
+            staminaPoint.AddClampedValue(currentSkill.castValue, 0, maxStamina);
         }
         if (currentSkill.castType == SkillCastType.SignaturePoint)
         {
-
+            signaturePoint.AddClampedValue(currentSkill.castValue, 0, maxSignature);
         }
         if (currentSkill.castType == SkillCastType.Effect)
         {
 
         }
 
-        currentSkill.isCooldown = true;
+        if (currentSkill.skillCooldownType != SkillCooldownType.None)
+        {
+            currentSkill.isCooldown = true;
+        }
+
         CancelSkill();
     }
 
@@ -192,9 +197,9 @@ public class SkillManager : Singleton<SkillManager>
     {
         List<GameObject> dicePrefabs = new List<GameObject>();
 
-        for (int i = 0; i < currentSkill.newDiceSets.Count; i++)
+        for (int i = 0; i < currentSkill.diceCastSets.Count; i++)
         {
-            switch (currentSkill.newDiceSets[i])
+            switch (currentSkill.diceCastSets[i].diceType)
             {
                 case DiceType.Strength:
                     GameObject strDicePrefab = Instantiate(playerDices.StrDice_Roll);
@@ -254,16 +259,16 @@ public class SkillManager : Singleton<SkillManager>
     {
         List<GameObject> dicePrefabs = new List<GameObject>();
 
-        for (int i = 0; i < currentSkill.fixedDiceSets.Count; i++)
+        for (int i = 0; i < currentSkill.diceCastSets.Count; i++)
         {
-            switch (currentSkill.fixedDiceSets[i].fixedDiceType)
+            switch (currentSkill.diceCastSets[i].diceType)
             {
                 case DiceType.Strength:
                     GameObject strDicePrefab = Instantiate(playerDices.StrDice_Roll);
                     strDicePrefab.transform.SetParent(rollDicePanel, false);
                     dicePrefabs.Add(strDicePrefab);
 
-                    strDicePrefab.GetComponent<RollDice>().SkillFix(currentSkill.fixedDiceSets[i].fixedDiceValue);
+                    strDicePrefab.GetComponent<RollDice>().SkillFix(currentSkill.diceCastSets[i].diceValue);
 
                     break;
                 case DiceType.Agility:
@@ -271,7 +276,7 @@ public class SkillManager : Singleton<SkillManager>
                     agiDicePrefab.transform.SetParent(rollDicePanel, false);
                     dicePrefabs.Add(agiDicePrefab);
 
-                    agiDicePrefab.GetComponent<RollDice>().SkillFix(currentSkill.fixedDiceSets[i].fixedDiceValue);
+                    agiDicePrefab.GetComponent<RollDice>().SkillFix(currentSkill.diceCastSets[i].diceValue);
 
                     break;
                 case DiceType.Intelligence:
@@ -279,7 +284,7 @@ public class SkillManager : Singleton<SkillManager>
                     intDicePrefab.transform.SetParent(rollDicePanel, false);
                     dicePrefabs.Add(intDicePrefab);
 
-                    intDicePrefab.GetComponent<RollDice>().SkillFix(currentSkill.fixedDiceSets[i].fixedDiceValue);
+                    intDicePrefab.GetComponent<RollDice>().SkillFix(currentSkill.diceCastSets[i].diceValue);
 
                     break;
                 case DiceType.Willpower:
@@ -287,7 +292,7 @@ public class SkillManager : Singleton<SkillManager>
                     wilDicePrefab.transform.SetParent(rollDicePanel, false);
                     dicePrefabs.Add(wilDicePrefab);
 
-                    wilDicePrefab.GetComponent<RollDice>().SkillFix(currentSkill.fixedDiceSets[i].fixedDiceValue);
+                    wilDicePrefab.GetComponent<RollDice>().SkillFix(currentSkill.diceCastSets[i].diceValue);
 
                     break;
             }
@@ -344,7 +349,10 @@ public class SkillManager : Singleton<SkillManager>
         clickableDices.Clear();
         nonClickalbeDices.Clear();
 
-        FadeOutScene();
+        if (isFaded)
+        {
+            FadeOutScene();
+        }
     }
 
 
@@ -353,6 +361,8 @@ public class SkillManager : Singleton<SkillManager>
 
     private void FadeInScene()
     {
+        isFaded = true;
+
         playerPanel.blocksRaycasts = false;
         adventurePanel.blocksRaycasts = false;
         skillPanel.gameObject.SetActive(true);
@@ -372,6 +382,8 @@ public class SkillManager : Singleton<SkillManager>
 
     private void FadeOutScene()
     {
+        isFaded = false;
+
         skillFadeFilter.GetComponent<CanvasGroup>().DOKill();
         skillPanel.GetComponent<CanvasGroup>().DOKill();
 
@@ -384,16 +396,7 @@ public class SkillManager : Singleton<SkillManager>
             skillPanel.gameObject.SetActive(false);
             playerPanel.blocksRaycasts = true;
             adventurePanel.blocksRaycasts = true;
-        });
 
-        if (skillConfirmButton.gameObject.activeSelf)
-        {
-            skillConfirmButton.GetComponent<CanvasGroup>().DOKill();
-            skillConfirmButton.GetComponent<CanvasGroup>().alpha = 1;
-            skillConfirmButton.GetComponent<CanvasGroup>().DOFade(0, 0.25f).OnComplete(() =>
-            {
-                skillConfirmButton.gameObject.SetActive(false);
-            });
-        }
+        });
     }
 }

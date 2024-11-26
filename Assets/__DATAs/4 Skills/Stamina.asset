@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7eea00f745c4e41578514d4e5f69f339, type: 3}
-  m_Name: Aggression
+  m_Name: Stamina
   m_EditorClassIdentifier: 
-  skillName: Aggression
-  defaultSprite: {fileID: 1481675888, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
-  defaultHoverSprite: {fileID: 1698592924, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
-  skillDescription: 'Spend Strength Dice [1+], Get Strength Dice [6]'
+  skillName: Stamina
+  defaultSprite: {fileID: -2079660003, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
+  defaultHoverSprite: {fileID: -1119727400, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
+  skillDescription: Spend Ability Dice, Get 1 Stamina
   costDescription: Select 1 Dice to Spend
   castDescription: 
   skillLimitType: 0
@@ -23,12 +23,10 @@ MonoBehaviour:
   isCooldown: 0
   costType: 0
   costValue: 0
-  diceCostSets:
-  - diceTypes: 0100000004000000
-    aboveConditionValue: 1
-  castType: 1
-  castValue: 0
-  modifyValue: 0
-  diceCastSets:
-  - diceType: 1
-    diceValue: 6
+  singleDiceTypes: 01000000020000000300000004000000
+  aboveConditionValue: 0
+  multiDiceCostSets: []
+  castType: 4
+  castValue: 1
+  newDiceSets: 
+  fixedDiceSets: []

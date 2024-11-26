@@ -20,10 +20,15 @@ MonoBehaviour:
   castDescription: 
   skillLimitType: 0
   skillCooldownType: 0
-  isCooldown: 1
+  isCooldown: 0
   costType: 0
-  singleDiceTypes: 0100000004000000
-  aboveConditionValue: 1
+  costValue: 0
+  diceCostSets:
+  - diceTypes: 0100000004000000
+    aboveConditionValue: 1
   castType: 0
-  newDiceSets: 04000000
-  fixedDiceSets: []
+  castValue: 0
+  modifyValue: 0
+  diceCastSets:
+  - diceType: 4
+    diceValue: 0
