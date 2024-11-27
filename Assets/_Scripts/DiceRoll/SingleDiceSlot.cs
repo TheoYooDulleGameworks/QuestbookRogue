@@ -77,6 +77,8 @@ public class SingleDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, 
                 slotDiceImage.GetComponent<Image>().sprite = rollDice.valueSlotSprite;
                 GetComponent<Image>().sprite = succeedSprite;
 
+                AudioManager.Instance.PlaySfxWithPitch("SlotIn");
+
                 rollDice.DeActivateRollDice();
                 keepingDicePrefab = rollDice.gameObject;
 
@@ -162,6 +164,8 @@ public class SingleDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, 
         {
             slotDiceImage.gameObject.SetActive(false);
         }
+
+        AudioManager.Instance.PlaySfxWithPitch("SlotOut");
 
         GetComponent<Image>().sprite = defaultSprite;
         keepingDicePrefab = null;

@@ -206,9 +206,11 @@ public class CombatImageContent : MonoBehaviour, IContent
 
         yield return new WaitForSeconds(1.5f);
 
+        AudioManager.Instance.PlaySfx("EnemyMoving");
         contentCanvas.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.2f).OnComplete(() =>
         {
             contentCanvas.DOScale(Vector3.one, 0.3f);
+
 
             contentCanvas.DOAnchorPos(new Vector3(60, 12, 0), 0.3f).OnComplete(() =>
             {

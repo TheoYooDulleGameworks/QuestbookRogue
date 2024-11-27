@@ -96,6 +96,9 @@ public class SceneController : Singleton<SceneController>
             ResetRollDicePanel();
 
             enemyTurnScroll.gameObject.SetActive(true);
+
+            AudioManager.Instance.PlaySfx("Scroll");
+            AudioManager.Instance.PlaySfx("EnemyTurn");
         }
         if (stagePhase == StagePhase.DiceWaiting)
         {
@@ -105,6 +108,9 @@ public class SceneController : Singleton<SceneController>
             SetRollDicePanel();
 
             playerTurnScroll.gameObject.SetActive(true);
+
+            AudioManager.Instance.PlaySfx("Scroll");
+            AudioManager.Instance.PlaySfx("PlayerTurn");
         }
         if (stagePhase == StagePhase.Finishing)
         {
@@ -114,6 +120,7 @@ public class SceneController : Singleton<SceneController>
             ResetRollDicePanel();
 
             completeScroll.gameObject.SetActive(true);
+            AudioManager.Instance.PlaySfx("QuestComplete");
 
             if (GetComponentInChildren<CombatImageContent>() != null)
             {
@@ -169,7 +176,7 @@ public class SceneController : Singleton<SceneController>
         currentQuestIndex = _questIndexNumber;
         StartCoroutine(TransitionToContentsRoutine(_questData));
 
-        AudioManager.Instance.PlayBgm(Bgm.Combat);
+        AudioManager.Instance.PlayBgm("Combat_Battle");
     }
 
     private IEnumerator TransitionToContentsRoutine(QuestSO _questData)
@@ -193,6 +200,7 @@ public class SceneController : Singleton<SceneController>
     private IEnumerator DeActivateSelectsRoutine()
     {
         pageTransition.gameObject.SetActive(true);
+        AudioManager.Instance.PlaySfx("Page");
 
         yield return new WaitForSeconds(1f);
 
@@ -252,6 +260,7 @@ public class SceneController : Singleton<SceneController>
     public void FailedQuest()
     {
         failedScroll.gameObject.SetActive(true);
+        AudioManager.Instance.PlaySfx("QuestFailed");
     }
 
 
@@ -262,7 +271,7 @@ public class SceneController : Singleton<SceneController>
     {
         StartCoroutine(TransitionToSelectsRoutine(_questData));
 
-        AudioManager.Instance.PlayBgm(Bgm.Intro);
+        AudioManager.Instance.PlayBgm("Intro");
     }
 
     private IEnumerator TransitionToSelectsRoutine(QuestSO _questData)
@@ -319,6 +328,7 @@ public class SceneController : Singleton<SceneController>
         yield return new WaitForSeconds(0.5f);
 
         pageTransitionBack.gameObject.SetActive(true);
+        AudioManager.Instance.PlaySfx("Page");
         contentsScene.gameObject.SetActive(false);
     }
 

@@ -4,28 +4,39 @@ using DG.Tweening;
 
 public class VfxManager : Singleton<VfxManager>
 {
-    // Vfx Prefabs
 
+    [Header("Panels")]
     [SerializeField] private RectTransform playerPanel;
     [SerializeField] private RectTransform adventurePanel;
 
+    [Header("Enemy -> Player")]
     [SerializeField] private GameObject playerBasicImpactVfxPrefab;
     [SerializeField] private GameObject playerBlockImpactVfxPrefab;
 
+    [Header("Player -> Enemy")]
     [SerializeField] private GameObject basicAttackVfxPrefab;
     [SerializeField] private GameObject blockAttackVfxPrefab;
 
-    // Vignette
+    [Header("Dice FX")]
+    [SerializeField] private GameObject diceUpVfxPrefab;
+    [SerializeField] private GameObject diceDownVfxPrefab;
 
+    [Header("Vignette")]
     [SerializeField] private RectTransform vignetteRect;
     [SerializeField] private Sprite impactVignette;
     [SerializeField] private Sprite blockVignette;
+
+
+
+    // Enemy -> Player Attack //
 
     public void PlayerBasicImpactVfx(RectTransform playerProfilePosition)
     {
         GameObject vfx = Instantiate(playerBasicImpactVfxPrefab);
         vfx.transform.SetParent(playerPanel, false);
         vfx.transform.position = playerProfilePosition.transform.position;
+
+        AudioManager.Instance.PlaySfx("PlayerImpact");
 
         vignetteRect.GetComponent<Image>().sprite = impactVignette;
         vignetteRect.GetComponent<Image>().DOFade(1, 0.1f).OnComplete(() =>
@@ -40,6 +51,8 @@ public class VfxManager : Singleton<VfxManager>
         vfx.transform.SetParent(playerPanel, false);
         vfx.transform.position = playerProfilePosition.transform.position;
 
+        AudioManager.Instance.PlaySfx("PlayerBlock");
+
         vignetteRect.GetComponent<Image>().sprite = blockVignette;
         vignetteRect.GetComponent<Image>().DOFade(1, 0.1f).OnComplete(() =>
         {
@@ -47,11 +60,17 @@ public class VfxManager : Singleton<VfxManager>
         });
     }
 
+
+
+    // Player -> Enemy Attack //
+
     public void BasicAttackVfx(RectTransform targetPosition)
     {
         GameObject vfx = Instantiate(basicAttackVfxPrefab);
         vfx.transform.SetParent(adventurePanel, false);
         vfx.transform.position = targetPosition.transform.position;
+
+        AudioManager.Instance.PlaySfx("RogueBasicAttack");
     }
 
     public void BlockAttackVfx(RectTransform targetPosition)
@@ -59,5 +78,39 @@ public class VfxManager : Singleton<VfxManager>
         GameObject vfx = Instantiate(blockAttackVfxPrefab);
         vfx.transform.SetParent(adventurePanel, false);
         vfx.transform.position = targetPosition.transform.position;
+
+        AudioManager.Instance.PlaySfx("BlockedAttack");
+    }
+
+    // Dice FX //
+
+    public void DiceUpVfx(RectTransform targetPosition)
+    {
+        GameObject vfx = Instantiate(diceUpVfxPrefab);
+        vfx.transform.SetParent(adventurePanel, false);
+
+        Vector2 localPosition;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            vfx.GetComponent<RectTransform>() as RectTransform,
+            targetPosition.position,
+            null,
+            out localPosition);
+
+        vfx.GetComponent<RectTransform>().anchoredPosition = localPosition;
+    }
+
+    public void DiceDownVfx(RectTransform targetPosition)
+    {
+        GameObject vfx = Instantiate(diceDownVfxPrefab);
+        vfx.transform.SetParent(adventurePanel, false);
+
+        Vector2 localPosition;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            vfx.GetComponent<RectTransform>() as RectTransform,
+            targetPosition.position,
+            null,
+            out localPosition);
+
+        vfx.GetComponent<RectTransform>().anchoredPosition = localPosition;
     }
 }

@@ -15,20 +15,20 @@ MonoBehaviour:
   skillName: Valor
   defaultSprite: {fileID: -1966314690, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
   defaultHoverSprite: {fileID: -765798721, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
-  skillDescription: Spend Strength Dice 1+, Get new Willpower Dice
+  skillDescription: Spend Strength Dice of 1+, Get 1 New Willpower Dice
   costDescription: Select 1 Dice to Spend
   castDescription: 
   skillLimitType: 0
   skillCooldownType: 0
   isCooldown: 0
   costType: 0
-  costValue: 0
-  diceCostSets:
-  - diceTypes: 0100000004000000
-    aboveConditionValue: 1
+  costValue: 1
+  costDiceTypes: 0100000004000000
+  aboveConditionValue: 1
   castType: 0
   castValue: 0
   modifyValue: 0
+  castDiceType: 
   diceCastSets:
   - diceType: 4
     diceValue: 0

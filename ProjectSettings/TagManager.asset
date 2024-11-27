@@ -6,6 +6,7 @@ TagManager:
   tags:
   - DiceValueCheck
   - Canvas
+  - RollDiceFence
   layers:
   - Default
   - TransparentFX

@@ -15,6 +15,9 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [Header("Components")]
     [SerializeField] private RectTransform diceImage;
     [SerializeField] private RectTransform shadowImage;
+    [SerializeField] private RectTransform generatingAnim;
+    [SerializeField] private RectTransform vanishingAnim;
+    [SerializeField] private RectTransform modifyingAnim;
 
     [Header("Source Sprites")]
     [SerializeField] private List<Sprite> possibleValues;
@@ -39,6 +42,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] private bool isMouseInputInitialized = true;
     [SerializeField] private bool notYetRolledAndWait = false;
     [SerializeField] private bool onceRolled = false;
+    [SerializeField] private bool endDragged = false;
 
     [Header("Tweening")]
     [SerializeField] private float popUpScale = 1.35f;
@@ -48,6 +52,8 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] private Canvas canvas;
     private Animator animator;
 
+
+
     [Header("Skill Check")]
     [SerializeField] private bool isSkillCostChecking;
     [SerializeField] private bool isSkillCastChecking;
@@ -55,6 +61,9 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] private bool isSelected;
     [SerializeField] private RectTransform deactivateImageRect;
     [SerializeField] private RectTransform selectedImageRect;
+    private bool isVanishing = false;
+
+
 
 
     private void OnEnable()
@@ -66,6 +75,50 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         animator.enabled = false;
 
         checkCollider.SetActive(false);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        float knockbackForce = 0f;
+
+        if (collision.collider.CompareTag("RollDiceFence"))
+        {
+            knockbackForce = 600f;
+            Debug.Log("Fence!");
+            Vector2 direction = (collision.transform.position - transform.position).normalized;
+            Vector2 appliedForce = direction * knockbackForce;
+            rb.AddForce(appliedForce, ForceMode2D.Impulse);
+        }
+        else
+        {
+            knockbackForce = 200f;
+            Vector2 direction = (transform.position - collision.transform.position).normalized;
+            Vector2 appliedForce = direction * knockbackForce;
+            rb.AddForce(appliedForce, ForceMode2D.Impulse);
+        }
+
+        if (this.gameObject != null && rb != null && this.gameObject.activeSelf)
+        {
+            StartCoroutine(ReduceVelocityOverTime(rb));
+        }
+    }
+
+    private IEnumerator ReduceVelocityOverTime(Rigidbody2D rb)
+    {
+        float decelerationRate = 0.95f;
+        float minimumSpeed = 0.1f;
+
+        while (rb != null && rb.linearVelocity.magnitude > minimumSpeed)
+        {
+            rb.linearVelocity *= decelerationRate;
+            yield return new WaitForFixedUpdate();
+        }
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
     }
 
     public void ActivateRollDice()
@@ -186,6 +239,12 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             transform.SetAsLastSibling();
             diceImage.GetComponent<Image>().sprite = valueClickSprite;
 
+            GetComponent<BoxCollider2D>().enabled = false;
+
+            VfxManager.Instance.DiceUpVfx(rectTransform);
+
+            AudioManager.Instance.PlaySfxWithPitch("GrabOn");
+
             rectTransform.DOKill();
             rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
             rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
@@ -224,15 +283,27 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             diceImage.GetComponent<Image>().sprite = valueSprite;
 
-            rectTransform.DOKill();
-            rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
-            rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
 
-            rectTransform.localScale = new Vector3(1f, 1f, 1f);
-
-            if (!checkCollider.activeSelf)
+            if (!endDragged)
             {
-                checkCollider.SetActive(true);
+                GetComponent<BoxCollider2D>().enabled = true;
+
+                VfxManager.Instance.DiceDownVfx(rectTransform);
+
+                AudioManager.Instance.PlaySfxWithPitch("GrabDown");
+
+                rectTransform.DOKill();
+                rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+                rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
+
+                if (!checkCollider.activeSelf)
+                {
+                    checkCollider.SetActive(true);
+                }
+            }
+            else
+            {
+                endDragged = false;
             }
         }
     }
@@ -345,10 +416,18 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void EndDrag()
     {
+        endDragged = true;
+
         isMouseInputInitialized = false;
 
         CursorManager.Instance.OnDefaultCursor();
         diceImage.GetComponent<Image>().sprite = valueSprite;
+
+        GetComponent<BoxCollider2D>().enabled = true;
+
+        VfxManager.Instance.DiceDownVfx(rectTransform);
+
+        AudioManager.Instance.PlaySfxWithPitch("GrabDown");
 
         rectTransform.DOKill();
         rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
@@ -358,6 +437,11 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (shadowImage.gameObject.activeSelf == false)
         {
             shadowImage.gameObject.SetActive(true);
+        }
+
+        if (!checkCollider.activeSelf)
+        {
+            checkCollider.SetActive(true);
         }
     }
 
@@ -439,6 +523,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             if (!dice.onceRolled)
             {
                 dice.onceRolled = true;
+                AudioManager.Instance.PlaySfx("DiceThrow");
                 dice.DiceRollAnim();
                 yield return new WaitForSeconds(0.025f);
             }
@@ -447,14 +532,21 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void DiceRollAnim()
     {
+
         animator.enabled = true;
         animator.Play("DiceIdle", 0, 0f);
         animator.SetTrigger("DiceRoll");
         isMouseInputInitialized = false;
     }
 
+    public void DiceRolledSfx()
+    {
+        AudioManager.Instance.PlaySfx("DiceRolled");
+    }
+
     public void DiceRollValue()
     {
+
         int randomValue = Random.Range(0, 6);
 
         if (randomValue == 0)
@@ -474,6 +566,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         animator.enabled = false;
         diceImage.GetComponent<Image>().sprite = valueSprite;
+
 
         rectTransform.DOKill();
         rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
@@ -537,6 +630,25 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
+    public bool IsPossibleToModify(List<DiceType> diceTypes)
+    {
+        if (diceTypes.Contains(diceType))
+        {
+            if (dieValue == 6 || dieValue == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public bool IsFillValue(List<DiceType> diceTypes)
     {
         if (diceTypes.Contains(diceType))
@@ -593,20 +705,29 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void SkillActivate()
     {
+        if (isVanishing)
+        {
+            return;
+        }
+
         isClickable = true;
+
+        if (deactivateImageRect.gameObject.activeSelf)
+        {
+            deactivateImageRect.gameObject.SetActive(false);
+        }
     }
 
     public void SkillDeActivate()
     {
+        if (isVanishing)
+        {
+            return;
+        }
+
         isClickable = false;
 
         deactivateImageRect.gameObject.SetActive(true);
-
-        Color color = deactivateImageRect.GetComponent<Image>().color;
-        color.a = 0;
-        deactivateImageRect.GetComponent<Image>().color = color;
-
-        deactivateImageRect.GetComponent<Image>().DOFade(1, 0.25f);
     }
 
     public void SkillFix(int fixedValue)
@@ -625,11 +746,69 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         diceImage.GetComponent<Image>().sprite = valueSprite;
     }
 
+    public void SkillReRoll()
+    {
+        DiceRollAnim();
+    }
+
+    public void SkillModify(int modifyValue)
+    {
+        GetComponent<Image>().raycastTarget = false;
+
+        dieValue = Mathf.Clamp(dieValue + modifyValue, 0, 6);
+
+        valueSprite = possibleValues[dieValue - 1];
+        valueHoverSprite = possibleHovers[dieValue - 1];
+        valueClickSprite = possibleClicks[dieValue - 1];
+        valueSlotSprite = possibleSlotValues[dieValue - 1];
+        valueSlotClickSprite = possibleSlotClicks[dieValue - 1];
+
+        diceImage.GetComponent<Image>().sprite = valueSprite;
+
+        modifyingAnim.gameObject.SetActive(true);
+        rectTransform.DOKill();
+        rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
+        rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration).OnComplete(() =>
+        {
+            GetComponent<Image>().raycastTarget = true;
+        });
+    }
+
+    public void SkillGenerate()
+    {
+        StartCoroutine(GeneratingAnimRoutine());
+    }
+
+    private IEnumerator GeneratingAnimRoutine()
+    {
+        diceImage.gameObject.SetActive(false);
+        shadowImage.gameObject.SetActive(false);
+        generatingAnim.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(0.25f);
+
+        diceImage.gameObject.SetActive(true);
+        shadowImage.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(0.6f);
+
+        GetComponent<Image>().raycastTarget = true;
+    }
+
     public void SkillSpend()
     {
         if (isSkillCostChecking && isSelected)
         {
-            Destroy(gameObject);
+            isVanishing = true;
+
+            SkillManager.Instance.RegisterRefundDice(diceType, dieValue);
+
+            GetComponent<Image>().raycastTarget = false;
+            deactivateImageRect.gameObject.SetActive(false);
+            selectedImageRect.gameObject.SetActive(false);
+            diceImage.gameObject.SetActive(false);
+            shadowImage.gameObject.SetActive(false);
+            vanishingAnim.gameObject.SetActive(true);
         }
     }
 
@@ -644,14 +823,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
         else
         {
-            Color color = deactivateImageRect.GetComponent<Image>().color;
-            color.a = 1;
-            deactivateImageRect.GetComponent<Image>().color = color;
-
-            deactivateImageRect.GetComponent<Image>().DOFade(0, 0.25f).OnComplete(() =>
-            {
-                deactivateImageRect.gameObject.SetActive(false);
-            });
+            deactivateImageRect.gameObject.SetActive(false);
         }
 
         if (isSelected)

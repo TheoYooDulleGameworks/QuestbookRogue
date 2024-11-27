@@ -51,7 +51,7 @@ public class UISkill : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
     {
         if (!skillData.isCooldown)
         {
-            SkillManager.Instance.SkillCostPhase(skillData);
+            SkillManager.Instance.SkillCostPhase(skillData, skillImage);
         }
     }
 }

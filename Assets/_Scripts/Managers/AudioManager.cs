@@ -1,16 +1,17 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using System.Linq;
 
 public class AudioManager : Singleton<AudioManager>
 {
     [Header("__________ BGM _______________________________________________________________")]
-    public List<AudioClip> bgmClips;
+    public List<BgmSO> bgmDatas;
     public float bgmVolume;
     AudioSource bgmPlayer;
 
     [Header("__________ SFX _______________________________________________________________")]
-    public List<AudioClip> sfxClips;
+    public List<SfxSO> sfxDatas;
     public float sfxVolume;
     public int channels;
     AudioSource[] sfxPlayers;
@@ -42,23 +43,36 @@ public class AudioManager : Singleton<AudioManager>
             sfxPlayers[i].volume = sfxVolume;
         }
 
-        PlayBgm(Bgm.Intro);
+        PlayBgm("Intro");
     }
 
-    public void PlayBgm(Bgm Bgm)
+    public void PlayBgm(string fileName)
     {
+        var matchingClips = bgmDatas
+            .Where(bgm => bgm.name.StartsWith(fileName + "_"))
+            .ToList();
+
+        if (matchingClips.Count == 0)
+        {
+            Debug.LogWarning($"No BGM matches the key '{fileName}'!");
+            return;
+        }
+
+        BgmSO selectedBgm = matchingClips[Random.Range(0, matchingClips.Count)];
+
         if (bgmPlayer.isPlaying)
         {
-            StartCoroutine(FadeBgm(Bgm));
+            StartCoroutine(FadeBgm(selectedBgm));
         }
         else
         {
-            bgmPlayer.clip = bgmClips[(int)Bgm];
+            bgmPlayer.clip = selectedBgm.bgmClip;
+            bgmPlayer.volume = bgmVolume;
             bgmPlayer.Play();
         }
     }
 
-    private IEnumerator FadeBgm(Bgm Bgm)
+    private IEnumerator FadeBgm(BgmSO BgmData)
     {
         float startVolume = bgmPlayer.volume;
 
@@ -69,8 +83,7 @@ public class AudioManager : Singleton<AudioManager>
         }
 
         bgmPlayer.Stop();
-
-        bgmPlayer.clip = bgmClips[(int)Bgm];
+        bgmPlayer.clip = BgmData.bgmClip;
 
         float targetVolume = bgmVolume;
         bgmPlayer.volume = 0f;
@@ -83,8 +96,20 @@ public class AudioManager : Singleton<AudioManager>
         }
     }
 
-    public void PlaySfx(Sfx Sfx)
+    public void PlaySfx(string fileName)
     {
+        var matchingClips = sfxDatas
+            .Where(sfx => sfx.name.StartsWith(fileName + "_"))
+            .ToList();
+
+        if (matchingClips.Count == 0)
+        {
+            Debug.LogWarning($"No SFX matches the key '{fileName}'!");
+            return;
+        }
+
+        SfxSO selectedSfx = matchingClips[Random.Range(0, matchingClips.Count)];
+
         for (int i = 0; i < sfxPlayers.Length; i++)
         {
             int loopIndex = (i + channelIndex) % sfxPlayers.Length;
@@ -95,20 +120,45 @@ public class AudioManager : Singleton<AudioManager>
             }
 
             channelIndex = loopIndex;
-            sfxPlayers[loopIndex].clip = sfxClips[(int)Sfx];
+            sfxPlayers[loopIndex].pitch = 1f;
+            sfxPlayers[loopIndex].clip = selectedSfx.sfxClip;
             sfxPlayers[loopIndex].Play();
             break;
         }
     }
-}
 
-public enum Bgm
-{
-    Intro,
-    Combat,
-}
+    public void PlaySfxWithPitch(string fileName)
+    {
+        var matchingClips = sfxDatas
+            .Where(sfx => sfx.name.StartsWith(fileName + "_"))
+            .ToList();
 
-public enum Sfx
-{
+        if (matchingClips.Count == 0)
+        {
+            Debug.LogWarning($"No SFX matches the key '{fileName}'!");
+            return;
+        }
 
+
+        SfxSO selectedSfx = matchingClips[Random.Range(0, matchingClips.Count)];
+
+        for (int i = 0; i < sfxPlayers.Length; i++)
+        {
+            int loopIndex = (i + channelIndex) % sfxPlayers.Length;
+
+            if (sfxPlayers[loopIndex].isPlaying)
+            {
+                continue;
+            }
+
+            channelIndex = loopIndex;
+
+            sfxPlayers[loopIndex].clip = selectedSfx.sfxClip;
+            sfxPlayers[loopIndex].pitch = 1f;
+            var randomPitch = Random.Range(-0.15f, +0.15f);
+            sfxPlayers[loopIndex].pitch = 1f + randomPitch;
+            sfxPlayers[loopIndex].Play();
+            break;
+        }
+    }
 }

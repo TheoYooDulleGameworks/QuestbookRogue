@@ -21,12 +21,12 @@ MonoBehaviour:
   skillLimitType: 0
   skillCooldownType: 0
   isCooldown: 0
-  costType: 2
+  costType: 1
   costValue: 1
-  singleDiceTypes: 01000000020000000300000004000000
+  costDiceTypes: 
   aboveConditionValue: 0
-  multiDiceCostSets: []
   castType: 5
   castValue: 2
-  newDiceSets: 
-  fixedDiceSets: []
+  modifyValue: 0
+  castDiceType: 
+  diceCastSets: []

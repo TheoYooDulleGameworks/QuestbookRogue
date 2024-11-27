@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcdfb5c44fdaa4cafa774874a890ae50, type: 3}
+  m_Name: Combat_Battle_2
+  m_EditorClassIdentifier: 
+  bgmClip: {fileID: 8300000, guid: fba2aefbd046c42668187beb6c35bdcd, type: 3}

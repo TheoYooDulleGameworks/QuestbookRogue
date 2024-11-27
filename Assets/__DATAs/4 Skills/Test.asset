@@ -13,21 +13,20 @@ MonoBehaviour:
   m_Name: Test
   m_EditorClassIdentifier: 
   skillName: Test
-  defaultSprite: {fileID: 773579698, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
-  defaultHoverSprite: {fileID: 723491005, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
-  skillDescription: Spend 3 Stamina, Reroll 1 Dice
-  costDescription: 
-  castDescription: Select 1 Dice to Reroll
+  defaultSprite: {fileID: 531712503, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
+  defaultHoverSprite: {fileID: -305517696, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
+  skillDescription: Spend 1 Ability Dice to Modify +1 Value of 2 Ability Dices.
+  costDescription: Select 1 Dice to Spend
+  castDescription: Select 2 Dice to Modify +1 Value
   skillLimitType: 0
   skillCooldownType: 0
   isCooldown: 0
   costType: 0
-  costValue: 0
-  diceCostSets:
-  - diceTypes: 02000000
-    aboveConditionValue: 1
-  castType: 2
-  castValue: 3
-  modifyValue: 0
+  costValue: 1
+  costDiceTypes: 01000000020000000300000004000000
+  aboveConditionValue: 1
+  castType: 3
+  castValue: 2
+  modifyValue: 1
   castDiceType: 01000000020000000300000004000000
   diceCastSets: []

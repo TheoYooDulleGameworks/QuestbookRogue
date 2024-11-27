@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 using System.Collections.Generic;
+using TMPro;
 
 public class SkillManager : Singleton<SkillManager>
 {
@@ -16,10 +16,13 @@ public class SkillManager : Singleton<SkillManager>
     [SerializeField] private CanvasGroup adventurePanel;
     [SerializeField] private RectTransform skillFadeFilter;
     [SerializeField] private RectTransform skillPanel;
+    [SerializeField] private RectTransform skillInfo;
+    [SerializeField] private RectTransform skillConfirmButton;
     private bool isFaded;
 
     [Header("Skill Check")]
     [SerializeField] private SkillSO currentSkill;
+    [SerializeField] private RectTransform currentSkillPosition;
     [SerializeField] private int goalSelection;
     [SerializeField] private int currentSelection;
 
@@ -30,6 +33,10 @@ public class SkillManager : Singleton<SkillManager>
     public List<RollDice> clickableDices;
     public List<RollDice> nonClickalbeDices;
     public List<RollDice> castDices;
+
+    [SerializeField] private bool isRefundable = false;
+    [SerializeField] private int refundValue = 0;
+    [SerializeField] private List<RefundDiceData> refundDices;
 
 
 
@@ -55,20 +62,26 @@ public class SkillManager : Singleton<SkillManager>
 
     // COST CHECK //
 
-    public void SkillCostPhase(SkillSO skillData)
+    public void SkillCostPhase(SkillSO skillData, RectTransform skillPosition)
     {
+        rollDices.Clear();
+        clickableDices.Clear();
+        nonClickalbeDices.Clear();
+        castDices.Clear();
+
         currentSkill = skillData;
+        currentSkillPosition = skillPosition;
         currentSelection = 0;
 
-        if (currentSkill.costType == SkillCostType.SingleDiceCost)
+        if (currentSkill.costType == SkillCostType.DiceCost)
         {
-            goalSelection = 1;
+            goalSelection = currentSkill.costValue;
 
             rollDices = new List<RollDice>(rollDicePanel.GetComponentsInChildren<RollDice>());
 
             foreach (var dice in rollDices)
             {
-                if (dice.IsAboveValue(currentSkill.diceCostSets[0].diceTypes, currentSkill.diceCostSets[0].aboveConditionValue))
+                if (dice.IsAboveValue(currentSkill.costDiceTypes, currentSkill.aboveConditionValue))
                 {
                     clickableDices.Add(dice);
                 }
@@ -91,7 +104,14 @@ public class SkillManager : Singleton<SkillManager>
                 dice.SkillDeActivate();
             }
 
-            FadeInScene();
+            if (clickableDices.Count <= 0)
+            {
+                CancelSkill();
+            }
+            else
+            {
+                FadeInScene();
+            }
         }
         else if (currentSkill.costType == SkillCostType.StaminaPointCost)
         {
@@ -108,6 +128,8 @@ public class SkillManager : Singleton<SkillManager>
             else
             {
                 staminaPoint.RemoveClampedValue(currentSkill.costValue, 0, maxStamina);
+                isRefundable = true;
+                refundValue = currentSkill.costValue;
                 ConfirmSkill();
             }
         }
@@ -126,6 +148,8 @@ public class SkillManager : Singleton<SkillManager>
             else
             {
                 signaturePoint.RemoveClampedValue(currentSkill.costValue, 0, maxSignature);
+                isRefundable = true;
+                refundValue = currentSkill.costValue;
                 ConfirmSkill();
             }
         }
@@ -153,92 +177,152 @@ public class SkillManager : Singleton<SkillManager>
 
     public void ConfirmSkill()
     {
-        if (currentSkill.costType == SkillCostType.SingleDiceCost)
+        if (currentSkill.costType == SkillCostType.DiceCost)
         {
             foreach (var dice in rollDices)
             {
                 dice.SkillSpend();
             }
-        }
 
-        if (currentSkill.castType == SkillCastType.NewDice)
-        {
-            CastNewDice();
-            CancelSkill();
-        }
-        if (currentSkill.castType == SkillCastType.FixedDice)
-        {
-            CastFixedDice();
-            CancelSkill();
-        }
-        if (currentSkill.castType == SkillCastType.ReRoll)
-        {
-            SkillCastPhase();
-        }
-        if (currentSkill.castType == SkillCastType.Modify)
-        {
-            SkillCastPhase();
-        }
-        if (currentSkill.castType == SkillCastType.StaminaPoint)
-        {
-            staminaPoint.AddClampedValue(currentSkill.castValue, 0, maxStamina);
-            CancelSkill();
-        }
-        if (currentSkill.castType == SkillCastType.SignaturePoint)
-        {
-            signaturePoint.AddClampedValue(currentSkill.castValue, 0, maxSignature);
-            CancelSkill();
-        }
-        if (currentSkill.castType == SkillCastType.Effect)
-        {
+            AudioManager.Instance.PlaySfx("DiceVanishing");
 
+            isRefundable = true;
         }
 
         if (currentSkill.skillCooldownType != SkillCooldownType.None)
         {
             currentSkill.isCooldown = true;
         }
+
+        if (currentSkill.castType == SkillCastType.NewDice)
+        {
+            CastNewDice();
+        }
+        else if (currentSkill.castType == SkillCastType.FixedDice)
+        {
+            CastFixedDice();
+        }
+        else if (currentSkill.castType == SkillCastType.ReRoll)
+        {
+            SkillCastPhase();
+        }
+        else if (currentSkill.castType == SkillCastType.Modify)
+        {
+            SkillCastPhase();
+        }
+        else if (currentSkill.castType == SkillCastType.StaminaPoint)
+        {
+            staminaPoint.AddClampedValue(currentSkill.castValue, 0, maxStamina);
+            isRefundable = false;
+            refundValue = 0;
+            refundDices.Clear();
+            CancelSkill();
+        }
+        else if (currentSkill.castType == SkillCastType.SignaturePoint)
+        {
+            signaturePoint.AddClampedValue(currentSkill.castValue, 0, maxSignature);
+            isRefundable = false;
+            refundValue = 0;
+            refundDices.Clear();
+            CancelSkill();
+        }
+        else if (currentSkill.castType == SkillCastType.Effect)
+        {
+            isRefundable = false;
+            refundValue = 0;
+            refundDices.Clear();
+        }
     }
 
     public void SkillCastPhase()
     {
+        rollDices.Clear();
+        clickableDices.Clear();
+        nonClickalbeDices.Clear();
+        castDices.Clear();
+
         currentSelection = 0;
         goalSelection = currentSkill.castValue;
 
         rollDices = new List<RollDice>(rollDicePanel.GetComponentsInChildren<RollDice>());
 
-        foreach (var dice in rollDices)
+        if (currentSkill.castType == SkillCastType.ReRoll)
         {
-            if (dice.IsSameType(currentSkill.castDiceType))
+            foreach (var dice in rollDices)
             {
-                clickableDices.Add(dice);
+                if (dice.IsSameType(currentSkill.castDiceType))
+                {
+                    clickableDices.Add(dice);
+                }
+                else
+                {
+                    nonClickalbeDices.Add(dice);
+                }
             }
-            else
-            {
-                nonClickalbeDices.Add(dice);
-            }
-        }
 
-        foreach (var dice in rollDices)
-        {
-            dice.SkillCastCheck();
+            foreach (var dice in rollDices)
+            {
+                dice.SkillCastCheck();
+            }
+            foreach (var dice in clickableDices)
+            {
+                dice.SkillActivate();
+            }
+            foreach (var dice in nonClickalbeDices)
+            {
+                dice.SkillDeActivate();
+            }
+
+            if (clickableDices.Count <= 0)
+            {
+                CancelSkill();
+                return;
+            }
         }
-        foreach (var dice in clickableDices)
+        else if (currentSkill.castType == SkillCastType.Modify)
         {
-            dice.SkillActivate();
-        }
-        foreach (var dice in nonClickalbeDices)
-        {
-            dice.SkillDeActivate();
+            foreach (var dice in rollDices)
+            {
+                if (dice.IsPossibleToModify(currentSkill.castDiceType))
+                {
+                    clickableDices.Add(dice);
+                }
+                else
+                {
+                    nonClickalbeDices.Add(dice);
+                }
+            }
+
+            foreach (var dice in rollDices)
+            {
+                dice.SkillCastCheck();
+            }
+            foreach (var dice in clickableDices)
+            {
+                dice.SkillActivate();
+            }
+            foreach (var dice in nonClickalbeDices)
+            {
+                dice.SkillDeActivate();
+            }
+
+            if (clickableDices.Count <= 0)
+            {
+                CancelSkill();
+                return;
+            }
         }
 
         if (isFaded)
         {
-
+            skillPanel.GetComponentInChildren<TextMeshProUGUI>().text = currentSkill.castDescription;
+            skillConfirmButton.gameObject.SetActive(true);
         }
         else
         {
             FadeInScene();
+            skillPanel.GetComponentInChildren<TextMeshProUGUI>().text = currentSkill.castDescription;
+            skillConfirmButton.gameObject.SetActive(true);
         }
     }
 
@@ -251,7 +335,7 @@ public class SkillManager : Singleton<SkillManager>
         }
         else
         {
-            currentSelection -= castCount;
+            currentSelection += castCount;
             castDices.Remove(castRollDice);
         }
 
@@ -264,14 +348,16 @@ public class SkillManager : Singleton<SkillManager>
         {
             goalSelection = 0;
             currentSelection = 0;
-            if (currentSkill.castType == SkillCastType.ReRoll)
-            {
-                CastReRoll();
-            }
-            if (currentSkill.castType == SkillCastType.Modify)
-            {
-                CastModify();
-            }
+
+            CastSkill();
+        }
+        else if (currentSelection < goalSelection && currentSelection > 0)
+        {
+            skillConfirmButton.GetComponent<SkillConfirmButton>().ActivateButton();
+        }
+        else if (currentSelection <= 0)
+        {
+            skillConfirmButton.GetComponent<SkillConfirmButton>().DeActivateButton();
         }
     }
 
@@ -332,9 +418,18 @@ public class SkillManager : Singleton<SkillManager>
 
         foreach (var dice in dicePrefabs)
         {
-            dice.GetComponent<Image>().raycastTarget = true;
+            dice.GetComponent<RollDice>().SkillGenerate();
         }
+
+        AudioManager.Instance.PlaySfx("DiceGenerating");
+
         dicePrefabs.Clear();
+
+        isRefundable = false;
+        refundValue = 0;
+        refundDices.Clear();
+
+        CancelSkill();
     }
 
     public void CastFixedDice()
@@ -406,17 +501,121 @@ public class SkillManager : Singleton<SkillManager>
 
         foreach (var dice in dicePrefabs)
         {
-            dice.GetComponent<Image>().raycastTarget = true;
+            dice.GetComponent<RollDice>().SkillGenerate();
         }
+
+        AudioManager.Instance.PlaySfx("DiceGenerating");
+
         dicePrefabs.Clear();
+
+        isRefundable = false;
+        refundValue = 0;
+        refundDices.Clear();
+
+        CancelSkill();
+    }
+
+    public void CastRefundDice()
+    {
+        List<GameObject> dicePrefabs = new List<GameObject>();
+
+        for (int i = 0; i < refundDices.Count; i++)
+        {
+            switch (refundDices[i].diceType)
+            {
+                case DiceType.Strength:
+                    GameObject strDicePrefab = Instantiate(playerDices.StrDice_Roll);
+                    strDicePrefab.transform.SetParent(rollDicePanel, false);
+                    dicePrefabs.Add(strDicePrefab);
+
+                    strDicePrefab.GetComponent<RollDice>().SkillFix(refundDices[i].dieValue);
+
+                    break;
+                case DiceType.Agility:
+                    GameObject agiDicePrefab = Instantiate(playerDices.AgiDice_Roll);
+                    agiDicePrefab.transform.SetParent(rollDicePanel, false);
+                    dicePrefabs.Add(agiDicePrefab);
+
+                    agiDicePrefab.GetComponent<RollDice>().SkillFix(refundDices[i].dieValue);
+
+                    break;
+                case DiceType.Intelligence:
+                    GameObject intDicePrefab = Instantiate(playerDices.IntDice_Roll);
+                    intDicePrefab.transform.SetParent(rollDicePanel, false);
+                    dicePrefabs.Add(intDicePrefab);
+
+                    intDicePrefab.GetComponent<RollDice>().SkillFix(refundDices[i].dieValue);
+
+                    break;
+                case DiceType.Willpower:
+                    GameObject wilDicePrefab = Instantiate(playerDices.WilDice_Roll);
+                    wilDicePrefab.transform.SetParent(rollDicePanel, false);
+                    dicePrefabs.Add(wilDicePrefab);
+
+                    wilDicePrefab.GetComponent<RollDice>().SkillFix(refundDices[i].dieValue);
+
+                    break;
+            }
+        }
+
+        int rowCount = Mathf.CeilToInt(dicePrefabs.Count / 14f);
+        int rowHeight = 96;
+        int baseYPosition = -464 + ((rowCount - 1) * rowHeight);
+
+        for (int i = 0; i < dicePrefabs.Count; i++)
+        {
+            int currentRow = i / 14;
+            int indexInRow = i % 14;
+
+            float xPosition = -358 + (indexInRow * 96);
+            float yPosition;
+
+            if (dicePrefabs.Count <= 14)
+            {
+                yPosition = -424;
+            }
+            else
+            {
+                yPosition = baseYPosition - (currentRow * rowHeight);
+            }
+
+            dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(xPosition, yPosition);
+        }
+
+        foreach (var dice in dicePrefabs)
+        {
+            dice.GetComponent<RollDice>().SkillGenerate();
+        }
+
+        AudioManager.Instance.PlaySfx("DiceGenerating");
+
+        dicePrefabs.Clear();
+    }
+
+    public void CastSkill()
+    {
+        if (currentSkill.castType == SkillCastType.ReRoll)
+        {
+            CastReRoll();
+        }
+        else if (currentSkill.castType == SkillCastType.Modify)
+        {
+            CastModify();
+        }
     }
 
     public void CastReRoll()
     {
         foreach (RollDice dice in castDices)
         {
-            // ReRoll
+            dice.SkillReRoll();
         }
+
+        AudioManager.Instance.PlaySfx("DiceThrow");
+
+        isRefundable = false;
+        refundValue = 0;
+        refundDices.Clear();
 
         CancelSkill();
     }
@@ -425,8 +624,14 @@ public class SkillManager : Singleton<SkillManager>
     {
         foreach (RollDice dice in castDices)
         {
-            // Modify(int)
+            dice.SkillModify(currentSkill.modifyValue);
         }
+
+        isRefundable = false;
+        refundValue = 0;
+        refundDices.Clear();
+
+        AudioManager.Instance.PlaySfx("DiceModifying");
 
         CancelSkill();
     }
@@ -437,7 +642,28 @@ public class SkillManager : Singleton<SkillManager>
 
     public void CancelSkill()
     {
+        if (isRefundable)
+        {
+            if (currentSkill.costType == SkillCostType.DiceCost)
+            {
+                CastRefundDice();
+            }
+            else if (currentSkill.costType == SkillCostType.StaminaPointCost)
+            {
+                staminaPoint.AddClampedValue(refundValue, 0, maxStamina);
+            }
+            else if (currentSkill.costType == SkillCostType.SignaturePointCost)
+            {
+                signaturePoint.AddClampedValue(refundValue, 0, maxStamina);
+            }
+
+            isRefundable = false;
+            refundValue = 0;
+            refundDices.Clear();
+        }
+
         currentSkill = null;
+        currentSkillPosition = null;
         goalSelection = 0;
         currentSelection = 0;
 
@@ -450,11 +676,20 @@ public class SkillManager : Singleton<SkillManager>
         rollDices.Clear();
         clickableDices.Clear();
         nonClickalbeDices.Clear();
+        castDices.Clear();
 
         if (isFaded)
         {
             FadeOutScene();
         }
+    }
+
+    // REFUND DICES //
+
+    public void RegisterRefundDice(DiceType diceType, int dieValue)
+    {
+        RefundDiceData refundDice = new RefundDiceData(diceType, dieValue);
+        refundDices.Add(refundDice);
     }
 
 
@@ -467,37 +702,52 @@ public class SkillManager : Singleton<SkillManager>
 
         playerPanel.blocksRaycasts = false;
         adventurePanel.blocksRaycasts = false;
+
         skillPanel.gameObject.SetActive(true);
+        skillPanel.GetComponentInChildren<TextMeshProUGUI>().text = currentSkill.costDescription;
+        skillInfo.GetComponent<Image>().sprite = currentSkillPosition.GetComponent<Image>().sprite;
 
-        skillPanel.GetComponent<CanvasGroup>().DOKill();
-        skillFadeFilter.GetComponent<CanvasGroup>().DOKill();
+        Vector2 localPosition;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            playerPanel.GetComponent<RectTransform>() as RectTransform,
+            currentSkillPosition.position,
+            null,
+            out localPosition);
 
-        skillPanel.GetComponent<CanvasGroup>().alpha = 0f;
-        skillFadeFilter.GetComponent<CanvasGroup>().alpha = 0f;
+        skillPanel.anchoredPosition = localPosition + new Vector2(-104, -490);
 
-        skillFadeFilter.GetComponent<CanvasGroup>().DOFade(0.65f, 0.25f);
-        skillPanel.GetComponent<CanvasGroup>().DOFade(1f, 0.25f).OnComplete(() =>
-        {
-            skillPanel.GetComponentInChildren<SkillCancelButton>().ActiavteCancelButton();
-        });
+        skillFadeFilter.GetComponent<CanvasGroup>().alpha = 0.75f;
     }
 
     private void FadeOutScene()
     {
         isFaded = false;
 
-        skillFadeFilter.GetComponent<CanvasGroup>().DOKill();
-        skillPanel.GetComponent<CanvasGroup>().DOKill();
+        playerPanel.blocksRaycasts = true;
+        adventurePanel.blocksRaycasts = true;
 
-        skillFadeFilter.GetComponent<CanvasGroup>().alpha = 0.65f;
-        skillPanel.GetComponent<CanvasGroup>().alpha = 1f;
-
-        skillPanel.GetComponent<CanvasGroup>().DOFade(0f, 0.25f);
-        skillFadeFilter.GetComponent<CanvasGroup>().DOFade(0f, 0.25f).OnComplete(() =>
+        if (skillConfirmButton.gameObject.activeSelf)
         {
-            skillPanel.gameObject.SetActive(false);
-            playerPanel.blocksRaycasts = true;
-            adventurePanel.blocksRaycasts = true;
-        });
+            skillConfirmButton.gameObject.SetActive(false);
+        }
+
+        skillPanel.gameObject.SetActive(false);
+        skillPanel.GetComponentInChildren<TextMeshProUGUI>().text = null;
+        skillInfo.GetComponent<Image>().sprite = null;
+
+        skillFadeFilter.GetComponent<CanvasGroup>().alpha = 0f;
+    }
+}
+
+[System.Serializable]
+public class RefundDiceData
+{
+    public DiceType diceType;
+    public int dieValue;
+
+    public RefundDiceData(DiceType diceType, int dieValue)
+    {
+        this.diceType = diceType;
+        this.dieValue = dieValue;
     }
 }

@@ -22,11 +22,11 @@ MonoBehaviour:
   skillCooldownType: 0
   isCooldown: 0
   costType: 0
-  costValue: 0
-  diceCostSets:
-  - diceTypes: 01000000020000000300000004000000
-    aboveConditionValue: 0
+  costValue: 1
+  costDiceTypes: 01000000020000000300000004000000
+  aboveConditionValue: 0
   castType: 4
   castValue: 1
   modifyValue: 0
+  castDiceType: 
   diceCastSets: []

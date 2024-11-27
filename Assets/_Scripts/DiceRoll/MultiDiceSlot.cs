@@ -112,6 +112,8 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
                     slotDiceImage.gameObject.SetActive(true);
                 }
 
+                AudioManager.Instance.PlaySfxWithPitch("SlotIn");
+
                 slotDiceImage.GetComponent<Image>().sprite = rollDice.valueSlotSprite;
                 keepingDicePrefabs.Add(rollDice.gameObject);
                 rollDice.DeActivateRollDice();
@@ -245,6 +247,8 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
 
                 keepingDicePrefabs.Remove(keepingDicePrefabs.First());
             }
+
+            AudioManager.Instance.PlaySfxWithPitch("SlotOut");
         }
 
         else if (eventData.button == PointerEventData.InputButton.Left)
@@ -270,6 +274,8 @@ public class MultiDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, I
             keepingDicePrefabs.Remove(keepingDicePrefabs.Last());
 
             currentValue -= justValue;
+
+            AudioManager.Instance.PlaySfxWithPitch("SlotOut");
         }
 
         else

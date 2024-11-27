@@ -9,8 +9,6 @@ public class SkillCancelButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
     [SerializeField] private Sprite mouseOverCancelButton;
     [SerializeField] private Sprite mouseDownCancelButton;
 
-    private bool inTransition = true;
-
     public void OnEnable()
     {
         GetComponent<Image>().sprite = defaultCancelButton;
@@ -18,21 +16,11 @@ public class SkillCancelButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (inTransition)
-        {
-            return;
-        }
-
         GetComponent<Image>().sprite = mouseOverCancelButton;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (inTransition)
-        {
-            return;
-        }
-
         GetComponent<Image>().sprite = defaultCancelButton;
     }
 
@@ -48,17 +36,6 @@ public class SkillCancelButton : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (inTransition)
-        {
-            return;
-        }
-
-        inTransition = true;
         SkillManager.Instance.CancelSkill();
-    }
-
-    public void ActiavteCancelButton()
-    {
-        inTransition = false;
     }
 }

@@ -20,7 +20,8 @@ public class SkillSO : ScriptableObject
     [Header("__________ COST _______________________________________________________________")]
     public SkillCostType costType;
     public int costValue;
-    public List<DiceCostSet> diceCostSets;
+    public List<DiceType> costDiceTypes;
+    public int aboveConditionValue;
 
     [Header("__________ CAST _______________________________________________________________")]
     public SkillCastType castType;
@@ -46,8 +47,7 @@ public enum SkillCooldownType
 
 public enum SkillCostType
 {
-    SingleDiceCost,
-    MultiDiceCost,
+    DiceCost,
     StaminaPointCost,
     SignaturePointCost,
 }

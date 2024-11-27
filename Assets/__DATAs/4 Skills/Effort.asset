@@ -17,15 +17,16 @@ MonoBehaviour:
   defaultHoverSprite: {fileID: -238454915, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
   skillDescription: Spend 3 Stamina, Reroll 1 Dice
   costDescription: 
-  castDescription: Select 1 Dice to Reroll
+  castDescription: Select 3 Dice to Reroll
   skillLimitType: 0
   skillCooldownType: 0
   isCooldown: 0
-  costType: 2
+  costType: 1
   costValue: 3
-  diceCostSets: []
+  costDiceTypes: 
+  aboveConditionValue: 0
   castType: 2
-  castValue: 3
+  castValue: 1
   modifyValue: 0
   castDiceType: 01000000020000000300000004000000
   diceCastSets: []

@@ -80,6 +80,8 @@ public class JustDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, IP
                 rollDice.DeActivateRollDice();
                 keepingDicePrefab = rollDice.gameObject;
 
+                AudioManager.Instance.PlaySfxWithPitch("SlotIn");
+
                 isConfirmed = true;
                 OnConfirmed?.Invoke();
             }
@@ -162,6 +164,8 @@ public class JustDiceSlot : DiceSlot, IPointerDownHandler, IPointerUpHandler, IP
         {
             slotDiceImage.gameObject.SetActive(false);
         }
+
+        AudioManager.Instance.PlaySfxWithPitch("SlotOut");
 
         GetComponent<Image>().sprite = defaultSprite;
         keepingDicePrefab = null;
