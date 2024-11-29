@@ -169,8 +169,6 @@ public class PaySlot : DiceSlot, IPointerEnterHandler, IPointerExitHandler, IPoi
                 rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
                 rectTransform.DOScale(new Vector3(1f, 1f, 1f), popUpDuration);
 
-                AudioManager.Instance.PlaySfxWithPitch("SlotError");
-
                 GetComponent<Image>().sprite = failSprite;
                 if (colorCoroutine != null)
                 {

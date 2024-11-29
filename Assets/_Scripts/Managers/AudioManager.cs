@@ -5,16 +5,25 @@ using System.Linq;
 
 public class AudioManager : Singleton<AudioManager>
 {
+    [Header("Components")]
+    public AudioSource exploreBgmPlayer;
+    public AudioSource combatBgmPlayer;
+    public GameObject sfxObject;
+    public AudioSource[] sfxPlayers;
+
     [Header("__________ BGM _______________________________________________________________")]
     public List<BgmSO> bgmDatas;
     public float bgmVolume;
-    AudioSource bgmPlayer;
+
+    private Queue<BgmSO> exploreBgmQueue = new Queue<BgmSO>();
+    private bool isCombatActive = false;
+
+    // public ExploreBgmPlayer exploreBgmPlayer;
 
     [Header("__________ SFX _______________________________________________________________")]
     public List<SfxSO> sfxDatas;
     public float sfxVolume;
     public int channels;
-    AudioSource[] sfxPlayers;
     int channelIndex;
 
     protected override void Awake()
@@ -25,15 +34,10 @@ public class AudioManager : Singleton<AudioManager>
 
     private void Initialize()
     {
-        GameObject bgmObject = new GameObject("BgmPlayer");
-        bgmObject.transform.parent = transform;
-        bgmPlayer = bgmObject.AddComponent<AudioSource>();
-        bgmPlayer.playOnAwake = false;
-        bgmPlayer.loop = true;
-        bgmPlayer.volume = 1f;
+        exploreBgmPlayer.volume = bgmVolume;
 
-        GameObject sfxObject = new GameObject("SfxPlayer");
-        sfxObject.transform.parent = transform;
+        combatBgmPlayer.volume = 0f;
+
         sfxPlayers = new AudioSource[channels];
 
         for (int i = 0; i < sfxPlayers.Length; i++)
@@ -43,58 +47,143 @@ public class AudioManager : Singleton<AudioManager>
             sfxPlayers[i].volume = sfxVolume;
         }
 
-        PlayBgm("Intro");
+        PlayExploreBgm();
     }
 
-    public void PlayBgm(string fileName)
+    public void PlayExploreBgm()
     {
-        var matchingClips = bgmDatas
-            .Where(bgm => bgm.name.StartsWith(fileName + "_"))
-            .ToList();
-
-        if (matchingClips.Count == 0)
+        var introTrack = bgmDatas.FirstOrDefault(bgm => bgm.name == "Intro");
         {
-            Debug.LogWarning($"No BGM matches the key '{fileName}'!");
+            exploreBgmQueue.Enqueue(introTrack);
+        }
+
+        var exploreTracks = bgmDatas.Where(bgm => bgm.name.StartsWith("Explore_")).OrderBy(_ => Random.value).ToList();
+        foreach (var track in exploreTracks)
+        {
+            exploreBgmQueue.Enqueue(track);
+        }
+
+        PlayNextExploreBgm();
+    }
+
+    private void PlayNextExploreBgm()
+    {
+        if (isCombatActive)
+        {
             return;
         }
 
-        BgmSO selectedBgm = matchingClips[Random.Range(0, matchingClips.Count)];
-
-        if (bgmPlayer.isPlaying)
+        if (exploreBgmQueue.Count == 0)
         {
-            StartCoroutine(FadeBgm(selectedBgm));
+            Debug.Log("Explore BGM Queue is empty. Reshuffling tracks...");
+            ReshuffleExploreBgmQueue();
         }
-        else
+
+        var nextBgm = exploreBgmQueue.Dequeue();
+        exploreBgmPlayer.clip = nextBgm.bgmClip;
+        exploreBgmPlayer.Play();
+        exploreBgmPlayer.volume = bgmVolume;
+
+        exploreBgmPlayer.SetScheduledEndTime(AudioSettings.dspTime + exploreBgmPlayer.clip.length);
+        StartCoroutine(WaitForExploreBgmEnd());
+    }
+
+    private void ReshuffleExploreBgmQueue()
+    {
+        var exploreTracks = bgmDatas.Where(bgm => bgm.name.StartsWith("Explore_")).OrderBy(_ => Random.value).ToList();
+        foreach (var track in exploreTracks)
         {
-            bgmPlayer.clip = selectedBgm.bgmClip;
-            bgmPlayer.volume = bgmVolume;
-            bgmPlayer.Play();
+            exploreBgmQueue.Enqueue(track);
         }
     }
 
-    private IEnumerator FadeBgm(BgmSO BgmData)
+    private IEnumerator WaitForExploreBgmEnd()
     {
-        float startVolume = bgmPlayer.volume;
+        yield return new WaitUntil(() => !exploreBgmPlayer.isPlaying);
+        PlayNextExploreBgm();
+    }
 
-        while (bgmPlayer.volume > 0f)
+    public void StartCombatBgm(string fileName)
+    {
+        if (isCombatActive)
         {
-            bgmPlayer.volume -= startVolume * Time.deltaTime / 1f;
-            yield return null;
+            return;
         }
 
-        bgmPlayer.Stop();
-        bgmPlayer.clip = BgmData.bgmClip;
+        isCombatActive = true;
+
+        var matchingCombatBgms = bgmDatas
+        .Where(bgm => bgm.name.StartsWith(fileName + "_"))
+        .ToList();
+
+        if (matchingCombatBgms.Count == 0)
+        {
+            Debug.LogWarning($"No Combat BGM matches the key '{fileName}'!");
+            return;
+        }
+
+        var selectedCombatBgm = matchingCombatBgms[Random.Range(0, matchingCombatBgms.Count)];
+        combatBgmPlayer.clip = selectedCombatBgm.bgmClip;
+
+        StartCoroutine(FadeOutExploreAndPlayCombat());
+    }
+
+    private IEnumerator FadeOutExploreAndPlayCombat()
+    {
+        float startVolume = exploreBgmPlayer.volume;
+
+        while (exploreBgmPlayer.volume > 0f)
+        {
+            exploreBgmPlayer.volume -= startVolume * Time.deltaTime / 1f;
+            yield return null;
+        }
+        exploreBgmPlayer.Pause();
+
+        combatBgmPlayer.Play();
+        float targetVolume = bgmVolume;
+        combatBgmPlayer.volume = 0f;
+
+        while (combatBgmPlayer.volume < targetVolume)
+        {
+            combatBgmPlayer.volume += targetVolume * Time.deltaTime / 1f;
+            yield return null;
+        }
+    }
+
+    public void EndCombatBgm()
+    {
+        if (!isCombatActive) return;
+        isCombatActive = false;
+
+        StartCoroutine(FadeOutCombatAndResumeExplore());
+    }
+
+    private IEnumerator FadeOutCombatAndResumeExplore()
+    {
+        float startVolume = combatBgmPlayer.volume;
+
+        while (combatBgmPlayer.volume > 0f)
+        {
+            combatBgmPlayer.volume -= startVolume * Time.deltaTime / 1f;
+            yield return null;
+        }
+        combatBgmPlayer.Stop();
 
         float targetVolume = bgmVolume;
-        bgmPlayer.volume = 0f;
-        bgmPlayer.Play();
+        exploreBgmPlayer.Play();
 
-        while (bgmPlayer.volume < targetVolume)
+        while (exploreBgmPlayer.volume < targetVolume)
         {
-            bgmPlayer.volume += targetVolume * Time.deltaTime / 1f;
+            exploreBgmPlayer.volume += targetVolume * Time.deltaTime / 1f;
             yield return null;
         }
     }
+
+
+
+    // SFX //
+
+
 
     public void PlaySfx(string fileName)
     {
@@ -155,7 +244,7 @@ public class AudioManager : Singleton<AudioManager>
 
             sfxPlayers[loopIndex].clip = selectedSfx.sfxClip;
             sfxPlayers[loopIndex].pitch = 1f;
-            var randomPitch = Random.Range(-0.15f, +0.15f);
+            var randomPitch = Random.Range(-0.1f, +0.1f);
             sfxPlayers[loopIndex].pitch = 1f + randomPitch;
             sfxPlayers[loopIndex].Play();
             break;

@@ -155,6 +155,8 @@ public class SceneController : Singleton<SceneController>
 
                 GetComponentInChildren<ImageContent>().SetRewards();
             }
+
+            AudioManager.Instance.EndCombatBgm();
         }
     }
 
@@ -175,8 +177,6 @@ public class SceneController : Singleton<SceneController>
     {
         currentQuestIndex = _questIndexNumber;
         StartCoroutine(TransitionToContentsRoutine(_questData));
-
-        AudioManager.Instance.PlayBgm("Combat_Battle");
     }
 
     private IEnumerator TransitionToContentsRoutine(QuestSO _questData)
@@ -270,8 +270,6 @@ public class SceneController : Singleton<SceneController>
     public void TransitionToSelects(QuestSO _questData)
     {
         StartCoroutine(TransitionToSelectsRoutine(_questData));
-
-        AudioManager.Instance.PlayBgm("Intro");
     }
 
     private IEnumerator TransitionToSelectsRoutine(QuestSO _questData)

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcdfb5c44fdaa4cafa774874a890ae50, type: 3}
   m_Name: Explore_1
   m_EditorClassIdentifier: 
-  bgmClip: {fileID: 8300000, guid: fdf8a3415026c4fb3899778de1a5fd76, type: 3}
+  bgmClip: {fileID: 8300000, guid: f0027fc2f4cd34b3aa31a06eb31e3d02, type: 3}

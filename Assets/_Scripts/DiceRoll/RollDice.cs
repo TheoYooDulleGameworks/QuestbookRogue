@@ -288,9 +288,6 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 GetComponent<BoxCollider2D>().enabled = true;
 
-                VfxManager.Instance.DiceDownVfx(rectTransform);
-
-                AudioManager.Instance.PlaySfxWithPitch("GrabDown");
 
                 rectTransform.DOKill();
                 rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
@@ -300,11 +297,25 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 {
                     checkCollider.SetActive(true);
                 }
+
+                StartCoroutine(grabDownRoutine());
             }
             else
             {
                 endDragged = false;
             }
+        }
+    }
+
+    private IEnumerator grabDownRoutine()
+    {
+        yield return new WaitForSeconds(0f);
+
+        if (this.gameObject.activeSelf)
+        {
+            VfxManager.Instance.DiceDownVfx(rectTransform);
+
+            AudioManager.Instance.PlaySfxWithPitch("GrabDown");
         }
     }
 
@@ -541,7 +552,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void DiceRolledSfx()
     {
-        AudioManager.Instance.PlaySfx("DiceRolled");
+        //AudioManager.Instance.PlaySfx("DiceRolled");
     }
 
     public void DiceRollValue()

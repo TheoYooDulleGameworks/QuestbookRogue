@@ -134,6 +134,8 @@ public class CombatImageContent : MonoBehaviour, IContent
         UpdateEnemyHealthUI();
         UpdateEnemyArmorUI();
         UpdateEnemyDamageUI();
+
+        AudioManager.Instance.StartCombatBgm("Combat_Battle");
     }
 
 

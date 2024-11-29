@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a519d00cb2cdd48c28e554deaa24af6d, type: 3}
   m_Name: SlotIn_1
   m_EditorClassIdentifier: 
-  sfxClip: {fileID: 8300000, guid: e3c34cc3ddcb84570996907cfcf935a0, type: 3}
+  sfxClip: {fileID: 8300000, guid: 74309e18bef25406c89d3fc29bd004d3, type: 3}
