@@ -46,6 +46,8 @@ public class Selection : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         parentQuest.inTransition = true;
         SceneController.Instance.DeActivateSelects();
 
+        AudioManager.Instance.PlaySfx("Accept");
+
         parentRectTransform.DOKill();
         parentRectTransform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.1f).OnComplete(() =>
         {

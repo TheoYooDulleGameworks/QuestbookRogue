@@ -136,6 +136,7 @@ public class CombatImageContent : MonoBehaviour, IContent
         UpdateEnemyDamageUI();
 
         AudioManager.Instance.StartCombatBgm("Combat_Battle");
+        AudioManager.Instance.PlaySfx("CombatBegin");
     }
 
 
@@ -208,7 +209,6 @@ public class CombatImageContent : MonoBehaviour, IContent
 
         yield return new WaitForSeconds(1.5f);
 
-        AudioManager.Instance.PlaySfx("EnemyMoving");
         contentCanvas.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.2f).OnComplete(() =>
         {
             contentCanvas.DOScale(Vector3.one, 0.3f);
@@ -317,6 +317,8 @@ public class CombatImageContent : MonoBehaviour, IContent
             {
                 GameManager.Instance.UpdateStagePhase(StagePhase.Finishing);
 
+                AudioManager.Instance.PlaySfxWithPitch("CardFlip");
+
                 contentCanvas.localScale = Vector3.one;
                 contentCanvas.localEulerAngles = Vector3.zero;
 
@@ -363,6 +365,9 @@ public class CombatImageContent : MonoBehaviour, IContent
         GameObject epilogueContent = Instantiate(contentData.combatEpilogue.contentTemplate);
         epilogueContent.transform.SetParent(transform.parent, false);
         epilogueContent.name = "Epilogue";
+        
+        AudioManager.Instance.PlaySfxWithPitch("CardFlip");
+
         epilogueContent.GetComponent<DescriptionContent>().SetEpilogueComponents(contentData.combatEpilogue);
         epilogueContent.GetComponent<IContent>().FlipOnContent();
 
@@ -373,6 +378,8 @@ public class CombatImageContent : MonoBehaviour, IContent
             GameObject rewardContent = Instantiate(rewardContentPrefab);
             rewardContent.transform.SetParent(transform.parent, false);
             rewardContent.name = $"Reward_({i + 1})";
+
+            AudioManager.Instance.PlaySfxWithPitch("CardFlip");
 
             rewardContent.GetComponent<RewardContent>().SetRewardComponents(contentData.combatRewards[i]);
             rewardContent.GetComponent<IContent>().FlipOnContent();

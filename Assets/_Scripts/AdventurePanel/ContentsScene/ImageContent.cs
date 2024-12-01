@@ -133,6 +133,9 @@ public class ImageContent : MonoBehaviour, IContent
         GameObject epilogueContent = Instantiate(currentEpliogue.contentTemplate);
         epilogueContent.transform.SetParent(transform.parent, false);
         epilogueContent.name = "Epilogue";
+
+        AudioManager.Instance.PlaySfxWithPitch("CardFlip");
+        
         epilogueContent.GetComponent<DescriptionContent>().SetEpilogueComponents(currentEpliogue);
         epilogueContent.GetComponent<IContent>().FlipOnContent();
 
@@ -143,6 +146,8 @@ public class ImageContent : MonoBehaviour, IContent
             GameObject rewardContent = Instantiate(rewardContentPrefab);
             rewardContent.transform.SetParent(transform.parent, false);
             rewardContent.name = $"Reward_({i + 1})";
+
+            AudioManager.Instance.PlaySfxWithPitch("CardFlip");
 
             rewardContent.GetComponent<RewardContent>().SetRewardComponents(currentRewards[i]);
             rewardContent.GetComponent<IContent>().FlipOnContent();

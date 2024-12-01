@@ -127,6 +127,8 @@ public class CombatOptionButton : MonoBehaviour, IPointerEnterHandler, IPointerE
         isActivated = false;
         GetComponent<Image>().raycastTarget = false;
 
+        AudioManager.Instance.PlaySfx("Confirm");
+
         foreach (CombatOption option in combatOptionLists)
         {
             option.ApplyEffect();

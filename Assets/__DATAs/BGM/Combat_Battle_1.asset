@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcdfb5c44fdaa4cafa774874a890ae50, type: 3}
   m_Name: Combat_Battle_1
   m_EditorClassIdentifier: 
-  bgmClip: {fileID: 8300000, guid: 2fc91486b26674b858e1cf8d08eab137, type: 3}
+  bgmClip: {fileID: 8300000, guid: 260e84121f97a4398817f0fc3ed317e4, type: 3}

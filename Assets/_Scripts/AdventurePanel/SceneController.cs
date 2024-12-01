@@ -96,9 +96,8 @@ public class SceneController : Singleton<SceneController>
             ResetRollDicePanel();
 
             enemyTurnScroll.gameObject.SetActive(true);
-
-            AudioManager.Instance.PlaySfx("Scroll");
             AudioManager.Instance.PlaySfx("EnemyTurn");
+
         }
         if (stagePhase == StagePhase.DiceWaiting)
         {
@@ -108,9 +107,8 @@ public class SceneController : Singleton<SceneController>
             SetRollDicePanel();
 
             playerTurnScroll.gameObject.SetActive(true);
-
-            AudioManager.Instance.PlaySfx("Scroll");
             AudioManager.Instance.PlaySfx("PlayerTurn");
+
         }
         if (stagePhase == StagePhase.Finishing)
         {
@@ -125,6 +123,7 @@ public class SceneController : Singleton<SceneController>
             if (GetComponentInChildren<CombatImageContent>() != null)
             {
                 GetComponentInChildren<CombatDescriptionContent>().FlipOffContent();
+                AudioManager.Instance.PlaySfxWithPitch("CardFlip");
                 List<CombatActionContent> combatActions = new List<CombatActionContent>(GetComponentsInChildren<CombatActionContent>());
                 foreach (var action in combatActions)
                 {
@@ -142,6 +141,7 @@ public class SceneController : Singleton<SceneController>
             if (GetComponentInChildren<ImageContent>() != null)
             {
                 GetComponentInChildren<DescriptionContent>().FlipOffContent();
+                AudioManager.Instance.PlaySfxWithPitch("CardFlip");
                 List<ActionContent> combatActions = new List<ActionContent>(GetComponentsInChildren<ActionContent>());
                 foreach (var action in combatActions)
                 {
@@ -156,6 +156,9 @@ public class SceneController : Singleton<SceneController>
                 GetComponentInChildren<ImageContent>().SetRewards();
             }
 
+        }
+        if (stagePhase == StagePhase.None)
+        {
             AudioManager.Instance.EndCombatBgm();
         }
     }
@@ -224,6 +227,7 @@ public class SceneController : Singleton<SceneController>
             }
             else
             {
+                AudioManager.Instance.PlaySfxWithPitch("CardFlip");
                 content.GetComponent<IContent>().FlipOnContent();
             }
             yield return new WaitForSeconds(0.25f);

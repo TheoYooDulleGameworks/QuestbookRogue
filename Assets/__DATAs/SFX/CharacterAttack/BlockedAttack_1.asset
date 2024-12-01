@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a519d00cb2cdd48c28e554deaa24af6d, type: 3}
   m_Name: BlockedAttack_1
   m_EditorClassIdentifier: 
-  sfxClip: {fileID: 8300000, guid: c96038040166b458eb5c14d8431d9c20, type: 3}
+  sfxClip: {fileID: 8300000, guid: dacbaeb48235645d48227c5c28a205bb, type: 3}

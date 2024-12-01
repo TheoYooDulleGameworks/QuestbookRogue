@@ -103,6 +103,8 @@ public class TurnEndButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             return;
         }
 
+        AudioManager.Instance.PlaySfx("Confirm");
+        
         GameManager.Instance.UpdateStagePhase(StagePhase.DiceHolding);
     }
 }

@@ -134,7 +134,7 @@ public class AudioManager : Singleton<AudioManager>
 
         while (exploreBgmPlayer.volume > 0f)
         {
-            exploreBgmPlayer.volume -= startVolume * Time.deltaTime / 1f;
+            exploreBgmPlayer.volume -= startVolume * Time.deltaTime / 0.5f;
             yield return null;
         }
         exploreBgmPlayer.Pause();
@@ -145,14 +145,20 @@ public class AudioManager : Singleton<AudioManager>
 
         while (combatBgmPlayer.volume < targetVolume)
         {
-            combatBgmPlayer.volume += targetVolume * Time.deltaTime / 1f;
+            combatBgmPlayer.volume += targetVolume * Time.deltaTime / 0.5f;
             yield return null;
         }
+
+        combatBgmPlayer.volume = targetVolume;
     }
 
     public void EndCombatBgm()
     {
-        if (!isCombatActive) return;
+        if (!isCombatActive)
+        {
+            return;
+        }
+
         isCombatActive = false;
 
         StartCoroutine(FadeOutCombatAndResumeExplore());
@@ -164,7 +170,7 @@ public class AudioManager : Singleton<AudioManager>
 
         while (combatBgmPlayer.volume > 0f)
         {
-            combatBgmPlayer.volume -= startVolume * Time.deltaTime / 1f;
+            combatBgmPlayer.volume -= startVolume * Time.deltaTime / 5f;
             yield return null;
         }
         combatBgmPlayer.Stop();
@@ -174,9 +180,11 @@ public class AudioManager : Singleton<AudioManager>
 
         while (exploreBgmPlayer.volume < targetVolume)
         {
-            exploreBgmPlayer.volume += targetVolume * Time.deltaTime / 1f;
+            exploreBgmPlayer.volume += targetVolume * Time.deltaTime / 5f;
             yield return null;
         }
+
+        exploreBgmPlayer.volume = targetVolume;
     }
 
 

@@ -6,9 +6,7 @@ using TMPro;
 public class SkillManager : Singleton<SkillManager>
 {
     [Header("Points")]
-    public StatusValue staminaPoint;
     public StatusValue signaturePoint;
-    public int maxStamina = 6;
     public int maxSignature = 6;
 
     [Header("Transition")]
@@ -46,7 +44,6 @@ public class SkillManager : Singleton<SkillManager>
     {
         GameManager.Instance.OnStagePhaseChanged += HandleStagePhaseChange;
 
-        staminaPoint.Value = 0;
         signaturePoint.Value = 0;
     }
 
@@ -111,26 +108,6 @@ public class SkillManager : Singleton<SkillManager>
             else
             {
                 FadeInScene();
-            }
-        }
-        else if (currentSkill.costType == SkillCostType.StaminaPointCost)
-        {
-            if (currentSkill.costValue == -1)
-            {
-                // # => # Logic
-            }
-
-            if (staminaPoint.Value < currentSkill.costValue)
-            {
-                CancelSkill();
-                return;
-            }
-            else
-            {
-                staminaPoint.RemoveClampedValue(currentSkill.costValue, 0, maxStamina);
-                isRefundable = true;
-                refundValue = currentSkill.costValue;
-                ConfirmSkill();
             }
         }
         else if (currentSkill.costType == SkillCostType.SignaturePointCost)
@@ -209,14 +186,6 @@ public class SkillManager : Singleton<SkillManager>
         else if (currentSkill.castType == SkillCastType.Modify)
         {
             SkillCastPhase();
-        }
-        else if (currentSkill.castType == SkillCastType.StaminaPoint)
-        {
-            staminaPoint.AddClampedValue(currentSkill.castValue, 0, maxStamina);
-            isRefundable = false;
-            refundValue = 0;
-            refundDices.Clear();
-            CancelSkill();
         }
         else if (currentSkill.castType == SkillCastType.SignaturePoint)
         {
@@ -648,13 +617,9 @@ public class SkillManager : Singleton<SkillManager>
             {
                 CastRefundDice();
             }
-            else if (currentSkill.costType == SkillCostType.StaminaPointCost)
-            {
-                staminaPoint.AddClampedValue(refundValue, 0, maxStamina);
-            }
             else if (currentSkill.costType == SkillCostType.SignaturePointCost)
             {
-                signaturePoint.AddClampedValue(refundValue, 0, maxStamina);
+                signaturePoint.AddClampedValue(refundValue, 0, maxSignature);
             }
 
             isRefundable = false;

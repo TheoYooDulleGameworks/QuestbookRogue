@@ -130,6 +130,7 @@ public class CancelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             return;
         }
 
+        AudioManager.Instance.PlaySfx("Confirm");
         SceneController.Instance.TransitionToSelects(currentQuestData);
         GameManager.Instance.UpdateStagePhase(StagePhase.None);
     }

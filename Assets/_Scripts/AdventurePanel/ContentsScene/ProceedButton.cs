@@ -66,6 +66,8 @@ public class ProceedButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             }
         }
 
+        AudioManager.Instance.PlaySfx("Confirm");
+
         SceneController.Instance.DontRefundDices();
         SceneController.Instance.NotPaySlotRefund();
 

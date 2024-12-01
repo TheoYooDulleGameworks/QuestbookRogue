@@ -37,14 +37,14 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void Awake()
     {
-        // Test
-        InitiateQuestCard(questData, 0);
+        //Test
+        //InitiateQuestCard(questData, 0);
     }
 
     private void Start()
     {
-        // Test
-        FlipOnQuest();
+        //Test
+        //FlipOnQuest();
     }
 
     public void InitiateQuestCard(QuestSO _questData, int _questIndexNum)
@@ -81,6 +81,8 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         rectTransform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
         rectTransform.localEulerAngles = new Vector3(0f, -12f, -12f);
 
+        AudioManager.Instance.PlaySfxWithPitch("CardFlip");
+
         rectTransform.DOKill();
         rectTransform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 0.25f);
         rectTransform.DORotate(new Vector3(-90f, -12f, -12f), 0.25f);
@@ -99,6 +101,7 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 rectTransform.DOScale(Vector3.one, 0.25f);
             });
         });
+
     }
 
     public void FlipOnQuest()
@@ -113,10 +116,13 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         rectTransform.localScale = Vector3.one;
         rectTransform.localEulerAngles = Vector3.zero;
 
+        AudioManager.Instance.PlaySfxWithPitch("CardFlip");
+
         rectTransform.DOKill();
         rectTransform.DOScale(new Vector3(0.75f, 0.5f, 0.5f), 0.25f);
         rectTransform.DORotate(new Vector3(-90f, -12f, -12f), 0.25f).OnComplete(() =>
         {
+
             undiscoveredImage.gameObject.SetActive(false);
             mainImage.gameObject.SetActive(true);
 

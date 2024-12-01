@@ -71,6 +71,7 @@ public class InfoTabButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             return;
         }
 
+        AudioManager.Instance.PlaySfxWithPitch("Tab");
         InfoTabController.Instance.SetActiveTab(thisTab);
     }
 }

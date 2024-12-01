@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a519d00cb2cdd48c28e554deaa24af6d, type: 3}
   m_Name: QuestFailed_1
   m_EditorClassIdentifier: 
-  sfxClip: {fileID: 8300000, guid: d66313047526e418fa8ce080940eb1b5, type: 3}
+  sfxClip: {fileID: 8300000, guid: 660f6f61744e3436e83607043710f5e4, type: 3}

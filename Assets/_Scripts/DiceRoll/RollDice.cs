@@ -421,7 +421,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private bool IsPointerInsideBounds(Vector2 mousePosition)
     {
-        return mousePosition.x >= 1040 && mousePosition.x <= 1920 * canvas.scaleFactor &&
+        return mousePosition.x >= 0 && mousePosition.x <= 1920 * canvas.scaleFactor &&
                mousePosition.y >= 0 && mousePosition.y <= 1080 * canvas.scaleFactor;
     }
 

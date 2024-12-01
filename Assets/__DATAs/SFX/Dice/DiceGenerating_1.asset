@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a519d00cb2cdd48c28e554deaa24af6d, type: 3}
   m_Name: DiceGenerating_1
   m_EditorClassIdentifier: 
-  sfxClip: {fileID: 8300000, guid: b998bb77680fb4bd08d020842e6d01da, type: 3}
+  sfxClip: {fileID: 8300000, guid: e187601f9fd5542429e7967cabd8546a, type: 3}
