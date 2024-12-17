@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7eea00f745c4e41578514d4e5f69f339, type: 3}
-  m_Name: '![Rogue] Combo'
+  m_Name: '[1] Nimble'
   m_EditorClassIdentifier: 
-  skillName: Stamina
-  defaultSprite: {fileID: -2079660003, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
-  defaultHoverSprite: {fileID: -1119727400, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
-  skillDescription: Spend Ability Dice, Get 1 Stamina
+  skillName: Nimble
+  defaultSprite: {fileID: -1119727400, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
+  defaultHoverSprite: {fileID: -238454915, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
+  skillDescription: Spend 1 Agility Dice of 1+, Reroll 1 Ability Dice
   costDescription: Select 1 Dice to Spend
-  castDescription: 
-  skillLimitType: 1
+  castDescription: Select 1 Dice to Reroll
+  skillLimitType: 0
   skillCooldownType: 0
   isCooldown: 0
   costType: 0
-  costValue: 0
-  aboveConditionValue: 0
-  costDiceTypes: 
-  castType: 5
-  castValue: 0
+  costValue: 1
+  aboveConditionValue: 1
+  costDiceTypes: 0200000004000000
+  castType: 3
+  castValue: 1
   modifyValue: 0
-  castDiceType: 
+  castDiceType: 01000000020000000300000004000000
   diceCastSets: []

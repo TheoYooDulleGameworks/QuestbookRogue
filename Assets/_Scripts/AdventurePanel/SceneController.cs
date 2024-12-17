@@ -157,10 +157,6 @@ public class SceneController : Singleton<SceneController>
             }
 
         }
-        if (stagePhase == StagePhase.None)
-        {
-            AudioManager.Instance.EndCombatBgm();
-        }
     }
 
 

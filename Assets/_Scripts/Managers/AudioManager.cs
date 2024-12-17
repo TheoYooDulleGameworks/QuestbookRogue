@@ -170,7 +170,7 @@ public class AudioManager : Singleton<AudioManager>
 
         while (combatBgmPlayer.volume > 0f)
         {
-            combatBgmPlayer.volume -= startVolume * Time.deltaTime / 5f;
+            combatBgmPlayer.volume -= startVolume * Time.deltaTime / 2.5f;
             yield return null;
         }
         combatBgmPlayer.Stop();
@@ -180,7 +180,7 @@ public class AudioManager : Singleton<AudioManager>
 
         while (exploreBgmPlayer.volume < targetVolume)
         {
-            exploreBgmPlayer.volume += targetVolume * Time.deltaTime / 5f;
+            exploreBgmPlayer.volume += targetVolume * Time.deltaTime / 2.5f;
             yield return null;
         }
 

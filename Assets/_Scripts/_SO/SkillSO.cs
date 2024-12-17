@@ -62,10 +62,11 @@ public enum SkillCastType
 {
     NewDice,
     FixedDice,
+    SignaturePoint,
     ReRoll,
     Modify,
-    SignaturePoint,
-    Effect,
+    Duplicate,
+    Combine,
 }
 
 [System.Serializable]

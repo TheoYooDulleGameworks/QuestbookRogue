@@ -346,6 +346,7 @@ public class CombatImageContent : MonoBehaviour, IContent
                         contentCanvas.DOScale(Vector3.one, 0.25f).OnComplete(() =>
                         {
                             cancelButtonRect.GetComponent<CancelButton>().FreeTheCancelButton();
+                            AudioManager.Instance.EndCombatBgm();
                         });
                     });
                 });

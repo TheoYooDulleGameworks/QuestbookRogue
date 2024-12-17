@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 559566ea747f34cb89f4578410c420e2, type: 3}
+  m_Name: PlayerSkill
+  m_EditorClassIdentifier: 
+  signaturePoint:
+    value: 12
+  maxSignaturePoint: 12
+  dePointIcon: {fileID: 273242714, guid: 7099d58a3d718472591fcef879b4fa40, type: 3}
+  acPointIcon: {fileID: 1304652059, guid: 7099d58a3d718472591fcef879b4fa40, type: 3}
+  signatureMeterSkill: {fileID: 11400000, guid: e41b59137937442b4b503aadd3ff49a3, type: 2}
+  signatureSkills:
+  - {fileID: 11400000, guid: 2fb3deb5f0948483d8ead3520d352b72, type: 2}
+  - {fileID: 11400000, guid: 41b66df07aadb4e0792213ec7aa49510, type: 2}
+  commonSkills: []
+  utilitySkills: []

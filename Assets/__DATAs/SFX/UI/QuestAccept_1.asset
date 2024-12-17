@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a519d00cb2cdd48c28e554deaa24af6d, type: 3}
-  m_Name: Accept_1
+  m_Name: QuestAccept_1
   m_EditorClassIdentifier: 
-  sfxClip: {fileID: 8300000, guid: 41eb283f677314c898691b89ae2420f4, type: 3}
+  sfxClip: {fileID: 8300000, guid: 311ddb8cd291d4987a1ac18038328844, type: 3}

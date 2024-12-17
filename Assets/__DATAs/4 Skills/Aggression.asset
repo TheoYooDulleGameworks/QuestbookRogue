@@ -13,18 +13,19 @@ MonoBehaviour:
   m_Name: Aggression
   m_EditorClassIdentifier: 
   skillName: Aggression
-  defaultSprite: {fileID: 1481675888, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
-  defaultHoverSprite: {fileID: 1698592924, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
+  defaultSprite: {fileID: 1277045110, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
+  defaultHoverSprite: {fileID: 606993545, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
   skillDescription: Spend 1 Strength Dice of 1+, Get 1 Strength Dice of 6.
   costDescription: Select 1 Dice to Spend
   castDescription: 
+  isSignaturePointMeter: 0
   skillLimitType: 0
   skillCooldownType: 0
   isCooldown: 0
   costType: 0
   costValue: 1
-  costDiceTypes: 0100000004000000
   aboveConditionValue: 1
+  costDiceTypes: 0100000004000000
   castType: 1
   castValue: 0
   modifyValue: 0

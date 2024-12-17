@@ -5,10 +5,6 @@ using TMPro;
 
 public class SkillManager : Singleton<SkillManager>
 {
-    [Header("Points")]
-    public StatusValue signaturePoint;
-    public int maxSignature = 6;
-
     [Header("Transition")]
     [SerializeField] private CanvasGroup playerPanel;
     [SerializeField] private CanvasGroup adventurePanel;
@@ -19,19 +15,21 @@ public class SkillManager : Singleton<SkillManager>
     private bool isFaded;
 
     [Header("Skill Check")]
+    [SerializeField] private PlayerDiceSO playerDices;
+    [SerializeField] private PlayerSkillSO playerSkills;
+    [SerializeField] private RectTransform rollDicePanel;
+
     [SerializeField] private SkillSO currentSkill;
     [SerializeField] private RectTransform currentSkillPosition;
     [SerializeField] private int goalSelection;
     [SerializeField] private int currentSelection;
-
-    [SerializeField] private PlayerDiceSO playerDices;
-    [SerializeField] private RectTransform rollDicePanel;
 
     public List<RollDice> rollDices;
     public List<RollDice> clickableDices;
     public List<RollDice> nonClickalbeDices;
     public List<RollDice> castDices;
 
+    [Header("Refund Check")]
     [SerializeField] private bool isRefundable = false;
     [SerializeField] private int refundValue = 0;
     [SerializeField] private List<RefundDiceData> refundDices;
@@ -44,7 +42,7 @@ public class SkillManager : Singleton<SkillManager>
     {
         GameManager.Instance.OnStagePhaseChanged += HandleStagePhaseChange;
 
-        signaturePoint.Value = 0;
+        playerSkills.signaturePoint.Value = 0;
     }
 
     private void HandleStagePhaseChange(StagePhase stagePhase)
@@ -72,6 +70,16 @@ public class SkillManager : Singleton<SkillManager>
 
         if (currentSkill.costType == SkillCostType.DiceCost)
         {
+            if (currentSkill.castType == SkillCastType.SignaturePoint)
+            {
+                if (playerSkills.signaturePoint.Value == playerSkills.maxSignaturePoint)
+                {
+                    CancelSkill();
+                    // Player Alarm //
+                    return;
+                }
+            }
+
             goalSelection = currentSkill.costValue;
 
             rollDices = new List<RollDice>(rollDicePanel.GetComponentsInChildren<RollDice>());
@@ -117,14 +125,14 @@ public class SkillManager : Singleton<SkillManager>
                 // # => # Logic
             }
 
-            if (signaturePoint.Value < currentSkill.costValue)
+            if (playerSkills.signaturePoint.Value < currentSkill.costValue)
             {
                 CancelSkill();
                 return;
             }
             else
             {
-                signaturePoint.RemoveClampedValue(currentSkill.costValue, 0, maxSignature);
+                playerSkills.signaturePoint.RemoveClampedValue(currentSkill.costValue, 0, playerSkills.maxSignaturePoint);
                 isRefundable = true;
                 refundValue = currentSkill.costValue;
                 ConfirmSkill();
@@ -189,17 +197,19 @@ public class SkillManager : Singleton<SkillManager>
         }
         else if (currentSkill.castType == SkillCastType.SignaturePoint)
         {
-            signaturePoint.AddClampedValue(currentSkill.castValue, 0, maxSignature);
+            playerSkills.signaturePoint.AddClampedValue(currentSkill.castValue, 0, playerSkills.maxSignaturePoint);
             isRefundable = false;
             refundValue = 0;
             refundDices.Clear();
             CancelSkill();
         }
-        else if (currentSkill.castType == SkillCastType.Effect)
+        else if (currentSkill.castType == SkillCastType.Duplicate)
         {
-            isRefundable = false;
-            refundValue = 0;
-            refundDices.Clear();
+            SkillCastPhase();
+        }
+        else if (currentSkill.castType == SkillCastType.Combine)
+        {
+            CastCombine();
         }
     }
 
@@ -253,6 +263,39 @@ public class SkillManager : Singleton<SkillManager>
             foreach (var dice in rollDices)
             {
                 if (dice.IsPossibleToModify(currentSkill.castDiceType))
+                {
+                    clickableDices.Add(dice);
+                }
+                else
+                {
+                    nonClickalbeDices.Add(dice);
+                }
+            }
+
+            foreach (var dice in rollDices)
+            {
+                dice.SkillCastCheck();
+            }
+            foreach (var dice in clickableDices)
+            {
+                dice.SkillActivate();
+            }
+            foreach (var dice in nonClickalbeDices)
+            {
+                dice.SkillDeActivate();
+            }
+
+            if (clickableDices.Count <= 0)
+            {
+                CancelSkill();
+                return;
+            }
+        }
+        else if (currentSkill.castType == SkillCastType.Duplicate)
+        {
+            foreach (var dice in rollDices)
+            {
+                if (dice.IsPossibleToDuplicate(currentSkill.castDiceType))
                 {
                     clickableDices.Add(dice);
                 }
@@ -571,9 +614,13 @@ public class SkillManager : Singleton<SkillManager>
         {
             CastModify();
         }
+        else if (currentSkill.castType == SkillCastType.Duplicate)
+        {
+            CastDuplicate();
+        }
     }
 
-    public void CastReRoll()
+    private void CastReRoll()
     {
         foreach (RollDice dice in castDices)
         {
@@ -589,7 +636,7 @@ public class SkillManager : Singleton<SkillManager>
         CancelSkill();
     }
 
-    public void CastModify()
+    private void CastModify()
     {
         foreach (RollDice dice in castDices)
         {
@@ -605,7 +652,103 @@ public class SkillManager : Singleton<SkillManager>
         CancelSkill();
     }
 
+    private void CastDuplicate()
+    {
+        List<DiceType> duplicatingDiceType = new List<DiceType>();
+        List<int> duplicatingDiceValue = new List<int>();
 
+        foreach (RollDice dice in castDices)
+        {
+            duplicatingDiceType.Add(dice.DieType());
+            duplicatingDiceValue.Add(dice.DieValue());
+        }
+
+        List<GameObject> dicePrefabs = new List<GameObject>();
+
+        for (int i = 0; i < castDices.Count; i++)
+        {
+
+            switch (duplicatingDiceType[i])
+            {
+                case DiceType.Strength:
+                    GameObject strDicePrefab = Instantiate(playerDices.StrDice_Roll);
+                    strDicePrefab.transform.SetParent(rollDicePanel, false);
+                    dicePrefabs.Add(strDicePrefab);
+
+                    strDicePrefab.GetComponent<RollDice>().SkillFix(duplicatingDiceValue[i]);
+
+                    break;
+                case DiceType.Agility:
+                    GameObject agiDicePrefab = Instantiate(playerDices.AgiDice_Roll);
+                    agiDicePrefab.transform.SetParent(rollDicePanel, false);
+                    dicePrefabs.Add(agiDicePrefab);
+
+                    agiDicePrefab.GetComponent<RollDice>().SkillFix(duplicatingDiceValue[i]);
+
+                    break;
+                case DiceType.Intelligence:
+                    GameObject intDicePrefab = Instantiate(playerDices.IntDice_Roll);
+                    intDicePrefab.transform.SetParent(rollDicePanel, false);
+                    dicePrefabs.Add(intDicePrefab);
+
+                    intDicePrefab.GetComponent<RollDice>().SkillFix(duplicatingDiceValue[i]);
+
+                    break;
+                case DiceType.Willpower:
+                    GameObject wilDicePrefab = Instantiate(playerDices.WilDice_Roll);
+                    wilDicePrefab.transform.SetParent(rollDicePanel, false);
+                    dicePrefabs.Add(wilDicePrefab);
+
+                    wilDicePrefab.GetComponent<RollDice>().SkillFix(duplicatingDiceValue[i]);
+
+                    break;
+            }
+        }
+
+        int rowCount = Mathf.CeilToInt(dicePrefabs.Count / 14f);
+        int rowHeight = 96;
+        int baseYPosition = -464 + ((rowCount - 1) * rowHeight);
+
+        for (int i = 0; i < dicePrefabs.Count; i++)
+        {
+            int currentRow = i / 14;
+            int indexInRow = i % 14;
+
+            float xPosition = -358 + (indexInRow * 96);
+            float yPosition;
+
+            if (dicePrefabs.Count <= 14)
+            {
+                yPosition = -424;
+            }
+            else
+            {
+                yPosition = baseYPosition - (currentRow * rowHeight);
+            }
+
+            dicePrefabs[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(xPosition, yPosition);
+        }
+
+        foreach (var dice in dicePrefabs)
+        {
+            dice.GetComponent<RollDice>().SkillGenerate();
+        }
+
+        AudioManager.Instance.PlaySfx("DiceGenerating");
+
+        dicePrefabs.Clear();
+
+        isRefundable = false;
+        refundValue = 0;
+        refundDices.Clear();
+
+        CancelSkill();
+    }
+
+    private void CastCombine()
+    {
+        // refundDices' 2 dices -> Combine -> Fixed Dice gogo
+    }
 
     // CANCEL //
 
@@ -619,7 +762,7 @@ public class SkillManager : Singleton<SkillManager>
             }
             else if (currentSkill.costType == SkillCostType.SignaturePointCost)
             {
-                signaturePoint.AddClampedValue(refundValue, 0, maxSignature);
+                playerSkills.signaturePoint.AddClampedValue(refundValue, 0, playerSkills.maxSignaturePoint);
             }
 
             isRefundable = false;

@@ -10,23 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7eea00f745c4e41578514d4e5f69f339, type: 3}
-  m_Name: '[Rogue] Nimble'
+  m_Name: '[1] Rage'
   m_EditorClassIdentifier: 
-  skillName: Effort
+  skillName: Rage
   defaultSprite: {fileID: -519994532, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
-  defaultHoverSprite: {fileID: -238454915, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
-  skillDescription: Spend 3 Stamina, Reroll 1 Dice
+  defaultHoverSprite: {fileID: -1172757606, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
+  skillDescription: 'When applying Attack Action,
+
+    Gain 1 Rage for Each Strength
+    Dice of 5+ put in.
+
+    lose all Rages if the Rage reaches 7,
+
+    And when the
+    Quest is over.'
   costDescription: 
-  castDescription: Select 3 Dice to Reroll
-  skillLimitType: 1
+  castDescription: 
+  skillLimitType: 0
   skillCooldownType: 0
   isCooldown: 0
   costType: 0
-  costValue: 1
-  aboveConditionValue: 1
-  costDiceTypes: 0200000004000000
-  castType: 2
-  castValue: 1
+  costValue: 0
+  aboveConditionValue: 0
+  costDiceTypes: 
+  castType: 0
+  castValue: 0
   modifyValue: 0
-  castDiceType: 01000000020000000300000004000000
+  castDiceType: 
   diceCastSets: []

@@ -14,6 +14,7 @@ public class PlayerManager : Singleton<PlayerManager>
     // Player Assets //
     [SerializeField] public PlayerStatusSO playerStatus;
     [SerializeField] public PlayerDiceSO playerDices;
+    [SerializeField] public PlayerSkillSO playerSkills;
     [SerializeField] public PlayerPathSO playerPaths;
 
     protected override void Awake()
@@ -23,7 +24,13 @@ public class PlayerManager : Singleton<PlayerManager>
         FirstSetPlayerProfile();
         FirstSetPlayerStatus();
         FirstSetPlayerDices();
+        FirstSetPlayerSkills();
         FirstSetPlayerPaths();
+    }
+
+    private void Start()
+    {
+        TraitManager.Instance.SetPlayerCharacter(playerCharacter.playerCharacter);
     }
 
     private void FirstSetPlayerProfile()
@@ -58,6 +65,28 @@ public class PlayerManager : Singleton<PlayerManager>
         playerDices.IntDice.Value = playerCharacter.startingIntelligence;
 
         playerDices.WilDice.Value = playerCharacter.startingWillpower;
+    }
+
+    private void FirstSetPlayerSkills()
+    {
+        playerSkills.ResetPlayerSkills();
+
+        if (playerCharacter.startingMeterSkill != null)
+        {
+            playerSkills.signatureMeterSkill = playerCharacter.startingMeterSkill;
+            playerSkills.dePointIcon = playerCharacter.dePointIcon;
+            playerSkills.acPointIcon = playerCharacter.acPointIcon;
+        }
+
+        if (playerCharacter.maxSignaturePoint != 0)
+        {
+            playerSkills.maxSignaturePoint = playerCharacter.maxSignaturePoint;
+        }
+
+        foreach (SkillSO skill in playerCharacter.startingSkills)
+        {
+            playerSkills.LearnSignatureSkill(skill);
+        }
     }
 
     private void FirstSetPlayerPaths()

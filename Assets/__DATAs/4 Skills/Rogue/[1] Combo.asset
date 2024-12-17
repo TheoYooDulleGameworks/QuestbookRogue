@@ -10,23 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7eea00f745c4e41578514d4e5f69f339, type: 3}
-  m_Name: '![Rogue] Shadow'
+  m_Name: '[1] Combo'
   m_EditorClassIdentifier: 
-  skillName: Temper
-  defaultSprite: {fileID: 60720202, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
-  defaultHoverSprite: {fileID: -478108265, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
-  skillDescription: Spend 1 Stamina, Get 2 Rage
+  skillName: Combo
+  defaultSprite: {fileID: -519994532, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
+  defaultHoverSprite: {fileID: -1172757606, guid: 98d16476b48574ab093e580f56c4c70c, type: 3}
+  skillDescription: 'When ReRoll the Dice, if the result is not x,
+
+    Gain 1 Combo.
+
+    lose
+    all Combos at the end of each turn,
+
+    And when the Quest is over.'
   costDescription: 
   castDescription: 
-  skillLimitType: 1
+  skillLimitType: 0
   skillCooldownType: 0
   isCooldown: 0
-  costType: 1
-  costValue: 3
+  costType: 0
+  costValue: 0
   aboveConditionValue: 0
   costDiceTypes: 
-  castType: 5
-  castValue: 1
+  castType: 0
+  castValue: 0
   modifyValue: 0
   castDiceType: 
   diceCastSets: []

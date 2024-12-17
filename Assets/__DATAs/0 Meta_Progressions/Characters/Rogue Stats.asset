@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 333a5a885d4604e95aac5604a6ba4b9d, type: 3}
   m_Name: Rogue Stats
   m_EditorClassIdentifier: 
+  playerCharacter: 1
   characterImage: {fileID: -1789202559, guid: 8122fe49e813d4ec5a24fbc4b7460745, type: 3}
   hittedImage: {fileID: 227126551, guid: 8122fe49e813d4ec5a24fbc4b7460745, type: 3}
   characterLvContainer: {fileID: -1237222171, guid: 1767a71d735254df58b70056f55a8d5a, type: 3}
@@ -19,9 +20,15 @@ MonoBehaviour:
   defaultHp: 8
   defaultGold: 4
   defaultProvision: 2
-  startingStrength: 2
-  startingAgility: 4
+  startingStrength: 1
+  startingAgility: 3
   startingIntelligence: 1
-  startingWillpower: 1
-  startingSkills: []
+  startingWillpower: 0
+  startingMeterSkill: {fileID: 11400000, guid: e41b59137937442b4b503aadd3ff49a3, type: 2}
+  maxSignaturePoint: 5
+  dePointIcon: {fileID: 273242714, guid: 7099d58a3d718472591fcef879b4fa40, type: 3}
+  acPointIcon: {fileID: 1304652059, guid: 7099d58a3d718472591fcef879b4fa40, type: 3}
+  startingSkills:
+  - {fileID: 11400000, guid: 2fb3deb5f0948483d8ead3520d352b72, type: 2}
+  - {fileID: 11400000, guid: 41b66df07aadb4e0792213ec7aa49510, type: 2}
   startingRelics: []

@@ -27,6 +27,9 @@ public class InfoTabController : Singleton<InfoTabController>
 
     private void InitializeTabs()
     {
+        diceTab.GetComponent<DiceTabUI>().InitiateDiceTabUI();
+        skillTab.GetComponent<SkillTabUI>().InitiateSkillTabUI();
+
         tabDictionary = new Dictionary<InfoTab, GameObject>
         {
             { InfoTab.DiceTab, diceTab },

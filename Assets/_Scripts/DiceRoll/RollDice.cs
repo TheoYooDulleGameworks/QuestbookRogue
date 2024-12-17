@@ -43,6 +43,7 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField] private bool notYetRolledAndWait = false;
     [SerializeField] private bool onceRolled = false;
     [SerializeField] private bool endDragged = false;
+    [SerializeField] private bool rerollTraitTriggered = false;
 
     [Header("Tweening")]
     [SerializeField] private float popUpScale = 1.35f;
@@ -578,6 +579,18 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         animator.enabled = false;
         diceImage.GetComponent<Image>().sprite = valueSprite;
 
+        if (rerollTraitTriggered)
+        {
+            if (randomValue != 0)
+            {
+                if (TraitManager.Instance.playerCharacter == PlayerCharacter.Rogue)
+                {
+                    TraitManager.Instance.CHAR_Rogue_ReRollSuccessTrait();
+                }
+            }
+
+            rerollTraitTriggered = false;
+        }
 
         rectTransform.DOKill();
         rectTransform.localScale = new Vector3(popUpScale, popUpScale, popUpScale);
@@ -641,6 +654,25 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
+    public bool IsPossibleToDuplicate(List<DiceType> diceTypes)
+    {
+        if (diceTypes.Contains(diceType))
+        {
+            if (dieValue != 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public bool IsPossibleToModify(List<DiceType> diceTypes)
     {
         if (diceTypes.Contains(diceType))
@@ -677,6 +709,11 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             return false;
         }
+    }
+
+    public DiceType DieType()
+    {
+        return diceType;
     }
 
     public int DieValue()
@@ -759,6 +796,8 @@ public class RollDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void SkillReRoll()
     {
+        rerollTraitTriggered = true;
+
         DiceRollAnim();
     }
 

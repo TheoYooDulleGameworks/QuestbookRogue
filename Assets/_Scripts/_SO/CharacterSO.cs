@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterSO : ScriptableObject
 {
     [Header("Profile")]
+    public PlayerCharacter playerCharacter;
     public Sprite characterImage;
     public Sprite hittedImage;
     public Sprite characterLvContainer;
@@ -21,7 +22,38 @@ public class CharacterSO : ScriptableObject
     public int startingIntelligence;
     public int startingWillpower;
 
-    [Header("Items")]
+    [Header("Skills")]
+    public SkillSO startingMeterSkill;
+    public int maxSignaturePoint;
+    public Sprite dePointIcon;
+    public Sprite acPointIcon;
     public List<SkillSO> startingSkills;
+
+    [Header("Relics")]
     public List<RelicSO> startingRelics;
+}
+
+public enum PlayerCharacter
+{
+    None,
+    Rogue,
+    Warrior,
+    Mage,
+    Knight,
+    Warden,
+    Sorcerer,
+    Priestess,
+    Sellsword,
+    Champion,
+    Ranger,
+    Bard,
+    Druid,
+    Shaman,
+    Tinkerer,
+    Shapeshifter,
+    Guardian,
+    Watcher,
+    Weaver,
+    Enchantress,
+    Prophet,
 }

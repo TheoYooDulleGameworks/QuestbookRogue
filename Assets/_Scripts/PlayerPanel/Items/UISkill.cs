@@ -10,26 +10,10 @@ public class UISkill : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
     [Header("Components")]
     [SerializeField] private RectTransform skillImage;
 
-    private void Start()
+    public void SetSkillData(SkillSO _skillData)
     {
-        GameManager.Instance.OnStagePhaseChanged += HandleStagePhaseChange;
-        SetSkillData();
-    }
-
-    private void HandleStagePhaseChange(StagePhase stagePhase)
-    {
-        if (stagePhase == StagePhase.DiceUsing)
-        {
-            if (skillData.skillCooldownType == SkillCooldownType.Turn)
-            {
-                skillData.isCooldown = false;
-            }
-        }
-    }
-
-    public void SetSkillData()
-    {
-        skillImage.GetComponent<Image>().sprite = skillData.defaultSprite;
+        skillData = _skillData;
+        skillImage.GetComponent<Image>().sprite = _skillData.defaultSprite;
     }
 
     public void DestroyUISkill()
