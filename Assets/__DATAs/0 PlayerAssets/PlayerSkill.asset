@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerSkill
   m_EditorClassIdentifier: 
   signaturePoint:
-    value: 12
+    value: 0
   maxSignaturePoint: 12
   dePointIcon: {fileID: 273242714, guid: 7099d58a3d718472591fcef879b4fa40, type: 3}
   acPointIcon: {fileID: 1304652059, guid: 7099d58a3d718472591fcef879b4fa40, type: 3}

@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4eff72458e07d4f70abc5c0322382142, type: 3}
-  m_Name: 100_B
+  m_Name: 101_D
   m_EditorClassIdentifier: 
   contentType: 3
   contentTemplate: {fileID: 5261872072332721650, guid: 2dd8069d6814d49fcaac4742bc03a137, type: 3}
   isFreeCancel: 0
   bodyText: 
-  actionTitle: Parry Blow
+  actionTitle: Get Close
   actionImage: {fileID: 1809170628, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
   actionRequestSlots1Row:
   - RequestSlot: {fileID: 11400000, guid: 835a2e17334f54b32a41155cf48b4779, type: 2}
     DiceSlotType: 2
     RequestValue: 6
-  - RequestSlot: {fileID: 11400000, guid: b0bb0843fc1544cfea08f87e665e95d4, type: 2}
+  - RequestSlot: {fileID: 11400000, guid: 17d613e2090e94d51b75f61d71d2ff41, type: 2}
     DiceSlotType: 0
     RequestValue: 0
   actionRequestSlots2Row: []
   combatOptionSets:
-  - combatOptionType: 1
+  - combatOptionType: 2
     optionModifyType: 1
-    optionAmount: 2
+    optionAmount: 1
   - combatOptionType: 0
     optionModifyType: 0
     optionAmount: 1

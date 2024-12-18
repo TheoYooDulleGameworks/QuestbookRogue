@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 public class PathGeneration : MonoBehaviour
 {
@@ -45,7 +47,7 @@ public class PathGeneration : MonoBehaviour
     [SerializeField] private Path path8_E;
     [SerializeField] private Path path8_R;
     [Header("Depth_9")]
-    [SerializeField] private Path path9_B;
+    [SerializeField] private Path path9;
 
     private void Update()
     {
@@ -97,27 +99,21 @@ public class PathGeneration : MonoBehaviour
         if (D1_abc)
         {
             path2_T.DeActivatePath();
-            path2_W.ActivatePath();
-            path2_E.ActivatePath();
 
-            int path2randomQ = Random.Range(0, 2);
-            if (path2randomQ == 0)
+            int path2random = Random.Range(0, 2);
+            if (path2random == 0)
             {
                 path2_Q.ActivatePath();
+                path2_W.ActivatePath();
+                path2_E.ActivatePath();
+                path2_R.DeActivatePath();
             }
             else
             {
                 path2_Q.DeActivatePath();
-            }
-
-            int path2randomR = Random.Range(0, 2);
-            if (path2randomR == 0)
-            {
+                path2_W.ActivatePath();
+                path2_E.ActivatePath();
                 path2_R.ActivatePath();
-            }
-            else
-            {
-                path2_R.DeActivatePath();
             }
         }
         else if (D1_abcd)
@@ -149,27 +145,21 @@ public class PathGeneration : MonoBehaviour
         else if (D1_bcd)
         {
             path2_Q.DeActivatePath();
-            path2_E.ActivatePath();
-            path2_R.ActivatePath();
 
-            int path2randomW = Random.Range(0, 2);
-            if (path2randomW == 0)
+            int path2random = Random.Range(0, 2);
+            if (path2random == 0)
             {
                 path2_W.ActivatePath();
+                path2_E.ActivatePath();
+                path2_R.ActivatePath();
+                path2_T.DeActivatePath();
             }
             else
             {
                 path2_W.DeActivatePath();
-            }
-
-            int path2randomT = Random.Range(0, 2);
-            if (path2randomT == 0)
-            {
+                path2_E.ActivatePath();
+                path2_R.ActivatePath();
                 path2_T.ActivatePath();
-            }
-            else
-            {
-                path2_T.DeActivatePath();
             }
         }
 
@@ -351,25 +341,10 @@ public class PathGeneration : MonoBehaviour
             // BC
 
             path4_Q.DeActivatePath();
-            path4_T.DeActivatePath();
+            path4_W.ActivatePath();
             path4_E.ActivatePath();
-
-            int path4random = Random.Range(0, 4);
-            if (path4random == 0)
-            {
-                path4_W.ActivatePath();
-                path4_R.DeActivatePath();
-            }
-            else if (path4random == 1)
-            {
-                path4_W.DeActivatePath();
-                path4_R.ActivatePath();
-            }
-            else
-            {
-                path4_W.ActivatePath();
-                path4_R.ActivatePath();
-            }
+            path4_R.ActivatePath();
+            path4_T.DeActivatePath();
         }
         else if (path3_A.CheckOnPath() && path3_B.CheckOnPath() && !path3_C.CheckOnPath() && !path3_D.CheckOnPath())
         {
@@ -610,25 +585,10 @@ public class PathGeneration : MonoBehaviour
             // BC
 
             path6_Q.DeActivatePath();
-            path6_T.DeActivatePath();
+            path6_W.ActivatePath();
             path6_E.ActivatePath();
-
-            int path6random = Random.Range(0, 4);
-            if (path6random == 0)
-            {
-                path6_W.ActivatePath();
-                path6_R.DeActivatePath();
-            }
-            else if (path6random == 1)
-            {
-                path6_W.DeActivatePath();
-                path6_R.ActivatePath();
-            }
-            else
-            {
-                path6_W.ActivatePath();
-                path6_R.ActivatePath();
-            }
+            path6_R.ActivatePath();
+            path6_T.DeActivatePath();
         }
         else if (path5_A.CheckOnPath() && path5_B.CheckOnPath() && !path5_C.CheckOnPath() && !path5_D.CheckOnPath())
         {
@@ -842,6 +802,17 @@ public class PathGeneration : MonoBehaviour
 
         // Depth 9 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        path9_B.ActivatePath();
+        path9.ActivatePath();
+
+        List<Path> activatedPaths = GetComponentsInChildren<Path>().Where(path => path.CheckOnPath()).ToList();
+
+        foreach (Path path in activatedPaths)
+        {
+            int randomQuestType = Random.Range(1, 10);
+
+            QuestType selectedQuestType = (QuestType)randomQuestType;
+
+            path.AssignQuestType(selectedQuestType);
+        }
     }
 }

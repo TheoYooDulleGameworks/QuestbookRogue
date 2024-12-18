@@ -139,7 +139,11 @@ public class UISignatureMeterSkill : MonoBehaviour, IPointerEnterHandler, IPoint
 
         int currentPoint = playerSkills.signaturePoint.Value;
 
-        if (currentPoint != 0)
+        if (currentPoint <= 0)
+        {
+            return;
+        }
+        else
         {
             for (int i = 0; i < currentPoint; i++)
             {

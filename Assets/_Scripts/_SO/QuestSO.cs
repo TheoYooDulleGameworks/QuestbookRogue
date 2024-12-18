@@ -28,8 +28,12 @@ public enum QuestType
 {
     General,
     Combat,
+    BossCombat,
+    Trap,
     Exploration,
     Encounter,
+    Mission,
     Town,
+    Merchant,
     Secret
 }

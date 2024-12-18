@@ -10,32 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4eff72458e07d4f70abc5c0322382142, type: 3}
-  m_Name: 100_A
+  m_Name: 101_C
   m_EditorClassIdentifier: 
   contentType: 3
   contentTemplate: {fileID: 5261872072332721650, guid: 2dd8069d6814d49fcaac4742bc03a137, type: 3}
   isFreeCancel: 0
   bodyText: 
-  actionTitle: Aim the Head
+  actionTitle: Quick Slash
   actionImage: {fileID: 1809170628, guid: fdae5ec9a97f94e2ebcf78e9f0c2f43c, type: 3}
   actionRequestSlots1Row:
-  - RequestSlot: {fileID: 11400000, guid: e55257c451cc247639c7e825c4bb7281, type: 2}
-    DiceSlotType: 0
-    RequestValue: 0
-  - RequestSlot: {fileID: 11400000, guid: be31b5c46e0074f1085c4a13609fe782, type: 2}
-    DiceSlotType: 0
-    RequestValue: 0
-  - RequestSlot: {fileID: 11400000, guid: a40ab70f68c7e474394611ec95267182, type: 2}
-    DiceSlotType: 0
-    RequestValue: 0
+  - RequestSlot: {fileID: 11400000, guid: 77089c54fbbb748e2ae13a3d40ec1ee3, type: 2}
+    DiceSlotType: 2
+    RequestValue: 6
   actionRequestSlots2Row: []
   combatOptionSets:
-  - combatOptionType: 1
-    optionModifyType: 1
-    optionAmount: 1
   - combatOptionType: 0
     optionModifyType: 0
-    optionAmount: 4
+    optionAmount: 2
   rewardObjects:
   - rewardData: {fileID: 11400000, guid: 2bad000a41c28457b8b56faeba46fa0b, type: 2}
     rewardAmount: 1
