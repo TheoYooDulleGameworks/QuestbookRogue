@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 723c4a8ddd6f840088c604f651b77362
+guid: a93a3f2f0872847168a49a74544b0ea9
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -136,551 +136,375 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Path Seal_1_0
+      name: PathMark_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 76
-        width: 19
-        height: 19
+        y: 96
+        width: 46
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0101f5b5c6c624e2cab93e7a726b379c
-      internalID: -1628390521
+      spriteID: ea769a0c6f09e43678763be79e669ccd
+      internalID: 837473426
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Path Seal_1_1
+      name: PathMark_1
       rect:
         serializedVersion: 2
-        x: 19
-        y: 76
-        width: 19
-        height: 19
+        x: 46
+        y: 96
+        width: 46
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6870a8968f6f644088a695967bfae444
-      internalID: 936758025
+      spriteID: f7d16136219c5494bb2b90885c786353
+      internalID: 1246185627
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Path Seal_1_2
+      name: PathMark_2
       rect:
         serializedVersion: 2
-        x: 38
-        y: 76
-        width: 19
-        height: 19
+        x: 92
+        y: 96
+        width: 46
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 786006f2a40334f4883916ed7e350577
-      internalID: 719827894
+      spriteID: 76785a8890aa540289834152a5c1a893
+      internalID: -1248701904
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Path Seal_1_3
+      name: PathMark_3
       rect:
         serializedVersion: 2
-        x: 57
-        y: 76
-        width: 19
-        height: 19
+        x: 138
+        y: 96
+        width: 46
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f0e7c07cb6e894cf68c86fa9d8d4ba7a
-      internalID: -1510970181
+      spriteID: e7f14f4960c2b4e2b8bf76fd7ea843e1
+      internalID: -241093624
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Path Seal_1_4
+      name: PathMark_4
       rect:
         serializedVersion: 2
-        x: 76
-        y: 76
-        width: 19
-        height: 19
+        x: 184
+        y: 96
+        width: 46
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e1db8de41c27d442e8b1dc28a80fa4ea
-      internalID: -629511269
+      spriteID: bfbcfe3d986664a43bd5c9d51149ac1d
+      internalID: 957311928
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Path Seal_1_5
+      name: PathMark_5
       rect:
         serializedVersion: 2
-        x: 0
-        y: 57
-        width: 19
-        height: 19
+        x: 230
+        y: 96
+        width: 46
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 800bc8cd3d8c042dfa34374bc8bb978c
-      internalID: 839905692
+      spriteID: 9ef6ef562abc04ac38f39ff061e7f98a
+      internalID: -1144205826
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Path Seal_1_6
+      name: PathMark_6
       rect:
         serializedVersion: 2
-        x: 19
-        y: 57
-        width: 19
-        height: 19
+        x: 276
+        y: 96
+        width: 46
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a76794f4a27224025a6dd800c1bdff8b
-      internalID: -1362537115
+      spriteID: f29c1566cf8284ce7a8a80e2794cc6a6
+      internalID: 856320179
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Path Seal_1_7
+      name: PathMark_7
       rect:
         serializedVersion: 2
-        x: 38
-        y: 57
-        width: 19
-        height: 19
+        x: 322
+        y: 96
+        width: 46
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 35a01220e087a43028ae9d10c94bcad2
-      internalID: -1679973081
+      spriteID: c2fdcbf81d632427c9ec3d36c865ac89
+      internalID: -1856758755
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Path Seal_1_8
-      rect:
-        serializedVersion: 2
-        x: 57
-        y: 57
-        width: 19
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 455323c40769a435d9769b02b060456f
-      internalID: 1807102062
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Path Seal_1_9
-      rect:
-        serializedVersion: 2
-        x: 76
-        y: 57
-        width: 19
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 57ae069ba7c804f1a820a336bbd0aedb
-      internalID: 796399098
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Path Seal_1_10
+      name: PathMark_8
       rect:
         serializedVersion: 2
         x: 0
-        y: 38
-        width: 19
-        height: 19
+        y: 48
+        width: 46
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4c76606d99924446b2d51d579fa3ecd
-      internalID: 1095818024
+      spriteID: f009bc99e721947b4b4ad079b8ca04e3
+      internalID: 1220515906
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Path Seal_1_11
+      name: PathMark_9
       rect:
         serializedVersion: 2
-        x: 19
-        y: 38
-        width: 19
-        height: 19
+        x: 46
+        y: 48
+        width: 46
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f5de61a1683d84110b5f2a297c45059e
-      internalID: 1664671786
+      spriteID: 79d4183021fc34b449ffdabec1685a38
+      internalID: -1748372831
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Path Seal_1_12
+      name: PathMark_10
       rect:
         serializedVersion: 2
-        x: 38
-        y: 38
-        width: 19
-        height: 19
+        x: 92
+        y: 48
+        width: 46
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 41c6d640fa46a41f8b0c97fb910a5282
-      internalID: -48572878
+      spriteID: 0345c2e7538b2402a80b850aa230b27a
+      internalID: -148037723
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Path Seal_1_13
+      name: PathMark_11
       rect:
         serializedVersion: 2
-        x: 57
-        y: 38
-        width: 19
-        height: 19
+        x: 138
+        y: 48
+        width: 46
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 81e04045e5c1d49ba8634472f3630d0a
-      internalID: -902727829
+      spriteID: 4cc4c306e02a544a2a9ad0ed83127b20
+      internalID: 573781224
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Path Seal_1_14
+      name: PathMark_12
       rect:
         serializedVersion: 2
-        x: 76
-        y: 38
-        width: 19
-        height: 19
+        x: 184
+        y: 48
+        width: 46
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1d87612826a874ad69ff83bccb712f01
-      internalID: 1459667485
+      spriteID: 39dc8f267f3ef4a4eae48e5b8e6d7eae
+      internalID: 441024574
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Path Seal_1_15
+      name: PathMark_13
       rect:
         serializedVersion: 2
-        x: 0
-        y: 19
-        width: 19
-        height: 19
+        x: 230
+        y: 48
+        width: 46
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 865eb1c5eae154bbb9ab344ef53e9aa1
-      internalID: 933402478
+      spriteID: 35a99a30397b74a408afcc430e6ec603
+      internalID: -1247454556
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Path Seal_1_16
+      name: PathMark_14
       rect:
         serializedVersion: 2
-        x: 19
-        y: 19
-        width: 19
-        height: 19
+        x: 276
+        y: 48
+        width: 46
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cb67ce9a3e3d4417fb17a9cc4af59811
-      internalID: -1478356152
+      spriteID: e81c10983cba74415b8ad92f86122542
+      internalID: 1748214556
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Path Seal_1_17
+      name: PathMark_15
       rect:
         serializedVersion: 2
-        x: 38
-        y: 19
-        width: 19
-        height: 19
+        x: 322
+        y: 48
+        width: 46
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13af5ca0927914debb536ed0042b9c41
-      internalID: 1862198707
+      spriteID: bfa6ebf7138b445f987e1901d524350d
+      internalID: -1062574354
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Path Seal_1_18
-      rect:
-        serializedVersion: 2
-        x: 57
-        y: 19
-        width: 19
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dc1b1123e99ad45d388b574dcde6d4bc
-      internalID: -192325196
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Path Seal_1_19
-      rect:
-        serializedVersion: 2
-        x: 76
-        y: 19
-        width: 19
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b522f334425a94634baf1e34fe1370ef
-      internalID: -617927648
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Path Seal_1_20
+      name: PathMark_16
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 19
-        height: 19
+        width: 46
+        height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d68905d7972a64b02aebf3b2fa6f0413
-      internalID: 1666009925
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Path Seal_1_21
-      rect:
-        serializedVersion: 2
-        x: 19
-        y: 0
-        width: 19
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 071c26156df164581ae7aa4a679568d9
-      internalID: -387288139
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Path Seal_1_22
-      rect:
-        serializedVersion: 2
-        x: 38
-        y: 0
-        width: 19
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9650df550bd54465ba3c81479b61368d
-      internalID: 1625655867
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Path Seal_1_23
-      rect:
-        serializedVersion: 2
-        x: 57
-        y: 0
-        width: 19
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7167e3dbde6b84c589a56c3d065234d1
-      internalID: -1550569858
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Path Seal_1_24
-      rect:
-        serializedVersion: 2
-        x: 76
-        y: 0
-        width: 19
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4cb64f06934d147098f7f4d73237558b
-      internalID: -1211963453
+      spriteID: 11182e2cf34474de5a3d5bf5a11aac4a
+      internalID: -845226679
       vertices: []
       indices: 
       edges: []
@@ -689,7 +513,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4865a687609d3421c9fef299428b1334
+    spriteID: 73af0f18b30c7460686c018a9309d238
     internalID: 0
     vertices: []
     indices: 
@@ -699,31 +523,23 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Path Seal_1_0: -1628390521
-      Path Seal_1_1: 936758025
-      Path Seal_1_10: 1095818024
-      Path Seal_1_11: 1664671786
-      Path Seal_1_12: -48572878
-      Path Seal_1_13: -902727829
-      Path Seal_1_14: 1459667485
-      Path Seal_1_15: 933402478
-      Path Seal_1_16: -1478356152
-      Path Seal_1_17: 1862198707
-      Path Seal_1_18: -192325196
-      Path Seal_1_19: -617927648
-      Path Seal_1_2: 719827894
-      Path Seal_1_20: 1666009925
-      Path Seal_1_21: -387288139
-      Path Seal_1_22: 1625655867
-      Path Seal_1_23: -1550569858
-      Path Seal_1_24: -1211963453
-      Path Seal_1_3: -1510970181
-      Path Seal_1_4: -629511269
-      Path Seal_1_5: 839905692
-      Path Seal_1_6: -1362537115
-      Path Seal_1_7: -1679973081
-      Path Seal_1_8: 1807102062
-      Path Seal_1_9: 796399098
+      PathMark_0: 837473426
+      PathMark_1: 1246185627
+      PathMark_10: -148037723
+      PathMark_11: 573781224
+      PathMark_12: 441024574
+      PathMark_13: -1247454556
+      PathMark_14: 1748214556
+      PathMark_15: -1062574354
+      PathMark_16: -845226679
+      PathMark_2: -1248701904
+      PathMark_3: -241093624
+      PathMark_4: 957311928
+      PathMark_5: -1144205826
+      PathMark_6: 856320179
+      PathMark_7: -1856758755
+      PathMark_8: 1220515906
+      PathMark_9: -1748372831
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

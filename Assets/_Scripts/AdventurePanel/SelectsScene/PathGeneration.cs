@@ -4,6 +4,10 @@ using System.Linq;
 
 public class PathGeneration : MonoBehaviour
 {
+    [Header("Managing")]
+    public int AvailableDepth = 0;
+    public Path CurrentPath = null;
+
     [Header("Depth_1")]
     [SerializeField] private Path path1_A;
     [SerializeField] private Path path1_B;
