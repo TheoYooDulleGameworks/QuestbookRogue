@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PathGenerator : MonoBehaviour
 {
+    [SerializeField] private ScenarioSettingSO testSO;
+
     [Header("Components")]
     [SerializeField] private RectTransform nodeParentRect;
 
@@ -11,22 +13,23 @@ public class PathGenerator : MonoBehaviour
 
     private void Start()
     {
-        GeneratePaths(24);
+        GeneratePaths(testSO);
     }
 
-    public void GeneratePaths(int depthQuantity)
+    public void GeneratePaths(ScenarioSettingSO scenarioSettingData)
     {
         float baseX = 0;
         float baseY = 0;
         float offsetX = 184;
         float offsetYSmall = 96;
         float offsetYLarge = 192;
-
-        for (int i = 0; i < depthQuantity; i++)
+        
+        /*
+        for (int i = 0; i < scenarioSettingData.pathLength; i++)
         {
             GameObject newDepth;
             RectTransform newDepthRect;
-            
+
             if (i % 2 == 0) // 짝수
             {
                 newDepth = Instantiate(evenDepthPrefab);
@@ -55,7 +58,8 @@ public class PathGenerator : MonoBehaviour
             }
 
             newDepthRect.anchoredPosition = new Vector3(baseX, baseY, 0);
-            newDepth.GetComponent<NodesController>().OnOffNodes(i);
+            newDepth.GetComponent<NodesController>().OnOffNodes(i, scenarioSettingData.pathLength - 1);
         }
+        */
     }
 }
