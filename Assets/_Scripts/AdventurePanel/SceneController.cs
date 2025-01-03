@@ -68,14 +68,14 @@ public class SceneController : Singleton<SceneController>
             GameObject questCard = Instantiate(questCardPrefab);
             questCard.transform.SetParent(selectsScene, false);
             questIndexes.Add(questCard.GetComponent<Quest>());
-            questCard.GetComponent<Quest>().InitiateQuestCard(playerPaths.PickRandomQuestData(), i);
+            //questCard.GetComponent<Quest>().InitiateQuestCard(playerPaths.PickRandomQuestData(), i);
 
-            questCard.GetComponent<Quest>().GenerateQuest();
+            //questCard.GetComponent<Quest>().GenerateQuest();
 
             yield return new WaitForSeconds(0.25f);
         }
 
-        questIndexes[0].FlipOnQuest();
+        //questIndexes[0].FlipOnQuest();
     }
 
 
@@ -168,7 +168,7 @@ public class SceneController : Singleton<SceneController>
         List<Quest> quests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
         foreach (var quest in quests)
         {
-            quest.DeActivateQuestCard();
+            //quest.DeActivateQuestCard();
         }
     }
 
@@ -287,7 +287,7 @@ public class SceneController : Singleton<SceneController>
             {
                 foreach (var quest in questIndexes)
                 {
-                    quest.DeleteQuest();
+                    //quest.DeleteQuest();
                 }
 
                 yield return null;
@@ -299,7 +299,7 @@ public class SceneController : Singleton<SceneController>
                 {
                     foreach (int index in nearbyQuests)
                     {
-                        questIndexes[index].FlipOnQuest();
+                        //questIndexes[index].FlipOnQuest();
                     }
                 }
 
@@ -311,7 +311,7 @@ public class SceneController : Singleton<SceneController>
         List<Quest> quests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
         foreach (var quest in quests)
         {
-            quest.ActivateQuestCard();
+            //quest.ActivateQuestCard();
         }
     }
 
@@ -337,20 +337,20 @@ public class SceneController : Singleton<SceneController>
 
         if (currentQuestIndex != -1)
         {
-            questIndexes[currentQuestIndex].ResolvedQuest();
+            //questIndexes[currentQuestIndex].ResolvedQuest();
         }
 
         List<Quest> quests = new List<Quest>(selectsScene.GetComponentsInChildren<Quest>());
         foreach (var quest in quests)
         {
-            quest.DeActivateQuestCard();
+            //quest.DeActivateQuestCard();
         }
 
         yield return new WaitForSeconds(1f);
 
         foreach (var quest in quests)
         {
-            quest.ActivateQuestCard();
+            //quest.ActivateQuestCard();
         }
     }
 

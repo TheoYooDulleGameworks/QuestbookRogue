@@ -13,17 +13,4 @@ MonoBehaviour:
   m_Name: GoblinKing_Act_1
   m_EditorClassIdentifier: 
   scenarioName: 'Hunt for Goblin King : Act 1'
-  pathSets:
-  - nodeA: 0
-    nodeB: 0
-    nodeC: 0
-    nodeD: 1
-    nodeE: 0
-    nodeF: 0
-    nodeG: 0
-    nodeU: 0
-    nodeV: 0
-    nodeW: 0
-    nodeX: 0
-    nodeY: 0
-    nodeZ: 0
+  pathSets: []

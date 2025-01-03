@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class Quest : MonoBehaviour
 {
     [Header("Quest Data")]
     [SerializeField] private QuestSO questData = null;
@@ -35,17 +35,7 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private bool isStandby;
 
-    private void Awake()
-    {
-        //Test
-        //InitiateQuestCard(questData, 0);
-    }
-
-    private void Start()
-    {
-        //Test
-        //FlipOnQuest();
-    }
+    /*
 
     public void InitiateQuestCard(QuestSO _questData, int _questIndexNum)
     {
@@ -272,4 +262,6 @@ public class Quest : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         selectionBelt.GetComponent<Image>().raycastTarget = false;
         selectionBelt.gameObject.SetActive(false);
     }
+
+    */
 }
