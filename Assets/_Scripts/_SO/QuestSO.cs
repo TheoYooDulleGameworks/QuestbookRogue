@@ -9,7 +9,7 @@ public class QuestSO : ScriptableObject
     public string questName;
 
     [Header("__________ TYPE _______________________________________________________________")]
-    public QuestType questType;
+    public QuestType questType = QuestType.Unknown;
     public Sprite questSeal;
 
     [Header("__________ CONTENTS _______________________________________________________________")]
@@ -26,14 +26,11 @@ public class QuestSO : ScriptableObject
 
 public enum QuestType
 {
-    General,
+    Unknown,
     Combat,
-    BossCombat,
     Trap,
+    Boss,
     Exploration,
     Encounter,
-    Mission,
     Town,
-    Merchant,
-    Secret
 }

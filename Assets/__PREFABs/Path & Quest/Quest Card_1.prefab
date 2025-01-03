@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 835064279691812267}
   - component: {fileID: 4287993490985304805}
-  - component: {fileID: 4828238346110934143}
   - component: {fileID: 9038721271419257529}
   m_Layer: 5
   m_Name: Quest Card_1
@@ -47,36 +46,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 40540013400027030}
   m_CullTransparentMesh: 1
---- !u!114 &4828238346110934143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 40540013400027030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &9038721271419257529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,21 +59,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questData: {fileID: 0}
-  questIndexNumber: -1
-  undiscoveredImage: {fileID: 5140046121104560048}
-  mainImage: {fileID: 0}
-  questBelt: {fileID: 872670714037961796}
-  questSeal: {fileID: 5702206244036507973}
-  resolvedImage: {fileID: 0}
-  questTitleText: {fileID: 3216857719807330296}
-  selectionBelt: {fileID: 5286224211458757969}
+  questCardRow: 0
+  questCardPosition: 0
+  inTransition: 0
   discovered: 0
   resolved: 0
-  inTransition: 0
-  resolvedCoverSprite: {fileID: -795754411, guid: 5d3bd5cdfc9034d92a60c879b43f34c7, type: 3}
-  resolvedBelt: {fileID: 1906883168, guid: 1386ddcbfe73047a0bdf34112dc06f32, type: 3}
-  resolvedSeal: {fileID: -1784271206, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
-  failedSeal: {fileID: 939198109, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  farQuestCard: {fileID: 9137585782336635429}
+  nearQuestCard: {fileID: 804440579650351584}
+  selectableQuestCard: {fileID: 8125578351198534749}
+  resolvedQuestCard: {fileID: 5836110255925189477}
+  mainImage: {fileID: 1643337224065247894}
+  questBelt: {fileID: 872670714037961796}
+  questTitleText: {fileID: 3216857719807330296}
+  questSeal: {fileID: 2508181280767193443}
+  resolvedSeal: {fileID: 4289403565261914319}
+  sealSprites:
+  - {fileID: -736264972, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  - {fileID: -829570617, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  - {fileID: -496020939, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  - {fileID: -355704649, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  - {fileID: 1725723402, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  - {fileID: -1829049934, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  - {fileID: -1017744213, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  - {fileID: -623794718, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
+  - {fileID: 411623410, guid: 26673cc480c1c46639765ca1e6504750, type: 3}
 --- !u!1 &804440579650351584
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,7 +1010,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

@@ -3,35 +3,41 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Collections.Generic;
 
 public class Quest : MonoBehaviour
 {
     [Header("Quest Data")]
     [SerializeField] private QuestSO questData = null;
-    [SerializeField] private int questIndexNumber = -1;
+    [SerializeField] private QuestCardRow questCardRow = QuestCardRow.none;
+    [SerializeField] private QuestCardPosition questCardPosition = QuestCardPosition.none;
 
-    [Header("Components")]
-    [SerializeField] private RectTransform undiscoveredImage = null;
-    [SerializeField] private RectTransform mainImage = null;
-    [SerializeField] private RectTransform questBelt = null;
-    [SerializeField] private RectTransform questSeal = null;
-    [SerializeField] private RectTransform resolvedImage = null;
-    [SerializeField] private TextMeshProUGUI questTitleText = null;
-    [SerializeField] private RectTransform selectionBelt = null;
+    [Header("Trigger")]
 
-    [Header("bool Trigger")]
+    [SerializeField] public bool inTransition = false; // TEMP PUBLIC //
     [SerializeField] private bool discovered = false;
     [SerializeField] private bool resolved = false;
-    [SerializeField] public bool inTransition = false;
 
-    [Header("Sprite Sources")]
-    [SerializeField] private Sprite resolvedCoverSprite;
-    [SerializeField] private Sprite resolvedBelt;
-    [SerializeField] private Sprite resolvedSeal;
-    [SerializeField] private Sprite failedSeal;
+    [Header("Components")]
+
+    [SerializeField] private GameObject farQuestCard;
+    [SerializeField] private GameObject nearQuestCard;
+    [SerializeField] private GameObject selectableQuestCard;
+    [SerializeField] private GameObject resolvedQuestCard;
+
+    [SerializeField] private RectTransform mainImage;
+    [SerializeField] private RectTransform questBelt = null;
+    [SerializeField] private TextMeshProUGUI questTitleText = null;
+    [SerializeField] private RectTransform questSeal = null;
+    [SerializeField] private RectTransform resolvedSeal = null;
 
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
+
+    // [SerializeField] private RectTransform selectionBelt = null;
+
+    [Header("Sprite Sources")]
+    [SerializeField] private List<Sprite> sealSprites;
 
     private bool isStandby;
 
@@ -264,4 +270,23 @@ public class Quest : MonoBehaviour
     }
 
     */
+}
+
+public enum QuestCardRow
+{
+    none,
+    far3rd,
+    near2nd,
+    here1st,
+}
+
+public enum QuestCardPosition
+{
+    none,
+    basicLeft,
+    basicCenter,
+    basicRight,
+    duoLeft,
+    duoRight,
+    soloCenter,
 }
